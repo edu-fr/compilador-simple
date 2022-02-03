@@ -67,8 +67,12 @@
 %token              TOK_EOF 0     "end of file"
 %token			        EOL		        "end of line"
 %token <integerVal> INTEGER		    "integer"
-%token <doubleVal> 	REAL		    "real"
+%token <doubleVal> 	REAL		      "real"
 %token <stringVal> 	IDENTIFIER    "identifier"
+%token <stringVal>  CADEIA        "cadeia"
+%token              COMMENT       "comment"
+%token              PARE          "pare"
+
 
 %%
 
@@ -81,6 +85,9 @@ constant : INTEGER { std::cout << "Inteiro: " << $1 << std::endl; }
 
 variable : IDENTIFIER {  std::cout << "Identificador: " << *$1 << std::endl; }
 
+cadeia: CADEIA { std::cout << "Cadeia: " << *$1 << std::endl; }
+
+comment: COMMENT { std::cout << "Comentario! " << std::endl; }
 %%
 
 namespace Simples {

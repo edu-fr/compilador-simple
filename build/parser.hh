@@ -32,7 +32,7 @@
 
 
 /**
- ** \file /home/lipe/Documentos/Compiladores/simples_compilador/build/parser.hh
+ ** \file /home/dudu/Documentos/Facul/compiladores/projeto/compilador-simples/build/parser.hh
  ** Define the Simples::parser class.
  */
 
@@ -41,8 +41,8 @@
 // Undocumented macros, especially those whose name start with YY_,
 // are private implementation details.  Do not rely on them.
 
-#ifndef YY_YY_HOME_LIPE_DOCUMENTOS_COMPILADORES_SIMPLES_COMPILADOR_BUILD_PARSER_HH_INCLUDED
-# define YY_YY_HOME_LIPE_DOCUMENTOS_COMPILADORES_SIMPLES_COMPILADOR_BUILD_PARSER_HH_INCLUDED
+#ifndef YY_YY_HOME_DUDU_DOCUMENTOS_FACUL_COMPILADORES_PROJETO_COMPILADOR_SIMPLES_BUILD_PARSER_HH_INCLUDED
+# define YY_YY_HOME_DUDU_DOCUMENTOS_FACUL_COMPILADORES_PROJETO_COMPILADOR_SIMPLES_BUILD_PARSER_HH_INCLUDED
 // "%code requires" blocks.
 #line 15 "parser.yy"
 
@@ -51,7 +51,7 @@
   #include "location.hh"
   #include "position.hh"
 
-#line 55 "/home/lipe/Documentos/Compiladores/simples_compilador/build/parser.hh"
+#line 55 "/home/dudu/Documentos/Facul/compiladores/projeto/compilador-simples/build/parser.hh"
 
 
 # include <cstdlib> // std::abort
@@ -181,7 +181,7 @@
 
 #line 44 "parser.yy"
 namespace Simples {
-#line 185 "/home/lipe/Documentos/Compiladores/simples_compilador/build/parser.hh"
+#line 185 "/home/dudu/Documentos/Facul/compiladores/projeto/compilador-simples/build/parser.hh"
 
 
 
@@ -201,7 +201,7 @@ namespace Simples {
   double 			    doubleVal;
   std::string*		stringVal;
 
-#line 205 "/home/lipe/Documentos/Compiladores/simples_compilador/build/parser.hh"
+#line 205 "/home/dudu/Documentos/Facul/compiladores/projeto/compilador-simples/build/parser.hh"
 
     };
 #else
@@ -237,7 +237,10 @@ namespace Simples {
         EOL = 258,
         INTEGER = 259,
         REAL = 260,
-        IDENTIFIER = 261
+        IDENTIFIER = 261,
+        CADEIA = 262,
+        COMMENT = 263,
+        PARE = 264
       };
     };
 
@@ -701,7 +704,7 @@ namespace Simples {
       yylast_ = 3,     ///< Last index in yytable_.
       yynnts_ = 4,  ///< Number of nonterminal symbols.
       yyfinal_ = 7, ///< Termination state number.
-      yyntokens_ = 7  ///< Number of tokens.
+      yyntokens_ = 10  ///< Number of tokens.
     };
 
 
@@ -712,7 +715,7 @@ namespace Simples {
 
 #line 44 "parser.yy"
 } // Simples
-#line 716 "/home/lipe/Documentos/Compiladores/simples_compilador/build/parser.hh"
+#line 719 "/home/dudu/Documentos/Facul/compiladores/projeto/compilador-simples/build/parser.hh"
 
 
 
@@ -728,7 +731,7 @@ namespace Simples {
     }
   }
 
-#line 732 "/home/lipe/Documentos/Compiladores/simples_compilador/build/parser.hh"
+#line 735 "/home/dudu/Documentos/Facul/compiladores/projeto/compilador-simples/build/parser.hh"
 
 
-#endif // !YY_YY_HOME_LIPE_DOCUMENTOS_COMPILADORES_SIMPLES_COMPILADOR_BUILD_PARSER_HH_INCLUDED
+#endif // !YY_YY_HOME_DUDU_DOCUMENTOS_FACUL_COMPILADORES_PROJETO_COMPILADOR_SIMPLES_BUILD_PARSER_HH_INCLUDED

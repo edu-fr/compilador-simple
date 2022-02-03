@@ -48,6 +48,14 @@ typedef Simples::Parser::token_type token_type;
 
 blank   [ \t]+
 eol     [\n\r]+
+simbolo [,.-':;!@#$%&*()]
+
+/* Start Conditions */
+
+%x commentStartCond
+
+%x strStartCond
+
 
 %%
 
@@ -59,23 +67,53 @@ eol     [\n\r]+
 
  /*** BEGIN EXAMPLE - Change the example lexer rules below ***/
 
+char  string_buf[MAX_STR_CONST];
+char  *string_buf_ptr;
+
 [0-9]+ {
      yylval->integerVal = atoi(yytext);
      return token::INTEGER;
  }
 
-[0-9]+"."[0-9]* {
+[0-9]+[.][0-9]* {
   yylval->doubleVal = atof(yytext);
   return token::REAL;
 }
 
-[A-Za-z][A-Za-z0-9_,.-]* {
+[A-Za-z][A-Za-z[0-9],.-]* {
   yylval->stringVal = new std::string(yytext, yyleng);
   return token::IDENTIFIER;
 }
 
-para {
-  yylval->
+"""[A-Za-z0-9 ]*""" {
+  yylval->stringVal = new std::string(yytext, yyleng);
+  return token::CADEIA;
+}
+
+"/*"  BEGIN(commentStartCond);
+
+<commentStartCond>[^*\n]*                   /*      Tira tudo o que nao eh um '*'                       */ 
+<commentStartCond>"*"+[^*/\n]*              /*      Tira todos os '*' que nao sao seguidos por '/'s     */
+<commentStartCond>\n                        /*      Pula linha                                          */
+<commentStartCond>"*"+"/" {                 /*      Fim do comentario                                   */
+  BEGIN(INITIAL);
+  return token::COMMENT;
+}
+
+\"    string_buf_ptr = string_buf; BEGIN(strStartCond);
+
+<strStartCond>\"  {                         /* Fechou o 'abre aspas', entao terminou */
+  BEGIN(INITIAL);
+  *string_buf_ptr = '\0';
+  yylval->stringVal = new std::string(yytext, yyleng);
+  return token::CADEIA;
+}
+
+
+
+
+"pare" {
+  return token::PARE;
 }
 
 {blank} { STEP(); }

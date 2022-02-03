@@ -46,7 +46,7 @@
 #define yylex driver.scanner_->yylex
 
 
-#line 50 "/home/lipe/Documentos/Compiladores/simples_compilador/build/parser.cc"
+#line 50 "/home/dudu/Documentos/Facul/compiladores/projeto/compilador-simples/build/parser.cc"
 
 
 #include "parser.hh"
@@ -143,7 +143,7 @@
 
 #line 44 "parser.yy"
 namespace Simples {
-#line 147 "/home/lipe/Documentos/Compiladores/simples_compilador/build/parser.cc"
+#line 147 "/home/dudu/Documentos/Facul/compiladores/projeto/compilador-simples/build/parser.cc"
 
 
   /* Return YYSTR after stripping away unnecessary quotes and
@@ -637,25 +637,25 @@ namespace Simples {
           switch (yyn)
             {
   case 5:
-#line 79 "parser.yy"
+#line 83 "parser.yy"
                    { std::cout << "Inteiro: " << (yystack_[0].value.integerVal) << std::endl; }
-#line 643 "/home/lipe/Documentos/Compiladores/simples_compilador/build/parser.cc"
+#line 643 "/home/dudu/Documentos/Facul/compiladores/projeto/compilador-simples/build/parser.cc"
     break;
 
   case 6:
-#line 80 "parser.yy"
+#line 84 "parser.yy"
                  { std::cout << "Real: " << (yystack_[0].value.doubleVal) << std::endl; }
-#line 649 "/home/lipe/Documentos/Compiladores/simples_compilador/build/parser.cc"
+#line 649 "/home/dudu/Documentos/Facul/compiladores/projeto/compilador-simples/build/parser.cc"
     break;
 
   case 7:
-#line 82 "parser.yy"
+#line 86 "parser.yy"
                       {  std::cout << "Identificador: " << *(yystack_[0].value.stringVal) << std::endl; }
-#line 655 "/home/lipe/Documentos/Compiladores/simples_compilador/build/parser.cc"
+#line 655 "/home/dudu/Documentos/Facul/compiladores/projeto/compilador-simples/build/parser.cc"
     break;
 
 
-#line 659 "/home/lipe/Documentos/Compiladores/simples_compilador/build/parser.cc"
+#line 659 "/home/dudu/Documentos/Facul/compiladores/projeto/compilador-simples/build/parser.cc"
 
             default:
               break;
@@ -969,13 +969,13 @@ namespace Simples {
   const signed char
   Parser::yystos_[] =
   {
-       0,     4,     5,     6,     8,     9,    10,     0
+       0,     4,     5,     6,    11,    12,    13,     0
   };
 
   const signed char
   Parser::yyr1_[] =
   {
-       0,     7,     8,     8,     8,     9,     9,    10
+       0,    10,    11,    11,    11,    12,    12,    13
   };
 
   const signed char
@@ -992,15 +992,15 @@ namespace Simples {
   const Parser::yytname_[] =
   {
   "\"end of file\"", "error", "$undefined", "\"end of line\"",
-  "\"integer\"", "\"real\"", "\"identifier\"", "$accept", "program",
-  "constant", "variable", YY_NULLPTR
+  "\"integer\"", "\"real\"", "\"identifier\"", "\"cadeia\"", "\"comment\"",
+  "\"pare\"", "$accept", "program", "constant", "variable", YY_NULLPTR
   };
 
 #if YYDEBUG
   const signed char
   Parser::yyrline_[] =
   {
-       0,    75,    75,    76,    77,    79,    80,    82
+       0,    79,    79,    80,    81,    83,    84,    86
   };
 
   // Print the state stack on the debug stream.
@@ -1067,9 +1067,9 @@ namespace Simples {
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
        2,     2,     2,     2,     2,     2,     1,     2,     3,     4,
-       5,     6
+       5,     6,     7,     8,     9
     };
-    const int user_token_number_max_ = 261;
+    const int user_token_number_max_ = 264;
 
     if (t <= 0)
       return yyeof_;
@@ -1081,9 +1081,9 @@ namespace Simples {
 
 #line 44 "parser.yy"
 } // Simples
-#line 1085 "/home/lipe/Documentos/Compiladores/simples_compilador/build/parser.cc"
+#line 1085 "/home/dudu/Documentos/Facul/compiladores/projeto/compilador-simples/build/parser.cc"
 
-#line 84 "parser.yy"
+#line 91 "parser.yy"
 
 
 namespace Simples {
