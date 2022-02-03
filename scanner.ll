@@ -74,6 +74,10 @@ eol     [\n\r]+
   return token::IDENTIFIER;
 }
 
+para {
+  yylval->
+}
+
 {blank} { STEP(); }
 
 {eol}  { LINE(yyleng); }
