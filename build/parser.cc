@@ -636,26 +636,146 @@ namespace Simples {
         {
           switch (yyn)
             {
-  case 5:
-#line 83 "parser.yy"
+  case 8:
+#line 102 "parser.yy"
                    { std::cout << "Inteiro: " << (yystack_[0].value.integerVal) << std::endl; }
 #line 643 "/home/dudu/Documentos/Facul/compiladores/projeto/compilador-simples/build/parser.cc"
     break;
 
-  case 6:
-#line 84 "parser.yy"
+  case 9:
+#line 103 "parser.yy"
                  { std::cout << "Real: " << (yystack_[0].value.doubleVal) << std::endl; }
 #line 649 "/home/dudu/Documentos/Facul/compiladores/projeto/compilador-simples/build/parser.cc"
     break;
 
-  case 7:
-#line 86 "parser.yy"
+  case 10:
+#line 105 "parser.yy"
                       {  std::cout << "Identificador: " << *(yystack_[0].value.stringVal) << std::endl; }
 #line 655 "/home/dudu/Documentos/Facul/compiladores/projeto/compilador-simples/build/parser.cc"
     break;
 
+  case 11:
+#line 107 "parser.yy"
+                { std::cout << "Cadeia: " << *(yystack_[0].value.stringVal) << std::endl; }
+#line 661 "/home/dudu/Documentos/Facul/compiladores/projeto/compilador-simples/build/parser.cc"
+    break;
 
-#line 659 "/home/dudu/Documentos/Facul/compiladores/projeto/compilador-simples/build/parser.cc"
+  case 12:
+#line 109 "parser.yy"
+                  { std::cout << "Comentario! " << std::endl; }
+#line 667 "/home/dudu/Documentos/Facul/compiladores/projeto/compilador-simples/build/parser.cc"
+    break;
+
+  case 13:
+#line 111 "parser.yy"
+                { std::cout << "Pare!" << std::endl; }
+#line 673 "/home/dudu/Documentos/Facul/compiladores/projeto/compilador-simples/build/parser.cc"
+    break;
+
+  case 14:
+#line 112 "parser.yy"
+                    { std::cout << "Continue!" << std::endl; }
+#line 679 "/home/dudu/Documentos/Facul/compiladores/projeto/compilador-simples/build/parser.cc"
+    break;
+
+  case 15:
+#line 113 "parser.yy"
+                { std::cout << "Para!" << std::endl; }
+#line 685 "/home/dudu/Documentos/Facul/compiladores/projeto/compilador-simples/build/parser.cc"
+    break;
+
+  case 16:
+#line 114 "parser.yy"
+                    { std::cout << "Enquanto!" << std::endl; }
+#line 691 "/home/dudu/Documentos/Facul/compiladores/projeto/compilador-simples/build/parser.cc"
+    break;
+
+  case 17:
+#line 115 "parser.yy"
+                { std::cout << "Faça!" << std::endl; }
+#line 697 "/home/dudu/Documentos/Facul/compiladores/projeto/compilador-simples/build/parser.cc"
+    break;
+
+  case 18:
+#line 116 "parser.yy"
+               { std::cout << "Fun!" << std::endl; }
+#line 703 "/home/dudu/Documentos/Facul/compiladores/projeto/compilador-simples/build/parser.cc"
+    break;
+
+  case 19:
+#line 117 "parser.yy"
+              { std::cout << "Se!" << std::endl; }
+#line 709 "/home/dudu/Documentos/Facul/compiladores/projeto/compilador-simples/build/parser.cc"
+    break;
+
+  case 20:
+#line 118 "parser.yy"
+                      { std::cout << "Verdadeiro!" << std::endl; }
+#line 715 "/home/dudu/Documentos/Facul/compiladores/projeto/compilador-simples/build/parser.cc"
+    break;
+
+  case 21:
+#line 119 "parser.yy"
+                 { std::cout << "Falso!" << std::endl; }
+#line 721 "/home/dudu/Documentos/Facul/compiladores/projeto/compilador-simples/build/parser.cc"
+    break;
+
+  case 22:
+#line 120 "parser.yy"
+                { std::cout << "Tipo!" << std::endl; }
+#line 727 "/home/dudu/Documentos/Facul/compiladores/projeto/compilador-simples/build/parser.cc"
+    break;
+
+  case 23:
+#line 121 "parser.yy"
+              { std::cout << "De!" << std::endl; }
+#line 733 "/home/dudu/Documentos/Facul/compiladores/projeto/compilador-simples/build/parser.cc"
+    break;
+
+  case 24:
+#line 122 "parser.yy"
+                  { std::cout << "Limite!" << std::endl; }
+#line 739 "/home/dudu/Documentos/Facul/compiladores/projeto/compilador-simples/build/parser.cc"
+    break;
+
+  case 25:
+#line 123 "parser.yy"
+               { std::cout << "Var!" << std::endl; }
+#line 745 "/home/dudu/Documentos/Facul/compiladores/projeto/compilador-simples/build/parser.cc"
+    break;
+
+  case 26:
+#line 124 "parser.yy"
+               { std::cout << "Ref!" << std::endl; }
+#line 751 "/home/dudu/Documentos/Facul/compiladores/projeto/compilador-simples/build/parser.cc"
+    break;
+
+  case 27:
+#line 125 "parser.yy"
+                   { std::cout << "Retorne!" << std::endl; }
+#line 757 "/home/dudu/Documentos/Facul/compiladores/projeto/compilador-simples/build/parser.cc"
+    break;
+
+  case 28:
+#line 126 "parser.yy"
+                { std::cout << "Nulo!" << std::endl; }
+#line 763 "/home/dudu/Documentos/Facul/compiladores/projeto/compilador-simples/build/parser.cc"
+    break;
+
+  case 29:
+#line 127 "parser.yy"
+                  { std::cout << "Inicio!" << std::endl; }
+#line 769 "/home/dudu/Documentos/Facul/compiladores/projeto/compilador-simples/build/parser.cc"
+    break;
+
+  case 30:
+#line 128 "parser.yy"
+               { std::cout << "Fim!" << std::endl; }
+#line 775 "/home/dudu/Documentos/Facul/compiladores/projeto/compilador-simples/build/parser.cc"
+    break;
+
+
+#line 779 "/home/dudu/Documentos/Facul/compiladores/projeto/compilador-simples/build/parser.cc"
 
             default:
               break;
@@ -933,55 +1053,74 @@ namespace Simples {
   const signed char
   Parser::yypact_[] =
   {
-      -4,    -5,    -5,    -5,     3,    -5,    -5,    -5
+      -4,    -5,    -5,    -5,    -5,    -5,    -5,    -5,    -5,    -5,
+      -5,    -5,    -5,    -5,    -5,    -5,    -5,    -5,    -5,    -5,
+      -5,    -5,    -5,    -5,    23,    -5,    -5,    -5,    -5,    -5,
+      -5
   };
 
   const signed char
   Parser::yydefact_[] =
   {
-       2,     5,     6,     7,     0,     3,     4,     1
+       2,     8,     9,    10,    11,    12,    13,    14,    15,    16,
+      17,    18,    19,    20,    21,    22,    23,    24,    25,    26,
+      27,    28,    29,    30,     0,     3,     4,     5,     6,     7,
+       1
   };
 
   const signed char
   Parser::yypgoto_[] =
   {
-      -5,    -5,    -5,    -5
+      -5,    -5,    -5,    -5,    -5,    -5,    -5
   };
 
   const signed char
   Parser::yydefgoto_[] =
   {
-      -1,     4,     5,     6
+      -1,    24,    25,    26,    27,    28,    29
   };
 
   const signed char
   Parser::yytable_[] =
   {
-       1,     2,     3,     7
+       1,     2,     3,     4,     5,     6,     7,     8,     9,    10,
+      11,    12,    13,    14,    15,    16,    17,    18,    19,    20,
+      21,    22,    23,    30
   };
 
   const signed char
   Parser::yycheck_[] =
   {
-       4,     5,     6,     0
+       4,     5,     6,     7,     8,     9,    10,    11,    12,    13,
+      14,    15,    16,    17,    18,    19,    20,    21,    22,    23,
+      24,    25,    26,     0
   };
 
   const signed char
   Parser::yystos_[] =
   {
-       0,     4,     5,     6,    11,    12,    13,     0
+       0,     4,     5,     6,     7,     8,     9,    10,    11,    12,
+      13,    14,    15,    16,    17,    18,    19,    20,    21,    22,
+      23,    24,    25,    26,    28,    29,    30,    31,    32,    33,
+       0
   };
 
   const signed char
   Parser::yyr1_[] =
   {
-       0,    10,    11,    11,    11,    12,    12,    13
+       0,    27,    28,    28,    28,    28,    28,    28,    29,    29,
+      30,    31,    32,    33,    33,    33,    33,    33,    33,    33,
+      33,    33,    33,    33,    33,    33,    33,    33,    33,    33,
+      33
   };
 
   const signed char
   Parser::yyr2_[] =
   {
-       0,     2,     0,     1,     1,     1,     1,     1
+       0,     2,     0,     1,     1,     1,     1,     1,     1,     1,
+       1,     1,     1,     1,     1,     1,     1,     1,     1,     1,
+       1,     1,     1,     1,     1,     1,     1,     1,     1,     1,
+       1
   };
 
 
@@ -993,14 +1132,21 @@ namespace Simples {
   {
   "\"end of file\"", "error", "$undefined", "\"end of line\"",
   "\"integer\"", "\"real\"", "\"identifier\"", "\"cadeia\"", "\"comment\"",
-  "\"pare\"", "$accept", "program", "constant", "variable", YY_NULLPTR
+  "\"pare\"", "\"continue\"", "\"para\"", "\"enquanto\"", "\"faça\"",
+  "\"fun\"", "\"se\"", "\"verdadeiro\"", "\"falso\"", "\"tipo\"", "\"de\"",
+  "\"limite\"", "\"var\"", "\"ref\"", "\"retorne\"", "\"nulo\"",
+  "\"inicio\"", "\"fim\"", "$accept", "program", "constant", "variable",
+  "cadeia", "comment", "reserved", YY_NULLPTR
   };
 
 #if YYDEBUG
-  const signed char
+  const unsigned char
   Parser::yyrline_[] =
   {
-       0,    79,    79,    80,    81,    83,    84,    86
+       0,    95,    95,    96,    97,    98,    99,   100,   102,   103,
+     105,   107,   109,   111,   112,   113,   114,   115,   116,   117,
+     118,   119,   120,   121,   122,   123,   124,   125,   126,   127,
+     128
   };
 
   // Print the state stack on the debug stream.
@@ -1067,9 +1213,11 @@ namespace Simples {
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
        2,     2,     2,     2,     2,     2,     1,     2,     3,     4,
-       5,     6,     7,     8,     9
+       5,     6,     7,     8,     9,    10,    11,    12,    13,    14,
+      15,    16,    17,    18,    19,    20,    21,    22,    23,    24,
+      25,    26
     };
-    const int user_token_number_max_ = 264;
+    const int user_token_number_max_ = 281;
 
     if (t <= 0)
       return yyeof_;
@@ -1081,9 +1229,9 @@ namespace Simples {
 
 #line 44 "parser.yy"
 } // Simples
-#line 1085 "/home/dudu/Documentos/Facul/compiladores/projeto/compilador-simples/build/parser.cc"
+#line 1233 "/home/dudu/Documentos/Facul/compiladores/projeto/compilador-simples/build/parser.cc"
 
-#line 91 "parser.yy"
+#line 130 "parser.yy"
 
 
 namespace Simples {

@@ -3,12 +3,18 @@
 #include "parser.hh"
 #include "scanner.hh"
 #include "driver.hh"
+#include <iostream>
+#include <string>
+#include <algorithm>
+#include <cstring>
 
 /*  Defines some macros to update locations */
 #define STEP() do {driver.location_->step();} while (0)
 #define COL(col) driver.location_->columns(col)
 #define LINE(line) do {driver.location_->lines(line);} while (0)
 #define YY_USER_ACTION COL(yyleng);
+#define MAX_STR_CONST 1024
+#define MAX_DOUBLE_CONST 1024
 
 /* import the parser's token type into a local typedef */
 typedef Simples::Parser::token token;
@@ -17,6 +23,12 @@ typedef Simples::Parser::token_type token_type;
 /* By default yylex returns int, we use token_type. Unfortunately yyterminate
  * by default returns 0, which is not of token_type. */
 #define yyterminate() return token::TOK_EOF
+
+char string_buf[MAX_STR_CONST];
+char *string_buf_ptr;
+std::string* double_buf_ptr;
+std::string double_buf;
+char double_char_array[MAX_DOUBLE_CONST];
 
 %}
 
@@ -54,7 +66,7 @@ simbolo [,.-':;!@#$%&*()]
 
 %x commentStartCond
 
-%x strStartCond
+%x stringStartCond
 
 
 %%
@@ -67,16 +79,17 @@ simbolo [,.-':;!@#$%&*()]
 
  /*** BEGIN EXAMPLE - Change the example lexer rules below ***/
 
-char  string_buf[MAX_STR_CONST];
-char  *string_buf_ptr;
-
 [0-9]+ {
      yylval->integerVal = atoi(yytext);
      return token::INTEGER;
  }
 
-[0-9]+[.][0-9]* {
-  yylval->doubleVal = atof(yytext);
+[0-9]+[,][0-9]* {
+  double_buf_ptr = new std::string(yytext, yyleng);
+  double_buf = *double_buf_ptr;
+  std::replace(double_buf.begin(), double_buf.end(), ',', '.');
+  strcpy(double_char_array, double_buf.c_str());
+  yylval->doubleVal = atof(double_char_array);
   return token::REAL;
 }
 
@@ -85,35 +98,95 @@ char  *string_buf_ptr;
   return token::IDENTIFIER;
 }
 
-"""[A-Za-z0-9 ]*""" {
-  yylval->stringVal = new std::string(yytext, yyleng);
-  return token::CADEIA;
+"pare" {
+  return token::PARE;
+}
+
+"continue" {
+  return token::CONTINUE;
+}
+
+"para" {
+  return token::PARA;
+}
+
+"enquanto" {
+  return token::ENQUANTO;
+}
+
+"faca" {
+  return token::FACA;
+}
+
+"fun" {
+  return token::FUN;
+}
+
+"se" {
+  return token::SE;
+}
+
+"verdadeiro" {
+  return token::VERDADEIRO;
+}
+
+"falso" {
+  return token::FALSO;
+}
+
+"tipo" {
+  return token::TIPO;
+}
+
+"de" {
+  return token::DE;
+}
+
+"limite" {
+  return token::LIMITE;
+}
+
+"var" {
+  return token::VAR;
+}
+
+"ref" {
+  return token::REF;
+}
+
+"retorne" {
+  return token::RETORNE;
+}
+
+"nulo" {
+  return token::NULO;
+}
+
+"inicio" {
+  return token::INICIO;
+}
+
+"fim" {
+  return token::FIM;
 }
 
 "/*"  BEGIN(commentStartCond);
 
-<commentStartCond>[^*\n]*                   /*      Tira tudo o que nao eh um '*'                       */ 
-<commentStartCond>"*"+[^*/\n]*              /*      Tira todos os '*' que nao sao seguidos por '/'s     */
-<commentStartCond>\n                        /*      Pula linha                                          */
-<commentStartCond>"*"+"/" {                 /*      Fim do comentario                                   */
+<commentStartCond>[^*\n]*         /* Tira tudo o que nao eh um '*'                   */ 
+<commentStartCond>"*"+[^*/\n]*    /* Tira todos os '*' que nao sao seguidos por '/'s */
+<commentStartCond>\n              /* Pula linha                                      */
+<commentStartCond>"*"+"/" {       /* Fim do comentario                               */
   BEGIN(INITIAL);
   return token::COMMENT;
 }
 
-\"    string_buf_ptr = string_buf; BEGIN(strStartCond);
 
-<strStartCond>\"  {                         /* Fechou o 'abre aspas', entao terminou */
+\" string_buf_ptr = string_buf; BEGIN(stringStartCond);
+
+<stringStartCond>\" {             /* Encontrou o fecha aspas - terminou */
   BEGIN(INITIAL);
   *string_buf_ptr = '\0';
-  yylval->stringVal = new std::string(yytext, yyleng);
   return token::CADEIA;
-}
-
-
-
-
-"pare" {
-  return token::PARE;
 }
 
 {blank} { STEP(); }

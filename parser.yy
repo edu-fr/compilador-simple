@@ -72,22 +72,61 @@
 %token <stringVal>  CADEIA        "cadeia"
 %token              COMMENT       "comment"
 %token              PARE          "pare"
-
+%token              CONTINUE      "continue"
+%token              PARA          "para"
+%token              ENQUANTO      "enquanto"
+%token              FACA          "faça" 
+%token              FUN           "fun"
+%token              SE            "se"
+%token              VERDADEIRO    "verdadeiro"
+%token              FALSO         "falso" 
+%token              TIPO          "tipo" 
+%token              DE            "de"  
+%token              LIMITE        "limite" 
+%token              VAR           "var" 
+%token              REF           "ref" 
+%token              RETORNE       "retorne"  
+%token              NULO          "nulo"   
+%token              INICIO        "inicio" 
+%token              FIM           "fim" 
 
 %%
 
 program:  /* empty */
         | constant
         | variable
+        | cadeia
+        | comment
+        | reserved
 
 constant : INTEGER { std::cout << "Inteiro: " << $1 << std::endl; }
          | REAL  { std::cout << "Real: " << $1 << std::endl; }
 
 variable : IDENTIFIER {  std::cout << "Identificador: " << *$1 << std::endl; }
 
-cadeia: CADEIA { std::cout << "Cadeia: " << *$1 << std::endl; }
+cadeia : CADEIA { std::cout << "Cadeia: " << *$1 << std::endl; }
 
-comment: COMMENT { std::cout << "Comentario! " << std::endl; }
+comment : COMMENT { std::cout << "Comentario! " << std::endl; }
+
+reserved : PARE { std::cout << "Pare!" << std::endl; }
+         | CONTINUE { std::cout << "Continue!" << std::endl; }
+         | PARA { std::cout << "Para!" << std::endl; }
+         | ENQUANTO { std::cout << "Enquanto!" << std::endl; }
+         | FACA { std::cout << "Faça!" << std::endl; }
+         | FUN { std::cout << "Fun!" << std::endl; }
+         | SE { std::cout << "Se!" << std::endl; }
+         | VERDADEIRO { std::cout << "Verdadeiro!" << std::endl; }
+         | FALSO { std::cout << "Falso!" << std::endl; }
+         | TIPO { std::cout << "Tipo!" << std::endl; }
+         | DE { std::cout << "De!" << std::endl; }  
+         | LIMITE { std::cout << "Limite!" << std::endl; }  
+         | VAR { std::cout << "Var!" << std::endl; }  
+         | REF { std::cout << "Ref!" << std::endl; }  
+         | RETORNE { std::cout << "Retorne!" << std::endl; }  
+         | NULO { std::cout << "Nulo!" << std::endl; }  
+         | INICIO { std::cout << "Inicio!" << std::endl; }  
+         | FIM { std::cout << "Fim!" << std::endl; }  
+
 %%
 
 namespace Simples {

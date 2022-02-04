@@ -784,6 +784,15 @@ CMakeFiles/sc.dir/scanner.cc.o: scanner.cc \
   /usr/include/c++/9/bits/vector.tcc \
   ../scanner.hh \
   parser.hh \
+  /usr/include/c++/9/algorithm \
+  /usr/include/c++/9/utility \
+  /usr/include/c++/9/bits/stl_relops.h \
+  /usr/include/c++/9/bits/stl_algo.h \
+  /usr/include/c++/9/bits/algorithmfwd.h \
+  /usr/include/c++/9/bits/stl_heap.h \
+  /usr/include/c++/9/bits/stl_tempbuf.h \
+  /usr/include/c++/9/bits/uniform_int_dist.h \
+  /usr/include/c++/9/limits \
   /usr/include/unistd.h \
   /usr/include/x86_64-linux-gnu/bits/posix_opt.h \
   /usr/include/x86_64-linux-gnu/bits/environments.h \
@@ -793,6 +802,16 @@ CMakeFiles/sc.dir/scanner.cc.o: scanner.cc \
   /usr/include/x86_64-linux-gnu/bits/unistd.h \
   /usr/include/x86_64-linux-gnu/bits/unistd_ext.h
 
+
+/usr/include/c++/9/bits/uniform_int_dist.h:
+
+/usr/include/c++/9/bits/stl_heap.h:
+
+/usr/include/c++/9/bits/algorithmfwd.h:
+
+/usr/include/c++/9/bits/stl_relops.h:
+
+/usr/include/c++/9/algorithm:
 
 /usr/include/x86_64-linux-gnu/bits/string_fortified.h:
 
@@ -847,6 +866,8 @@ parser.hh:
 /usr/include/c++/9/ios:
 
 /usr/include/c++/9/ostream:
+
+/usr/include/c++/9/utility:
 
 /usr/include/c++/9/bits/basic_string.tcc:
 
@@ -910,6 +931,8 @@ parser.hh:
 
 /usr/include/x86_64-linux-gnu/c++/9/bits/gthr-default.h:
 
+/usr/include/c++/9/bits/stl_tempbuf.h:
+
 /usr/include/x86_64-linux-gnu/bits/types/struct_tm.h:
 
 /usr/include/features.h:
@@ -942,6 +965,8 @@ parser.hh:
 
 /usr/include/c++/9/bits/predefined_ops.h:
 
+/usr/include/c++/9/bits/stl_algo.h:
+
 /usr/include/c++/9/type_traits:
 
 /usr/include/x86_64-linux-gnu/bits/sys_errlist.h:
@@ -955,6 +980,8 @@ parser.hh:
 /usr/include/x86_64-linux-gnu/bits/stdlib.h:
 
 /usr/include/x86_64-linux-gnu/bits/types/struct_timeval.h:
+
+/usr/include/c++/9/limits:
 
 /usr/include/x86_64-linux-gnu/bits/stdint-intn.h:
 
