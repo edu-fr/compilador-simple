@@ -234,30 +234,34 @@ namespace Simples {
       enum yytokentype
       {
         TOK_EOF = 0,
-        EOL = 258,
-        INTEGER = 259,
-        REAL = 260,
-        IDENTIFIER = 261,
-        CADEIA = 262,
-        COMMENT = 263,
-        PARE = 264,
-        CONTINUE = 265,
-        PARA = 266,
-        ENQUANTO = 267,
-        FACA = 268,
-        FUN = 269,
-        SE = 270,
-        VERDADEIRO = 271,
-        FALSO = 272,
-        TIPO = 273,
-        DE = 274,
-        LIMITE = 275,
-        VAR = 276,
-        REF = 277,
-        RETORNE = 278,
-        NULO = 279,
-        INICIO = 280,
-        FIM = 281
+        IDENTIFICADOR = 258,
+        PARE = 259,
+        CONTINUE = 260,
+        PARA = 261,
+        FPARA = 262,
+        ENQUANTO = 263,
+        FENQUANTO = 264,
+        FACA = 265,
+        SE = 266,
+        FSE = 267,
+        VERDADEIRO = 268,
+        FALSO = 269,
+        TIPO = 270,
+        DE = 271,
+        LIMITE = 272,
+        GLOBAL = 273,
+        LOCAL = 274,
+        INTEIRO = 275,
+        REAL = 276,
+        CADEIA = 277,
+        VALOR = 278,
+        REF = 279,
+        RETORNE = 280,
+        NULO = 281,
+        INICIO = 282,
+        FIM = 283,
+        EOL = 284,
+        COMENTARIO = 285
       };
     };
 
@@ -491,7 +495,7 @@ namespace Simples {
     static const char* const yytname_[];
 #if YYDEBUG
     // YYRLINE[YYN] -- Source line where rule number YYN was defined.
-    static const unsigned char yyrline_[];
+    static const signed char yyrline_[];
     /// Report on the debug stream that the rule \a r is going to be reduced.
     virtual void yy_reduce_print_ (int r);
     /// Print the state stack on the debug stream.
@@ -718,10 +722,10 @@ namespace Simples {
     enum
     {
       yyeof_ = 0,
-      yylast_ = 23,     ///< Last index in yytable_.
+      yylast_ = 4,     ///< Last index in yytable_.
       yynnts_ = 7,  ///< Number of nonterminal symbols.
-      yyfinal_ = 30, ///< Termination state number.
-      yyntokens_ = 27  ///< Number of tokens.
+      yyfinal_ = 9, ///< Termination state number.
+      yyntokens_ = 32  ///< Number of tokens.
     };
 
 
@@ -732,7 +736,7 @@ namespace Simples {
 
 #line 44 "parser.yy"
 } // Simples
-#line 736 "/home/dudu/Documentos/Facul/compiladores/projeto/compilador-simples/build/parser.hh"
+#line 740 "/home/dudu/Documentos/Facul/compiladores/projeto/compilador-simples/build/parser.hh"
 
 
 
@@ -748,7 +752,7 @@ namespace Simples {
     }
   }
 
-#line 752 "/home/dudu/Documentos/Facul/compiladores/projeto/compilador-simples/build/parser.hh"
+#line 756 "/home/dudu/Documentos/Facul/compiladores/projeto/compilador-simples/build/parser.hh"
 
 
 #endif // !YY_YY_HOME_DUDU_DOCUMENTOS_FACUL_COMPILADORES_PROJETO_COMPILADOR_SIMPLES_BUILD_PARSER_HH_INCLUDED

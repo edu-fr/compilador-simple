@@ -1,0 +1,51 @@
+      
+declaracoes:
+        lista_declaracoes_de_tipo
+        lista_declaracoes_de_globais
+        lista_declaracoes_funcao
+;
+
+lista_declaracoes_de_tipo: 
+        /* empty */
+        | tipo: lista_declaracao_de_tipo 
+;
+
+lista_declaracoes_de_globais: 
+        /* empty */
+        | global: lista_declaracao_variavel
+;
+
+lista_declaracoes_funcao: /* empty */
+        | funcao: lista_declaracao_funcao
+;
+
+
+LINHA 133:
+
+declaracao_tipo:
+        tipo_id = descritor_tipo
+;
+
+descritor_tipo:
+          tipo_id
+        | {tipo_campos}
+        | [tipo_constantes] de tipo_id
+;
+
+tipo_id:
+        variavel
+;
+
+tipo_campos:
+          tipo_campo
+        | tipo_campos, tipo_campo
+;
+
+tipo_campo:
+          id: tipo_id
+;
+
+tipo_constantes:
+          constante_inteiro
+        | tipo_constantes, constante_inteiro
+;

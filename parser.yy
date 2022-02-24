@@ -53,7 +53,7 @@
 /* use newer C++ skeleton file */
 %skeleton "lalr1.cc"
 /* Entry point of grammar */
-%start program
+%start programa
 
 %union
 {
@@ -64,68 +64,94 @@
 }
 
 /* Tokens */
-%token              TOK_EOF 0     "end of file"
-%token			        EOL		        "end of line"
-%token <integerVal> INTEGER		    "integer"
-%token <doubleVal> 	REAL		      "real"
-%token <stringVal> 	IDENTIFIER    "identifier"
-%token <stringVal>  CADEIA        "cadeia"
-%token              COMMENT       "comment"
-%token              PARE          "pare"
-%token              CONTINUE      "continue"
-%token              PARA          "para"
-%token              ENQUANTO      "enquanto"
-%token              FACA          "faça" 
-%token              FUN           "fun"
-%token              SE            "se"
-%token              VERDADEIRO    "verdadeiro"
-%token              FALSO         "falso" 
-%token              TIPO          "tipo" 
-%token              DE            "de"  
-%token              LIMITE        "limite" 
-%token              VAR           "var" 
-%token              REF           "ref" 
-%token              RETORNE       "retorne"  
-%token              NULO          "nulo"   
-%token              INICIO        "inicio" 
-%token              FIM           "fim" 
+%token <stringVal> 	IDENTIFICADOR   "variavel"
+%token              PARE            "pare"
+%token              CONTINUE        "continue"
+%token              PARA            "para"
+%token              FPARA           "fpara"
+%token              ENQUANTO        "enquanto"
+%token              FENQUANTO       "fenquanto"
+%token              FACA            "faça"
+%token              SE              "se"
+%token              FSE             "fse"
+%token              VERDADEIRO      "verdadeiro"
+%token              FALSO           "falso" 
+%token              TIPO            "tipo" 
+%token              DE              "de"  
+%token              LIMITE          "limite" 
+%token              GLOBAL          "global"  
+%token              LOCAL           "local"
+%token <integerVal> INTEIRO		      "inteiro"
+%token <doubleVal> 	REAL		        "real"
+%token <stringVal>  CADEIA          "cadeia"
+%token              VALOR           "valor"
+%token              REF             "ref" 
+%token              RETORNE         "retorne"  
+%token              NULO            "nulo"   
+%token              INICIO          "início" 
+%token              FIM             "fim" 
+%token              TOK_EOF 0       "end of file"
+%token			        EOL		          "end of line"
+%token              COMENTARIO      "comentário"
 
 %%
 
-program:  /* empty */
-        | constant
-        | variable
-        | cadeia
-        | comment
-        | reserved
+programa: 
+        acao
+;
 
-constant : INTEGER { std::cout << "Inteiro: " << $1 << std::endl; }
-         | REAL  { std::cout << "Real: " << $1 << std::endl; }
+acao:
+        acao: lista_comandos
+;
 
-variable : IDENTIFIER {  std::cout << "Identificador: " << *$1 << std::endl; }
+lista_comandos: 
+        comando
+        | lista_comandos ';' comando
+;
+
+comando:
+        /* empty */
+        constante_inteiro
+        | constante_real
+;
+
+constante_inteiro : INTEIRO { std::cout << "Inteiro: " << $1 << std::endl; }
+;
+
+constante_real : REAL { std::cout << "Real: " << $1 << std::endl; }
+;
+
+variavel : IDENTIFICADOR {  std::cout << "Identificador: " << *$1 << std::endl; }
+;
 
 cadeia : CADEIA { std::cout << "Cadeia: " << *$1 << std::endl; }
+;
 
-comment : COMMENT { std::cout << "Comentario! " << std::endl; }
+comentario : COMENTARIO { std::cout << "Comentário! " << std::endl; }
+;
 
-reserved : PARE { std::cout << "Pare!" << std::endl; }
+reservado : PARE { std::cout << "Pare!" << std::endl; }
          | CONTINUE { std::cout << "Continue!" << std::endl; }
          | PARA { std::cout << "Para!" << std::endl; }
+         | FPARA { std::cout << "Fpara!" << std::endl; }
          | ENQUANTO { std::cout << "Enquanto!" << std::endl; }
+         | FENQUANTO { std::cout << "Fenquanto!" << std::endl; }
          | FACA { std::cout << "Faça!" << std::endl; }
-         | FUN { std::cout << "Fun!" << std::endl; }
          | SE { std::cout << "Se!" << std::endl; }
+         | FSE { std::cout << "Fse!" << std::endl; }
          | VERDADEIRO { std::cout << "Verdadeiro!" << std::endl; }
          | FALSO { std::cout << "Falso!" << std::endl; }
          | TIPO { std::cout << "Tipo!" << std::endl; }
          | DE { std::cout << "De!" << std::endl; }  
          | LIMITE { std::cout << "Limite!" << std::endl; }  
-         | VAR { std::cout << "Var!" << std::endl; }  
+         | GLOBAL { std::cout << "Global!" << std::endl; }  
+         | LOCAL { std::cout << "Local!" << std::endl; }  
          | REF { std::cout << "Ref!" << std::endl; }  
          | RETORNE { std::cout << "Retorne!" << std::endl; }  
          | NULO { std::cout << "Nulo!" << std::endl; }  
-         | INICIO { std::cout << "Inicio!" << std::endl; }  
+         | INICIO { std::cout << "Início!" << std::endl; }  
          | FIM { std::cout << "Fim!" << std::endl; }  
+;
 
 %%
 

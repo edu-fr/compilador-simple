@@ -14,7 +14,6 @@
 #define LINE(line) do {driver.location_->lines(line);} while (0)
 #define YY_USER_ACTION COL(yyleng);
 #define MAX_STR_CONST 1024
-#define MAX_DOUBLE_CONST 1024
 
 /* import the parser's token type into a local typedef */
 typedef Simples::Parser::token token;
@@ -26,9 +25,6 @@ typedef Simples::Parser::token_type token_type;
 
 char string_buf[MAX_STR_CONST];
 char *string_buf_ptr;
-std::string* double_buf_ptr;
-std::string double_buf;
-char double_char_array[MAX_DOUBLE_CONST];
 
 %}
 
@@ -79,23 +75,10 @@ simbolo [,.-':;!@#$%&*()]
 
  /*** BEGIN EXAMPLE - Change the example lexer rules below ***/
 
-[0-9]+ {
-     yylval->integerVal = atoi(yytext);
-     return token::INTEGER;
- }
-
-[0-9]+[,][0-9]* {
-  double_buf_ptr = new std::string(yytext, yyleng);
-  double_buf = *double_buf_ptr;
-  std::replace(double_buf.begin(), double_buf.end(), ',', '.');
-  strcpy(double_char_array, double_buf.c_str());
-  yylval->doubleVal = atof(double_char_array);
-  return token::REAL;
-}
 
 [A-Za-z][A-Za-z[0-9],.-]* {
   yylval->stringVal = new std::string(yytext, yyleng);
-  return token::IDENTIFIER;
+  return token::IDENTIFICADOR;
 }
 
 "pare" {
@@ -110,20 +93,28 @@ simbolo [,.-':;!@#$%&*()]
   return token::PARA;
 }
 
+"fpara" {
+  return token::FPARA;
+}
+
 "enquanto" {
   return token::ENQUANTO;
 }
 
-"faca" {
-  return token::FACA;
+"fenquanto" {
+  return token::ENQUANTO;
 }
 
-"fun" {
-  return token::FUN;
+"faça" {
+  return token::FACA;
 }
 
 "se" {
   return token::SE;
+}
+
+"fse" {
+  return token::FSE;
 }
 
 "verdadeiro" {
@@ -146,8 +137,32 @@ simbolo [,.-':;!@#$%&*()]
   return token::LIMITE;
 }
 
-"var" {
-  return token::VAR;
+"global" {
+  return token::GLOBAL;
+}
+
+"local" {
+  return token::LOCAL;
+}
+
+[0-9]+ {
+     yylval->integerVal = atoi(yytext);
+     return token::INTEIRO;
+ }
+
+[0-9]+[.][0-9]* {
+  yylval->doubleVal = atof(yytext);
+  return token::REAL;
+}
+
+<stringStartCond>\" {       /* Encontrou o fecha aspas - terminou */
+  BEGIN(INITIAL);
+  *string_buf_ptr = '\0';
+  return token::CADEIA;
+}
+
+"valor" {
+  return token::VALOR;
 }
 
 "ref" {
@@ -162,7 +177,7 @@ simbolo [,.-':;!@#$%&*()]
   return token::NULO;
 }
 
-"inicio" {
+"início" {
   return token::INICIO;
 }
 
@@ -177,17 +192,10 @@ simbolo [,.-':;!@#$%&*()]
 <commentStartCond>\n              /* Pula linha                                      */
 <commentStartCond>"*"+"/" {       /* Fim do comentario                               */
   BEGIN(INITIAL);
-  return token::COMMENT;
+  return token::COMENTARIO;
 }
-
 
 \" string_buf_ptr = string_buf; BEGIN(stringStartCond);
-
-<stringStartCond>\" {             /* Encontrou o fecha aspas - terminou */
-  BEGIN(INITIAL);
-  *string_buf_ptr = '\0';
-  return token::CADEIA;
-}
 
 {blank} { STEP(); }
 
