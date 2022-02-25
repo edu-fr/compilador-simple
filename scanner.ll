@@ -47,6 +47,9 @@ char *string_buf_ptr;
 %option batch
 /* change the name of the scanner class. results in "SimplesFlexLexer" */
 %option prefix="Simples"
+/* caseless */
+%option caseless
+
 
 /*
 %option stack
@@ -110,6 +113,11 @@ simbolo [,.-':;!@#$%&*()]
 "faça" {
   return token::FACA;
 }
+
+"fa"(Ç|ç)"ça" {
+  return token::FACA;
+}
+
 
 "se" {
   return token::SE;
@@ -179,7 +187,7 @@ simbolo [,.-':;!@#$%&*()]
   return token::NULO;
 }
 
-"início" {
+"in"(í|Í)"cio" {
   return token::INICIO;
 }
 
@@ -187,9 +195,28 @@ simbolo [,.-':;!@#$%&*()]
   return token::FIM;
 }
 
-[simbolo] {
-  return token::SIMBOLO;
-}
+"+" { return token::MAIS; }
+"-" { return token::MENOS; }
+"/" { return token::BARRA; }
+"*" { return token::ASTERISCO; }
+";" { return token::PONTOEVIRGULA; }
+"(" { return token::ABREPARENTESES; }
+")" { return token::FECHAPARENTESES; }
+"[" { return token::ABRECOLCHETES; }
+"]" { return token::FECHACOLCHETES; }
+"{" { return token::ABRECHAVES; }
+"}" { return token::FECHACHAVES; }
+"." { return token::PONTO; }
+"==" { return token::IGUAL; }
+"!=" { return token::DIFERENTE; }
+"<" { return token::MENOR; }
+"<=" { return token::MENORIGUAL; }
+">" { return token::MAIOR; }
+">=" { return token::MAIORIGUAL; }
+"&" { return token::AND; }
+"|" { return token::OR; }
+":=" { return token::ATRIBUICAO; }
+"=" { return token::IGUALFUNCAO; }
 
 "/*"  BEGIN(commentStartCond);
 
@@ -206,8 +233,7 @@ simbolo [,.-':;!@#$%&*()]
 {blank} { STEP(); }
 {tab}   { STEP(); }
 {bl}    { STEP(); }
-
-{eol}  { LINE(yyleng); }
+{eol}   { LINE(yyleng); }
 
 .             {
                 std::cerr << *driver.location_ << " Unexpected token : "

@@ -262,7 +262,29 @@ namespace Simples {
         FIM = 283,
         EOL = 284,
         COMENTARIO = 285,
-        SIMBOLO = 286
+        SIMBOLO = 286,
+        MAIS = 287,
+        MENOS = 288,
+        BARRA = 289,
+        ASTERISCO = 290,
+        PONTOEVIRGULA = 291,
+        ABREPARENTESES = 292,
+        FECHAPARENTESES = 293,
+        ABRECOLCHETES = 294,
+        FECHACOLCHETES = 295,
+        ABRECHAVES = 296,
+        FECHACHAVES = 297,
+        PONTO = 298,
+        IGUAL = 299,
+        DIFERENTE = 300,
+        MENOR = 301,
+        MENORIGUAL = 302,
+        MAIOR = 303,
+        MAIORIGUAL = 304,
+        AND = 305,
+        OR = 306,
+        ATRIBUICAO = 307,
+        IGUALFUNCAO = 308
       };
     };
 
@@ -496,7 +518,7 @@ namespace Simples {
     static const char* const yytname_[];
 #if YYDEBUG
     // YYRLINE[YYN] -- Source line where rule number YYN was defined.
-    static const signed char yyrline_[];
+    static const unsigned char yyrline_[];
     /// Report on the debug stream that the rule \a r is going to be reduced.
     virtual void yy_reduce_print_ (int r);
     /// Print the state stack on the debug stream.
@@ -723,10 +745,10 @@ namespace Simples {
     enum
     {
       yyeof_ = 0,
-      yylast_ = 6,     ///< Last index in yytable_.
-      yynnts_ = 7,  ///< Number of nonterminal symbols.
-      yyfinal_ = 9, ///< Termination state number.
-      yyntokens_ = 33  ///< Number of tokens.
+      yylast_ = 35,     ///< Last index in yytable_.
+      yynnts_ = 16,  ///< Number of nonterminal symbols.
+      yyfinal_ = 3, ///< Termination state number.
+      yyntokens_ = 71  ///< Number of tokens.
     };
 
 
@@ -737,7 +759,7 @@ namespace Simples {
 
 #line 44 "parser.yy"
 } // Simples
-#line 741 "/home/dudu/Documentos/Facul/compiladores/projeto/compilador-simples/build/parser.hh"
+#line 763 "/home/dudu/Documentos/Facul/compiladores/projeto/compilador-simples/build/parser.hh"
 
 
 
@@ -753,7 +775,7 @@ namespace Simples {
     }
   }
 
-#line 757 "/home/dudu/Documentos/Facul/compiladores/projeto/compilador-simples/build/parser.hh"
+#line 779 "/home/dudu/Documentos/Facul/compiladores/projeto/compilador-simples/build/parser.hh"
 
 
 #endif // !YY_YY_HOME_DUDU_DOCUMENTOS_FACUL_COMPILADORES_PROJETO_COMPILADOR_SIMPLES_BUILD_PARSER_HH_INCLUDED

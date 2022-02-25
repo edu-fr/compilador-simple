@@ -64,7 +64,7 @@
 }
 
 /* Tokens */
-%token <stringVal> 	IDENTIFICADOR   "variavel"
+%token <stringVal> 	IDENTIFICADOR   "identificador"
 %token              PARE            "pare"
 %token              CONTINUE        "continue"
 %token              PARA            "para"
@@ -94,28 +94,107 @@
 %token			        EOL		          "end of line"
 %token              COMENTARIO      "comentário"
 %token              SIMBOLO         "simbolo"
-%%
+%token              MAIS            '+'
+%token              MENOS           '-'
+%token              BARRA           '/'
+%token              ASTERISCO       '*'
+%token              PONTOEVIRGULA   ';'
+%token              ABREPARENTESES  '('
+%token              FECHAPARENTESES ')'
+%token              ABRECOLCHETES   '['
+%token              FECHACOLCHETES  ']'
+%token              ABRECHAVES      '{'
+%token              FECHACHAVES     '}'
+%token              PONTO           '.'
+%token              IGUAL           '='
+%token              DIFERENTE       "!="
+%token              MENOR           '<'
+%token              MENORIGUAL      "<="
+%token              MAIOR           '>'
+%token              MAIORIGUAL      ">="
+%token              AND             '^'
+%token              OR              '|'
+%token              ATRIBUICAO      ":="
+%token              IGUALFUNCAO     "="
+ 
+%% 
 
 programa: 
-        acao
+  declaracoes
+  acao
 ;
 
+declaracoes:
+  /* empty */
+
 acao:
-        acao: lista_comandos
+  lista_comandos
 ;
 
 lista_comandos: 
-    | comando ';' lista_comandos 
-      comando
+  lista_comandos PONTOEVIRGULA comando  
+| comando
 ;
 
 comando:
-        /* empty */
-        constante_inteiro
-        | constante_real
+| SE expr VERDADEIRO lista_comandos FSE
+| SE expr VERDADEIRO lista_comandos FALSO lista_comandos FSE
+| PARA id DE expr LIMITE expr FACA lista_comandos FPARA
+| ENQUANTO expr FACA lista_comandos FENQUANTO
+| PARE
+| CONTINUE
+| RETORNE expr
 ;
 
-constante_inteiro : INTEIRO { std::cout << "Inteiro: " << $1 << std::endl; }
+expr:
+  expressao_logica
+| expressao_relacional
+| expressao_aritmetica
+| criacao_de_registro
+| NULO
+| expressao_com_parenteses
+| chamada_de_funcao
+| local_de_armazenamento
+| literal
+;
+
+expressao_logica:
+
+;
+
+expressao_relacional:
+
+;
+
+expressao_aritmetica:
+
+;
+
+criacao_de_registro:
+
+;
+
+expressao_com_parenteses:
+
+;
+
+chamada_de_funcao:
+
+;
+
+local_de_armazenamento:
+
+;
+
+literal:
+
+;
+
+id:
+
+;
+
+constante_inteiro: INTEIRO { std::cout << "Inteiro: " << $1 << std::endl; }
 ;
 
 constante_real : REAL { std::cout << "Real: " << $1 << std::endl; }
