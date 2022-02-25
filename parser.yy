@@ -93,7 +93,7 @@
 %token              TOK_EOF 0       "end of file"
 %token			        EOL		          "end of line"
 %token              COMENTARIO      "comentário"
-
+%token              SIMBOLO         "simbolo"
 %%
 
 programa: 
@@ -105,8 +105,8 @@ acao:
 ;
 
 lista_comandos: 
-        comando
-        | lista_comandos ';' comando
+    | comando ';' lista_comandos 
+      comando
 ;
 
 comando:

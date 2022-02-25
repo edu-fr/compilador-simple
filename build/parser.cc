@@ -920,28 +920,28 @@ namespace Simples {
   }
 
 
-  const signed char Parser::yypact_ninf_ = -29;
+  const signed char Parser::yypact_ninf_ = -30;
 
   const signed char Parser::yytable_ninf_ = -1;
 
   const signed char
   Parser::yypact_[] =
   {
-     -20,   -29,   -29,     2,   -29,   -28,   -29,   -29,   -29,   -29,
-     -20,   -29
+     -20,   -30,   -30,     2,   -30,   -30,   -29,   -30,   -30,   -30,
+     -20,   -20,   -30
   };
 
   const signed char
   Parser::yydefact_[] =
   {
-       3,     9,    10,     0,     2,     4,     5,     7,     8,     1,
-       0,     6
+       3,     9,    10,     0,     2,     4,     0,     7,     8,     1,
+       0,     0,     6
   };
 
   const signed char
   Parser::yypgoto_[] =
   {
-     -29,   -29,   -29,   -29,    -6,   -29,   -29
+     -30,   -30,   -30,    -6,    -5,   -30,   -30
   };
 
   const signed char
@@ -953,33 +953,33 @@ namespace Simples {
   const signed char
   Parser::yytable_[] =
   {
-       1,     2,     9,    10,    11
+       1,     2,     9,    10,    11,     0,    12
   };
 
   const signed char
   Parser::yycheck_[] =
   {
-      20,    21,     0,    31,    10
+      20,    21,     0,    32,    10,    -1,    11
   };
 
   const signed char
   Parser::yystos_[] =
   {
-       0,    20,    21,    33,    34,    35,    36,    37,    38,     0,
-      31,    36
+       0,    20,    21,    34,    35,    36,    37,    38,    39,     0,
+      32,    36,    37
   };
 
   const signed char
   Parser::yyr1_[] =
   {
-       0,    32,    33,    34,    34,    35,    35,    36,    36,    37,
-      38
+       0,    33,    34,    35,    35,    36,    36,    37,    37,    38,
+      39
   };
 
   const signed char
   Parser::yyr2_[] =
   {
-       0,     2,     1,     0,     1,     1,     3,     1,     1,     1,
+       0,     2,     1,     0,     1,     0,     4,     1,     1,     1,
        1
   };
 
@@ -996,7 +996,7 @@ namespace Simples {
   "\"tipo\"", "\"de\"", "\"limite\"", "\"global\"", "\"local\"",
   "\"inteiro\"", "\"real\"", "\"cadeia\"", "\"valor\"", "\"ref\"",
   "\"retorne\"", "\"nulo\"", "\"início\"", "\"fim\"", "\"end of line\"",
-  "\"comentário\"", "';'", "$accept", "programa", "acao",
+  "\"comentário\"", "\"simbolo\"", "';'", "$accept", "programa", "acao",
   "lista_comandos", "comando", "constante_inteiro", "constante_real", YY_NULLPTR
   };
 
@@ -1004,7 +1004,7 @@ namespace Simples {
   const signed char
   Parser::yyrline_[] =
   {
-       0,   100,   100,   103,   104,   108,   109,   114,   115,   118,
+       0,   100,   100,   103,   104,   107,   108,   114,   115,   118,
      121
   };
 
@@ -1051,7 +1051,7 @@ namespace Simples {
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
-       2,     2,     2,     2,     2,     2,     2,     2,     2,    31,
+       2,     2,     2,     2,     2,     2,     2,     2,     2,    32,
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
@@ -1074,9 +1074,9 @@ namespace Simples {
        2,     2,     2,     2,     2,     2,     1,     2,     3,     4,
        5,     6,     7,     8,     9,    10,    11,    12,    13,    14,
       15,    16,    17,    18,    19,    20,    21,    22,    23,    24,
-      25,    26,    27,    28,    29,    30
+      25,    26,    27,    28,    29,    30,    31
     };
-    const int user_token_number_max_ = 285;
+    const int user_token_number_max_ = 286;
 
     if (t <= 0)
       return yyeof_;

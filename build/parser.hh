@@ -261,7 +261,8 @@ namespace Simples {
         INICIO = 282,
         FIM = 283,
         EOL = 284,
-        COMENTARIO = 285
+        COMENTARIO = 285,
+        SIMBOLO = 286
       };
     };
 
@@ -722,10 +723,10 @@ namespace Simples {
     enum
     {
       yyeof_ = 0,
-      yylast_ = 4,     ///< Last index in yytable_.
+      yylast_ = 6,     ///< Last index in yytable_.
       yynnts_ = 7,  ///< Number of nonterminal symbols.
       yyfinal_ = 9, ///< Termination state number.
-      yyntokens_ = 32  ///< Number of tokens.
+      yyntokens_ = 33  ///< Number of tokens.
     };
 
 
@@ -736,7 +737,7 @@ namespace Simples {
 
 #line 44 "parser.yy"
 } // Simples
-#line 740 "/home/dudu/Documentos/Facul/compiladores/projeto/compilador-simples/build/parser.hh"
+#line 741 "/home/dudu/Documentos/Facul/compiladores/projeto/compilador-simples/build/parser.hh"
 
 
 
@@ -752,7 +753,7 @@ namespace Simples {
     }
   }
 
-#line 756 "/home/dudu/Documentos/Facul/compiladores/projeto/compilador-simples/build/parser.hh"
+#line 757 "/home/dudu/Documentos/Facul/compiladores/projeto/compilador-simples/build/parser.hh"
 
 
 #endif // !YY_YY_HOME_DUDU_DOCUMENTOS_FACUL_COMPILADORES_PROJETO_COMPILADOR_SIMPLES_BUILD_PARSER_HH_INCLUDED

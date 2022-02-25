@@ -54,7 +54,9 @@ char *string_buf_ptr;
 
 /* Abbreviations.  */
 
-blank   [ \t]+
+blank   [ ]+
+tab     [\t]+
+bl      [\n]+
 eol     [\n\r]+
 simbolo [,.-':;!@#$%&*()]
 
@@ -185,6 +187,10 @@ simbolo [,.-':;!@#$%&*()]
   return token::FIM;
 }
 
+[simbolo] {
+  return token::SIMBOLO;
+}
+
 "/*"  BEGIN(commentStartCond);
 
 <commentStartCond>[^*\n]*         /* Tira tudo o que nao eh um '*'                   */ 
@@ -198,6 +204,8 @@ simbolo [,.-':;!@#$%&*()]
 \" string_buf_ptr = string_buf; BEGIN(stringStartCond);
 
 {blank} { STEP(); }
+{tab}   { STEP(); }
+{bl}    { STEP(); }
 
 {eol}  { LINE(yyleng); }
 
