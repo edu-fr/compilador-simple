@@ -745,7 +745,7 @@ namespace Simples {
     enum
     {
       yyeof_ = 0,
-      yylast_ = 35,     ///< Last index in yytable_.
+      yylast_ = 60,     ///< Last index in yytable_.
       yynnts_ = 16,  ///< Number of nonterminal symbols.
       yyfinal_ = 3, ///< Termination state number.
       yyntokens_ = 71  ///< Number of tokens.
