@@ -63,6 +63,8 @@
   std::string*		stringVal;
 }
 
+%define api.value.type { YYLTYPE } 
+
 /* Tokens */
 %token <stringVal> 	IDENTIFICADOR   "identificador"
 %token              PARE            "pare"
@@ -128,52 +130,17 @@ programa:
 
 declaracoes:
   /* empty */
-  lista_declaracao_de_tipo
-  lista_declaracoes_globais
-  lista_declaracoes_funcao
+  declaracao_variavel
 ;
-
-lista_declaracao_de_tipo:
-  /* empty */
-| tipo DOISPONTOS lista_declaracao_de_tipo
-
-/* tentativa */
-tipo:
- IDENTIFICADOR
-;
-
-
-lista_declaracoes_de_globais:
-  /* empty */
-| global DOISPONTOS lista_declaracao_variavel
-
-lista_declaracoes_de_funcoes:
-  /* empty */
-| funcao DOISPONTOS lista_declaracao_funcao
-
-declaracao_tipo:
-  tipo_id IGUAL descritor_tipo
-;
-
-descritor_tipo:
-  tipo_id
-| ABRECHAVES tipo_campos FECHACHAVES
-| ABRECOLCHETES tipo_constantes FECHACOLCHETES DE tipo_id
-
-tipo_campos:
-  tipo_campo
-| tipo_campos VIRGULA tipo_campos
-
-tipo_campo:
-  id DOISPONTOS tipo_id
-
-tipo_constantes:
-  constante_inteiro
-| tipo_constantes VIRGULA constante_inteiro
 
 declaracao_variavel:
   id DOISPONTOS tipo_id ATRIBUICAO inicializacao
 ;
+
+tipo_id:
+  INTEIRO
+| REAL
+| CADEIA
 
 inicializacao:
   expr
@@ -190,7 +157,7 @@ lista_comandos:
 ;
 
 comando:
-local ATRIBUICAO expr
+  local ATRIBUICAO expr
 | chamada_de_funcao
 | SE expr VERDADEIRO lista_comandos FSE
 | SE expr VERDADEIRO lista_comandos FALSO lista_comandos FSE
@@ -228,14 +195,10 @@ expressao_relacional:
 ;
 
 expressao_aritmetica:
-  INTEIRO MAIS INTEIRO { $<integerVal>$ = $1 + $3; printf("%d\n", $<integerVal>$); }
-| INTEIRO MENOS INTEIRO { $<integerVal>$ = $1 - $3; printf("%d\n", $<integerVal>$); }
-| INTEIRO ASTERISCO INTEIRO { $<integerVal>$ = $1 * $3; printf("%d\n", $<integerVal>$); }
-| INTEIRO BARRA INTEIRO { $<integerVal>$ = $1 / $3; printf("%d\n", $<integerVal>$); }
-| REAL MAIS REAL { $<doubleVal>$ = $1 + $3; printf("%lf\n", $<doubleVal>$); }
-| REAL MENOS REAL { $<doubleVal>$ = $1 - $3; printf("%lf\n", $<doubleVal>$); }
-| REAL ASTERISCO REAL { $<doubleVal>$ = $1 * $3; printf("%lf\n", $<doubleVal>$); }
-| REAL BARRA REAL { $<doubleVal>$ = $1 / $3; printf("%lf\n", $<doubleVal>$); }
+  id MAIS id { $$ = $1 + $3; }
+| id MENOS id { $$ = $1 - $3; }
+| id ASTERISCO id { $$ = $1 * $3; }
+| id BARRA id { $$ = $1 / $3; }
 ;
 
 criacao_de_registro:
@@ -256,12 +219,12 @@ local_de_armazenamento:
 
 literal:
   constante_inteiro
-| constante_real
+| constante_real  
 | cadeia
 ;
 
 id:
-
+  variavel
 ;
 
 constante_inteiro: INTEIRO { std::cout << "Inteiro: " << $1 << std::endl; }
