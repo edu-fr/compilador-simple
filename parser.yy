@@ -66,6 +66,7 @@
 %type               expressao_aritmetica 
 /* Tokens */
 %token <stringVal> 	IDENTIFICADOR   "identificador"
+%token              FUNCAO          "função"
 %token              PARE            "pare"
 %token              CONTINUE        "continue"
 %token              PARA            "para"
@@ -129,25 +130,25 @@ programa:
 declaracoes:
   /* empty */
   lista_declaracao_de_tipo
-  lista_declaracao_de_variavel
-| declaracao_variavel
+  lista_declaracao_de_variavel_global
+  lista_declaracao_de_funcao
 ;
 
 lista_declaracao_de_tipo:
   /* empty */
-  lista_declaracoes_tipo
+| TIPO DOISPONTOS lista_declaracao_tipo
 
-lista_declaracoes_tipo:
+lista_declaracao_tipo:
    declaracao_tipo
-|  declaracao_tipo PONTOEVIRGULA lista_declaracoes_tipo
+|  declaracao_tipo PONTOEVIRGULA lista_declaracao_de_tipo 
 
-lista_declaracao_de_variavel:
+lista_declaracao_de_variavel_global:
   /* empty */
-  lista_declaracao_variavel
+| GLOBAL DOISPONTOS lista_declaracao_variavel_global
 
-lista_declaracao_variavel:
-  declaracao_variavel
-| declaracao_variavel PONTOEVIRGULA lista_declaracao_de_variavel 
+lista_declaracao_variavel_global:
+  declaracao_variavel { std::cout << "Declaracao de variavel " << std::endl; }
+| declaracao_variavel PONTOEVIRGULA lista_declaracao_de_variavel_global 
 
 declaracao_variavel:
   IDENTIFICADOR DOISPONTOS IDENTIFICADOR ATRIBUICAO inicializacao
@@ -161,9 +162,9 @@ declaracao_tipo:
   IDENTIFICADOR IGUALFUNCAO descritor_tipo
 
 descritor_tipo:
-  IDENTIFICADOR
-| ABRECHAVES tipo_campos FECHACHAVES
-| ABRECOLCHETES tipo_constantes FECHACOLCHETES DE IDENTIFICADOR
+  IDENTIFICADOR { std::cout << "Declaracao de tipo simples" << std::endl; }
+| ABRECHAVES tipo_campos FECHACHAVES { std::cout << "Declaracao de tipo: Tipo Campos " << std::endl; }
+| ABRECOLCHETES tipo_constantes FECHACOLCHETES DE IDENTIFICADOR { std::cout << "Declaracao de tipo: Tipo constantes " << std::endl;  }
 
 tipo_campos:
   tipo_campo
@@ -173,8 +174,41 @@ tipo_campo:
   IDENTIFICADOR DOISPONTOS IDENTIFICADOR
 
 tipo_constantes:
-  IDENTIFICADOR
-| tipo_constantes VIRGULA IDENTIFICADOR
+  INTEIRO
+| tipo_constantes VIRGULA INTEIRO
+
+lista_declaracao_de_funcao:
+  /* empty */
+| FUNCAO DOISPONTOS lista_declaracao_funcao
+
+lista_declaracao_funcao:
+  declaracao_funcao
+| declaracao_funcao PONTOEVIRGULA lista_declaracao_de_funcao
+
+declaracao_funcao:
+  id ABREPARENTESES args FECHAPARENTESES IGUALFUNCAO corpo
+| id ABREPARENTESES args FECHAPARENTESES DOISPONTOS IDENTIFICADOR IGUALFUNCAO corpo
+
+args:
+  modificador IDENTIFICADOR DOISPONTOS IDENTIFICADOR
+
+modificador:
+  VALOR
+| REF
+
+corpo:
+  lista_declaracao_de_variavel_local
+  acao DOISPONTOS lista_comandos
+
+declaracao_de_locais:
+  /* empty */
+| LOCAL DOISPONTOS lista_declaracao_variavel_local
+
+lista_declaracao_variavel_local:
+  declaracao_variavel
+| declaracao_variavel PONTOEVIRGULA lista_declaracao_de_variavel_local
+
+  
 
 
 acao:

@@ -1,1 +1,2 @@
-novotipo = [ 2, 2 ] DE INTEIRO
+tipoNovo = tipoAntigo;
+tipoVelho = newerType

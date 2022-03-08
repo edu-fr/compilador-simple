@@ -80,11 +80,6 @@ simbolo [,.-':;!@#$%&*()]
 
  /*** BEGIN EXAMPLE - Change the example lexer rules below ***/
 
-[A-Za-z][(A-Za-z)|(0-9)]* {
-  yylval->stringVal = new std::string(yytext, yyleng);
-  return token::IDENTIFICADOR;
-}
-
 "pare" {
   return token::PARE;
 }
@@ -194,6 +189,10 @@ simbolo [,.-':;!@#$%&*()]
   return token::FIM;
 }
 
+"fun"(ç|Ç)(ã|Ã)"o" {
+  return token::FUNÇÃO;
+}
+
 "+" { return token::MAIS; }
 "-" { return token::MENOS; }
 "/" { return token::BARRA; }
@@ -207,6 +206,7 @@ simbolo [,.-':;!@#$%&*()]
 "{" { return token::ABRECHAVES; }
 "}" { return token::FECHACHAVES; }
 "." { return token::PONTO; }
+"," { return token::VIRGULA; }
 "==" { return token::IGUAL; }
 "!=" { return token::DIFERENTE; }
 "<" { return token::MENOR; }
@@ -217,6 +217,12 @@ simbolo [,.-':;!@#$%&*()]
 "|" { return token::OR; }
 ":=" { return token::ATRIBUICAO; }
 "=" { return token::IGUALFUNCAO; }
+
+[A-Za-z][(A-Za-z)|(0-9)]* {
+  yylval->stringVal = new std::string(yytext, yyleng);
+  return token::IDENTIFICADOR;
+}
+
 
 "/*"  BEGIN(commentStartCond);
 
