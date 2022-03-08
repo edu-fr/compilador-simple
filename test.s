@@ -1,1 +1,1 @@
-10 / 1
+novotipo = [ 2, 2 ] DE INTEIRO

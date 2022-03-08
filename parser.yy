@@ -63,8 +63,7 @@
   std::string*		stringVal;
 }
 
-%define api.value.type { YYLTYPE } 
-
+%type               expressao_aritmetica 
 /* Tokens */
 %token <stringVal> 	IDENTIFICADOR   "identificador"
 %token              PARE            "pare"
@@ -125,26 +124,58 @@
 
 programa: 
   declaracoes
-  acao
 ;
 
 declaracoes:
   /* empty */
-  declaracao_variavel
+  lista_declaracao_de_tipo
+  lista_declaracao_de_variavel
+| declaracao_variavel
 ;
+
+lista_declaracao_de_tipo:
+  /* empty */
+  lista_declaracoes_tipo
+
+lista_declaracoes_tipo:
+   declaracao_tipo
+|  declaracao_tipo PONTOEVIRGULA lista_declaracoes_tipo
+
+lista_declaracao_de_variavel:
+  /* empty */
+  lista_declaracao_variavel
+
+lista_declaracao_variavel:
+  declaracao_variavel
+| declaracao_variavel PONTOEVIRGULA lista_declaracao_de_variavel 
 
 declaracao_variavel:
-  id DOISPONTOS tipo_id ATRIBUICAO inicializacao
+  IDENTIFICADOR DOISPONTOS IDENTIFICADOR ATRIBUICAO inicializacao
 ;
-
-tipo_id:
-  INTEIRO
-| REAL
-| CADEIA
 
 inicializacao:
   expr
 | ABRECHAVES criacao_de_registro FECHACHAVES
+
+declaracao_tipo:
+  IDENTIFICADOR IGUALFUNCAO descritor_tipo
+
+descritor_tipo:
+  IDENTIFICADOR
+| ABRECHAVES tipo_campos FECHACHAVES
+| ABRECOLCHETES tipo_constantes FECHACOLCHETES DE IDENTIFICADOR
+
+tipo_campos:
+  tipo_campo
+| tipo_campos VIRGULA tipo_campo
+
+tipo_campo:
+  IDENTIFICADOR DOISPONTOS IDENTIFICADOR
+
+tipo_constantes:
+  IDENTIFICADOR
+| tipo_constantes VIRGULA IDENTIFICADOR
+
 
 acao:
   lista_comandos
@@ -161,7 +192,7 @@ comando:
 | chamada_de_funcao
 | SE expr VERDADEIRO lista_comandos FSE
 | SE expr VERDADEIRO lista_comandos FALSO lista_comandos FSE
-| PARA id DE expr LIMITE expr FACA lista_comandos FPARA
+| PARA IDENTIFICADOR DE expr LIMITE expr FACA lista_comandos FPARA
 | ENQUANTO expr FACA lista_comandos FENQUANTO
 | PARE
 | CONTINUE
@@ -181,8 +212,8 @@ expr:
 ;
 
 local:
-  id
-| local PONTO id
+  IDENTIFICADOR
+| local PONTO IDENTIFICADOR
 | local [list_expr]
 
 
@@ -195,11 +226,16 @@ expressao_relacional:
 ;
 
 expressao_aritmetica:
-  id MAIS id { $$ = $1 + $3; }
-| id MENOS id { $$ = $1 - $3; }
-| id ASTERISCO id { $$ = $1 * $3; }
-| id BARRA id { $$ = $1 / $3; }
+  id MAIS id { }
+| id MENOS id {  }
+| id ASTERISCO id {  }
+| id BARRA id {  }
 ;
+
+id:
+  IDENTIFICADOR
+| INTEIRO
+| REAL
 
 criacao_de_registro:
 
@@ -218,51 +254,9 @@ local_de_armazenamento:
 ;
 
 literal:
-  constante_inteiro
-| constante_real  
-| cadeia
-;
-
-id:
-  variavel
-;
-
-constante_inteiro: INTEIRO { std::cout << "Inteiro: " << $1 << std::endl; }
-;
-
-constante_real : REAL { std::cout << "Real: " << $1 << std::endl; }
-;
-
-variavel : IDENTIFICADOR {  std::cout << "Identificador: " << *$1 << std::endl; }
-;
-
-cadeia : CADEIA { std::cout << "Cadeia: " << *$1 << std::endl; }
-;
-
-comentario : COMENTARIO { std::cout << "Comentário! " << std::endl; }
-;
-
-reservado : PARE { std::cout << "Pare!" << std::endl; }
-         | CONTINUE { std::cout << "Continue!" << std::endl; }
-         | PARA { std::cout << "Para!" << std::endl; }
-         | FPARA { std::cout << "Fpara!" << std::endl; }
-         | ENQUANTO { std::cout << "Enquanto!" << std::endl; }
-         | FENQUANTO { std::cout << "Fenquanto!" << std::endl; }
-         | FACA { std::cout << "Faça!" << std::endl; }
-         | SE { std::cout << "Se!" << std::endl; }
-         | FSE { std::cout << "Fse!" << std::endl; }
-         | VERDADEIRO { std::cout << "Verdadeiro!" << std::endl; }
-         | FALSO { std::cout << "Falso!" << std::endl; }
-         | TIPO { std::cout << "Tipo!" << std::endl; }
-         | DE { std::cout << "De!" << std::endl; }  
-         | LIMITE { std::cout << "Limite!" << std::endl; }  
-         | GLOBAL { std::cout << "Global!" << std::endl; }  
-         | LOCAL { std::cout << "Local!" << std::endl; }  
-         | REF { std::cout << "Ref!" << std::endl; }  
-         | RETORNE { std::cout << "Retorne!" << std::endl; }  
-         | NULO { std::cout << "Nulo!" << std::endl; }  
-         | INICIO { std::cout << "Início!" << std::endl; }  
-         | FIM { std::cout << "Fim!" << std::endl; }  
+  INTEIRO
+| REAL  
+| CADEIA
 ;
 
 %%

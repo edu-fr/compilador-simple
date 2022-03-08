@@ -80,8 +80,7 @@ simbolo [,.-':;!@#$%&*()]
 
  /*** BEGIN EXAMPLE - Change the example lexer rules below ***/
 
-
-[A-Za-z][A-Za-z[0-9],.-]* {
+[A-Za-z][(A-Za-z)|(0-9)]* {
   yylval->stringVal = new std::string(yytext, yyleng);
   return token::IDENTIFICADOR;
 }
@@ -199,6 +198,7 @@ simbolo [,.-':;!@#$%&*()]
 "-" { return token::MENOS; }
 "/" { return token::BARRA; }
 "*" { return token::ASTERISCO; }
+":" { return token::DOISPONTOS; }
 ";" { return token::PONTOEVIRGULA; }
 "(" { return token::ABREPARENTESES; }
 ")" { return token::FECHAPARENTESES; }

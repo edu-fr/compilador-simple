@@ -1,0 +1,3 @@
+/home/lipe/Documentos/Compiladores/compilador-simples/make2/CMakeFiles/rebuild_cache.dir
+/home/lipe/Documentos/Compiladores/compilador-simples/make2/CMakeFiles/edit_cache.dir
+/home/lipe/Documentos/Compiladores/compilador-simples/make2/CMakeFiles/sc.dir
