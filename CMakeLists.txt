@@ -22,7 +22,7 @@ file(GLOB HH_FILES *.hh)
 file(GLOB SRC_FILES *.cc)
 
 # BISON and FLEX
-bison_target(Parser parser.yy ${CMAKE_CURRENT_BINARY_DIR}/parser.cc)
+bison_target(Parser parser.yy ${CMAKE_CURRENT_BINARY_DIR}/parser.cc) 
 flex_target(Scanner scanner.ll ${CMAKE_CURRENT_BINARY_DIR}/scanner.cc)
 add_flex_bison_dependency(Scanner Parser)
 

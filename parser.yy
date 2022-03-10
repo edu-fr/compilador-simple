@@ -163,8 +163,8 @@ declaracao_tipo:
   IDENTIFICADOR IGUALFUNCAO descritor_tipo
 
 descritor_tipo:
-  IDENTIFICADOR { std::cout << "Declaracao de tipo simples" << std::endl; }
-| ABRECHAVES tipo_campos FECHACHAVES { std::cout << "Declaracao de tipo: Tipo Campos " << std::endl; }
+  IDENTIFICADOR { std::cout << "Declaracao de tipo simples" << std::endl; }  /* (1.1) possível reduce reduce */
+| ABRECHAVES tipo_campos FECHACHAVES { std::cout << "Declaracao de tipo: Tipo Campo " << std::endl; }
 | ABRECOLCHETES tipo_constantes FECHACOLCHETES DE IDENTIFICADOR { std::cout << "Declaracao de tipo: Tipo constantes " << std::endl;  }
 
 tipo_campos:
@@ -187,8 +187,8 @@ lista_declaracao_funcao:
 | declaracao_funcao PONTOEVIRGULA lista_declaracao_de_funcao
 
 declaracao_funcao:
-  id ABREPARENTESES lista_de_args FECHAPARENTESES IGUALFUNCAO corpo  { std::cout << "Declaracao de procedimento! " << std::endl; }  
-| id ABREPARENTESES lista_de_args FECHAPARENTESES DOISPONTOS IDENTIFICADOR IGUALFUNCAO corpo  { std::cout << "Declaracao de funcao! " << std::endl; }
+  IDENTIFICADOR ABREPARENTESES lista_de_args FECHAPARENTESES IGUALFUNCAO corpo  { std::cout << "Declaracao de procedimento! " << std::endl; }  
+| IDENTIFICADOR ABREPARENTESES lista_de_args FECHAPARENTESES DOISPONTOS IDENTIFICADOR IGUALFUNCAO corpo  { std::cout << "Declaracao de funcao! " << std::endl; }
 
 lista_de_args: 
   /* empty */ 
@@ -220,9 +220,8 @@ lista_declaracao_variavel_local:
 
 
 lista_comandos: 
-  lista_comandos PONTOEVIRGULA comando  
-| comando
-| expr
+  comando
+| lista_comandos PONTOEVIRGULA comando  
 ;
 
 comando:
@@ -250,9 +249,9 @@ expr:
 ;
 
 local:
-  IDENTIFICADOR
+  IDENTIFICADOR /* (1.2) possível reduce reduce */
 | local PONTO IDENTIFICADOR
-| local [list_expr]
+/* | local ABRECOLCHETES lista_expr FECHACOLCHETES */
 
 
 expressao_logica:
@@ -263,17 +262,12 @@ expressao_relacional:
 
 ;
 
-expressao_aritmetica:
-  id MAIS id { std:: cout << "Operacao de soma realizada! " << std::endl; }
-| id MENOS id { std:: cout << "Operacao de subtracao realizada! " << std::endl; }
-| id ASTERISCO id { std:: cout << "Operacao de multiplicacao realizada! " << std::endl; }
-| id BARRA id { std:: cout << "Operacao de divisao realizada! " << std::endl; }
+expressao_aritmetica:   /* No lugar de literal deve ser IDENTFICADOR */
+  literal MAIS literal { std:: cout << "Operacao de soma realizada! " << std::endl; }
+| literal MENOS literal { std:: cout << "Operacao de subtracao realizada! " << std::endl; }
+| literal ASTERISCO literal { std:: cout << "Operacao de multiplicacao realizada! " << std::endl; }
+| literal BARRA literal { std:: cout << "Operacao de divisao realizada! " << std::endl; }
 ;
-
-id:
-  IDENTIFICADOR
-| INTEIRO
-| REAL
 
 criacao_de_registro:
 

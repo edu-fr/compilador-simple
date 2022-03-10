@@ -3,4 +3,4 @@
 cd build
 make
 cd ..
-./sc -i test.s
+./sc -i test.s 
