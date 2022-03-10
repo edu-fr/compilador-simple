@@ -108,7 +108,7 @@ simbolo [,.-':;!@#$%&*()]
   return token::FACA;
 }
 
-"fa"(Ç|ç)"ça" {
+"fa"(Ç|ç)"a" {
   return token::FACA;
 }
 
@@ -190,7 +190,11 @@ simbolo [,.-':;!@#$%&*()]
 }
 
 "fun"(ç|Ç)(ã|Ã)"o" {
-  return token::FUNÇÃO;
+  return token::FUNCAO;
+}
+
+"a"(ç|Ç)(ã|Ã)"o" {
+  return token::ACAO;
 }
 
 "+" { return token::MAIS; }

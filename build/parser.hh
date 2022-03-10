@@ -235,56 +235,60 @@ namespace Simples {
       {
         TOK_EOF = 0,
         IDENTIFICADOR = 258,
-        PARE = 259,
-        CONTINUE = 260,
-        PARA = 261,
-        FPARA = 262,
-        ENQUANTO = 263,
-        FENQUANTO = 264,
-        FACA = 265,
-        SE = 266,
-        FSE = 267,
-        VERDADEIRO = 268,
-        FALSO = 269,
-        TIPO = 270,
-        DE = 271,
-        LIMITE = 272,
-        GLOBAL = 273,
-        LOCAL = 274,
-        INTEIRO = 275,
-        REAL = 276,
-        CADEIA = 277,
-        VALOR = 278,
-        REF = 279,
-        RETORNE = 280,
-        NULO = 281,
-        INICIO = 282,
-        FIM = 283,
-        EOL = 284,
-        COMENTARIO = 285,
-        SIMBOLO = 286,
-        MAIS = 287,
-        MENOS = 288,
-        BARRA = 289,
-        ASTERISCO = 290,
-        PONTOEVIRGULA = 291,
-        ABREPARENTESES = 292,
-        FECHAPARENTESES = 293,
-        ABRECOLCHETES = 294,
-        FECHACOLCHETES = 295,
-        ABRECHAVES = 296,
-        FECHACHAVES = 297,
-        PONTO = 298,
-        IGUAL = 299,
-        DIFERENTE = 300,
-        MENOR = 301,
-        MENORIGUAL = 302,
-        MAIOR = 303,
-        MAIORIGUAL = 304,
-        AND = 305,
-        OR = 306,
-        ATRIBUICAO = 307,
-        IGUALFUNCAO = 308
+        FUNCAO = 259,
+        ACAO = 260,
+        PARE = 261,
+        CONTINUE = 262,
+        PARA = 263,
+        FPARA = 264,
+        ENQUANTO = 265,
+        FENQUANTO = 266,
+        FACA = 267,
+        SE = 268,
+        FSE = 269,
+        VERDADEIRO = 270,
+        FALSO = 271,
+        TIPO = 272,
+        DE = 273,
+        LIMITE = 274,
+        GLOBAL = 275,
+        LOCAL = 276,
+        INTEIRO = 277,
+        REAL = 278,
+        CADEIA = 279,
+        VALOR = 280,
+        REF = 281,
+        RETORNE = 282,
+        NULO = 283,
+        INICIO = 284,
+        FIM = 285,
+        EOL = 286,
+        COMENTARIO = 287,
+        SIMBOLO = 288,
+        MAIS = 289,
+        MENOS = 290,
+        BARRA = 291,
+        ASTERISCO = 292,
+        VIRGULA = 293,
+        DOISPONTOS = 294,
+        PONTOEVIRGULA = 295,
+        ABREPARENTESES = 296,
+        FECHAPARENTESES = 297,
+        ABRECOLCHETES = 298,
+        FECHACOLCHETES = 299,
+        ABRECHAVES = 300,
+        FECHACHAVES = 301,
+        PONTO = 302,
+        IGUAL = 303,
+        DIFERENTE = 304,
+        MENOR = 305,
+        MENORIGUAL = 306,
+        MAIOR = 307,
+        MAIORIGUAL = 308,
+        AND = 309,
+        OR = 310,
+        ATRIBUICAO = 311,
+        IGUALFUNCAO = 312
       };
     };
 
@@ -447,7 +451,7 @@ namespace Simples {
     Parser& operator= (const Parser&);
 
     /// Stored state numbers (used for stacks).
-    typedef signed char state_type;
+    typedef unsigned char state_type;
 
     /// Generate an error message.
     /// \param yystate   the state where the error occurred.
@@ -479,7 +483,7 @@ namespace Simples {
     // Tables.
     // YYPACT[STATE-NUM] -- Index in YYTABLE of the portion describing
     // STATE-NUM.
-    static const signed char yypact_[];
+    static const short yypact_[];
 
     // YYDEFACT[STATE-NUM] -- Default reduction number in state STATE-NUM.
     // Performed when YYTABLE does not specify something else to do.  Zero
@@ -495,9 +499,9 @@ namespace Simples {
     // YYTABLE[YYPACT[STATE-NUM]] -- What to do in state STATE-NUM.  If
     // positive, shift that token.  If negative, reduce the rule whose
     // number is the opposite.  If YYTABLE_NINF, syntax error.
-    static const signed char yytable_[];
+    static const short yytable_[];
 
-    static const signed char yycheck_[];
+    static const short yycheck_[];
 
     // YYSTOS[STATE-NUM] -- The (internal number of the) accessing
     // symbol of state STATE-NUM.
@@ -518,7 +522,7 @@ namespace Simples {
     static const char* const yytname_[];
 #if YYDEBUG
     // YYRLINE[YYN] -- Source line where rule number YYN was defined.
-    static const unsigned char yyrline_[];
+    static const short yyrline_[];
     /// Report on the debug stream that the rule \a r is going to be reduced.
     virtual void yy_reduce_print_ (int r);
     /// Print the state stack on the debug stream.
@@ -745,10 +749,10 @@ namespace Simples {
     enum
     {
       yyeof_ = 0,
-      yylast_ = 60,     ///< Last index in yytable_.
-      yynnts_ = 16,  ///< Number of nonterminal symbols.
-      yyfinal_ = 3, ///< Termination state number.
-      yyntokens_ = 71  ///< Number of tokens.
+      yylast_ = 148,     ///< Last index in yytable_.
+      yynnts_ = 37,  ///< Number of nonterminal symbols.
+      yyfinal_ = 6, ///< Termination state number.
+      yyntokens_ = 77  ///< Number of tokens.
     };
 
 
@@ -759,7 +763,7 @@ namespace Simples {
 
 #line 44 "parser.yy"
 } // Simples
-#line 763 "/home/dudu/Documentos/Facul/compiladores/projeto/compilador-simples/build/parser.hh"
+#line 767 "/home/dudu/Documentos/Facul/compiladores/projeto/compilador-simples/build/parser.hh"
 
 
 
@@ -775,7 +779,7 @@ namespace Simples {
     }
   }
 
-#line 779 "/home/dudu/Documentos/Facul/compiladores/projeto/compilador-simples/build/parser.hh"
+#line 783 "/home/dudu/Documentos/Facul/compiladores/projeto/compilador-simples/build/parser.hh"
 
 
 #endif // !YY_YY_HOME_DUDU_DOCUMENTOS_FACUL_COMPILADORES_PROJETO_COMPILADOR_SIMPLES_BUILD_PARSER_HH_INCLUDED

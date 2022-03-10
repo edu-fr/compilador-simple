@@ -67,6 +67,7 @@
 /* Tokens */
 %token <stringVal> 	IDENTIFICADOR   "identificador"
 %token              FUNCAO          "função"
+%token              ACAO            "ação"
 %token              PARE            "pare"
 %token              CONTINUE        "continue"
 %token              PARA            "para"
@@ -144,14 +145,14 @@ lista_declaracao_tipo:
 
 lista_declaracao_de_variavel_global:
   /* empty */
-| GLOBAL DOISPONTOS lista_declaracao_variavel_global
+| GLOBAL DOISPONTOS lista_declaracao_variavel_global  { std::cout << "Global declarada! " << std::endl; }
 
 lista_declaracao_variavel_global:
-  declaracao_variavel { std::cout << "Declaracao de variavel " << std::endl; }
+  declaracao_variavel
 | declaracao_variavel PONTOEVIRGULA lista_declaracao_de_variavel_global 
 
 declaracao_variavel:
-  IDENTIFICADOR DOISPONTOS IDENTIFICADOR ATRIBUICAO inicializacao
+  IDENTIFICADOR DOISPONTOS IDENTIFICADOR ATRIBUICAO inicializacao { std::cout << "Declaracao de variavel! " << std::endl; }
 ;
 
 inicializacao:
@@ -179,18 +180,27 @@ tipo_constantes:
 
 lista_declaracao_de_funcao:
   /* empty */
-| FUNCAO DOISPONTOS lista_declaracao_funcao
+| FUNCAO DOISPONTOS lista_declaracao_funcao 
 
 lista_declaracao_funcao:
   declaracao_funcao
 | declaracao_funcao PONTOEVIRGULA lista_declaracao_de_funcao
 
 declaracao_funcao:
-  id ABREPARENTESES args FECHAPARENTESES IGUALFUNCAO corpo
-| id ABREPARENTESES args FECHAPARENTESES DOISPONTOS IDENTIFICADOR IGUALFUNCAO corpo
+  id ABREPARENTESES lista_de_args FECHAPARENTESES IGUALFUNCAO corpo  { std::cout << "Declaracao de procedimento! " << std::endl; }  
+| id ABREPARENTESES lista_de_args FECHAPARENTESES DOISPONTOS IDENTIFICADOR IGUALFUNCAO corpo  { std::cout << "Declaracao de funcao! " << std::endl; }
+
+lista_de_args: 
+  /* empty */ 
+| lista_args
+
+lista_args:
+  args
+| args VIRGULA lista_de_args
 
 args:
-  modificador IDENTIFICADOR DOISPONTOS IDENTIFICADOR
+  modificador IDENTIFICADOR DOISPONTOS IDENTIFICADOR   { std::cout << "Argumento! " << std::endl; }
+
 
 modificador:
   VALOR
@@ -198,22 +208,16 @@ modificador:
 
 corpo:
   lista_declaracao_de_variavel_local
-  acao DOISPONTOS lista_comandos
+  ACAO DOISPONTOS lista_comandos
 
-declaracao_de_locais:
+lista_declaracao_de_variavel_local:
   /* empty */
-| LOCAL DOISPONTOS lista_declaracao_variavel_local
+| LOCAL DOISPONTOS lista_declaracao_variavel_local  { std::cout << "Local foi declarada! " << std::endl; }
 
 lista_declaracao_variavel_local:
   declaracao_variavel
 | declaracao_variavel PONTOEVIRGULA lista_declaracao_de_variavel_local
 
-  
-
-
-acao:
-  lista_comandos
-;
 
 lista_comandos: 
   lista_comandos PONTOEVIRGULA comando  
@@ -260,10 +264,10 @@ expressao_relacional:
 ;
 
 expressao_aritmetica:
-  id MAIS id { }
-| id MENOS id {  }
-| id ASTERISCO id {  }
-| id BARRA id {  }
+  id MAIS id { std:: cout << "Operacao de soma realizada! " << std::endl; }
+| id MENOS id { std:: cout << "Operacao de subtracao realizada! " << std::endl; }
+| id ASTERISCO id { std:: cout << "Operacao de multiplicacao realizada! " << std::endl; }
+| id BARRA id { std:: cout << "Operacao de divisao realizada! " << std::endl; }
 ;
 
 id:
