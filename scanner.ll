@@ -61,7 +61,6 @@ blank   [ ]+
 tab     [\t]+
 bl      [\n]+
 eol     [\n\r]+
-simbolo [,.-':;!@#$%&*()]
 
 /* Start Conditions */
 

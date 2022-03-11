@@ -46,10 +46,10 @@
 #define yylex driver.scanner_->yylex
 
 
-#line 50 "/home/dudu/Documentos/Facul/compiladores/projeto/compilador-simples/build/parser.cc"
+#line 50 "parser.tab.cc"
 
 
-#include "parser.hh"
+#include "parser.tab.hh"
 
 
 
@@ -143,7 +143,7 @@
 
 #line 44 "parser.yy"
 namespace Simples {
-#line 147 "/home/dudu/Documentos/Facul/compiladores/projeto/compilador-simples/build/parser.cc"
+#line 147 "parser.tab.cc"
 
 
   /* Return YYSTR after stripping away unnecessary quotes and
@@ -639,59 +639,59 @@ namespace Simples {
   case 9:
 #line 148 "parser.yy"
                                                       { std::cout << "Global declarada! " << std::endl; }
-#line 643 "/home/dudu/Documentos/Facul/compiladores/projeto/compilador-simples/build/parser.cc"
+#line 643 "parser.tab.cc"
     break;
 
   case 12:
 #line 157 "parser.yy"
                                                                   { std::cout << "Declaracao de variavel! " << std::endl; }
-#line 649 "/home/dudu/Documentos/Facul/compiladores/projeto/compilador-simples/build/parser.cc"
+#line 649 "parser.tab.cc"
     break;
 
   case 15:
 #line 170 "parser.yy"
                 { std::cout << "Declaracao de tipo simples" << std::endl; }
-#line 655 "/home/dudu/Documentos/Facul/compiladores/projeto/compilador-simples/build/parser.cc"
+#line 655 "parser.tab.cc"
     break;
 
   case 16:
 #line 171 "parser.yy"
                                      { std::cout << "Declaracao de tipo: Tipo Campo " << std::endl; }
-#line 661 "/home/dudu/Documentos/Facul/compiladores/projeto/compilador-simples/build/parser.cc"
+#line 661 "parser.tab.cc"
     break;
 
   case 17:
 #line 172 "parser.yy"
                                                                 { std::cout << "Declaracao de tipo: Tipo constantes " << std::endl;  }
-#line 667 "/home/dudu/Documentos/Facul/compiladores/projeto/compilador-simples/build/parser.cc"
+#line 667 "parser.tab.cc"
     break;
 
   case 27:
 #line 200 "parser.yy"
                                                                                 { std::cout << "Declaracao de procedimento! " << std::endl; }
-#line 673 "/home/dudu/Documentos/Facul/compiladores/projeto/compilador-simples/build/parser.cc"
+#line 673 "parser.tab.cc"
     break;
 
   case 28:
 #line 201 "parser.yy"
                                                                                                          { std::cout << "Declaracao de funcao! " << std::endl; }
-#line 679 "/home/dudu/Documentos/Facul/compiladores/projeto/compilador-simples/build/parser.cc"
+#line 679 "parser.tab.cc"
     break;
 
   case 33:
 #line 215 "parser.yy"
                                                        { std::cout << "Argumento! " << std::endl; }
-#line 685 "/home/dudu/Documentos/Facul/compiladores/projeto/compilador-simples/build/parser.cc"
+#line 685 "parser.tab.cc"
     break;
 
   case 38:
 #line 230 "parser.yy"
                                                     { std::cout << "Local foi declarada! " << std::endl; }
-#line 691 "/home/dudu/Documentos/Facul/compiladores/projeto/compilador-simples/build/parser.cc"
+#line 691 "parser.tab.cc"
     break;
 
 
-#line 695 "/home/dudu/Documentos/Facul/compiladores/projeto/compilador-simples/build/parser.cc"
+#line 695 "parser.tab.cc"
 
             default:
               break;
@@ -1228,7 +1228,7 @@ namespace Simples {
 
 #line 44 "parser.yy"
 } // Simples
-#line 1232 "/home/dudu/Documentos/Facul/compiladores/projeto/compilador-simples/build/parser.cc"
+#line 1232 "parser.tab.cc"
 
 #line 289 "parser.yy"
 

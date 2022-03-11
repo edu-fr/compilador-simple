@@ -32,7 +32,7 @@
 
 
 /**
- ** \file /home/dudu/Documentos/Facul/compiladores/projeto/compilador-simples/build/parser.hh
+ ** \file parser.tab.hh
  ** Define the Simples::parser class.
  */
 
@@ -41,8 +41,8 @@
 // Undocumented macros, especially those whose name start with YY_,
 // are private implementation details.  Do not rely on them.
 
-#ifndef YY_YY_HOME_DUDU_DOCUMENTOS_FACUL_COMPILADORES_PROJETO_COMPILADOR_SIMPLES_BUILD_PARSER_HH_INCLUDED
-# define YY_YY_HOME_DUDU_DOCUMENTOS_FACUL_COMPILADORES_PROJETO_COMPILADOR_SIMPLES_BUILD_PARSER_HH_INCLUDED
+#ifndef YY_YY_PARSER_TAB_HH_INCLUDED
+# define YY_YY_PARSER_TAB_HH_INCLUDED
 // "%code requires" blocks.
 #line 15 "parser.yy"
 
@@ -51,7 +51,7 @@
   #include "location.hh"
   #include "position.hh"
 
-#line 55 "/home/dudu/Documentos/Facul/compiladores/projeto/compilador-simples/build/parser.hh"
+#line 55 "parser.tab.hh"
 
 
 # include <cstdlib> // std::abort
@@ -181,7 +181,7 @@
 
 #line 44 "parser.yy"
 namespace Simples {
-#line 185 "/home/dudu/Documentos/Facul/compiladores/projeto/compilador-simples/build/parser.hh"
+#line 185 "parser.tab.hh"
 
 
 
@@ -201,7 +201,7 @@ namespace Simples {
   double 			    doubleVal;
   std::string*		stringVal;
 
-#line 205 "/home/dudu/Documentos/Facul/compiladores/projeto/compilador-simples/build/parser.hh"
+#line 205 "parser.tab.hh"
 
     };
 #else
@@ -763,7 +763,7 @@ namespace Simples {
 
 #line 44 "parser.yy"
 } // Simples
-#line 767 "/home/dudu/Documentos/Facul/compiladores/projeto/compilador-simples/build/parser.hh"
+#line 767 "parser.tab.hh"
 
 
 
@@ -779,7 +779,7 @@ namespace Simples {
     }
   }
 
-#line 783 "/home/dudu/Documentos/Facul/compiladores/projeto/compilador-simples/build/parser.hh"
+#line 783 "parser.tab.hh"
 
 
-#endif // !YY_YY_HOME_DUDU_DOCUMENTOS_FACUL_COMPILADORES_PROJETO_COMPILADOR_SIMPLES_BUILD_PARSER_HH_INCLUDED
+#endif // !YY_YY_PARSER_TAB_HH_INCLUDED

@@ -1,9 +1,2 @@
-1. Ação:
-    1.1 ação é um token E uma declaração? 
-
-2. Funções: 
-    2.1: na declaração usa virgula para separar os argumentos?
-    2.2: na chamada da função, é só usar o identificador, ou preciso dizer o tipo dele também?
-
 3. Reduce reduce:
     3.1: descritor tipo e local

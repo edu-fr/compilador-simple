@@ -63,7 +63,6 @@
   std::string*		stringVal;
 }
 
-%type               expressao_aritmetica 
 /* Tokens */
 %token <stringVal> 	IDENTIFICADOR   "identificador"
 %token              FUNCAO          "função"
@@ -117,7 +116,7 @@
 %token              MENORIGUAL      "<="
 %token              MAIOR           '>'
 %token              MAIORIGUAL      ">="
-%token              AND             '^'
+%token              AND             '&'
 %token              OR              '|'
 %token              ATRIBUICAO      ":="
 %token              IGUALFUNCAO     "="
@@ -128,28 +127,31 @@ programa:
   declaracoes
 ;
 
-declaracoes:
-  /* empty */
+declaracoes: 
   lista_declaracao_de_tipo
   lista_declaracao_de_variavel_global
   lista_declaracao_de_funcao
 ;
 
 lista_declaracao_de_tipo:
-  /* empty */
+  /* empty */ %empty 
 | TIPO DOISPONTOS lista_declaracao_tipo
+;
 
 lista_declaracao_tipo:
-   declaracao_tipo
-|  declaracao_tipo PONTOEVIRGULA lista_declaracao_de_tipo 
+  declaracao_tipo
+| declaracao_tipo PONTOEVIRGULA lista_declaracao_de_tipo
+;
 
 lista_declaracao_de_variavel_global:
-  /* empty */
+  /* empty */ %empty 
 | GLOBAL DOISPONTOS lista_declaracao_variavel_global  { std::cout << "Global declarada! " << std::endl; }
+;
 
 lista_declaracao_variavel_global:
   declaracao_variavel
 | declaracao_variavel PONTOEVIRGULA lista_declaracao_de_variavel_global 
+;
 
 declaracao_variavel:
   IDENTIFICADOR DOISPONTOS IDENTIFICADOR ATRIBUICAO inicializacao { std::cout << "Declaracao de variavel! " << std::endl; }
@@ -157,67 +159,81 @@ declaracao_variavel:
 
 inicializacao:
   expr
-| ABRECHAVES criacao_de_registro FECHACHAVES
+/* | ABRECHAVES criacao_de_registro FECHACHAVES */
+;
 
 declaracao_tipo:
   IDENTIFICADOR IGUALFUNCAO descritor_tipo
+;
 
 descritor_tipo:
   IDENTIFICADOR { std::cout << "Declaracao de tipo simples" << std::endl; }  /* (1.1) possível reduce reduce */
 | ABRECHAVES tipo_campos FECHACHAVES { std::cout << "Declaracao de tipo: Tipo Campo " << std::endl; }
 | ABRECOLCHETES tipo_constantes FECHACOLCHETES DE IDENTIFICADOR { std::cout << "Declaracao de tipo: Tipo constantes " << std::endl;  }
+;
 
 tipo_campos:
   tipo_campo
-| tipo_campos VIRGULA tipo_campo
+| tipo_campo VIRGULA tipo_campos
+;
 
 tipo_campo:
   IDENTIFICADOR DOISPONTOS IDENTIFICADOR
+;
 
 tipo_constantes:
   INTEIRO
 | tipo_constantes VIRGULA INTEIRO
+;
 
 lista_declaracao_de_funcao:
-  /* empty */
+  /* empty */ %empty 
 | FUNCAO DOISPONTOS lista_declaracao_funcao 
+;
 
 lista_declaracao_funcao:
   declaracao_funcao
 | declaracao_funcao PONTOEVIRGULA lista_declaracao_de_funcao
+;
 
 declaracao_funcao:
   IDENTIFICADOR ABREPARENTESES lista_de_args FECHAPARENTESES IGUALFUNCAO corpo  { std::cout << "Declaracao de procedimento! " << std::endl; }  
 | IDENTIFICADOR ABREPARENTESES lista_de_args FECHAPARENTESES DOISPONTOS IDENTIFICADOR IGUALFUNCAO corpo  { std::cout << "Declaracao de funcao! " << std::endl; }
+;
 
 lista_de_args: 
-  /* empty */ 
+  /* empty */ %empty 
 | lista_args
+;
 
 lista_args:
   args
 | args VIRGULA lista_de_args
+;
 
 args:
   modificador IDENTIFICADOR DOISPONTOS IDENTIFICADOR   { std::cout << "Argumento! " << std::endl; }
-
+;
 
 modificador:
   VALOR
 | REF
+;
 
 corpo:
   lista_declaracao_de_variavel_local
   ACAO DOISPONTOS lista_comandos
+;
 
 lista_declaracao_de_variavel_local:
-  /* empty */
+  /* empty */ %empty 
 | LOCAL DOISPONTOS lista_declaracao_variavel_local  { std::cout << "Local foi declarada! " << std::endl; }
+;
 
 lista_declaracao_variavel_local:
   declaracao_variavel
 | declaracao_variavel PONTOEVIRGULA lista_declaracao_de_variavel_local
-
+;
 
 lista_comandos: 
   comando
@@ -226,7 +242,7 @@ lista_comandos:
 
 comando:
   local ATRIBUICAO expr
-| chamada_de_funcao
+/* | chamada_de_funcao */
 | SE expr VERDADEIRO lista_comandos FSE
 | SE expr VERDADEIRO lista_comandos FALSO lista_comandos FSE
 | PARA IDENTIFICADOR DE expr LIMITE expr FACA lista_comandos FPARA
@@ -237,58 +253,41 @@ comando:
 ;
 
 expr:
-  expressao_logica
-| expressao_relacional
+  NULO
 | expressao_aritmetica
-| criacao_de_registro
-| NULO
-| expressao_com_parenteses
-| chamada_de_funcao
-| local_de_armazenamento
-| literal
+;
+
+expressao_logica:
+   expressao_logica AND INTEIRO
+|  expressao_logica OR INTEIRO
+/* analisar */
+
+expressao_aritmetica:
+  expressao_aritmetica MAIS termo
+| expressao_aritmetica MENOS termo
+| termo
+;
+
+termo:
+  termo ASTERISCO fator
+| termo BARRA fator
+| fator
+;
+
+fator:
+  ABREPARENTESES expressao_aritmetica FECHAPARENTESES
+| numero
+| IDENTIFICADOR
+;
+
+numero:
+  INTEIRO
+| REAL
 ;
 
 local:
   IDENTIFICADOR /* (1.2) possível reduce reduce */
 | local PONTO IDENTIFICADOR
-/* | local ABRECOLCHETES lista_expr FECHACOLCHETES */
-
-
-expressao_logica:
-
-;
-
-expressao_relacional:
-
-;
-
-expressao_aritmetica:   /* No lugar de literal deve ser IDENTFICADOR */
-  literal MAIS literal { std:: cout << "Operacao de soma realizada! " << std::endl; }
-| literal MENOS literal { std:: cout << "Operacao de subtracao realizada! " << std::endl; }
-| literal ASTERISCO literal { std:: cout << "Operacao de multiplicacao realizada! " << std::endl; }
-| literal BARRA literal { std:: cout << "Operacao de divisao realizada! " << std::endl; }
-;
-
-criacao_de_registro:
-
-;
-
-expressao_com_parenteses:
-
-;
-
-chamada_de_funcao:
-
-;
-
-local_de_armazenamento:
-
-;
-
-literal:
-  INTEIRO
-| REAL  
-| CADEIA
 ;
 
 %%
