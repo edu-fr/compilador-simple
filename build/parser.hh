@@ -501,7 +501,7 @@ namespace Simples {
     // number is the opposite.  If YYTABLE_NINF, syntax error.
     static const unsigned char yytable_[];
 
-    static const unsigned char yycheck_[];
+    static const short yycheck_[];
 
     // YYSTOS[STATE-NUM] -- The (internal number of the) accessing
     // symbol of state STATE-NUM.
@@ -749,8 +749,8 @@ namespace Simples {
     enum
     {
       yyeof_ = 0,
-      yylast_ = 113,     ///< Last index in yytable_.
-      yynnts_ = 32,  ///< Number of nonterminal symbols.
+      yylast_ = 123,     ///< Last index in yytable_.
+      yynnts_ = 34,  ///< Number of nonterminal symbols.
       yyfinal_ = 6, ///< Termination state number.
       yyntokens_ = 77  ///< Number of tokens.
     };

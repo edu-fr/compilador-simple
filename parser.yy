@@ -133,6 +133,10 @@ declaracoes:
   lista_declaracao_de_funcao
 ;
 
+acao:
+  ACAO DOISPONTOS lista_comandos
+;
+
 lista_declaracao_de_tipo:
   /* empty */ %empty 
 | TIPO DOISPONTOS lista_declaracao_tipo
@@ -140,7 +144,7 @@ lista_declaracao_de_tipo:
 
 lista_declaracao_tipo:
   declaracao_tipo
-| declaracao_tipo PONTOEVIRGULA lista_declaracao_de_tipo
+| lista_declaracao_tipo declaracao_tipo
 ;
 
 lista_declaracao_de_variavel_global:
@@ -150,7 +154,7 @@ lista_declaracao_de_variavel_global:
 
 lista_declaracao_variavel_global:
   declaracao_variavel
-| declaracao_variavel PONTOEVIRGULA lista_declaracao_de_variavel_global 
+| lista_declaracao_variavel_global declaracao_variavel
 ;
 
 declaracao_variavel:
@@ -159,8 +163,15 @@ declaracao_variavel:
 
 inicializacao:
   expr
-/* | ABRECHAVES criacao_de_registro FECHACHAVES */
+| ABRECHAVES criacao_de_registro FECHACHAVES
 ;
+
+criacao_de_registro:
+  atribuicao_registro
+| criacao_de_registro VIRGULA atribuicao_registro
+
+atribuicao_registro:
+  IDENTIFICADOR IGUALFUNCAO expr
 
 declaracao_tipo:
   IDENTIFICADOR IGUALFUNCAO descritor_tipo
@@ -174,7 +185,7 @@ descritor_tipo:
 
 tipo_campos:
   tipo_campo
-| tipo_campo VIRGULA tipo_campos
+| tipo_campos VIRGULA tipo_campo
 ;
 
 tipo_campo:
@@ -193,7 +204,7 @@ lista_declaracao_de_funcao:
 
 lista_declaracao_funcao:
   declaracao_funcao
-| declaracao_funcao PONTOEVIRGULA lista_declaracao_de_funcao
+| lista_declaracao_funcao declaracao_funcao
 ;
 
 declaracao_funcao:
@@ -208,7 +219,7 @@ lista_de_args:
 
 lista_args:
   args
-| args VIRGULA lista_de_args
+| lista_args VIRGULA args
 ;
 
 args:
@@ -232,7 +243,7 @@ lista_declaracao_de_variavel_local:
 
 lista_declaracao_variavel_local:
   declaracao_variavel
-| declaracao_variavel PONTOEVIRGULA lista_declaracao_de_variavel_local
+| lista_declaracao_variavel_local declaracao_variavel
 ;
 
 lista_comandos: 
@@ -255,12 +266,17 @@ comando:
 expr:
   NULO
 | expressao_aritmetica
+| expressao_logica
 ;
 
+/* verificar */ 
 expressao_logica:
-   expressao_logica AND INTEIRO
-|  expressao_logica OR INTEIRO
-/* analisar */
+  expressao_logica AND INTEIRO
+| expressao_logica OR INTEIRO
+;
+
+
+
 
 expressao_aritmetica:
   expressao_aritmetica MAIS termo
@@ -286,7 +302,7 @@ numero:
 ;
 
 local:
-  IDENTIFICADOR /* (1.2) possível reduce reduce */
+  IDENTIFICADOR /* isso existe? */
 | local PONTO IDENTIFICADOR
 ;
 
