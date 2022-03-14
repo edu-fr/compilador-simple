@@ -125,6 +125,7 @@
 
 programa: 
   declaracoes
+| acao
 ;
 
 declaracoes: 
@@ -273,9 +274,10 @@ expr:
 expressao_logica:
   expressao_logica AND INTEIRO
 | expressao_logica OR INTEIRO
+| INTEIRO AND INTEIRO
+| INTEIRO OR INTEIRO
+| ABREPARENTESES expressao_logica FECHAPARENTESES
 ;
-
-
 
 
 expressao_aritmetica:
@@ -302,8 +304,9 @@ numero:
 ;
 
 local:
-  IDENTIFICADOR /* isso existe? */
+  IDENTIFICADOR
 | local PONTO IDENTIFICADOR
+| local ABRECOLCHETES expr /* lista_expr */ FECHACOLCHETES
 ;
 
 %%

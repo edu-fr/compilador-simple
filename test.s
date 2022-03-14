@@ -11,7 +11,7 @@ funÇão:
         local:  
             novaLocal: tipoNovo := NULO 
             novaNovaLocal: tipoVelho := NULO
-            localRegistro: tipoRegistro := { regCampo1 = 1 + 1, regCampo2 = 1 + 2 + 1 }
+            localRegistro: tipoRegistro := { regCampo1 = 1 + 1 , regCampo2 = 10}
         ação: 
-            ident := 1 AND 2;
-            ident2 := 2 OR 2 OR (1 AND 2)
+            ident := nulo;
+            ident2 := nulo

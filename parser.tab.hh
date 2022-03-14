@@ -483,7 +483,7 @@ namespace Simples {
     // Tables.
     // YYPACT[STATE-NUM] -- Index in YYTABLE of the portion describing
     // STATE-NUM.
-    static const short yypact_[];
+    static const signed char yypact_[];
 
     // YYDEFACT[STATE-NUM] -- Default reduction number in state STATE-NUM.
     // Performed when YYTABLE does not specify something else to do.  Zero
@@ -499,7 +499,7 @@ namespace Simples {
     // YYTABLE[YYPACT[STATE-NUM]] -- What to do in state STATE-NUM.  If
     // positive, shift that token.  If negative, reduce the rule whose
     // number is the opposite.  If YYTABLE_NINF, syntax error.
-    static const short yytable_[];
+    static const unsigned char yytable_[];
 
     static const short yycheck_[];
 
@@ -749,9 +749,9 @@ namespace Simples {
     enum
     {
       yyeof_ = 0,
-      yylast_ = 144,     ///< Last index in yytable_.
+      yylast_ = 142,     ///< Last index in yytable_.
       yynnts_ = 36,  ///< Number of nonterminal symbols.
-      yyfinal_ = 6, ///< Termination state number.
+      yyfinal_ = 9, ///< Termination state number.
       yyntokens_ = 77  ///< Number of tokens.
     };
 
