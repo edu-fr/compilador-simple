@@ -221,7 +221,7 @@ eol     [\n\r]+
 ":=" { return token::ATRIBUICAO; }
 "=" { return token::IGUALFUNCAO; }
 
-[A-Za-z][(A-Za-z)|(0-9)]* {
+[A-Za-z][A-Za-z|0-9]* {
   yylval->stringVal = new std::string(yytext, yyleng);
   return token::IDENTIFICADOR;
 }

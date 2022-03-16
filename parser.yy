@@ -164,7 +164,6 @@ declaracao_variavel:
 
 inicializacao:
   expr
-| ABRECHAVES criacao_de_registro FECHACHAVES
 ;
 
 criacao_de_registro:
@@ -265,48 +264,58 @@ comando:
 ;
 
 expr:
-  NULO
-| expressao_aritmetica
-| expressao_logica
+  expressao_logica
+| ABRECHAVES criacao_de_registro FECHACHAVES
 ;
 
-/* verificar */ 
 expressao_logica:
-  expressao_logica AND INTEIRO
-| expressao_logica OR INTEIRO
-| INTEIRO AND INTEIRO
-| INTEIRO OR INTEIRO
-| ABREPARENTESES expressao_logica FECHAPARENTESES
+  expressao_logica AND expressao_relacional { std::cout << " AND " << std::endl; }
+| expressao_logica OR expressao_relacional { std::cout << " OR " << std::endl; }
+| expressao_relacional
 ;
 
+expressao_relacional:
+  expressao_relacional MENORIGUAL expressao_aritmetica { std::cout << "Maior igual" << std::endl; }
+| expressao_relacional MAIORIGUAL expressao_aritmetica { std::cout << "Menor igual " << std::endl; }
+| expressao_relacional MENOR expressao_aritmetica { std::cout << " Menor " << std::endl; }
+| expressao_relacional MAIOR expressao_aritmetica { std::cout << " Maior " << std::endl; }
+| expressao_relacional DIFERENTE expressao_aritmetica { std::cout << " Diferente " << std::endl; }
+| expressao_relacional IGUAL expressao_aritmetica { std::cout << " Igual " << std::endl; }
+| expressao_aritmetica
 
 expressao_aritmetica:
-  expressao_aritmetica MAIS termo
-| expressao_aritmetica MENOS termo
+  expressao_aritmetica MAIS termo { std::cout << " Soma " << std::endl; }
+| expressao_aritmetica MENOS termo { std::cout << " Sutracao " << std::endl; }
 | termo
 ;
 
 termo:
-  termo ASTERISCO fator
-| termo BARRA fator
+  termo ASTERISCO fator { std::cout << " Multiplicacao " << std::endl; }
+| termo BARRA fator { std::cout << " Divisao " << std::endl; }
 | fator
 ;
 
 fator:
-  ABREPARENTESES expressao_aritmetica FECHAPARENTESES
-| numero
-| IDENTIFICADOR
+  ABREPARENTESES expr FECHAPARENTESES { std::cout << "Expressao com parenteses " << std::endl; }
+| literal
+| local
+| chamada_de_funcao
+| NULO
 ;
 
-numero:
+chamada_de_funcao:
+  IDENTIFICADOR ABREPARENTESES  FECHAPARENTESES
+
+literal:
   INTEIRO
 | REAL
+| CADEIA
 ;
 
 local:
   IDENTIFICADOR
-| local PONTO IDENTIFICADOR
-| local ABRECOLCHETES expr /* lista_expr */ FECHACOLCHETES
+| local PONTO IDENTIFICADOR 
+| local ABRECOLCHETES expr /* lista_expr separada por virgula */ FECHACOLCHETES
 ;
 
 %%

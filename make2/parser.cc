@@ -636,56 +636,140 @@ namespace Simples {
         {
           switch (yyn)
             {
-  case 10:
-#line 148 "parser.yy"
-                      { std::cout << "Declaracao de variavel " << std::endl; }
+  case 11:
+#line 153 "parser.yy"
+                                                      { std::cout << "Global declarada! " << std::endl; }
 #line 643 "/home/lipe/Documentos/Compiladores/compilador-simples/make2/parser.cc"
     break;
 
-  case 16:
-#line 163 "parser.yy"
-                { std::cout << "Declaracao de tipo simples" << std::endl; }
+  case 14:
+#line 162 "parser.yy"
+                                                                  { std::cout << "Declaracao de variavel! " << std::endl; }
 #line 649 "/home/lipe/Documentos/Compiladores/compilador-simples/make2/parser.cc"
     break;
 
-  case 17:
-#line 164 "parser.yy"
-                                     { std::cout << "Declaracao de tipo: Tipo Campos " << std::endl; }
+  case 20:
+#line 181 "parser.yy"
+                { std::cout << "Declaracao de tipo simples" << std::endl; }
 #line 655 "/home/lipe/Documentos/Compiladores/compilador-simples/make2/parser.cc"
     break;
 
-  case 18:
-#line 165 "parser.yy"
-                                                                { std::cout << "Declaracao de tipo: Tipo constantes " << std::endl;  }
+  case 21:
+#line 182 "parser.yy"
+                                     { std::cout << "Declaracao de tipo: Tipo Campo " << std::endl; }
 #line 661 "/home/lipe/Documentos/Compiladores/compilador-simples/make2/parser.cc"
     break;
 
-  case 35:
-#line 227 "parser.yy"
-             { }
+  case 22:
+#line 183 "parser.yy"
+                                                                { std::cout << "Declaracao de tipo: Tipo constantes " << std::endl;  }
 #line 667 "/home/lipe/Documentos/Compiladores/compilador-simples/make2/parser.cc"
     break;
 
-  case 36:
-#line 228 "parser.yy"
-              {  }
+  case 32:
+#line 211 "parser.yy"
+                                                                                { std::cout << "Declaracao de procedimento! " << std::endl; }
 #line 673 "/home/lipe/Documentos/Compiladores/compilador-simples/make2/parser.cc"
     break;
 
-  case 37:
-#line 229 "parser.yy"
-                  {  }
+  case 33:
+#line 212 "parser.yy"
+                                                                                                         { std::cout << "Declaracao de funcao! " << std::endl; }
 #line 679 "/home/lipe/Documentos/Compiladores/compilador-simples/make2/parser.cc"
     break;
 
   case 38:
-#line 230 "parser.yy"
-              {  }
+#line 226 "parser.yy"
+                                                       { std::cout << "Argumento! " << std::endl; }
 #line 685 "/home/lipe/Documentos/Compiladores/compilador-simples/make2/parser.cc"
     break;
 
+  case 43:
+#line 241 "parser.yy"
+                                                    { std::cout << "Local foi declarada! " << std::endl; }
+#line 691 "/home/lipe/Documentos/Compiladores/compilador-simples/make2/parser.cc"
+    break;
 
-#line 689 "/home/lipe/Documentos/Compiladores/compilador-simples/make2/parser.cc"
+  case 58:
+#line 272 "parser.yy"
+                                            { std::cout << " AND " << std::endl; }
+#line 697 "/home/lipe/Documentos/Compiladores/compilador-simples/make2/parser.cc"
+    break;
+
+  case 59:
+#line 273 "parser.yy"
+                                           { std::cout << " OR " << std::endl; }
+#line 703 "/home/lipe/Documentos/Compiladores/compilador-simples/make2/parser.cc"
+    break;
+
+  case 61:
+#line 278 "parser.yy"
+                                                       { std::cout << "Maior igual" << std::endl; }
+#line 709 "/home/lipe/Documentos/Compiladores/compilador-simples/make2/parser.cc"
+    break;
+
+  case 62:
+#line 279 "parser.yy"
+                                                       { std::cout << "Menor igual " << std::endl; }
+#line 715 "/home/lipe/Documentos/Compiladores/compilador-simples/make2/parser.cc"
+    break;
+
+  case 63:
+#line 280 "parser.yy"
+                                                  { std::cout << " Menor " << std::endl; }
+#line 721 "/home/lipe/Documentos/Compiladores/compilador-simples/make2/parser.cc"
+    break;
+
+  case 64:
+#line 281 "parser.yy"
+                                                  { std::cout << " Maior " << std::endl; }
+#line 727 "/home/lipe/Documentos/Compiladores/compilador-simples/make2/parser.cc"
+    break;
+
+  case 65:
+#line 282 "parser.yy"
+                                                      { std::cout << " Diferente " << std::endl; }
+#line 733 "/home/lipe/Documentos/Compiladores/compilador-simples/make2/parser.cc"
+    break;
+
+  case 66:
+#line 283 "parser.yy"
+                                                  { std::cout << " Igual " << std::endl; }
+#line 739 "/home/lipe/Documentos/Compiladores/compilador-simples/make2/parser.cc"
+    break;
+
+  case 68:
+#line 287 "parser.yy"
+                                  { std::cout << " Soma " << std::endl; }
+#line 745 "/home/lipe/Documentos/Compiladores/compilador-simples/make2/parser.cc"
+    break;
+
+  case 69:
+#line 288 "parser.yy"
+                                   { std::cout << " Sutracao " << std::endl; }
+#line 751 "/home/lipe/Documentos/Compiladores/compilador-simples/make2/parser.cc"
+    break;
+
+  case 71:
+#line 293 "parser.yy"
+                        { std::cout << " Multiplicacao " << std::endl; }
+#line 757 "/home/lipe/Documentos/Compiladores/compilador-simples/make2/parser.cc"
+    break;
+
+  case 72:
+#line 294 "parser.yy"
+                    { std::cout << " Divisao " << std::endl; }
+#line 763 "/home/lipe/Documentos/Compiladores/compilador-simples/make2/parser.cc"
+    break;
+
+  case 74:
+#line 299 "parser.yy"
+                                      { std::cout << "Expressao com parenteses " << std::endl; }
+#line 769 "/home/lipe/Documentos/Compiladores/compilador-simples/make2/parser.cc"
+    break;
+
+
+#line 773 "/home/lipe/Documentos/Compiladores/compilador-simples/make2/parser.cc"
 
             default:
               break;
@@ -956,102 +1040,162 @@ namespace Simples {
   }
 
 
-  const signed char Parser::yypact_ninf_ = -70;
+  const signed char Parser::yypact_ninf_ = -52;
 
-  const signed char Parser::yytable_ninf_ = -48;
+  const signed char Parser::yytable_ninf_ = -1;
 
-  const signed char
+  const short
   Parser::yypact_[] =
   {
-       4,   -69,     6,   -70,     8,   -70,   -35,    -2,   -70,   -12,
-     -70,   -70,   -29,     4,   -70,     0,    28,   -70,    29,     8,
-     -70,   -70,   -27,    -9,   -32,   -70,   -39,   -70,    15,    20,
-      34,    28,   -70,    -3,   -70,    35,   -70,   -70,   -70,     2,
-       3,   -70,   -70,   -70,   -70,   -70,   -70,   -70,   -70,   -22,
-     -70,   -70,   -70,   -70,   -70,   -70,   -17,     1,     1,     1,
-       1,   -70,   -70,   -70,   -70,   -70,   -70,   -70
+       4,   -24,    -5,    42,   -52,   -52,    44,    65,    48,   -52,
+      25,    72,   -52,   -52,   -52,    78,     2,     2,     2,    38,
+     -52,   -48,    17,    48,   -52,    96,    57,   -52,    84,   -52,
+     -52,   -52,   -52,     2,   100,    92,   -19,    15,    26,    27,
+     -52,   -52,   -41,    90,   -52,    65,     2,   103,     2,     3,
+     -52,    63,    96,   -52,   106,     2,    60,    39,   -10,   -52,
+      65,    13,    13,    13,    13,    13,    13,    13,    13,    13,
+      13,    13,    13,    65,   -52,    62,   -52,   -52,   -52,    95,
+     115,   -52,   116,   -52,    73,   106,   -52,   101,   -52,     2,
+     100,   -52,    -3,    15,    15,    26,    26,    26,    26,    26,
+      26,    27,    27,   -52,   -52,    -1,   -52,   -52,   -20,    79,
+       5,   -52,    47,    31,   -52,     2,   -52,   -52,   -52,   -52,
+      65,   102,   107,   123,   115,   -52,     2,   -52,   -52,    77,
+      86,   -52,   126,   118,     0,   -52,   128,   -52,   -52,   -52,
+     -52,   -27,    31,    88,    65,   -52,   -52,   130,   113,   -52,
+     132,    -2,    64,    94,   -52,   131,   -52,   -52,   113,    96,
+      97,   -52,   -52,    96,    65,   -52,    38
   };
 
   const signed char
   Parser::yydefact_[] =
   {
-       4,     0,     0,     2,     8,     5,     6,     0,     1,     0,
-       3,     9,    10,     0,    16,     0,     0,    15,     0,     0,
-       7,    22,     0,     0,     0,    19,     0,    11,     0,     0,
-       0,     0,    17,    33,    23,     0,    21,    20,    39,    40,
-      41,    48,    28,    42,    12,    13,    24,    25,    26,     0,
-      27,    29,    30,    31,    32,    18,     0,     0,     0,     0,
-       0,    14,    40,    41,    35,    36,    38,    37
+       6,     0,     0,     0,     2,     3,    10,     0,     0,     1,
+       0,    28,    81,    53,    54,     0,     0,     0,     0,     5,
+      46,     0,     0,     7,     8,     0,     0,     4,     0,    78,
+      79,    80,    77,     0,     0,     0,    56,    60,    67,    70,
+      73,    75,    76,     0,    55,     0,     0,     0,     0,     0,
+       9,     0,    11,    12,     0,     0,     0,     0,     0,    16,
+       0,     0,     0,     0,     0,     0,     0,     0,     0,     0,
+       0,     0,     0,     0,    47,     0,    82,    48,    20,     0,
+       0,    19,     0,    13,     0,    29,    30,     0,    74,     0,
+       0,    57,     0,    58,    59,    66,    65,    63,    61,    64,
+      62,    68,    69,    72,    71,     0,    83,    26,     0,     0,
+       0,    23,     0,    34,    31,     0,    18,    17,    52,    49,
+       0,     0,     0,     0,     0,    21,     0,    39,    40,     0,
+      35,    36,     0,     0,     0,    27,     0,    25,    24,    14,
+      15,     0,     0,     0,     0,    50,    22,     0,    42,    37,
+       0,     0,     0,     0,    32,     0,    38,    51,    42,     0,
+       0,    33,    44,    43,     0,    45,    41
   };
 
   const signed char
   Parser::yypgoto_[] =
   {
-     -70,   -70,   -70,   -70,    27,   -70,    22,   -70,   -70,   -70,
-     -70,   -70,    11,   -70,   -70,   -70,   -70,   -70,   -31,     7,
-     -70,   -70,   -70,   -70
+     -52,   -52,   -52,   -52,   -52,   -52,   -52,   -52,   -51,   -52,
+     -52,    49,   119,   -52,   -52,    19,   -52,   -52,   -52,    59,
+     -52,   -52,     6,   -52,   -13,   -52,   -52,   -50,   104,   -15,
+     -52,   -33,    23,    28,    24,   -52,    -7
   };
 
-  const signed char
+  const short
   Parser::yydefgoto_[] =
   {
-      -1,     2,     3,     4,     5,    10,    11,    12,    44,     6,
-      17,    24,    25,    22,    45,    46,    47,    48,    49,    50,
-      51,    52,    53,    54
+      -1,     3,     4,     5,     6,    23,    11,    52,    53,   139,
+      58,    59,    24,    81,   110,   111,   108,    27,    85,    86,
+     129,   130,   131,   132,   154,   155,   163,    19,    20,    35,
+      36,    37,    38,    39,    40,    41,    42
   };
 
-  const signed char
+  const unsigned char
   Parser::yytable_[] =
   {
-      38,    14,   -46,   -47,    38,     7,     8,     1,    31,    13,
-      57,     9,    58,    28,    59,    19,    60,    39,    40,    41,
-      21,    62,    63,    42,    32,    29,    64,    65,    66,    67,
-      18,    23,    26,    30,    33,    34,    35,    36,    55,    61,
-      20,    27,    37,     0,     0,     0,   -46,   -47,    15,     0,
-      56,    43,    16
+      21,    83,    43,    44,    46,    12,    78,   157,   118,     1,
+      92,    46,    47,   119,   145,   120,    12,   147,    56,    47,
+       7,     2,   121,   105,    29,    30,    31,    48,    93,    94,
+      32,    75,    90,    77,   122,    29,    30,    31,    21,     8,
+      87,    32,     9,    45,    45,    45,    45,   124,    91,   148,
+      33,    22,    61,    21,    62,    79,   127,   128,    34,    80,
+      69,    33,    70,   125,    10,    71,    21,    72,    12,    25,
+     134,    13,    14,    15,   116,    16,    26,    63,    17,    64,
+      65,    28,    66,    67,    45,    68,    95,    96,    97,    98,
+      99,   100,    18,    49,   151,   103,   104,   101,   102,    51,
+     133,    54,    55,    57,    60,    73,    76,    82,   162,    84,
+      88,   140,   165,    21,   166,    89,   106,   107,   109,   112,
+     115,   113,   126,   123,   135,   136,   137,   141,   142,   143,
+     144,   146,   150,   152,   153,   156,   160,    21,   159,   117,
+     158,   164,    50,   138,   114,   161,     0,     0,   149,    74,
+       0,     0,     0,     0,     0,     0,     0,    21
   };
 
-  const signed char
+  const short
   Parser::yycheck_[] =
   {
-       3,     3,     0,     0,     3,    74,     0,     3,    40,    44,
-      32,     3,    34,    40,    36,    44,    38,    20,    21,    22,
-      20,    20,    21,    26,    56,    52,    57,    58,    59,    60,
-      42,     3,     3,    42,    73,    20,    16,     3,     3,    56,
-      13,    19,    31,    -1,    -1,    -1,    44,    44,    50,    -1,
-      43,    54,    54
+       7,    52,    17,    18,    52,     3,     3,     9,    11,     5,
+      60,    52,    60,    14,    14,    16,     3,    44,    33,    60,
+      44,    17,    42,    73,    22,    23,    24,    75,    61,    62,
+      28,    46,    42,    48,    54,    22,    23,    24,    45,    44,
+      55,    28,     0,    46,    46,    46,    46,    42,    58,    76,
+      48,     3,    71,    60,    73,    52,    25,    26,    56,    56,
+      34,    48,    36,    58,    20,    38,    73,    40,     3,    44,
+     120,     6,     7,     8,    89,    10,     4,    62,    13,    64,
+      65,     3,    67,    68,    46,    70,    63,    64,    65,    66,
+      67,    68,    27,    76,   144,    71,    72,    69,    70,     3,
+     115,    44,    18,     3,    12,    15,     3,    44,   159,     3,
+      50,   126,   163,   120,   164,    76,    54,    22,     3,     3,
+      19,    48,    75,    44,    22,    18,     3,    50,    42,     3,
+      12,     3,    44,     3,    21,     3,     5,   144,    44,    90,
+      76,    44,    23,   124,    85,   158,    -1,    -1,   142,    45,
+      -1,    -1,    -1,    -1,    -1,    -1,    -1,   164
   };
 
   const signed char
   Parser::yystos_[] =
   {
-       0,     3,    76,    77,    78,    79,    84,    74,     0,     3,
-      80,    81,    82,    44,     3,    50,    54,    85,    42,    44,
-      79,    20,    88,     3,    86,    87,     3,    81,    40,    52,
-      42,    40,    56,    73,    20,    16,     3,    87,     3,    20,
-      21,    22,    26,    54,    83,    89,    90,    91,    92,    93,
-      94,    95,    96,    97,    98,     3,    94,    32,    34,    36,
-      38,    56,    20,    21,    93,    93,    93,    93
+       0,     5,    17,    78,    79,    80,    81,    44,    44,     0,
+      20,    83,     3,     6,     7,     8,    10,    13,    27,   104,
+     105,   113,     3,    82,    89,    44,     4,    94,     3,    22,
+      23,    24,    28,    48,    56,   106,   107,   108,   109,   110,
+     111,   112,   113,   106,   106,    46,    52,    60,    75,    76,
+      89,     3,    84,    85,    44,    18,   106,     3,    87,    88,
+      12,    71,    73,    62,    64,    65,    67,    68,    70,    34,
+      36,    38,    40,    15,   105,   106,     3,   106,     3,    52,
+      56,    90,    44,    85,     3,    95,    96,   106,    50,    76,
+      42,    58,   104,   108,   108,   109,   109,   109,   109,   109,
+     109,   110,   110,   111,   111,   104,    54,    22,    93,     3,
+      91,    92,     3,    48,    96,    19,   106,    88,    11,    14,
+      16,    42,    54,    44,    42,    58,    75,    25,    26,    97,
+      98,    99,   100,   106,   104,    22,    18,     3,    92,    86,
+     106,    50,    42,     3,    12,    14,     3,    44,    76,    99,
+      44,   104,     3,    21,   101,   102,     3,     9,    76,    44,
+       5,   101,    85,   103,    44,    85,   104
   };
 
   const signed char
   Parser::yyr1_[] =
   {
-       0,    75,    76,    77,    78,    78,    79,    79,    80,    80,
-      81,    81,    82,    83,    83,    84,    85,    85,    85,    86,
-      86,    87,    88,    88,    89,    89,    89,    89,    89,    89,
-      89,    89,    89,    90,    91,    92,    92,    92,    92,    93,
-      93,    93,    94,    95,    96,    97,    98,    98,    98
+       0,    77,    78,    78,    79,    80,    81,    81,    82,    82,
+      83,    83,    84,    84,    85,    86,    87,    87,    88,    89,
+      90,    90,    90,    91,    91,    92,    93,    93,    94,    94,
+      95,    95,    96,    96,    97,    97,    98,    98,    99,   100,
+     100,   101,   102,   102,   103,   103,   104,   104,   105,   105,
+     105,   105,   105,   105,   105,   105,   106,   106,   107,   107,
+     107,   108,   108,   108,   108,   108,   108,   108,   109,   109,
+     109,   110,   110,   110,   111,   111,   111,   111,   112,   112,
+     112,   113,   113,   113
   };
 
   const signed char
   Parser::yyr2_[] =
   {
-       0,     2,     1,     2,     0,     1,     1,     3,     0,     1,
-       1,     3,     5,     1,     3,     3,     1,     3,     5,     1,
-       3,     3,     1,     3,     1,     1,     1,     1,     1,     1,
-       1,     1,     1,     0,     0,     3,     3,     3,     3,     1,
-       1,     1,     0,     0,     0,     0,     1,     1,     1
+       0,     2,     1,     1,     3,     3,     0,     3,     1,     2,
+       0,     3,     1,     2,     5,     1,     1,     3,     3,     3,
+       1,     3,     5,     1,     3,     3,     1,     3,     0,     3,
+       1,     2,     6,     8,     0,     1,     1,     3,     4,     1,
+       1,     4,     0,     3,     1,     2,     1,     3,     3,     5,
+       7,     9,     5,     1,     1,     2,     1,     3,     3,     3,
+       1,     3,     3,     3,     3,     3,     3,     1,     3,     3,
+       1,     3,     3,     1,     3,     1,     1,     1,     1,     1,
+       1,     1,     3,     4
   };
 
 
@@ -1062,37 +1206,46 @@ namespace Simples {
   const Parser::yytname_[] =
   {
   "\"end of file\"", "error", "$undefined", "\"identificador\"",
-  "\"pare\"", "\"continue\"", "\"para\"", "\"fpara\"", "\"enquanto\"",
-  "\"fenquanto\"", "\"faça\"", "\"se\"", "\"fse\"", "\"verdadeiro\"",
-  "\"falso\"", "\"tipo\"", "\"de\"", "\"limite\"", "\"global\"",
-  "\"local\"", "\"inteiro\"", "\"real\"", "\"cadeia\"", "\"valor\"",
-  "\"ref\"", "\"retorne\"", "\"nulo\"", "\"início\"", "\"fim\"",
-  "\"end of line\"", "\"comentário\"", "\"simbolo\"", "MAIS", "'+'",
-  "MENOS", "'-'", "BARRA", "'/'", "ASTERISCO", "'*'", "VIRGULA", "','",
-  "DOISPONTOS", "':'", "PONTOEVIRGULA", "';'", "ABREPARENTESES", "'('",
-  "FECHAPARENTESES", "')'", "ABRECOLCHETES", "'['", "FECHACOLCHETES",
-  "']'", "ABRECHAVES", "'{'", "FECHACHAVES", "'}'", "PONTO", "'.'",
-  "IGUAL", "'='", "\"!=\"", "MENOR", "'<'", "\"<=\"", "MAIOR", "'>'",
-  "\">=\"", "AND", "'^'", "OR", "'|'", "\":=\"", "\"=\"", "$accept",
-  "programa", "declaracoes", "lista_declaracao_de_tipo",
-  "lista_declaracoes_tipo", "lista_declaracao_de_variavel",
-  "lista_declaracao_variavel", "declaracao_variavel", "inicializacao",
+  "\"função\"", "\"ação\"", "\"pare\"", "\"continue\"", "\"para\"",
+  "\"fpara\"", "\"enquanto\"", "\"fenquanto\"", "\"faça\"", "\"se\"",
+  "\"fse\"", "\"verdadeiro\"", "\"falso\"", "\"tipo\"", "\"de\"",
+  "\"limite\"", "\"global\"", "\"local\"", "\"inteiro\"", "\"real\"",
+  "\"cadeia\"", "\"valor\"", "\"ref\"", "\"retorne\"", "\"nulo\"",
+  "\"início\"", "\"fim\"", "\"end of line\"", "\"comentário\"",
+  "\"simbolo\"", "MAIS", "'+'", "MENOS", "'-'", "BARRA", "'/'",
+  "ASTERISCO", "'*'", "VIRGULA", "','", "DOISPONTOS", "':'",
+  "PONTOEVIRGULA", "';'", "ABREPARENTESES", "'('", "FECHAPARENTESES",
+  "')'", "ABRECOLCHETES", "'['", "FECHACOLCHETES", "']'", "ABRECHAVES",
+  "'{'", "FECHACHAVES", "'}'", "PONTO", "'.'", "IGUAL", "'='", "\"!=\"",
+  "MENOR", "'<'", "\"<=\"", "MAIOR", "'>'", "\">=\"", "AND", "'&'", "OR",
+  "'|'", "\":=\"", "\"=\"", "$accept", "programa", "declaracoes", "acao",
+  "lista_declaracao_de_tipo", "lista_declaracao_tipo",
+  "lista_declaracao_de_variavel_global",
+  "lista_declaracao_variavel_global", "declaracao_variavel",
+  "inicializacao", "criacao_de_registro", "atribuicao_registro",
   "declaracao_tipo", "descritor_tipo", "tipo_campos", "tipo_campo",
-  "tipo_constantes", "expr", "expressao_logica", "expressao_relacional",
-  "expressao_aritmetica", "id", "criacao_de_registro",
-  "expressao_com_parenteses", "chamada_de_funcao",
-  "local_de_armazenamento", "literal", YY_NULLPTR
+  "tipo_constantes", "lista_declaracao_de_funcao",
+  "lista_declaracao_funcao", "declaracao_funcao", "lista_de_args",
+  "lista_args", "args", "modificador", "corpo",
+  "lista_declaracao_de_variavel_local", "lista_declaracao_variavel_local",
+  "lista_comandos", "comando", "expr", "expressao_logica",
+  "expressao_relacional", "expressao_aritmetica", "termo", "fator",
+  "literal", "local", YY_NULLPTR
   };
 
 #if YYDEBUG
   const short
   Parser::yyrline_[] =
   {
-       0,   126,   126,   131,   135,   137,   140,   141,   143,   145,
-     148,   149,   152,   156,   157,   160,   163,   164,   165,   168,
-     169,   172,   175,   176,   201,   202,   203,   204,   205,   206,
-     207,   208,   209,   218,   222,   227,   228,   229,   230,   234,
-     235,   236,   238,   242,   246,   250,   255,   256,   257
+       0,   127,   127,   128,   132,   138,   142,   143,   147,   148,
+     152,   153,   157,   158,   162,   166,   170,   171,   174,   177,
+     181,   182,   183,   187,   188,   192,   196,   197,   201,   202,
+     206,   207,   211,   212,   216,   217,   221,   222,   226,   230,
+     231,   235,   240,   241,   245,   246,   250,   251,   255,   257,
+     258,   259,   260,   261,   262,   263,   267,   268,   272,   273,
+     274,   278,   279,   280,   281,   282,   283,   284,   287,   288,
+     289,   293,   294,   295,   299,   300,   301,   302,   306,   307,
+     308,   312,   313,   314
   };
 
   // Print the state stack on the debug stream.
@@ -1136,16 +1289,16 @@ namespace Simples {
        0,     2,     2,     2,     2,     2,     2,     2,     2,     2,
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
-       2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
-      47,    49,    39,    33,    41,    35,    59,    37,     2,     2,
-       2,     2,     2,     2,     2,     2,     2,     2,    43,    45,
-      64,    61,    67,     2,     2,     2,     2,     2,     2,     2,
-       2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
-       2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
-       2,    51,     2,    53,    70,     2,     2,     2,     2,     2,
+       2,     2,     2,     2,     2,     2,     2,     2,    72,     2,
+      49,    51,    41,    35,    43,    37,    61,    39,     2,     2,
+       2,     2,     2,     2,     2,     2,     2,     2,    45,    47,
+      66,    63,    69,     2,     2,     2,     2,     2,     2,     2,
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
-       2,     2,     2,    55,    72,    57,     2,     2,     2,     2,
+       2,    53,     2,    55,     2,     2,     2,     2,     2,     2,
+       2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
+       2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
+       2,     2,     2,    57,    74,    59,     2,     2,     2,     2,
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
@@ -1161,12 +1314,12 @@ namespace Simples {
        2,     2,     2,     2,     2,     2,     1,     2,     3,     4,
        5,     6,     7,     8,     9,    10,    11,    12,    13,    14,
       15,    16,    17,    18,    19,    20,    21,    22,    23,    24,
-      25,    26,    27,    28,    29,    30,    31,    32,    34,    36,
-      38,    40,    42,    44,    46,    48,    50,    52,    54,    56,
-      58,    60,    62,    63,    65,    66,    68,    69,    71,    73,
-      74
+      25,    26,    27,    28,    29,    30,    31,    32,    33,    34,
+      36,    38,    40,    42,    44,    46,    48,    50,    52,    54,
+      56,    58,    60,    62,    64,    65,    67,    68,    70,    71,
+      73,    75,    76
     };
-    const int user_token_number_max_ = 310;
+    const int user_token_number_max_ = 312;
 
     if (t <= 0)
       return yyeof_;
@@ -1178,9 +1331,9 @@ namespace Simples {
 
 #line 44 "parser.yy"
 } // Simples
-#line 1182 "/home/lipe/Documentos/Compiladores/compilador-simples/make2/parser.cc"
+#line 1335 "/home/lipe/Documentos/Compiladores/compilador-simples/make2/parser.cc"
 
-#line 260 "parser.yy"
+#line 317 "parser.yy"
 
 
 namespace Simples {

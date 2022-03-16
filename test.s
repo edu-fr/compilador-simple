@@ -9,9 +9,9 @@ global:
 funÇão: 
     fiuncao (rEf param1: tipoVelho, vaLor paRam2: inteIRO ) : tipoVelho = 
         local:  
-            novaLocal: tipoNovo := NULO 
-            novaNovaLocal: tipoVelho := NULO
-            localRegistro: tipoRegistro := { regCampo1 = 1 + 1 , regCampo2 = 10}
+            novaLocal: tipoNovo := 1==2==3 
+            novaNovaLocal: tipoVelho := 1|(2>2)>2&(var1.a2+(25* var1.campo1))
+            localRegistro: tipoRegistro := { regCampo1 = 1 , regCampo2 = 10}
         ação: 
             ident := nulo;
             ident2 := nulo

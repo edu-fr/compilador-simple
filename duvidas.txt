@@ -1,4 +1,4 @@
-1. Conceito shift reduce
+1. Possivel shift reduce 186 e 307
 
 2. expr ser criacao_de_registro e inicializacao tambem
 
