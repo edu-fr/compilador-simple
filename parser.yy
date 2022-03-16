@@ -17,6 +17,7 @@
   #include "driver.hh"
   #include "location.hh"
   #include "position.hh"
+  using namespace std;
 }
 
 %code provides {
@@ -25,7 +26,7 @@
     class Driver;
 
     inline void yyerror (const char* msg) {
-      std::cerr << msg << std::endl;
+      cerr << msg << endl;
     }
   }
 }
@@ -60,7 +61,7 @@
  /* YYLTYPE */
   int  			      integerVal;
   double 			    doubleVal;
-  std::string*		stringVal;
+  string*		      stringVal;
 }
 
 /* Tokens */
@@ -96,30 +97,30 @@
 %token			        EOL		          "end of line"
 %token              COMENTARIO      "comentário"
 %token              SIMBOLO         "simbolo"
-%token              MAIS            '+'
-%token              MENOS           '-'
-%token              BARRA           '/'
-%token              ASTERISCO       '*'
-%token              VIRGULA         ','
-%token              DOISPONTOS      ':'
-%token              PONTOEVIRGULA   ';'
-%token              ABREPARENTESES  '('
-%token              FECHAPARENTESES ')'
-%token              ABRECOLCHETES   '['
-%token              FECHACOLCHETES  ']'
-%token              ABRECHAVES      '{'
-%token              FECHACHAVES     '}'
-%token              PONTO           '.'
-%token              IGUAL           '='
+%token              MAIS            "+"
+%token              MENOS           "-"
+%token              BARRA           "/"
+%token              ASTERISCO       "*"
+%token              VIRGULA         ","
+%token              DOISPONTOS      ":"
+%token              PONTOEVIRGULA   ";"
+%token              ABREPARENTESES  "("
+%token              FECHAPARENTESES ")"
+%token              ABRECOLCHETES   "["
+%token              FECHACOLCHETES  "]"
+%token              ABRECHAVES      "{"
+%token              FECHACHAVES     "}"
+%token              PONTO           "."
+%token              EQUIVALENTE     "=="
 %token              DIFERENTE       "!="
-%token              MENOR           '<'
+%token              MENOR           "<"
 %token              MENORIGUAL      "<="
-%token              MAIOR           '>'
+%token              MAIOR           ">"
 %token              MAIORIGUAL      ">="
-%token              AND             '&'
-%token              OR              '|'
+%token              AND             "&"
+%token              OR              "|"
 %token              ATRIBUICAO      ":="
-%token              IGUALFUNCAO     "="
+%token              IGUAL           "="
  
 %% 
 
@@ -150,7 +151,7 @@ lista_declaracao_tipo:
 
 lista_declaracao_de_variavel_global:
   /* empty */ %empty 
-| GLOBAL DOISPONTOS lista_declaracao_variavel_global  { std::cout << "Global declarada! " << std::endl; }
+| GLOBAL DOISPONTOS lista_declaracao_variavel_global  { cout << "Global declarada! " << endl; }
 ;
 
 lista_declaracao_variavel_global:
@@ -159,7 +160,7 @@ lista_declaracao_variavel_global:
 ;
 
 declaracao_variavel:
-  IDENTIFICADOR DOISPONTOS IDENTIFICADOR ATRIBUICAO inicializacao { std::cout << "Declaracao de variavel! " << std::endl; }
+  IDENTIFICADOR DOISPONTOS IDENTIFICADOR ATRIBUICAO inicializacao { cout << "Declaracao de variavel! " << endl; }
 ;
 
 inicializacao:
@@ -171,16 +172,16 @@ criacao_de_registro:
 | criacao_de_registro VIRGULA atribuicao_registro
 
 atribuicao_registro:
-  IDENTIFICADOR IGUALFUNCAO expr
+  IDENTIFICADOR IGUAL expr
 
 declaracao_tipo:
-  IDENTIFICADOR IGUALFUNCAO descritor_tipo
+  IDENTIFICADOR IGUAL descritor_tipo
 ;
 
 descritor_tipo:
-  IDENTIFICADOR { std::cout << "Declaracao de tipo simples" << std::endl; }  /* (1.1) possível reduce reduce */
-| ABRECHAVES tipo_campos FECHACHAVES { std::cout << "Declaracao de tipo: Tipo Campo " << std::endl; }
-| ABRECOLCHETES tipo_constantes FECHACOLCHETES DE IDENTIFICADOR { std::cout << "Declaracao de tipo: Tipo constantes " << std::endl;  }
+  IDENTIFICADOR { cout << "Declaracao de tipo simples" << endl; }
+| ABRECHAVES tipo_campos FECHACHAVES { cout << "Declaracao de tipo: Tipo Campo " << endl; }
+| ABRECOLCHETES tipo_constantes FECHACOLCHETES DE IDENTIFICADOR { cout << "Declaracao de tipo: Tipo constantes " << endl;  }
 ;
 
 tipo_campos:
@@ -208,8 +209,8 @@ lista_declaracao_funcao:
 ;
 
 declaracao_funcao:
-  IDENTIFICADOR ABREPARENTESES lista_de_args FECHAPARENTESES IGUALFUNCAO corpo  { std::cout << "Declaracao de procedimento! " << std::endl; }  
-| IDENTIFICADOR ABREPARENTESES lista_de_args FECHAPARENTESES DOISPONTOS IDENTIFICADOR IGUALFUNCAO corpo  { std::cout << "Declaracao de funcao! " << std::endl; }
+  IDENTIFICADOR ABREPARENTESES lista_de_args FECHAPARENTESES IGUAL corpo  { cout << "Declaracao de procedimento! " << endl; }  
+| IDENTIFICADOR ABREPARENTESES lista_de_args FECHAPARENTESES DOISPONTOS IDENTIFICADOR IGUAL corpo  { cout << "Declaracao de funcao! " << endl; }
 ;
 
 lista_de_args: 
@@ -223,7 +224,7 @@ lista_args:
 ;
 
 args:
-  modificador IDENTIFICADOR DOISPONTOS IDENTIFICADOR   { std::cout << "Argumento! " << std::endl; }
+  modificador IDENTIFICADOR DOISPONTOS IDENTIFICADOR   { cout << "Argumento! " << endl; }
 ;
 
 modificador:
@@ -238,7 +239,7 @@ corpo:
 
 lista_declaracao_de_variavel_local:
   /* empty */ %empty 
-| LOCAL DOISPONTOS lista_declaracao_variavel_local  { std::cout << "Local foi declarada! " << std::endl; }
+| LOCAL DOISPONTOS lista_declaracao_variavel_local  { cout << "Local foi declarada! " << endl; }
 ;
 
 lista_declaracao_variavel_local:
@@ -252,15 +253,15 @@ lista_comandos:
 ;
 
 comando:
-  local ATRIBUICAO expr
-/* | chamada_de_funcao */
-| SE expr VERDADEIRO lista_comandos FSE
-| SE expr VERDADEIRO lista_comandos FALSO lista_comandos FSE
-| PARA IDENTIFICADOR DE expr LIMITE expr FACA lista_comandos FPARA
-| ENQUANTO expr FACA lista_comandos FENQUANTO
-| PARE
-| CONTINUE
-| RETORNE expr
+  local ATRIBUICAO expr { cout << "atribuição simples" << endl; }
+| chamada_de_funcao 
+| SE expr VERDADEIRO lista_comandos FSE { cout << "SE simples" << endl; }
+| SE expr VERDADEIRO lista_comandos FALSO lista_comandos FSE { cout << "SE com FALSO" << endl; }
+| PARA IDENTIFICADOR DE expr LIMITE expr FACA lista_comandos FPARA { cout << "PARA" << endl; }
+| ENQUANTO expr FACA lista_comandos FENQUANTO { cout << "ENQUANTO" << endl; }
+| PARE  { cout << "PARE" << endl; }
+| CONTINUE { cout << "CONTINUE" << endl; }
+| RETORNE expr  { cout << "RETORNE" << endl; }
 ;
 
 expr:
@@ -269,34 +270,37 @@ expr:
 ;
 
 expressao_logica:
-  expressao_logica AND expressao_relacional { std::cout << " AND " << std::endl; }
-| expressao_logica OR expressao_relacional { std::cout << " OR " << std::endl; }
+  expressao_logica AND expressao_relacional { cout << " AND " << endl; }
+| expressao_logica OR expressao_relacional { cout << " OR " << endl; }
 | expressao_relacional
 ;
 
 expressao_relacional:
-  expressao_relacional MENORIGUAL expressao_aritmetica { std::cout << "Maior igual" << std::endl; }
-| expressao_relacional MAIORIGUAL expressao_aritmetica { std::cout << "Menor igual " << std::endl; }
-| expressao_relacional MENOR expressao_aritmetica { std::cout << " Menor " << std::endl; }
-| expressao_relacional MAIOR expressao_aritmetica { std::cout << " Maior " << std::endl; }
-| expressao_relacional DIFERENTE expressao_aritmetica { std::cout << " Diferente " << std::endl; }
-| expressao_relacional IGUAL expressao_aritmetica { std::cout << " Igual " << std::endl; }
+  expressao_relacional MENORIGUAL expressao_aritmetica { cout << "Maior igual" << endl; }
+| expressao_relacional MAIORIGUAL expressao_aritmetica { cout << "Menor igual " << endl; }
+| expressao_relacional MENOR expressao_aritmetica { cout << " Menor " << endl; }
+| expressao_relacional MAIOR expressao_aritmetica { cout << " Maior " << endl; }
+| expressao_relacional DIFERENTE expressao_aritmetica { cout << " Diferente " << endl; }
+| expressao_relacional EQUIVALENTE expressao_aritmetica { cout << " Equivalente " << endl; }
 | expressao_aritmetica
 
 expressao_aritmetica:
-  expressao_aritmetica MAIS termo { std::cout << " Soma " << std::endl; }
-| expressao_aritmetica MENOS termo { std::cout << " Sutracao " << std::endl; }
+  expressao_aritmetica MAIS termo { 
+      $1 
+
+   }
+| expressao_aritmetica MENOS termo { cout << " Sutracao " << endl; }
 | termo
 ;
 
 termo:
-  termo ASTERISCO fator { std::cout << " Multiplicacao " << std::endl; }
-| termo BARRA fator { std::cout << " Divisao " << std::endl; }
+  termo ASTERISCO fator { cout << " Multiplicacao " << endl; }
+| termo BARRA fator { cout << " Divisao " << endl; }
 | fator
 ;
 
 fator:
-  ABREPARENTESES expr FECHAPARENTESES { std::cout << "Expressao com parenteses " << std::endl; }
+  ABREPARENTESES expr FECHAPARENTESES { cout << "Expressao com parenteses " << endl; }
 | literal
 | local
 | chamada_de_funcao
@@ -304,25 +308,32 @@ fator:
 ;
 
 chamada_de_funcao:
-  IDENTIFICADOR ABREPARENTESES  FECHAPARENTESES
+  IDENTIFICADOR ABREPARENTESES lista_args_chamada FECHAPARENTESES
+;
+
+lista_args_chamada: 
+  /* empty */ %empty
+| fator
+| lista_args_chamada VIRGULA fator 
+;
 
 literal:
-  INTEIRO
-| REAL
+  INTEIRO { $$ }
+| REAL { $$ }
 | CADEIA
 ;
 
 local:
   IDENTIFICADOR
 | local PONTO IDENTIFICADOR 
-| local ABRECOLCHETES expr /* lista_expr separada por virgula */ FECHACOLCHETES
+| local ABRECOLCHETES lista_args_chamada FECHACOLCHETES
 ;
 
 %%
 
 namespace Simples {
-   void Parser::error(const location&, const std::string& m) {
-        std::cerr << *driver.location_ << ": " << m << std::endl;
+   void Parser::error(const location&, const string& m) {
+        cerr << *driver.location_ << ": " << m << endl;
         driver.error_ = (driver.error_ == 127 ? 127 : driver.error_ + 1);
    }
 }

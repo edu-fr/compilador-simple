@@ -100,17 +100,12 @@ eol     [\n\r]+
 }
 
 "fenquanto" {
-  return token::ENQUANTO;
-}
-
-"faça" {
-  return token::FACA;
+  return token::FENQUANTO;
 }
 
 "fa"(Ç|ç)"a" {
   return token::FACA;
 }
-
 
 "se" {
   return token::SE;
@@ -210,7 +205,7 @@ eol     [\n\r]+
 "}" { return token::FECHACHAVES; }
 "." { return token::PONTO; }
 "," { return token::VIRGULA; }
-"==" { return token::IGUAL; }
+"==" { return token::EQUIVALENTE; }
 "!=" { return token::DIFERENTE; }
 "<" { return token::MENOR; }
 "<=" { return token::MENORIGUAL; }
@@ -219,7 +214,7 @@ eol     [\n\r]+
 "&" { return token::AND; }
 "|" { return token::OR; }
 ":=" { return token::ATRIBUICAO; }
-"=" { return token::IGUALFUNCAO; }
+"=" { return token::IGUAL; }
 
 [A-Za-z][A-Za-z|0-9]* {
   yylval->stringVal = new std::string(yytext, yyleng);
@@ -232,9 +227,9 @@ eol     [\n\r]+
 <commentStartCond>[^*\n]*         /* Tira tudo o que nao eh um '*'                   */ 
 <commentStartCond>"*"+[^*/\n]*    /* Tira todos os '*' que nao sao seguidos por '/'s */
 <commentStartCond>\n              /* Pula linha                                      */
-<commentStartCond>"*"+"/" {       /* Fim do comentario                               */
+<commentStartCond>"*/" {          /* Fim do comentario                               */
   BEGIN(INITIAL);
-  return token::COMENTARIO;
+  STEP();
 }
 
 \" string_buf_ptr = string_buf; BEGIN(stringStartCond);

@@ -53,7 +53,7 @@
 #  endif
 # endif
 
-#line 44 "parser.yy"
+#line 45 "parser.yy"
 namespace Simples {
 #line 59 "/home/dudu/Documentos/Facul/compiladores/projeto/compilador-simples/build/location.hh"
 
@@ -327,7 +327,7 @@ namespace Simples {
     return ostr;
   }
 
-#line 44 "parser.yy"
+#line 45 "parser.yy"
 } // Simples
 #line 333 "/home/dudu/Documentos/Facul/compiladores/projeto/compilador-simples/build/location.hh"
 

@@ -50,8 +50,9 @@
   #include "driver.hh"
   #include "location.hh"
   #include "position.hh"
+  using namespace std;
 
-#line 55 "/home/dudu/Documentos/Facul/compiladores/projeto/compilador-simples/build/parser.hh"
+#line 56 "/home/dudu/Documentos/Facul/compiladores/projeto/compilador-simples/build/parser.hh"
 
 
 # include <cstdlib> // std::abort
@@ -179,9 +180,9 @@
 # define YYDEBUG 1
 #endif
 
-#line 44 "parser.yy"
+#line 45 "parser.yy"
 namespace Simples {
-#line 185 "/home/dudu/Documentos/Facul/compiladores/projeto/compilador-simples/build/parser.hh"
+#line 186 "/home/dudu/Documentos/Facul/compiladores/projeto/compilador-simples/build/parser.hh"
 
 
 
@@ -194,14 +195,14 @@ namespace Simples {
     /// Symbol semantic values.
     union semantic_type
     {
-#line 59 "parser.yy"
+#line 60 "parser.yy"
 
  /* YYLTYPE */
   int  			      integerVal;
   double 			    doubleVal;
-  std::string*		stringVal;
+  string*		stringVal;
 
-#line 205 "/home/dudu/Documentos/Facul/compiladores/projeto/compilador-simples/build/parser.hh"
+#line 206 "/home/dudu/Documentos/Facul/compiladores/projeto/compilador-simples/build/parser.hh"
 
     };
 #else
@@ -279,7 +280,7 @@ namespace Simples {
         ABRECHAVES = 300,
         FECHACHAVES = 301,
         PONTO = 302,
-        IGUAL = 303,
+        EQUIVALENTE = 303,
         DIFERENTE = 304,
         MENOR = 305,
         MENORIGUAL = 306,
@@ -288,7 +289,7 @@ namespace Simples {
         AND = 309,
         OR = 310,
         ATRIBUICAO = 311,
-        IGUALFUNCAO = 312
+        IGUAL = 312
       };
     };
 
@@ -491,7 +492,7 @@ namespace Simples {
     static const signed char yydefact_[];
 
     // YYPGOTO[NTERM-NUM].
-    static const signed char yypgoto_[];
+    static const short yypgoto_[];
 
     // YYDEFGOTO[NTERM-NUM].
     static const short yydefgoto_[];
@@ -501,7 +502,7 @@ namespace Simples {
     // number is the opposite.  If YYTABLE_NINF, syntax error.
     static const unsigned char yytable_[];
 
-    static const unsigned char yycheck_[];
+    static const short yycheck_[];
 
     // YYSTOS[STATE-NUM] -- The (internal number of the) accessing
     // symbol of state STATE-NUM.
@@ -749,10 +750,10 @@ namespace Simples {
     enum
     {
       yyeof_ = 0,
-      yylast_ = 144,     ///< Last index in yytable_.
-      yynnts_ = 36,  ///< Number of nonterminal symbols.
+      yylast_ = 166,     ///< Last index in yytable_.
+      yynnts_ = 39,  ///< Number of nonterminal symbols.
       yyfinal_ = 9, ///< Termination state number.
-      yyntokens_ = 77  ///< Number of tokens.
+      yyntokens_ = 58  ///< Number of tokens.
     };
 
 
@@ -761,25 +762,25 @@ namespace Simples {
   };
 
 
-#line 44 "parser.yy"
+#line 45 "parser.yy"
 } // Simples
-#line 767 "/home/dudu/Documentos/Facul/compiladores/projeto/compilador-simples/build/parser.hh"
+#line 768 "/home/dudu/Documentos/Facul/compiladores/projeto/compilador-simples/build/parser.hh"
 
 
 
 // "%code provides" blocks.
-#line 22 "parser.yy"
+#line 23 "parser.yy"
 
   namespace Simples  {
     // Forward declaration of the Driver class
     class Driver;
 
     inline void yyerror (const char* msg) {
-      std::cerr << msg << std::endl;
+      cerr << msg << endl;
     }
   }
 
-#line 783 "/home/dudu/Documentos/Facul/compiladores/projeto/compilador-simples/build/parser.hh"
+#line 784 "/home/dudu/Documentos/Facul/compiladores/projeto/compilador-simples/build/parser.hh"
 
 
 #endif // !YY_YY_HOME_DUDU_DOCUMENTOS_FACUL_COMPILADORES_PROJETO_COMPILADOR_SIMPLES_BUILD_PARSER_HH_INCLUDED

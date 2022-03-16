@@ -279,7 +279,7 @@ namespace Simples {
         ABRECHAVES = 300,
         FECHACHAVES = 301,
         PONTO = 302,
-        IGUAL = 303,
+        EQUIVALENTE = 303,
         DIFERENTE = 304,
         MENOR = 305,
         MENORIGUAL = 306,
@@ -288,7 +288,7 @@ namespace Simples {
         AND = 309,
         OR = 310,
         ATRIBUICAO = 311,
-        IGUALFUNCAO = 312
+        IGUAL = 312
       };
     };
 
@@ -491,7 +491,7 @@ namespace Simples {
     static const signed char yydefact_[];
 
     // YYPGOTO[NTERM-NUM].
-    static const signed char yypgoto_[];
+    static const short yypgoto_[];
 
     // YYDEFGOTO[NTERM-NUM].
     static const short yydefgoto_[];
@@ -749,10 +749,10 @@ namespace Simples {
     enum
     {
       yyeof_ = 0,
-      yylast_ = 157,     ///< Last index in yytable_.
-      yynnts_ = 37,  ///< Number of nonterminal symbols.
+      yylast_ = 166,     ///< Last index in yytable_.
+      yynnts_ = 39,  ///< Number of nonterminal symbols.
       yyfinal_ = 9, ///< Termination state number.
-      yyntokens_ = 77  ///< Number of tokens.
+      yyntokens_ = 58  ///< Number of tokens.
     };
 
 
