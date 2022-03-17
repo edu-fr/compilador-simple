@@ -1,11 +1,4 @@
-#include <memory>
-using namespace std;
-
-enum Tipo {
-    inteiro,
-    real,
-    fodase
-}
+#include "AST_classes.hh"
 
 // Base class
 class ExprAST {
@@ -22,8 +15,8 @@ class InteiroExprAST : public ExprAST {
 public:
     InteiroExprAST(int Val) : Val(Val) {}
 
-    static unique_ptr<ExprAST> ParseNumberExpr() {
-        auto Result = make_unique<InteiroExprAST>();
-
+    static unique_ptr<ExprAST> ParseNumberExpr(int val) {
+        auto Result = make_unique<InteiroExprAST>(val);
+        return move(Result);
     }
 };

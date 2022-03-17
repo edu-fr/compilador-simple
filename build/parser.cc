@@ -42,11 +42,12 @@
 /*** C++ Declarations ***/
 #include "parser.hh"
 #include "scanner.hh"
+#include "AST_classes.hh"
 
 #define yylex driver.scanner_->yylex
 
 
-#line 50 "/home/dudu/Documentos/Facul/compiladores/projeto/compilador-simples/build/parser.cc"
+#line 51 "/home/dudu/Documentos/Facul/compiladores/projeto/compilador-simples/build/parser.cc"
 
 
 #include "parser.hh"
@@ -141,9 +142,9 @@
 #define YYERROR         goto yyerrorlab
 #define YYRECOVERING()  (!!yyerrstatus_)
 
-#line 45 "parser.yy"
+#line 46 "parser.yy"
 namespace Simples {
-#line 147 "/home/dudu/Documentos/Facul/compiladores/projeto/compilador-simples/build/parser.cc"
+#line 148 "/home/dudu/Documentos/Facul/compiladores/projeto/compilador-simples/build/parser.cc"
 
 
   /* Return YYSTR after stripping away unnecessary quotes and
@@ -636,188 +637,194 @@ namespace Simples {
         {
           switch (yyn)
             {
-  case 11:
-#line 154 "parser.yy"
+  case 12:
+#line 156 "parser.yy"
                                                       { cout << "Global declarada! " << endl; }
-#line 643 "/home/dudu/Documentos/Facul/compiladores/projeto/compilador-simples/build/parser.cc"
+#line 644 "/home/dudu/Documentos/Facul/compiladores/projeto/compilador-simples/build/parser.cc"
     break;
 
-  case 14:
-#line 163 "parser.yy"
+  case 15:
+#line 165 "parser.yy"
                                                                   { cout << "Declaracao de variavel! " << endl; }
-#line 649 "/home/dudu/Documentos/Facul/compiladores/projeto/compilador-simples/build/parser.cc"
-    break;
-
-  case 20:
-#line 182 "parser.yy"
-                { cout << "Declaracao de tipo simples" << endl; }
-#line 655 "/home/dudu/Documentos/Facul/compiladores/projeto/compilador-simples/build/parser.cc"
+#line 650 "/home/dudu/Documentos/Facul/compiladores/projeto/compilador-simples/build/parser.cc"
     break;
 
   case 21:
-#line 183 "parser.yy"
-                                     { cout << "Declaracao de tipo: Tipo Campo " << endl; }
-#line 661 "/home/dudu/Documentos/Facul/compiladores/projeto/compilador-simples/build/parser.cc"
+#line 184 "parser.yy"
+                { cout << "Declaracao de tipo simples" << endl; }
+#line 656 "/home/dudu/Documentos/Facul/compiladores/projeto/compilador-simples/build/parser.cc"
     break;
 
   case 22:
-#line 184 "parser.yy"
-                                                                { cout << "Declaracao de tipo: Tipo constantes " << endl;  }
-#line 667 "/home/dudu/Documentos/Facul/compiladores/projeto/compilador-simples/build/parser.cc"
+#line 185 "parser.yy"
+                                     { cout << "Declaracao de tipo: Tipo Campo " << endl; }
+#line 662 "/home/dudu/Documentos/Facul/compiladores/projeto/compilador-simples/build/parser.cc"
     break;
 
-  case 32:
-#line 212 "parser.yy"
-                                                                          { cout << "Declaracao de procedimento! " << endl; }
-#line 673 "/home/dudu/Documentos/Facul/compiladores/projeto/compilador-simples/build/parser.cc"
+  case 23:
+#line 186 "parser.yy"
+                                                                { cout << "Declaracao de tipo: Tipo constantes " << endl;  }
+#line 668 "/home/dudu/Documentos/Facul/compiladores/projeto/compilador-simples/build/parser.cc"
     break;
 
   case 33:
-#line 213 "parser.yy"
+#line 214 "parser.yy"
+                                                                          { cout << "Declaracao de procedimento! " << endl; }
+#line 674 "/home/dudu/Documentos/Facul/compiladores/projeto/compilador-simples/build/parser.cc"
+    break;
+
+  case 34:
+#line 215 "parser.yy"
                                                                                                    { cout << "Declaracao de funcao! " << endl; }
-#line 679 "/home/dudu/Documentos/Facul/compiladores/projeto/compilador-simples/build/parser.cc"
+#line 680 "/home/dudu/Documentos/Facul/compiladores/projeto/compilador-simples/build/parser.cc"
     break;
 
-  case 38:
-#line 227 "parser.yy"
+  case 39:
+#line 229 "parser.yy"
                                                        { cout << "Argumento! " << endl; }
-#line 685 "/home/dudu/Documentos/Facul/compiladores/projeto/compilador-simples/build/parser.cc"
+#line 686 "/home/dudu/Documentos/Facul/compiladores/projeto/compilador-simples/build/parser.cc"
     break;
 
-  case 43:
-#line 242 "parser.yy"
+  case 44:
+#line 244 "parser.yy"
                                                     { cout << "Local foi declarada! " << endl; }
-#line 691 "/home/dudu/Documentos/Facul/compiladores/projeto/compilador-simples/build/parser.cc"
+#line 692 "/home/dudu/Documentos/Facul/compiladores/projeto/compilador-simples/build/parser.cc"
     break;
 
-  case 48:
-#line 256 "parser.yy"
-                        { cout << "atribuição simples" << endl; }
-#line 697 "/home/dudu/Documentos/Facul/compiladores/projeto/compilador-simples/build/parser.cc"
-    break;
-
-  case 50:
+  case 49:
 #line 258 "parser.yy"
-                                        { cout << "SE simples" << endl; }
-#line 703 "/home/dudu/Documentos/Facul/compiladores/projeto/compilador-simples/build/parser.cc"
+                        { cout << "atribuição simples" << endl; }
+#line 698 "/home/dudu/Documentos/Facul/compiladores/projeto/compilador-simples/build/parser.cc"
     break;
 
   case 51:
-#line 259 "parser.yy"
-                                                             { cout << "SE com FALSO" << endl; }
-#line 709 "/home/dudu/Documentos/Facul/compiladores/projeto/compilador-simples/build/parser.cc"
+#line 260 "parser.yy"
+                                        { cout << "SE simples" << endl; }
+#line 704 "/home/dudu/Documentos/Facul/compiladores/projeto/compilador-simples/build/parser.cc"
     break;
 
   case 52:
-#line 260 "parser.yy"
-                                                                   { cout << "PARA" << endl; }
-#line 715 "/home/dudu/Documentos/Facul/compiladores/projeto/compilador-simples/build/parser.cc"
+#line 261 "parser.yy"
+                                                             { cout << "SE com FALSO" << endl; }
+#line 710 "/home/dudu/Documentos/Facul/compiladores/projeto/compilador-simples/build/parser.cc"
     break;
 
   case 53:
-#line 261 "parser.yy"
-                                              { cout << "ENQUANTO" << endl; }
-#line 721 "/home/dudu/Documentos/Facul/compiladores/projeto/compilador-simples/build/parser.cc"
+#line 262 "parser.yy"
+                                                                   { cout << "PARA" << endl; }
+#line 716 "/home/dudu/Documentos/Facul/compiladores/projeto/compilador-simples/build/parser.cc"
     break;
 
   case 54:
-#line 262 "parser.yy"
-        { cout << "PARE" << endl; }
-#line 727 "/home/dudu/Documentos/Facul/compiladores/projeto/compilador-simples/build/parser.cc"
+#line 263 "parser.yy"
+                                              { cout << "ENQUANTO" << endl; }
+#line 722 "/home/dudu/Documentos/Facul/compiladores/projeto/compilador-simples/build/parser.cc"
     break;
 
   case 55:
-#line 263 "parser.yy"
-           { cout << "CONTINUE" << endl; }
-#line 733 "/home/dudu/Documentos/Facul/compiladores/projeto/compilador-simples/build/parser.cc"
+#line 264 "parser.yy"
+        { cout << "PARE" << endl; }
+#line 728 "/home/dudu/Documentos/Facul/compiladores/projeto/compilador-simples/build/parser.cc"
     break;
 
   case 56:
-#line 264 "parser.yy"
-                { cout << "RETORNE" << endl; }
-#line 739 "/home/dudu/Documentos/Facul/compiladores/projeto/compilador-simples/build/parser.cc"
+#line 265 "parser.yy"
+           { cout << "CONTINUE" << endl; }
+#line 734 "/home/dudu/Documentos/Facul/compiladores/projeto/compilador-simples/build/parser.cc"
     break;
 
-  case 59:
-#line 273 "parser.yy"
-                                            { cout << " AND " << endl; }
-#line 745 "/home/dudu/Documentos/Facul/compiladores/projeto/compilador-simples/build/parser.cc"
+  case 57:
+#line 266 "parser.yy"
+                { cout << "RETORNE" << endl; }
+#line 740 "/home/dudu/Documentos/Facul/compiladores/projeto/compilador-simples/build/parser.cc"
     break;
 
   case 60:
-#line 274 "parser.yy"
-                                           { cout << " OR " << endl; }
-#line 751 "/home/dudu/Documentos/Facul/compiladores/projeto/compilador-simples/build/parser.cc"
+#line 275 "parser.yy"
+                                            { cout << " AND " << endl; }
+#line 746 "/home/dudu/Documentos/Facul/compiladores/projeto/compilador-simples/build/parser.cc"
     break;
 
-  case 62:
-#line 279 "parser.yy"
-                                                       { cout << "Maior igual" << endl; }
-#line 757 "/home/dudu/Documentos/Facul/compiladores/projeto/compilador-simples/build/parser.cc"
+  case 61:
+#line 276 "parser.yy"
+                                           { cout << " OR " << endl; }
+#line 752 "/home/dudu/Documentos/Facul/compiladores/projeto/compilador-simples/build/parser.cc"
     break;
 
   case 63:
-#line 280 "parser.yy"
-                                                       { cout << "Menor igual " << endl; }
-#line 763 "/home/dudu/Documentos/Facul/compiladores/projeto/compilador-simples/build/parser.cc"
+#line 281 "parser.yy"
+                                                       { cout << "Maior igual" << endl; }
+#line 758 "/home/dudu/Documentos/Facul/compiladores/projeto/compilador-simples/build/parser.cc"
     break;
 
   case 64:
-#line 281 "parser.yy"
-                                                  { cout << " Menor " << endl; }
-#line 769 "/home/dudu/Documentos/Facul/compiladores/projeto/compilador-simples/build/parser.cc"
+#line 282 "parser.yy"
+                                                       { cout << "Menor igual " << endl; }
+#line 764 "/home/dudu/Documentos/Facul/compiladores/projeto/compilador-simples/build/parser.cc"
     break;
 
   case 65:
-#line 282 "parser.yy"
-                                                  { cout << " Maior " << endl; }
-#line 775 "/home/dudu/Documentos/Facul/compiladores/projeto/compilador-simples/build/parser.cc"
+#line 283 "parser.yy"
+                                                  { cout << " Menor " << endl; }
+#line 770 "/home/dudu/Documentos/Facul/compiladores/projeto/compilador-simples/build/parser.cc"
     break;
 
   case 66:
-#line 283 "parser.yy"
-                                                      { cout << " Diferente " << endl; }
-#line 781 "/home/dudu/Documentos/Facul/compiladores/projeto/compilador-simples/build/parser.cc"
+#line 284 "parser.yy"
+                                                  { cout << " Maior " << endl; }
+#line 776 "/home/dudu/Documentos/Facul/compiladores/projeto/compilador-simples/build/parser.cc"
     break;
 
   case 67:
-#line 284 "parser.yy"
-                                                        { cout << " Equivalente " << endl; }
-#line 787 "/home/dudu/Documentos/Facul/compiladores/projeto/compilador-simples/build/parser.cc"
+#line 285 "parser.yy"
+                                                      { cout << " Diferente " << endl; }
+#line 782 "/home/dudu/Documentos/Facul/compiladores/projeto/compilador-simples/build/parser.cc"
     break;
 
-  case 69:
-#line 288 "parser.yy"
-                                  { cout << " Soma " << endl; }
-#line 793 "/home/dudu/Documentos/Facul/compiladores/projeto/compilador-simples/build/parser.cc"
+  case 68:
+#line 286 "parser.yy"
+                                                        { cout << " Equivalente " << endl; }
+#line 788 "/home/dudu/Documentos/Facul/compiladores/projeto/compilador-simples/build/parser.cc"
     break;
 
   case 70:
-#line 289 "parser.yy"
-                                   { cout << " Sutracao " << endl; }
-#line 799 "/home/dudu/Documentos/Facul/compiladores/projeto/compilador-simples/build/parser.cc"
+#line 290 "parser.yy"
+                                  { cout << "SOMA " << endl; }
+#line 794 "/home/dudu/Documentos/Facul/compiladores/projeto/compilador-simples/build/parser.cc"
     break;
 
-  case 72:
-#line 294 "parser.yy"
-                        { cout << " Multiplicacao " << endl; }
-#line 805 "/home/dudu/Documentos/Facul/compiladores/projeto/compilador-simples/build/parser.cc"
+  case 71:
+#line 291 "parser.yy"
+                                   { cout << " Sutracao " << endl; }
+#line 800 "/home/dudu/Documentos/Facul/compiladores/projeto/compilador-simples/build/parser.cc"
     break;
 
   case 73:
-#line 295 "parser.yy"
+#line 296 "parser.yy"
+                        { cout << " Multiplicacao " << endl; }
+#line 806 "/home/dudu/Documentos/Facul/compiladores/projeto/compilador-simples/build/parser.cc"
+    break;
+
+  case 74:
+#line 297 "parser.yy"
                     { cout << " Divisao " << endl; }
-#line 811 "/home/dudu/Documentos/Facul/compiladores/projeto/compilador-simples/build/parser.cc"
+#line 812 "/home/dudu/Documentos/Facul/compiladores/projeto/compilador-simples/build/parser.cc"
     break;
 
-  case 75:
-#line 300 "parser.yy"
+  case 76:
+#line 302 "parser.yy"
                                       { cout << "Expressao com parenteses " << endl; }
-#line 817 "/home/dudu/Documentos/Facul/compiladores/projeto/compilador-simples/build/parser.cc"
+#line 818 "/home/dudu/Documentos/Facul/compiladores/projeto/compilador-simples/build/parser.cc"
+    break;
+
+  case 85:
+#line 320 "parser.yy"
+           { cout << "int: " << (yystack_[0].value.integerVal) << endl; }
+#line 824 "/home/dudu/Documentos/Facul/compiladores/projeto/compilador-simples/build/parser.cc"
     break;
 
 
-#line 821 "/home/dudu/Documentos/Facul/compiladores/projeto/compilador-simples/build/parser.cc"
+#line 828 "/home/dudu/Documentos/Facul/compiladores/projeto/compilador-simples/build/parser.cc"
 
             default:
               break;
@@ -1088,167 +1095,171 @@ namespace Simples {
   }
 
 
-  const signed char Parser::yypact_ninf_ = -61;
+  const signed char Parser::yypact_ninf_ = -65;
 
   const signed char Parser::yytable_ninf_ = -1;
 
   const short
   Parser::yypact_[] =
   {
-      47,   -24,   -18,    30,   -61,   -61,    12,    67,    45,   -61,
-      -2,    72,    64,   -61,   -61,    85,     5,     5,     5,    69,
-     -61,   -61,   -33,    53,    45,   -61,   108,    74,   -61,    16,
-      96,   -61,   -61,   -61,   -61,     5,   112,   105,    24,    34,
-      31,    54,   -61,   -61,   -61,    46,   103,   -61,    67,    16,
-     120,     5,     4,   -61,    86,   108,   -61,   121,   -61,    25,
-       5,    84,    70,   -22,   -61,    67,    16,    16,    16,    16,
-      16,    16,    16,    16,    16,    16,    16,    16,    67,   -61,
-      17,   -61,   -61,   -61,   106,   126,   -61,   127,   -61,    90,
-     121,   -61,    16,   -61,   113,   -61,     5,   112,   -61,    11,
-      34,    34,    31,    31,    31,    31,    31,    31,    54,    54,
-     -61,   -61,    -5,   -61,   -61,    18,    94,   -21,   -61,    78,
-      76,   -61,   -61,     5,   -61,   -61,   -61,   -61,    67,   114,
-     117,   134,   126,   -61,     5,   -61,   -61,    97,   100,   -61,
-     137,   129,    20,   -61,   139,   -61,   -61,   -61,   -61,   -26,
-      76,   104,    67,   -61,   -61,   141,   128,   -61,   144,     3,
-      91,   111,   -61,   146,   -61,   -61,   128,   108,   115,   -61,
-     -61,   108,    67,   -61,    69
+      56,   -16,    49,   -65,   -65,   -65,    42,   -65,   -65,    11,
+     -65,    64,    81,   -65,    51,   104,    69,   -65,   -65,   108,
+       5,     5,     5,    73,   -65,   -65,   -26,    57,    81,   -65,
+     112,    78,   -65,    13,   103,   -65,     5,   119,   113,    21,
+      44,    10,    45,   -65,   -65,   -65,    17,   109,   -65,    64,
+      13,   123,     5,     8,   -65,    88,   112,   -65,   125,   -65,
+      24,     5,    87,    74,   -24,   -65,    64,    13,    13,    13,
+      13,    13,    13,    13,    13,    13,    13,    13,    13,    64,
+     -65,   -25,   -65,   -65,   -65,   110,   127,   -65,   130,   -65,
+      93,   125,   -65,    13,   -65,   116,   -65,     5,   119,   -65,
+      -6,    44,    44,    10,    10,    10,    10,    10,    10,    45,
+      45,   -65,   -65,    43,   -65,   -65,    14,    97,   -20,   -65,
+      82,    61,   -65,   -65,     5,   -65,   -65,   -65,   -65,    64,
+     115,   121,   137,   127,   -65,     5,   -65,   -65,    99,   106,
+     -65,   142,   134,    -8,   -65,   144,   -65,   -65,   -65,   -65,
+     -32,    61,   111,    64,   -65,   -65,   145,   128,   -65,   148,
+       3,    95,   114,   -65,   149,   -65,   -65,   128,   112,   117,
+     -65,   -65,   112,    64,   -65,    73
   };
 
   const signed char
   Parser::yydefact_[] =
   {
-       6,     0,     0,     0,     2,     3,    10,     0,     0,     1,
-       0,    28,    87,    54,    55,     0,     0,     0,     0,     5,
-      46,    49,     0,     0,     7,     8,     0,     0,     4,    81,
-       0,    84,    85,    86,    79,     0,     0,     0,    57,    61,
-      68,    71,    74,    78,    76,    77,     0,    56,     0,    81,
-       0,     0,     0,     9,     0,    11,    12,     0,    82,     0,
-       0,     0,     0,     0,    16,     0,     0,     0,     0,     0,
-       0,     0,     0,     0,     0,     0,     0,     0,     0,    47,
-       0,    88,    48,    20,     0,     0,    19,     0,    13,     0,
-      29,    30,     0,    80,     0,    75,     0,     0,    58,     0,
-      59,    60,    67,    66,    64,    62,    65,    63,    69,    70,
-      73,    72,     0,    89,    26,     0,     0,     0,    23,     0,
-      34,    31,    83,     0,    18,    17,    53,    50,     0,     0,
-       0,     0,     0,    21,     0,    39,    40,     0,    35,    36,
-       0,     0,     0,    27,     0,    25,    24,    14,    15,     0,
-       0,     0,     0,    51,    22,     0,    42,    37,     0,     0,
-       0,     0,    32,     0,    38,    52,    42,     0,     0,    33,
-      44,    43,     0,    45,    41
+       7,     0,     0,    85,    86,    87,     0,     2,     3,    11,
+       4,     0,     0,     1,     0,    29,    88,    55,    56,     0,
+       0,     0,     0,     6,    47,    50,     0,     0,     8,     9,
+       0,     0,     5,    82,     0,    80,     0,     0,     0,    58,
+      62,    69,    72,    75,    79,    77,    78,     0,    57,     0,
+      82,     0,     0,     0,    10,     0,    12,    13,     0,    83,
+       0,     0,     0,     0,     0,    17,     0,     0,     0,     0,
+       0,     0,     0,     0,     0,     0,     0,     0,     0,     0,
+      48,     0,    89,    49,    21,     0,     0,    20,     0,    14,
+       0,    30,    31,     0,    81,     0,    76,     0,     0,    59,
+       0,    60,    61,    68,    67,    65,    63,    66,    64,    70,
+      71,    74,    73,     0,    90,    27,     0,     0,     0,    24,
+       0,    35,    32,    84,     0,    19,    18,    54,    51,     0,
+       0,     0,     0,     0,    22,     0,    40,    41,     0,    36,
+      37,     0,     0,     0,    28,     0,    26,    25,    15,    16,
+       0,     0,     0,     0,    52,    23,     0,    43,    38,     0,
+       0,     0,     0,    33,     0,    39,    53,    43,     0,     0,
+      34,    45,    44,     0,    46,    42
   };
 
   const short
   Parser::yypgoto_[] =
   {
-     -61,   -61,   -61,   -61,   -61,   -61,   -61,   -61,   -51,   -61,
-     -61,    55,   131,   -61,   -61,    21,   -61,   -61,   -61,    66,
-     -61,   -61,     7,   -61,    -8,   -61,   -61,   -60,   116,   -15,
-     -61,    37,    27,    32,   -23,    -7,   110,   -61,    -6
+     -65,   -65,   -65,   -65,   -65,   -65,   -65,   -65,   -52,   -65,
+     -65,    59,   131,   -65,   -65,    22,   -65,   -65,   -65,    67,
+     -65,   -65,     9,   -65,    -3,   -65,   -65,   -64,   118,   -12,
+     -65,    37,    29,    31,   -30,   -11,   120,   161,   -10
   };
 
   const short
   Parser::yydefgoto_[] =
   {
-      -1,     3,     4,     5,     6,    24,    11,    55,    56,   147,
-      63,    64,    25,    86,   117,   118,   115,    28,    90,    91,
-     137,   138,   139,   140,   162,   163,   171,    19,    20,    37,
-      38,    39,    40,    41,    42,    43,    59,    44,    45
+      -1,     6,     7,     8,     9,    28,    15,    56,    57,   148,
+      64,    65,    29,    87,   118,   119,   116,    32,    91,    92,
+     138,   139,   140,   141,   163,   164,   172,    23,    24,    38,
+      39,    40,    41,    42,    43,    44,    60,    45,    46
   };
 
   const unsigned char
   Parser::yytable_[] =
   {
-      21,    22,    46,    47,    88,    99,    58,    83,    12,   127,
-      49,   128,   165,   155,    50,     7,    97,   132,   112,    12,
-      61,     8,   126,    51,    98,   133,    58,    31,    32,    33,
-       9,   156,    10,    34,   153,    48,    82,    26,    31,    32,
-      33,    21,    22,    48,    34,    94,    35,    84,    23,    85,
-      36,    48,     1,   110,   111,    92,   129,    35,    21,    22,
-      48,   113,   130,    92,     2,    74,    75,    93,   142,   122,
-      12,    21,    22,    13,    14,    15,    27,    16,    66,    67,
-      17,   124,    68,    69,    70,    71,    72,    73,    30,    49,
-      76,    77,   159,    50,    18,   102,   103,   104,   105,   106,
-     107,   135,   136,   100,   101,    29,   108,   109,   141,    48,
-      52,    54,   174,    57,    60,    62,   170,    65,    78,   148,
-     173,    21,    22,    81,    89,    87,    95,    96,   114,   116,
-     119,   120,   123,   131,   134,   144,   143,   145,   150,   149,
-     151,   152,   154,   158,   160,    21,    22,   164,   166,   161,
-     167,   168,   125,   146,   172,    53,   121,   157,   169,    80,
-       0,     0,     0,     0,    79,    21,    22
+      25,    26,   100,    59,    89,   127,   154,   156,    16,    47,
+      48,    84,   166,    93,    98,   113,    16,    50,   133,   114,
+      59,    51,    99,    11,    62,   157,   134,     3,     4,     5,
+      52,    14,    49,    35,    49,     3,     4,     5,    25,    26,
+      83,    35,    13,    49,    75,    76,    36,   111,   112,    95,
+      37,    85,   130,    86,    36,    25,    26,   128,   131,   129,
+      50,     1,    93,   123,    51,   143,    94,    16,    25,    26,
+      17,    18,    19,     2,    20,    67,    68,    21,     3,     4,
+       5,    77,    78,    49,    27,   125,   136,   137,    12,   160,
+      30,    22,    69,    70,    71,    72,    73,    74,   103,   104,
+     105,   106,   107,   108,   101,   102,   109,   110,    31,   175,
+      33,    34,   142,    49,    53,    55,   171,    58,    25,    26,
+     174,    61,    63,   149,    79,    66,    82,    88,    90,    96,
+     117,    97,   115,   120,   121,   124,   132,   144,   135,   145,
+     146,   150,    25,    26,   151,   152,   153,   155,   161,   162,
+     159,   165,   167,   168,   169,   147,   173,   126,   122,    54,
+     158,    10,    25,    26,   170,     0,     0,    80,     0,     0,
+      81
   };
 
   const short
   Parser::yycheck_[] =
   {
-       7,     7,    17,    18,    55,    65,    29,     3,     3,    14,
-      43,    16,     9,    39,    47,    39,    38,    38,    78,     3,
-      35,    39,    11,    56,    46,    46,    49,    22,    23,    24,
-       0,    57,    20,    28,    14,    40,    51,    39,    22,    23,
-      24,    48,    48,    40,    28,    60,    41,    43,     3,    45,
-      45,    40,     5,    76,    77,    38,    38,    41,    65,    65,
-      40,    44,    44,    38,    17,    34,    35,    42,   128,    92,
-       3,    78,    78,     6,     7,     8,     4,    10,    54,    55,
-      13,    96,    48,    49,    50,    51,    52,    53,     3,    43,
-      36,    37,   152,    47,    27,    68,    69,    70,    71,    72,
-      73,    25,    26,    66,    67,    41,    74,    75,   123,    40,
-      57,     3,   172,    39,    18,     3,   167,    12,    15,   134,
-     171,   128,   128,     3,     3,    39,    42,    57,    22,     3,
-       3,    41,    19,    39,    56,    18,    22,     3,    38,    42,
-       3,    12,     3,    39,     3,   152,   152,     3,    57,    21,
-      39,     5,    97,   132,    39,    24,    90,   150,   166,    49,
-      -1,    -1,    -1,    -1,    48,   172,   172
+      11,    11,    66,    33,    56,    11,    14,    39,     3,    21,
+      22,     3,     9,    38,    38,    79,     3,    43,    38,    44,
+      50,    47,    46,    39,    36,    57,    46,    22,    23,    24,
+      56,    20,    40,    28,    40,    22,    23,    24,    49,    49,
+      52,    28,     0,    40,    34,    35,    41,    77,    78,    61,
+      45,    43,    38,    45,    41,    66,    66,    14,    44,    16,
+      43,     5,    38,    93,    47,   129,    42,     3,    79,    79,
+       6,     7,     8,    17,    10,    54,    55,    13,    22,    23,
+      24,    36,    37,    40,     3,    97,    25,    26,    39,   153,
+      39,    27,    48,    49,    50,    51,    52,    53,    69,    70,
+      71,    72,    73,    74,    67,    68,    75,    76,     4,   173,
+      41,     3,   124,    40,    57,     3,   168,    39,   129,   129,
+     172,    18,     3,   135,    15,    12,     3,    39,     3,    42,
+       3,    57,    22,     3,    41,    19,    39,    22,    56,    18,
+       3,    42,   153,   153,    38,     3,    12,     3,     3,    21,
+      39,     3,    57,    39,     5,   133,    39,    98,    91,    28,
+     151,     0,   173,   173,   167,    -1,    -1,    49,    -1,    -1,
+      50
   };
 
   const signed char
   Parser::yystos_[] =
   {
-       0,     5,    17,    59,    60,    61,    62,    39,    39,     0,
-      20,    64,     3,     6,     7,     8,    10,    13,    27,    85,
-      86,    93,    96,     3,    63,    70,    39,     4,    75,    41,
-       3,    22,    23,    24,    28,    41,    45,    87,    88,    89,
-      90,    91,    92,    93,    95,    96,    87,    87,    40,    43,
-      47,    56,    57,    70,     3,    65,    66,    39,    92,    94,
-      18,    87,     3,    68,    69,    12,    54,    55,    48,    49,
-      50,    51,    52,    53,    34,    35,    36,    37,    15,    86,
-      94,     3,    87,     3,    43,    45,    71,    39,    66,     3,
-      76,    77,    38,    42,    87,    42,    57,    38,    46,    85,
-      89,    89,    90,    90,    90,    90,    90,    90,    91,    91,
-      92,    92,    85,    44,    22,    74,     3,    72,    73,     3,
-      41,    77,    92,    19,    87,    69,    11,    14,    16,    38,
-      44,    39,    38,    46,    56,    25,    26,    78,    79,    80,
-      81,    87,    85,    22,    18,     3,    73,    67,    87,    42,
-      38,     3,    12,    14,     3,    39,    57,    80,    39,    85,
-       3,    21,    82,    83,     3,     9,    57,    39,     5,    82,
-      66,    84,    39,    66,    85
+       0,     5,    17,    22,    23,    24,    59,    60,    61,    62,
+      95,    39,    39,     0,    20,    64,     3,     6,     7,     8,
+      10,    13,    27,    85,    86,    93,    96,     3,    63,    70,
+      39,     4,    75,    41,     3,    28,    41,    45,    87,    88,
+      89,    90,    91,    92,    93,    95,    96,    87,    87,    40,
+      43,    47,    56,    57,    70,     3,    65,    66,    39,    92,
+      94,    18,    87,     3,    68,    69,    12,    54,    55,    48,
+      49,    50,    51,    52,    53,    34,    35,    36,    37,    15,
+      86,    94,     3,    87,     3,    43,    45,    71,    39,    66,
+       3,    76,    77,    38,    42,    87,    42,    57,    38,    46,
+      85,    89,    89,    90,    90,    90,    90,    90,    90,    91,
+      91,    92,    92,    85,    44,    22,    74,     3,    72,    73,
+       3,    41,    77,    92,    19,    87,    69,    11,    14,    16,
+      38,    44,    39,    38,    46,    56,    25,    26,    78,    79,
+      80,    81,    87,    85,    22,    18,     3,    73,    67,    87,
+      42,    38,     3,    12,    14,     3,    39,    57,    80,    39,
+      85,     3,    21,    82,    83,     3,     9,    57,    39,     5,
+      82,    66,    84,    39,    66,    85
   };
 
   const signed char
   Parser::yyr1_[] =
   {
-       0,    58,    59,    59,    60,    61,    62,    62,    63,    63,
-      64,    64,    65,    65,    66,    67,    68,    68,    69,    70,
-      71,    71,    71,    72,    72,    73,    74,    74,    75,    75,
-      76,    76,    77,    77,    78,    78,    79,    79,    80,    81,
-      81,    82,    83,    83,    84,    84,    85,    85,    86,    86,
-      86,    86,    86,    86,    86,    86,    86,    87,    87,    88,
-      88,    88,    89,    89,    89,    89,    89,    89,    89,    90,
-      90,    90,    91,    91,    91,    92,    92,    92,    92,    92,
-      93,    94,    94,    94,    95,    95,    95,    96,    96,    96
+       0,    58,    59,    59,    59,    60,    61,    62,    62,    63,
+      63,    64,    64,    65,    65,    66,    67,    68,    68,    69,
+      70,    71,    71,    71,    72,    72,    73,    74,    74,    75,
+      75,    76,    76,    77,    77,    78,    78,    79,    79,    80,
+      81,    81,    82,    83,    83,    84,    84,    85,    85,    86,
+      86,    86,    86,    86,    86,    86,    86,    86,    87,    87,
+      88,    88,    88,    89,    89,    89,    89,    89,    89,    89,
+      90,    90,    90,    91,    91,    91,    92,    92,    92,    92,
+      92,    93,    94,    94,    94,    95,    95,    95,    96,    96,
+      96
   };
 
   const signed char
   Parser::yyr2_[] =
   {
-       0,     2,     1,     1,     3,     3,     0,     3,     1,     2,
-       0,     3,     1,     2,     5,     1,     1,     3,     3,     3,
-       1,     3,     5,     1,     3,     3,     1,     3,     0,     3,
-       1,     2,     6,     8,     0,     1,     1,     3,     4,     1,
-       1,     4,     0,     3,     1,     2,     1,     3,     3,     1,
-       5,     7,     9,     5,     1,     1,     2,     1,     3,     3,
-       3,     1,     3,     3,     3,     3,     3,     3,     1,     3,
-       3,     1,     3,     3,     1,     3,     1,     1,     1,     1,
-       4,     0,     1,     3,     1,     1,     1,     1,     3,     4
+       0,     2,     1,     1,     1,     3,     3,     0,     3,     1,
+       2,     0,     3,     1,     2,     5,     1,     1,     3,     3,
+       3,     1,     3,     5,     1,     3,     3,     1,     3,     0,
+       3,     1,     2,     6,     8,     0,     1,     1,     3,     4,
+       1,     1,     4,     0,     3,     1,     2,     1,     3,     3,
+       1,     5,     7,     9,     5,     1,     1,     2,     1,     3,
+       3,     3,     1,     3,     3,     3,     3,     3,     3,     1,
+       3,     3,     1,     3,     3,     1,     3,     1,     1,     1,
+       1,     4,     0,     1,     3,     1,     1,     1,     1,     3,
+       4
   };
 
 
@@ -1287,15 +1298,16 @@ namespace Simples {
   const short
   Parser::yyrline_[] =
   {
-       0,   128,   128,   129,   133,   139,   143,   144,   148,   149,
-     153,   154,   158,   159,   163,   167,   171,   172,   175,   178,
-     182,   183,   184,   188,   189,   193,   197,   198,   202,   203,
-     207,   208,   212,   213,   217,   218,   222,   223,   227,   231,
-     232,   236,   241,   242,   246,   247,   251,   252,   256,   257,
-     258,   259,   260,   261,   262,   263,   264,   268,   269,   273,
-     274,   275,   279,   280,   281,   282,   283,   284,   285,   288,
-     289,   290,   294,   295,   296,   300,   301,   302,   303,   304,
-     308,   312,   313,   314,   318,   319,   320,   324,   325,   326
+       0,   129,   129,   130,   131,   135,   141,   145,   146,   150,
+     151,   155,   156,   160,   161,   165,   169,   173,   174,   177,
+     180,   184,   185,   186,   190,   191,   195,   199,   200,   204,
+     205,   209,   210,   214,   215,   219,   220,   224,   225,   229,
+     233,   234,   238,   243,   244,   248,   249,   253,   254,   258,
+     259,   260,   261,   262,   263,   264,   265,   266,   270,   271,
+     275,   276,   277,   281,   282,   283,   284,   285,   286,   287,
+     290,   291,   292,   296,   297,   298,   302,   303,   304,   305,
+     306,   310,   314,   315,   316,   320,   321,   322,   326,   327,
+     328
   };
 
   // Print the state stack on the debug stream.
@@ -1379,11 +1391,11 @@ namespace Simples {
       return yy_undef_token_;
   }
 
-#line 45 "parser.yy"
+#line 46 "parser.yy"
 } // Simples
-#line 1385 "/home/dudu/Documentos/Facul/compiladores/projeto/compilador-simples/build/parser.cc"
+#line 1397 "/home/dudu/Documentos/Facul/compiladores/projeto/compilador-simples/build/parser.cc"
 
-#line 329 "parser.yy"
+#line 331 "parser.yy"
 
 
 namespace Simples {

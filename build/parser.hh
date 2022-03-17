@@ -44,7 +44,7 @@
 #ifndef YY_YY_HOME_DUDU_DOCUMENTOS_FACUL_COMPILADORES_PROJETO_COMPILADOR_SIMPLES_BUILD_PARSER_HH_INCLUDED
 # define YY_YY_HOME_DUDU_DOCUMENTOS_FACUL_COMPILADORES_PROJETO_COMPILADOR_SIMPLES_BUILD_PARSER_HH_INCLUDED
 // "%code requires" blocks.
-#line 15 "parser.yy"
+#line 16 "parser.yy"
 
   #include <iostream>
   #include "driver.hh"
@@ -180,7 +180,7 @@
 # define YYDEBUG 1
 #endif
 
-#line 45 "parser.yy"
+#line 46 "parser.yy"
 namespace Simples {
 #line 186 "/home/dudu/Documentos/Facul/compiladores/projeto/compilador-simples/build/parser.hh"
 
@@ -195,12 +195,12 @@ namespace Simples {
     /// Symbol semantic values.
     union semantic_type
     {
-#line 60 "parser.yy"
+#line 61 "parser.yy"
 
  /* YYLTYPE */
   int  			      integerVal;
   double 			    doubleVal;
-  string*		stringVal;
+  string*		      stringVal;
 
 #line 206 "/home/dudu/Documentos/Facul/compiladores/projeto/compilador-simples/build/parser.hh"
 
@@ -750,9 +750,9 @@ namespace Simples {
     enum
     {
       yyeof_ = 0,
-      yylast_ = 166,     ///< Last index in yytable_.
+      yylast_ = 170,     ///< Last index in yytable_.
       yynnts_ = 39,  ///< Number of nonterminal symbols.
-      yyfinal_ = 9, ///< Termination state number.
+      yyfinal_ = 13, ///< Termination state number.
       yyntokens_ = 58  ///< Number of tokens.
     };
 
@@ -762,14 +762,14 @@ namespace Simples {
   };
 
 
-#line 45 "parser.yy"
+#line 46 "parser.yy"
 } // Simples
 #line 768 "/home/dudu/Documentos/Facul/compiladores/projeto/compilador-simples/build/parser.hh"
 
 
 
 // "%code provides" blocks.
-#line 23 "parser.yy"
+#line 24 "parser.yy"
 
   namespace Simples  {
     // Forward declaration of the Driver class

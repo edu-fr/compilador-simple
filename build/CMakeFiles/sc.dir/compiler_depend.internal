@@ -586,6 +586,7 @@ CMakeFiles/sc.dir/parser.cc.o
  /home/dudu/Documentos/Facul/compiladores/projeto/compilador-simples/scanner.hh
  /home/dudu/Documentos/Facul/compiladores/projeto/compilador-simples/build/parser.hh
  /usr/include/FlexLexer.h
+ /home/dudu/Documentos/Facul/compiladores/projeto/compilador-simples/AST_classes.hh
 
 CMakeFiles/sc.dir/scanner.cc.o
  /home/dudu/Documentos/Facul/compiladores/projeto/compilador-simples/build/scanner.cc

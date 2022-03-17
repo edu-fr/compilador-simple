@@ -582,7 +582,8 @@ CMakeFiles/sc.dir/parser.cc.o: parser.cc \
   /usr/include/c++/9/bits/vector.tcc \
   ../scanner.hh \
   parser.hh \
-  /usr/include/FlexLexer.h
+  /usr/include/FlexLexer.h \
+  ../AST_classes.hh
 
 CMakeFiles/sc.dir/scanner.cc.o: scanner.cc \
   /usr/include/stdc-predef.h \
@@ -818,6 +819,8 @@ CMakeFiles/sc.dir/scanner.cc.o: scanner.cc \
 /usr/include/c++/9/cstring:
 
 scanner.cc:
+
+../AST_classes.hh:
 
 /usr/include/x86_64-linux-gnu/bits/unistd_ext.h:
 

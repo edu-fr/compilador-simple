@@ -7,6 +7,7 @@
 /*** C++ Declarations ***/
 #include "parser.hh"
 #include "scanner.hh"
+#include "AST_classes.hh"
 
 #define yylex driver.scanner_->yylex
 
@@ -61,7 +62,7 @@
  /* YYLTYPE */
   int  			      integerVal;
   double 			    doubleVal;
-  string*		      stringVal;
+  string*		      stringVal; 
 }
 
 /* Tokens */
@@ -122,11 +123,15 @@
 %token              ATRIBUICAO      ":="
 %token              IGUAL           "="
  
+%type <integerVal> programa
+
+
 %% 
 
-programa: 
-  declaracoes
-| acao
+programa:  
+  /* declaracoes
+| acao */
+ literal { cout << "int: " << $1 << endl; }
 ;
 
 declaracoes: 
@@ -285,10 +290,7 @@ expressao_relacional:
 | expressao_aritmetica
 
 expressao_aritmetica:
-  expressao_aritmetica MAIS termo { 
-      $1 
-
-   }
+  expressao_aritmetica MAIS termo { cout << "SOMA " << endl; }
 | expressao_aritmetica MENOS termo { cout << " Sutracao " << endl; }
 | termo
 ;
@@ -318,8 +320,8 @@ lista_args_chamada:
 ;
 
 literal:
-  INTEIRO { $$ }
-| REAL { $$ }
+  INTEIRO
+| REAL
 | CADEIA
 ;
 
