@@ -187,9 +187,30 @@ CMakeFiles/sc.dir/driver.cc.o: ../driver.cc \
   parser.hh \
   location.hh \
   position.hh \
-  /usr/include/c++/9/vector \
+  ../AST_classes.hh \
+  /usr/include/c++/9/memory \
   /usr/include/c++/9/bits/stl_construct.h \
   /usr/include/c++/9/bits/stl_uninitialized.h \
+  /usr/include/c++/9/bits/stl_tempbuf.h \
+  /usr/include/c++/9/bits/stl_raw_storage_iter.h \
+  /usr/include/c++/9/ext/concurrence.h \
+  /usr/include/c++/9/bits/uses_allocator.h \
+  /usr/include/c++/9/bits/unique_ptr.h \
+  /usr/include/c++/9/utility \
+  /usr/include/c++/9/bits/stl_relops.h \
+  /usr/include/c++/9/tuple \
+  /usr/include/c++/9/array \
+  /usr/include/c++/9/bits/invoke.h \
+  /usr/include/c++/9/bits/shared_ptr.h \
+  /usr/include/c++/9/bits/shared_ptr_base.h \
+  /usr/include/c++/9/bits/allocated_ptr.h \
+  /usr/include/c++/9/bits/refwrap.h \
+  /usr/include/c++/9/ext/aligned_buffer.h \
+  /usr/include/c++/9/bits/shared_ptr_atomic.h \
+  /usr/include/c++/9/bits/atomic_base.h \
+  /usr/include/c++/9/bits/atomic_lockfree_defines.h \
+  /usr/include/c++/9/backward/auto_ptr.h \
+  /usr/include/c++/9/vector \
   /usr/include/c++/9/bits/stl_vector.h \
   /usr/include/c++/9/bits/stl_bvector.h \
   /usr/include/c++/9/bits/vector.tcc \
@@ -574,16 +595,36 @@ CMakeFiles/sc.dir/parser.cc.o: parser.cc \
   /usr/include/c++/9/bits/fstream.tcc \
   location.hh \
   position.hh \
-  /usr/include/c++/9/vector \
+  ../AST_classes.hh \
+  /usr/include/c++/9/memory \
   /usr/include/c++/9/bits/stl_construct.h \
   /usr/include/c++/9/bits/stl_uninitialized.h \
+  /usr/include/c++/9/bits/stl_tempbuf.h \
+  /usr/include/c++/9/bits/stl_raw_storage_iter.h \
+  /usr/include/c++/9/ext/concurrence.h \
+  /usr/include/c++/9/bits/uses_allocator.h \
+  /usr/include/c++/9/bits/unique_ptr.h \
+  /usr/include/c++/9/utility \
+  /usr/include/c++/9/bits/stl_relops.h \
+  /usr/include/c++/9/tuple \
+  /usr/include/c++/9/array \
+  /usr/include/c++/9/bits/invoke.h \
+  /usr/include/c++/9/bits/shared_ptr.h \
+  /usr/include/c++/9/bits/shared_ptr_base.h \
+  /usr/include/c++/9/bits/allocated_ptr.h \
+  /usr/include/c++/9/bits/refwrap.h \
+  /usr/include/c++/9/ext/aligned_buffer.h \
+  /usr/include/c++/9/bits/shared_ptr_atomic.h \
+  /usr/include/c++/9/bits/atomic_base.h \
+  /usr/include/c++/9/bits/atomic_lockfree_defines.h \
+  /usr/include/c++/9/backward/auto_ptr.h \
+  /usr/include/c++/9/vector \
   /usr/include/c++/9/bits/stl_vector.h \
   /usr/include/c++/9/bits/stl_bvector.h \
   /usr/include/c++/9/bits/vector.tcc \
   ../scanner.hh \
   parser.hh \
-  /usr/include/FlexLexer.h \
-  ../AST_classes.hh
+  /usr/include/FlexLexer.h
 
 CMakeFiles/sc.dir/scanner.cc.o: scanner.cc \
   /usr/include/stdc-predef.h \
@@ -777,21 +818,39 @@ CMakeFiles/sc.dir/scanner.cc.o: scanner.cc \
   /usr/include/c++/9/bits/fstream.tcc \
   location.hh \
   position.hh \
-  /usr/include/c++/9/vector \
+  ../AST_classes.hh \
+  /usr/include/c++/9/memory \
   /usr/include/c++/9/bits/stl_construct.h \
   /usr/include/c++/9/bits/stl_uninitialized.h \
+  /usr/include/c++/9/bits/stl_tempbuf.h \
+  /usr/include/c++/9/bits/stl_raw_storage_iter.h \
+  /usr/include/c++/9/ext/concurrence.h \
+  /usr/include/c++/9/bits/uses_allocator.h \
+  /usr/include/c++/9/bits/unique_ptr.h \
+  /usr/include/c++/9/utility \
+  /usr/include/c++/9/bits/stl_relops.h \
+  /usr/include/c++/9/tuple \
+  /usr/include/c++/9/array \
+  /usr/include/c++/9/bits/invoke.h \
+  /usr/include/c++/9/bits/shared_ptr.h \
+  /usr/include/c++/9/bits/shared_ptr_base.h \
+  /usr/include/c++/9/bits/allocated_ptr.h \
+  /usr/include/c++/9/bits/refwrap.h \
+  /usr/include/c++/9/ext/aligned_buffer.h \
+  /usr/include/c++/9/bits/shared_ptr_atomic.h \
+  /usr/include/c++/9/bits/atomic_base.h \
+  /usr/include/c++/9/bits/atomic_lockfree_defines.h \
+  /usr/include/c++/9/backward/auto_ptr.h \
+  /usr/include/c++/9/vector \
   /usr/include/c++/9/bits/stl_vector.h \
   /usr/include/c++/9/bits/stl_bvector.h \
   /usr/include/c++/9/bits/vector.tcc \
   ../scanner.hh \
   parser.hh \
   /usr/include/c++/9/algorithm \
-  /usr/include/c++/9/utility \
-  /usr/include/c++/9/bits/stl_relops.h \
   /usr/include/c++/9/bits/stl_algo.h \
   /usr/include/c++/9/bits/algorithmfwd.h \
   /usr/include/c++/9/bits/stl_heap.h \
-  /usr/include/c++/9/bits/stl_tempbuf.h \
   /usr/include/c++/9/bits/uniform_int_dist.h \
   /usr/include/c++/9/limits \
   /usr/include/unistd.h \
@@ -810,8 +869,6 @@ CMakeFiles/sc.dir/scanner.cc.o: scanner.cc \
 
 /usr/include/c++/9/bits/algorithmfwd.h:
 
-/usr/include/c++/9/bits/stl_relops.h:
-
 /usr/include/c++/9/algorithm:
 
 /usr/include/x86_64-linux-gnu/bits/string_fortified.h:
@@ -819,8 +876,6 @@ CMakeFiles/sc.dir/scanner.cc.o: scanner.cc \
 /usr/include/c++/9/cstring:
 
 scanner.cc:
-
-../AST_classes.hh:
 
 /usr/include/x86_64-linux-gnu/bits/unistd_ext.h:
 
@@ -833,6 +888,32 @@ scanner.cc:
 /usr/include/c++/9/bits/stl_vector.h:
 
 /usr/include/c++/9/vector:
+
+/usr/include/c++/9/backward/auto_ptr.h:
+
+/usr/include/c++/9/bits/atomic_lockfree_defines.h:
+
+/usr/include/c++/9/ext/aligned_buffer.h:
+
+/usr/include/c++/9/bits/allocated_ptr.h:
+
+/usr/include/c++/9/bits/shared_ptr_base.h:
+
+/usr/include/c++/9/bits/shared_ptr.h:
+
+/usr/include/c++/9/array:
+
+/usr/include/c++/9/tuple:
+
+/usr/include/c++/9/bits/stl_relops.h:
+
+/usr/include/c++/9/bits/unique_ptr.h:
+
+/usr/include/c++/9/bits/stl_raw_storage_iter.h:
+
+/usr/include/c++/9/memory:
+
+../AST_classes.hh:
 
 position.hh:
 
@@ -898,6 +979,8 @@ parser.hh:
 
 /usr/include/x86_64-linux-gnu/bits/types/__sigset_t.h:
 
+/usr/include/c++/9/bits/shared_ptr_atomic.h:
+
 /usr/include/x86_64-linux-gnu/bits/types/sigset_t.h:
 
 /usr/include/x86_64-linux-gnu/bits/timesize.h:
@@ -913,6 +996,8 @@ parser.hh:
 /usr/include/c++/9/ext/numeric_traits.h:
 
 /usr/include/x86_64-linux-gnu/bits/types/clock_t.h:
+
+/usr/include/c++/9/bits/invoke.h:
 
 /usr/lib/gcc/x86_64-linux-gnu/9/include/stddef.h:
 
@@ -1032,6 +1117,8 @@ parser.cc:
 
 /usr/include/x86_64-linux-gnu/bits/time.h:
 
+/usr/include/c++/9/ext/concurrence.h:
+
 /usr/include/stdc-predef.h:
 
 /usr/include/x86_64-linux-gnu/bits/wchar2.h:
@@ -1052,6 +1139,8 @@ parser.cc:
 
 /usr/include/x86_64-linux-gnu/c++/9/bits/c++config.h:
 
+/usr/include/c++/9/bits/uses_allocator.h:
+
 /usr/include/wctype.h:
 
 /usr/include/x86_64-linux-gnu/bits/errno.h:
@@ -1071,6 +1160,8 @@ parser.cc:
 /usr/include/x86_64-linux-gnu/gnu/stubs.h:
 
 /usr/include/c++/9/bits/move.h:
+
+/usr/include/c++/9/bits/atomic_base.h:
 
 /usr/include/x86_64-linux-gnu/bits/stdlib-bsearch.h:
 
@@ -1201,6 +1292,8 @@ parser.cc:
 /usr/include/x86_64-linux-gnu/bits/types/struct_timespec.h:
 
 /usr/include/x86_64-linux-gnu/bits/cpu-set.h:
+
+/usr/include/c++/9/bits/refwrap.h:
 
 /usr/include/time.h:
 

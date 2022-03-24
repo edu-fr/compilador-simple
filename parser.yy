@@ -18,6 +18,7 @@
   #include "driver.hh"
   #include "location.hh"
   #include "position.hh"
+  #include "AST_classes.hh"
   using namespace std;
 }
 
@@ -55,7 +56,7 @@
 /* use newer C++ skeleton file */
 %skeleton "lalr1.cc"
 /* Entry point of grammar */
-%start programa
+%start fator
 
 %union
 {
@@ -63,7 +64,15 @@
   int  			      integerVal;
   double 			    doubleVal;
   string*		      stringVal; 
+  FatorASTptr     fatorVal;
+  /* union tipos_literal {
+    int inteiro;
+    double pontofloat;
+  } tipos_literal; */
 }
+
+%type <fatorVal>    fator
+%type <fatorVal>    literal
 
 /* Tokens */
 %token <stringVal> 	IDENTIFICADOR   "identificador"
@@ -123,8 +132,6 @@
 %token              ATRIBUICAO      ":="
 %token              IGUAL           "="
  
-%type <integerVal> programa
-
 
 %% 
 
@@ -303,7 +310,7 @@ termo:
 
 fator:
   ABREPARENTESES expr FECHAPARENTESES { cout << "Expressao com parenteses " << endl; }
-| literal
+| literal { cout << $1->val << endl; }
 | local
 | chamada_de_funcao
 | NULO
@@ -320,7 +327,11 @@ lista_args_chamada:
 ;
 
 literal:
-  INTEIRO
+  INTEIRO {FatorAST s;
+  s.val = $1;
+  cout << s.val << endl;
+  s.print2();
+  $$ = &s;}
 | REAL
 | CADEIA
 ;

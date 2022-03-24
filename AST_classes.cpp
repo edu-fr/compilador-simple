@@ -1,22 +1,31 @@
 #include "AST_classes.hh"
 
-// Base class
-class ExprAST {
-    Tipo tipo; 
-    public: 
-        virtual ~ExprAST() {}
+// // Base class
+// class FatorAST {
+//     // Tipo tipo; 
+//     public: 
+//         virtual ~FatorAST() {}
 
-};
+// };
 
-// 
-class InteiroExprAST : public ExprAST {
-    int Val;
+// // 
+// InteiroFatorAST::InteiroFatorAST(int Val) : Val(Val)
+// { 
+// }
 
-public:
-    InteiroExprAST(int Val) : Val(Val) {}
+// static unique_ptr<FatorAST> ParseNumberExpr(int val) {
+//         auto Result = make_unique<InteiroFatorAST>(val);
+//         return move(Result);
+// }
 
-    static unique_ptr<ExprAST> ParseNumberExpr(int val) {
-        auto Result = make_unique<InteiroExprAST>(val);
-        return move(Result);
-    }
-};
+// class FloatFatorAST : public FatorAST {
+//     float Val;
+
+// public:
+//     FloatFatorAST(float Val) : Val(Val) {}
+
+//     static unique_ptr<FatorAST> ParseNumberExpr(float val) {
+//         auto Result = make_unique<FloatFatorAST>(val);
+//         return move(Result);
+//     }
+// };

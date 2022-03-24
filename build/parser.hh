@@ -50,9 +50,10 @@
   #include "driver.hh"
   #include "location.hh"
   #include "position.hh"
+  #include "AST_classes.hh"
   using namespace std;
 
-#line 56 "/home/dudu/Documentos/Facul/compiladores/projeto/compilador-simples/build/parser.hh"
+#line 57 "/home/dudu/Documentos/Facul/compiladores/projeto/compilador-simples/build/parser.hh"
 
 
 # include <cstdlib> // std::abort
@@ -180,9 +181,9 @@
 # define YYDEBUG 1
 #endif
 
-#line 46 "parser.yy"
+#line 47 "parser.yy"
 namespace Simples {
-#line 186 "/home/dudu/Documentos/Facul/compiladores/projeto/compilador-simples/build/parser.hh"
+#line 187 "/home/dudu/Documentos/Facul/compiladores/projeto/compilador-simples/build/parser.hh"
 
 
 
@@ -195,14 +196,19 @@ namespace Simples {
     /// Symbol semantic values.
     union semantic_type
     {
-#line 61 "parser.yy"
+#line 62 "parser.yy"
 
  /* YYLTYPE */
   int  			      integerVal;
   double 			    doubleVal;
-  string*		      stringVal;
+  string*		      stringVal; 
+  FatorASTptr     fatorVal;
+  /* union tipos_literal {
+    int inteiro;
+    double pontofloat;
+  } tipos_literal; */
 
-#line 206 "/home/dudu/Documentos/Facul/compiladores/projeto/compilador-simples/build/parser.hh"
+#line 212 "/home/dudu/Documentos/Facul/compiladores/projeto/compilador-simples/build/parser.hh"
 
     };
 #else
@@ -452,7 +458,7 @@ namespace Simples {
     Parser& operator= (const Parser&);
 
     /// Stored state numbers (used for stacks).
-    typedef unsigned char state_type;
+    typedef signed char state_type;
 
     /// Generate an error message.
     /// \param yystate   the state where the error occurred.
@@ -484,7 +490,7 @@ namespace Simples {
     // Tables.
     // YYPACT[STATE-NUM] -- Index in YYTABLE of the portion describing
     // STATE-NUM.
-    static const short yypact_[];
+    static const signed char yypact_[];
 
     // YYDEFACT[STATE-NUM] -- Default reduction number in state STATE-NUM.
     // Performed when YYTABLE does not specify something else to do.  Zero
@@ -492,17 +498,17 @@ namespace Simples {
     static const signed char yydefact_[];
 
     // YYPGOTO[NTERM-NUM].
-    static const short yypgoto_[];
+    static const signed char yypgoto_[];
 
     // YYDEFGOTO[NTERM-NUM].
-    static const short yydefgoto_[];
+    static const signed char yydefgoto_[];
 
     // YYTABLE[YYPACT[STATE-NUM]] -- What to do in state STATE-NUM.  If
     // positive, shift that token.  If negative, reduce the rule whose
     // number is the opposite.  If YYTABLE_NINF, syntax error.
-    static const unsigned char yytable_[];
+    static const signed char yytable_[];
 
-    static const short yycheck_[];
+    static const signed char yycheck_[];
 
     // YYSTOS[STATE-NUM] -- The (internal number of the) accessing
     // symbol of state STATE-NUM.
@@ -750,9 +756,9 @@ namespace Simples {
     enum
     {
       yyeof_ = 0,
-      yylast_ = 170,     ///< Last index in yytable_.
-      yynnts_ = 39,  ///< Number of nonterminal symbols.
-      yyfinal_ = 13, ///< Termination state number.
+      yylast_ = 57,     ///< Last index in yytable_.
+      yynnts_ = 13,  ///< Number of nonterminal symbols.
+      yyfinal_ = 19, ///< Termination state number.
       yyntokens_ = 58  ///< Number of tokens.
     };
 
@@ -762,14 +768,14 @@ namespace Simples {
   };
 
 
-#line 46 "parser.yy"
+#line 47 "parser.yy"
 } // Simples
-#line 768 "/home/dudu/Documentos/Facul/compiladores/projeto/compilador-simples/build/parser.hh"
+#line 774 "/home/dudu/Documentos/Facul/compiladores/projeto/compilador-simples/build/parser.hh"
 
 
 
 // "%code provides" blocks.
-#line 24 "parser.yy"
+#line 25 "parser.yy"
 
   namespace Simples  {
     // Forward declaration of the Driver class
@@ -780,7 +786,7 @@ namespace Simples {
     }
   }
 
-#line 784 "/home/dudu/Documentos/Facul/compiladores/projeto/compilador-simples/build/parser.hh"
+#line 790 "/home/dudu/Documentos/Facul/compiladores/projeto/compilador-simples/build/parser.hh"
 
 
 #endif // !YY_YY_HOME_DUDU_DOCUMENTOS_FACUL_COMPILADORES_PROJETO_COMPILADOR_SIMPLES_BUILD_PARSER_HH_INCLUDED
