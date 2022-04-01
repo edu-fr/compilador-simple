@@ -3,10 +3,6 @@
 #include "parser.hh"
 #include "scanner.hh"
 #include "driver.hh"
-#include <iostream>
-#include <string>
-#include <algorithm>
-#include <cstring>
 
 /*  Defines some macros to update locations */
 #define STEP() do {driver.location_->step();} while (0)
@@ -47,27 +43,22 @@ char *string_buf_ptr;
 %option batch
 /* change the name of the scanner class. results in "SimplesFlexLexer" */
 %option prefix="Simples"
-/* caseless */
+/* case insensitive */
 %option caseless
-
 
 /*
 %option stack
 */
 
 /* Abbreviations.  */
-
 blank   [ ]+
 tab     [\t]+
 bl      [\n]+
 eol     [\n\r]+
 
 /* Start Conditions */
-
 %x commentStartCond
-
 %x stringStartCond
-
 
 %%
 
@@ -77,153 +68,76 @@ eol     [\n\r]+
   STEP();
 %}
 
- /*** BEGIN EXAMPLE - Change the example lexer rules below ***/
-
-"pare" {
-  return token::PARE;
-}
-
-"continue" {
-  return token::CONTINUE;
-}
-
-"para" {
-  return token::PARA;
-}
-
-"fpara" {
-  return token::FPARA;
-}
-
-"enquanto" {
-  return token::ENQUANTO;
-}
-
-"fenquanto" {
-  return token::FENQUANTO;
-}
-
-"fa"(Ç|ç)"a" {
-  return token::FACA;
-}
-
-"se" {
-  return token::SE;
-}
-
-"fse" {
-  return token::FSE;
-}
-
-"verdadeiro" {
-  return token::VERDADEIRO;
-}
-
-"falso" {
-  return token::FALSO;
-}
-
-"tipo" {
-  return token::TIPO;
-}
-
-"de" {
-  return token::DE;
-}
-
-"limite" {
-  return token::LIMITE;
-}
-
-"global" {
-  return token::GLOBAL;
-}
-
-"local" {
-  return token::LOCAL;
-}
+"pare"             { return token::PARE; }
+"continue"         { return token::CONTINUE; }
+"para"             { return token::PARA; }
+"fpara"            { return token::FPARA; }
+"enquanto"         { return token::ENQUANTO; }
+"fenquanto"        { return token::FENQUANTO; }
+"fa"(Ç|ç)"a"       { return token::FACA; }
+"se"               { return token::SE; }
+"fse"              { return token::FSE; }
+"verdadeiro"       { return token::VERDADEIRO; }
+"falso"            { return token::FALSO; }
+"tipo"             { return token::TIPO; }
+"de"               { return token::DE; }
+"limite"           { return token::LIMITE; }
+"global"           { return token::GLOBAL; }
+"local"            { return token::LOCAL; }
+"valor"            { return token::VALOR; }
+"ref"              { return token::REF; }
+"retorne"          { return token::RETORNE; }
+"nulo"             { return token::NULO; }
+"fun"(ç|Ç)(ã|Ã)"o" { return token::FUNCAO; }
+"a"(ç|Ç)(ã|Ã)"o"   { return token::ACAO; }
 
 [0-9]+ {
      yylval->integerVal = atoi(yytext);
      return token::INTEIRO;
- }
+}
 
 [0-9]+[.][0-9]* {
-  yylval->doubleVal = atof(yytext);
-  return token::REAL;
+    yylval->doubleVal = atof(yytext);
+    return token::REAL;
 }
 
 <stringStartCond>\" {       /* Encontrou o fecha aspas - terminou */
-  BEGIN(INITIAL);
-  *string_buf_ptr = '\0';
-  return token::CADEIA;
+    BEGIN(INITIAL);
+    *string_buf_ptr = '\0';
+    return token::CADEIA;
 }
 
-"valor" {
-  return token::VALOR;
-}
-
-"ref" {
-  return token::REF;
-}
-
-"retorne" {
-  return token::RETORNE;
-}
-
-"nulo" {
-  return token::NULO;
-}
-
-"in"(í|Í)"cio" {
-  return token::INICIO;
-}
-
-"fim" {
-  return token::FIM;
-}
-
-"fun"(ç|Ç)(ã|Ã)"o" {
-  return token::FUNCAO;
-}
-
-"a"(ç|Ç)(ã|Ã)"o" {
-  return token::ACAO;
-}
-
-"+" { return token::MAIS; }
-"-" { return token::MENOS; }
-"/" { return token::BARRA; }
-"*" { return token::ASTERISCO; }
-":" { return token::DOISPONTOS; }
-";" { return token::PONTOEVIRGULA; }
-"(" { return token::ABREPARENTESES; }
-")" { return token::FECHAPARENTESES; }
-"[" { return token::ABRECOLCHETES; }
-"]" { return token::FECHACOLCHETES; }
-"{" { return token::ABRECHAVES; }
-"}" { return token::FECHACHAVES; }
-"." { return token::PONTO; }
-"," { return token::VIRGULA; }
+"+"  { return token::MAIS; }
+"-"  { return token::MENOS; }
+"/"  { return token::BARRA; }
+"*"  { return token::ASTERISCO; }
+":"  { return token::DOISPONTOS; }
+";"  { return token::PONTOEVIRGULA; }
+"("  { return token::ABREPARENTESES; }
+")"  { return token::FECHAPARENTESES; }
+"["  { return token::ABRECOLCHETES; }
+"]"  { return token::FECHACOLCHETES; }
+"{"  { return token::ABRECHAVES; }
+"}"  { return token::FECHACHAVES; }
+"."  { return token::PONTO; }
+","  { return token::VIRGULA; }
+"<"  { return token::MENOR; }
+">"  { return token::MAIOR; }
+"&"  { return token::AND; }
+"|"  { return token::OR; }
+"="  { return token::IGUAL; }
+":=" { return token::ATRIBUICAO; }
 "==" { return token::EQUIVALENTE; }
 "!=" { return token::DIFERENTE; }
-"<" { return token::MENOR; }
 "<=" { return token::MENORIGUAL; }
-">" { return token::MAIOR; }
 ">=" { return token::MAIORIGUAL; }
-"&" { return token::AND; }
-"|" { return token::OR; }
-":=" { return token::ATRIBUICAO; }
-"=" { return token::IGUAL; }
 
 [A-Za-z][A-Za-z|0-9]* {
-  yylval->stringVal = new std::string(yytext, yyleng);
-  return token::IDENTIFICADOR;
+    yylval->stringVal = new std::string(yytext, yyleng);
+    return token::IDENTIFICADOR;
 }
 
-
 "/*"  BEGIN(commentStartCond);
-
 <commentStartCond>[^*\n]*         /* Tira tudo o que nao eh um '*'                   */ 
 <commentStartCond>"*"+[^*/\n]*    /* Tira todos os '*' que nao sao seguidos por '/'s */
 <commentStartCond>\n              /* Pula linha                                      */
@@ -239,13 +153,11 @@ eol     [\n\r]+
 {bl}    { STEP(); }
 {eol}   { LINE(yyleng); }
 
-.             {
-                std::cerr << *driver.location_ << " Unexpected token : "
-                                              << *yytext << std::endl;
-                driver.error_ = (driver.error_ == 127 ? 127
-                                : driver.error_ + 1);
-                STEP ();
-              }
+. {
+    std::cerr << *driver.location_ << " Unexpected token : " << *yytext << std::endl;
+    driver.error_ = (driver.error_ == 127 ? 127 : driver.error_ + 1);
+    STEP ();
+  }
 
 %%
 
@@ -253,13 +165,13 @@ eol     [\n\r]+
 
 namespace Simples {
 
-  Scanner::Scanner() : SimplesFlexLexer() {}
+    Scanner::Scanner() : SimplesFlexLexer() {}
 
-  Scanner::~Scanner() {}
+    Scanner::~Scanner() {}
 
-  void Scanner::set_debug(bool b) {
-    yy_flex_debug = b;
-  }
+    void Scanner::set_debug(bool b) {
+        yy_flex_debug = b;
+    }
 }
 
 #ifdef yylex
@@ -268,6 +180,6 @@ namespace Simples {
 
 int SimplesFlexLexer::yylex()
 {
-  std::cerr << "call parsepitFlexLexer::yylex()!" << std::endl;
-  return 0;
+    std::cerr << "call parsepitFlexLexer::yylex()!" << std::endl;
+    return 0;
 }
