@@ -1,3 +1,0 @@
-/home/dudu/Documentos/Facul/compiladores/projeto/compilador-simples/build/CMakeFiles/sc.dir
-/home/dudu/Documentos/Facul/compiladores/projeto/compilador-simples/build/CMakeFiles/edit_cache.dir
-/home/dudu/Documentos/Facul/compiladores/projeto/compilador-simples/build/CMakeFiles/rebuild_cache.dir
