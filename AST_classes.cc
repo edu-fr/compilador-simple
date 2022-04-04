@@ -2,32 +2,7 @@
 
 #include <memory>
 
-literal_ast* ast_root;
-
-//inteiro_ast::inteiro_ast(int other) : val_(other) {}
-
-//inteiro_ast *inteiro_ast::get_ptr(int val)
-//{
-//    static inteiro_ast o = inteiro_ast(val);
-//    return std::move(&o);
-//}
-
-//real_ast::real_ast(double other) : val_(other) {}
-
-//real_ast* real_ast::get_ptr(double val)
-//{
-//    static real_ast o = real_ast(val);
-//    return std::move(&o);
-//}
-
-//cadeia_ast::cadeia_ast(const std::string &other) : val_(other) {}
-
-//cadeia_ast* cadeia_ast::get_ptr(const std::string &val)
-//{
-//    static cadeia_ast o = cadeia_ast(val);
-//    return std::move(&o);
-//}
-
+expr_arit_ast* ast_root;
 
 literal_ast::literal_ast(int other) : int_val_(other), tipo_(tipo_literal::INTEIRO) {}
 literal_ast::literal_ast(double other) : real_val_(other), tipo_(tipo_literal::REAL) {}
@@ -65,5 +40,16 @@ literal_ast* literal_ast::get_ptr(double valor)
 literal_ast* literal_ast::get_ptr(std::string valor)
 {
     static literal_ast o = literal_ast(valor);
+    return std::move(&o);
+}
+
+void expr_arit_ast::set_esq(literal_ast *esq) {
+    esq_ = esq;
+}
+
+expr_arit_ast::expr_arit_ast(tipo_operador operador, literal_ast* esq, literal_ast* dir) : tipo_(operador), esq_(esq), dir_(dir) {}
+
+expr_arit_ast* expr_arit_ast::get_ptr(tipo_operador tipo, literal_ast* esq, literal_ast* dir) {
+    static expr_arit_ast o = expr_arit_ast(tipo, esq, dir);
     return std::move(&o);
 }

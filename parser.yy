@@ -56,20 +56,21 @@
 /* use newer C++ skeleton file */
 %skeleton "lalr1.cc"
 /* Entry point of grammar */
-%start programa
+%start expressao_aritmetica
 
 %union
 {
     /* YYLTYPE */
-    int  	      integerVal;
-    double 		  doubleVal;
-    string*		  stringVal;
-    literal_ast*  literal_val;
+    int  	          integerVal;
+    double 		      doubleVal;
+    string*		      stringVal;
+    literal_ast*    literal_val;
+    expr_arit_ast*  expr_arit_val;
 }
 
 /* Nao terminais */
-%type <literal_val>    programa
-%type <literal_val>    literal
+%type <literal_val>    literal fator termo 
+%type <expr_arit_val>   expressao_aritmetica
 
 /* Tokens */
 %token <stringVal>  IDENTIFICADOR   "identificador"
@@ -129,8 +130,6 @@
 programa:  
   declaracoes
 | acao
-| literal { $$ = $1;
-          ast_root = $$; }
 ;
 
 declaracoes: 
@@ -292,9 +291,10 @@ expressao_relacional:
 ;
 
 expressao_aritmetica:
-  expressao_aritmetica "+" termo  { cout << "SOMA " << endl; }
-| expressao_aritmetica "-" termo { cout << " Sutracao " << endl; }
-| termo
+  expressao_aritmetica "+" termo  { $$ = expr_arit_ast::get_ptr(tipo_operador::SOMA, NULL, $3);
+                                    ast_root = $$; }
+| expressao_aritmetica "-" termo { cout << " Subtracao " << endl; }
+| termo { expr_arit_ast::set_esq($1); }
 ;
 
 termo:
