@@ -14,12 +14,12 @@
 %}
 
 %code requires {
-  #include <iostream>
-  #include "driver.hh"
-  #include "location.hh"
-  #include "position.hh"
-  #include "AST_classes.hh"
-  using namespace std;
+#include <iostream>
+#include "driver.hh"
+#include "location.hh"
+#include "position.hh"
+#include "AST_classes.hh"
+    using namespace std;
 }
 
 %code provides {
@@ -60,20 +60,16 @@
 
 %union
 {
- /* YYLTYPE */
-  int  			  integerVal;
-  double 		  doubleVal;
-  string*		  stringVal;
-  FatorASTptr     fatorVal;
-  /* union tipos_literal {
-    int inteiro;
-    double pontofloat;
-  } tipos_literal; */
+    /* YYLTYPE */
+    int  	      integerVal;
+    double 		  doubleVal;
+    string*		  stringVal;
+    literal_ast*  literal_val;
 }
 
 /* Nao terminais */
-//%type <fatorVal>    fator
-//%type <fatorVal>    literal
+%type <literal_val>    programa
+%type <literal_val>    literal
 
 /* Tokens */
 %token <stringVal>  IDENTIFICADOR   "identificador"
@@ -133,7 +129,8 @@
 programa:  
   declaracoes
 | acao
-| literal { }
+| literal { $$ = $1;
+          ast_root = $$; }
 ;
 
 declaracoes: 
@@ -325,9 +322,9 @@ lista_args_chamada:
 ;
 
 literal:
-  INTEIRO { }
-| REAL
-| CADEIA
+  INTEIRO { $$ = literal_ast::get_ptr($1); }
+| REAL { $$ = literal_ast::get_ptr($1); }
+| CADEIA { $$ = literal_ast::get_ptr(*$1); }
 ;
 
 local:
