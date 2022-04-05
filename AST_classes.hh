@@ -3,54 +3,48 @@
 
 #include <string>
 
-enum tipo_literal {
-    INTEIRO,
-    REAL,
-    CADEIA
-};
-
-enum tipo_operador {
-    SOMA,
-    SUBTRACAO
-};
-
-/* FIX ME !! talvez aqui nao seja o melhor lugar pra colocar isso */
-class expr_arit_ast;
-extern expr_arit_ast* ast_root;
-
-class literal_ast {
-private:
-    literal_ast(int other);
-    literal_ast(double other);
-    literal_ast(std::string other);
-    literal_ast(const literal_ast &other);
-    ~literal_ast() {}
-
+class ProgramaAst {
 public:
-    union {
-        int int_val_;
-        double real_val_;
-        std::string cadeia_val_;
-    };
-    tipo_literal tipo_;
-
-    static literal_ast* get_ptr(int valor);
-    static literal_ast* get_ptr(double valor);
-    static literal_ast* get_ptr(std::string valor);
+    ProgramaAst() {}
+    ~ProgramaAst() {}
 };
 
-class expr_arit_ast {
-    private:
-        expr_arit_ast(tipo_operador operador, literal_ast* esq, literal_ast* dir);
+extern ProgramaAst* ast_root;
 
-    public:
-        tipo_operador tipo_;
-        literal_ast* esq_;   // exp
-        literal_ast* dir_;   // exp
+class ExpAst : public ProgramaAst {
+public:
+    ExpAst() {}
+    ~ExpAst() {}
+};
 
-        static void set_esq(literal_ast *esq);
-        static expr_arit_ast* get_ptr(tipo_operador tipo, literal_ast* esq, literal_ast* dir);
 
+class InteiroAst : public ExpAst {
+public:
+    InteiroAst(int val);
+
+    int val_;
+};
+
+class RealAst : public ExpAst {
+public:
+    RealAst(double val);
+
+    double val_;
+};
+
+class CadeiaAst : public ExpAst {
+public:
+    CadeiaAst(const std::string &val);
+
+    std::string val_;
+};
+
+class ExprAritAst : public ExpAst {
+public:
+    ExprAritAst(ExpAst* esq, ExpAst* dir);
+
+    ExpAst* esq_;
+    ExpAst* dir_;
 };
 
 #endif

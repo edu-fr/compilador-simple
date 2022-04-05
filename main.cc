@@ -6,6 +6,7 @@
 #include "AST_classes.hh"
 
 using namespace std;
+
 int main(int argc, char **argv)
 {
   std::string filename;
@@ -19,21 +20,12 @@ int main(int argc, char **argv)
 
   Simples::Driver driver;
   driver.parse_file(filename);
-  cout << ast_root->esq_->int_val_ << endl; 
-//   switch (ast_root->tipo_) {
-//   case tipo_literal::INTEIRO:
-//       std::cout << ast_root->int_val_ << std::endl;
-//       break;
-//   case tipo_literal::REAL:
-//       std::cout << ast_root->real_val_ << std::endl;
-//       break;
-//   case tipo_literal::CADEIA:
-//       std::cout << ast_root->cadeia_val_ << std::endl; // FIX ME -- STRING TA DANDO ERRO DE SEG
-//       break;
-      
-//   default:
-//       break;
-//   }
+
+//    cout << ((InteiroAst*) ast_root)->val_ << endl;
+      cout << ((CadeiaAst*) ast_root)->val_ << endl;
+
+//  cout << "esquerdo: " << ((InteiroAst*) ((ExprAritAst*) ast_root)->esq_)->val_ << endl;
+//  cout << "direito: "  << ((InteiroAst*) ((ExprAritAst*) ast_root)->dir_)->val_ << endl;
 
   return 0;
 }

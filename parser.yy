@@ -56,21 +56,23 @@
 /* use newer C++ skeleton file */
 %skeleton "lalr1.cc"
 /* Entry point of grammar */
-%start expressao_aritmetica
+%start programa
 
 %union
 {
     /* YYLTYPE */
-    int  	          integerVal;
-    double 		      doubleVal;
-    string*		      stringVal;
-    literal_ast*    literal_val;
-    expr_arit_ast*  expr_arit_val;
+    int  	         integerVal;
+    double 		     doubleVal;
+    std::string*	 stringVal;
+    ProgramaAst*     programa_val;
+    ExpAst*          exp_val;
 }
 
 /* Nao terminais */
-%type <literal_val>    literal fator termo 
-%type <expr_arit_val>   expressao_aritmetica
+//%type <literal_val>    literal fator termo
+//%type <expr_arit_val>   expressao_aritmetica
+%type <programa_val> programa
+%type <exp_val> expressao_aritmetica termo fator literal
 
 /* Tokens */
 %token <stringVal>  IDENTIFICADOR   "identificador"
@@ -130,6 +132,14 @@
 programa:  
   declaracoes
 | acao
+| literal {
+    cout << ((CadeiaAst*)$1)->val_ << endl;
+    ast_root = $1;}
+//| expressao_aritmetica
+//{
+//    $$ = $1;
+//    ast_root = $$;
+//}
 ;
 
 declaracoes: 
@@ -291,10 +301,9 @@ expressao_relacional:
 ;
 
 expressao_aritmetica:
-  expressao_aritmetica "+" termo  { $$ = expr_arit_ast::get_ptr(tipo_operador::SOMA, NULL, $3);
-                                    ast_root = $$; }
+  expressao_aritmetica "+" termo  { $$ = new ExprAritAst($1, $3); }
 | expressao_aritmetica "-" termo { cout << " Subtracao " << endl; }
-| termo { expr_arit_ast::set_esq($1); }
+  | termo {}
 ;
 
 termo:
@@ -305,7 +314,7 @@ termo:
 
 fator:
   "(" expr ")" { cout << "Expressao com parenteses " << endl; }
-| literal {  }
+  | literal { cout << "literal: " << ((InteiroAst*) $1)->val_ << endl; }
 | local
 | chamada_de_funcao
 | NULO
@@ -322,9 +331,12 @@ lista_args_chamada:
 ;
 
 literal:
-  INTEIRO { $$ = literal_ast::get_ptr($1); }
-| REAL { $$ = literal_ast::get_ptr($1); }
-| CADEIA { $$ = literal_ast::get_ptr(*$1); }
+  INTEIRO { $$ = new InteiroAst($1); }
+| REAL { $$ = new RealAst($1); }
+| CADEIA {
+      cout << *$1 << endl;
+      $$ = new CadeiaAst(*$1);
+  cout << ((CadeiaAst*) $$)->val_ << endl;}
 ;
 
 local:
