@@ -104,6 +104,7 @@ eol     [\n\r]+
 <stringStartCond>\" {       /* Encontrou o fecha aspas - terminou */
     BEGIN(INITIAL);
     *string_buf_ptr = '\0';
+    yylval->stringVal = new std::string(string_buf_ptr);
     return token::CADEIA;
 }
 
