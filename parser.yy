@@ -56,7 +56,7 @@
 /* use newer C++ skeleton file */
 %skeleton "lalr1.cc"
 /* Entry point of grammar */
-%start programa
+%start literal
 
 %union
 {
@@ -64,15 +64,19 @@
     int  	         integerVal;
     double 		     doubleVal;
     std::string*	 stringVal;
-    ProgramaAst*     programa_val;
-    ExpAst*          exp_val;
+    ProgramaAst*   programa_val;
+    ExpAst*        exp_val;
+    AcaoAst*       acao_val;
+    LocalAst*      local_val;
 }
 
 /* Nao terminais */
 //%type <literal_val>    literal fator termo
 //%type <expr_arit_val>   expressao_aritmetica
-%type <programa_val> programa
-%type <exp_val> expressao_aritmetica termo fator literal
+%type <programa_val> programa 
+%type <exp_val> expressao_aritmetica termo fator literal expr
+%type <acao_val> lista_comandos acao comando
+%type <local_val> local 
 
 /* Tokens */
 %token <stringVal>  IDENTIFICADOR   "identificador"
@@ -129,17 +133,10 @@
 
 %% 
 
-programa:  
-  declaracoes
-| acao
-| literal {
-    cout << ((CadeiaAst*)$1)->val_ << endl;
-    ast_root = $1;}
-//| expressao_aritmetica
-//{
-//    $$ = $1;
-//    ast_root = $$;
-//}
+programa:
+  /* declaracoes
+  acao { cout << "programa" << endl; } */
+  literal
 ;
 
 declaracoes: 
@@ -149,7 +146,9 @@ declaracoes:
 ;
 
 acao:
-  ACAO ":" lista_comandos
+  ACAO ":" lista_comandos { 
+    cout << "acao " <<  endl;
+    $$ = $3; }
 ;
 
 lista_declaracao_de_tipo:
@@ -164,7 +163,7 @@ lista_declaracao_tipo:
 
 lista_declaracao_de_variavel_global:
   /* empty */ %empty 
-| GLOBAL ":" lista_declaracao_variavel_global  { cout << "Global declarada! " << endl; }
+| GLOBAL ":" lista_declaracao_variavel_global 
 ;
 
 lista_declaracao_variavel_global:
@@ -173,7 +172,7 @@ lista_declaracao_variavel_global:
 ;
 
 declaracao_variavel:
-  IDENTIFICADOR ":" IDENTIFICADOR ATRIBUICAO inicializacao { cout << "Declaracao de variavel! " << endl; }
+  IDENTIFICADOR ":" IDENTIFICADOR ATRIBUICAO inicializacao 
 ;
 
 inicializacao:
@@ -194,9 +193,9 @@ declaracao_tipo:
 ;
 
 descritor_tipo:
-  IDENTIFICADOR { cout << "Declaracao de tipo simples" << endl; }
-| "{" tipo_campos "}" { cout << "Declaracao de tipo: Tipo Campo " << endl; }
-| "[" tipo_constantes "]" DE IDENTIFICADOR { cout << "Declaracao de tipo: Tipo constantes " << endl;  }
+  IDENTIFICADOR
+| "{" tipo_campos "}" 
+| "[" tipo_constantes "]" DE IDENTIFICADOR 
 ;
 
 tipo_campos:
@@ -224,8 +223,8 @@ lista_declaracao_funcao:
 ;
 
 declaracao_funcao:
-  IDENTIFICADOR "(" lista_de_args ")" IGUAL corpo  { cout << "Declaracao de procedimento! " << endl; }
-| IDENTIFICADOR "(" lista_de_args ")" ":" IDENTIFICADOR IGUAL corpo  { cout << "Declaracao de funcao! " << endl; }
+  IDENTIFICADOR "(" lista_de_args ")" IGUAL corpo  
+| IDENTIFICADOR "(" lista_de_args ")" ":" IDENTIFICADOR IGUAL corpo  
 ;
 
 lista_de_args: 
@@ -239,7 +238,7 @@ lista_args:
 ;
 
 args:
-  modificador IDENTIFICADOR ":" IDENTIFICADOR   { cout << "Argumento! " << endl; }
+  modificador IDENTIFICADOR ":" IDENTIFICADOR 
 ;
 
 modificador:
@@ -254,7 +253,7 @@ corpo:
 
 lista_declaracao_de_variavel_local:
   /* empty */ %empty 
-| LOCAL ":" lista_declaracao_variavel_local  { cout << "Local foi declarada! " << endl; }
+| LOCAL ":" lista_declaracao_variavel_local 
 ;
 
 lista_declaracao_variavel_local:
@@ -263,20 +262,27 @@ lista_declaracao_variavel_local:
 ;
 
 lista_comandos: 
-  comando
-| lista_comandos ";" comando
+  comando { cout << "comando" <<  endl;
+    $$ = new AcaoAst($1, nullptr);  }
+| lista_comandos ";" comando { $$ = new AcaoAst($3, $1);  }
 ;
 
 comando:
-  local ATRIBUICAO expr { cout << "atribuição simples" << endl; }
+  local ATRIBUICAO expr { 
+    cout << "oier" << endl;
+    $$ = new AtribuicaoAst($1, $3); 
+
+    cout << "local: " << ((LocalAst*) $1)->val_ << endl;
+    cout << "exp: " << ((InteiroAst*) $3)->val_ << endl;
+  }
 | chamada_de_funcao
-| SE expr VERDADEIRO lista_comandos FSE { cout << "SE simples" << endl; }
-| SE expr VERDADEIRO lista_comandos FALSO lista_comandos FSE { cout << "SE com FALSO" << endl; }
-| PARA IDENTIFICADOR DE expr LIMITE expr FACA lista_comandos FPARA { cout << "PARA" << endl; }
-| ENQUANTO expr FACA lista_comandos FENQUANTO { cout << "ENQUANTO" << endl; }
-| PARE { cout << "PARE" << endl; }
-| CONTINUE { cout << "CONTINUE" << endl; }
-| RETORNE expr { cout << "RETORNE" << endl; }
+| SE expr VERDADEIRO lista_comandos FSE 
+| SE expr VERDADEIRO lista_comandos FALSO lista_comandos FSE
+| PARA IDENTIFICADOR DE expr LIMITE expr FACA lista_comandos FPARA 
+| ENQUANTO expr FACA lista_comandos FENQUANTO 
+| PARE 
+| CONTINUE 
+| RETORNE expr 
 ;
 
 expr:
@@ -285,36 +291,36 @@ expr:
 ;
 
 expressao_logica:
-  expressao_logica "&" expressao_relacional { cout << " AND " << endl; }
-| expressao_logica "|" expressao_relacional { cout << " OR " << endl; }
+  expressao_logica "&" expressao_relacional 
+| expressao_logica "|" expressao_relacional 
 | expressao_relacional
 ;
 
 expressao_relacional:
-  expressao_relacional "<=" expressao_aritmetica { cout << " Maior igual" << endl; }
-| expressao_relacional ">=" expressao_aritmetica { cout << " Maior igual " << endl; }
-| expressao_relacional "<" expressao_aritmetica { cout << " Menor " << endl; }
-| expressao_relacional ">" expressao_aritmetica { cout << " Maior " << endl; }
-| expressao_relacional "!=" expressao_aritmetica { cout << " Diferente " << endl; }
-| expressao_relacional "==" expressao_aritmetica { cout << " Equivalente " << endl; }
+  expressao_relacional "<=" expressao_aritmetica 
+| expressao_relacional ">=" expressao_aritmetica 
+| expressao_relacional "<" expressao_aritmetica 
+| expressao_relacional ">" expressao_aritmetica 
+| expressao_relacional "!=" expressao_aritmetica
+| expressao_relacional "==" expressao_aritmetica 
 | expressao_aritmetica
 ;
 
 expressao_aritmetica:
   expressao_aritmetica "+" termo  { $$ = new ExprAritAst($1, $3); }
-| expressao_aritmetica "-" termo { cout << " Subtracao " << endl; }
-  | termo {}
+| expressao_aritmetica "-" termo  { $$ = new ExprAritAst($1, $3); }
+| termo 
 ;
 
 termo:
-  termo "*" fator { cout << " Multiplicacao " << endl; }
-| termo "/" fator { cout << " Divisao " << endl; }
+  termo "*" fator 
+| termo "/" fator 
 | fator
 ;
 
 fator:
-  "(" expr ")" { cout << "Expressao com parenteses " << endl; }
-  | literal { cout << "literal: " << ((InteiroAst*) $1)->val_ << endl; }
+  "(" expr ")" 
+| literal
 | local
 | chamada_de_funcao
 | NULO
@@ -333,14 +339,11 @@ lista_args_chamada:
 literal:
   INTEIRO { $$ = new InteiroAst($1); }
 | REAL { $$ = new RealAst($1); }
-| CADEIA {
-      cout << *$1 << endl;
-      $$ = new CadeiaAst(*$1);
-  cout << ((CadeiaAst*) $$)->val_ << endl;}
+| CADEIA { $$ = new CadeiaAst(*$1); }
 ;
 
 local:
-  IDENTIFICADOR
+  IDENTIFICADOR { $$ = new LocalAst(*$1); }
 | local "." IDENTIFICADOR
 | local "[" lista_args_chamada "]"
 ;

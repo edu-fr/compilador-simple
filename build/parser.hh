@@ -199,13 +199,15 @@ namespace Simples {
 #line 62 "parser.yy"
 
     /* YYLTYPE */
-    int  	          integerVal;
-    double 		      doubleVal;
-    string*		      stringVal;
-    literal_ast*    literal_val;
-    expr_arit_ast*  expr_arit_val;
+    int  	         integerVal;
+    double 		     doubleVal;
+    std::string*	 stringVal;
+    ProgramaAst*   programa_val;
+    ExpAst*        exp_val;
+    AcaoAst*       acao_val;
+    LocalAst*      local_val;
 
-#line 209 "/home/dudu/Documentos/Facul/compiladores/projeto/compilador-simples/build/parser.hh"
+#line 211 "/home/dudu/Documentos/Facul/compiladores/projeto/compilador-simples/build/parser.hh"
 
     };
 #else
@@ -748,9 +750,9 @@ namespace Simples {
     enum
     {
       yyeof_ = 0,
-      yylast_ = 59,     ///< Last index in yytable_.
-      yynnts_ = 13,  ///< Number of nonterminal symbols.
-      yyfinal_ = 19, ///< Termination state number.
+      yylast_ = 3,     ///< Last index in yytable_.
+      yynnts_ = 2,  ///< Number of nonterminal symbols.
+      yyfinal_ = 5, ///< Termination state number.
       yyntokens_ = 53  ///< Number of tokens.
     };
 
@@ -762,7 +764,7 @@ namespace Simples {
 
 #line 47 "parser.yy"
 } // Simples
-#line 766 "/home/dudu/Documentos/Facul/compiladores/projeto/compilador-simples/build/parser.hh"
+#line 768 "/home/dudu/Documentos/Facul/compiladores/projeto/compilador-simples/build/parser.hh"
 
 
 
@@ -778,7 +780,7 @@ namespace Simples {
     }
   }
 
-#line 782 "/home/dudu/Documentos/Facul/compiladores/projeto/compilador-simples/build/parser.hh"
+#line 784 "/home/dudu/Documentos/Facul/compiladores/projeto/compilador-simples/build/parser.hh"
 
 
 #endif // !YY_YY_HOME_DUDU_DOCUMENTOS_FACUL_COMPILADORES_PROJETO_COMPILADOR_SIMPLES_BUILD_PARSER_HH_INCLUDED

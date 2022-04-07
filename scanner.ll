@@ -3,6 +3,7 @@
 #include "parser.hh"
 #include "scanner.hh"
 #include "driver.hh"
+#include <iostream>
 
 /*  Defines some macros to update locations */
 #define STEP() do {driver.location_->step();} while (0)
@@ -104,9 +105,30 @@ eol     [\n\r]+
 <stringStartCond>\" {       /* Encontrou o fecha aspas - terminou */
     BEGIN(INITIAL);
     *string_buf_ptr = '\0';
-    yylval->stringVal = new std::string(string_buf_ptr);
+    yylval->stringVal = new std::string(string_buf);
     return token::CADEIA;
 }
+
+<stringStartCond>\\[0-9]+ {
+/* generate error - bad escape sequence; something
+    * like '\48' or '\0777777'
+    */
+}
+
+<stringStartCond>\\n  *string_buf_ptr++ = '\n';
+<stringStartCond>\\t  *string_buf_ptr++ = '\t';
+<stringStartCond>\\r  *string_buf_ptr++ = '\r';
+<stringStartCond>\\b  *string_buf_ptr++ = '\b';
+<stringStartCond>\\f  *string_buf_ptr++ = '\f';
+
+<stringStartCond>\\(.|\n)  *string_buf_ptr++ = yytext[1];
+
+<stringStartCond>[^\\\n\"]+        {
+char *yptr = yytext;
+while ( *yptr )
+        *string_buf_ptr++ = *yptr++;
+}
+
 
 "+"  { return token::MAIS; }
 "-"  { return token::MENOS; }
