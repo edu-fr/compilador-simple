@@ -20,7 +20,7 @@ class DeclaracaoAst : public NoAst {
 class AcaoAst : public NoAst {
 public:
     AcaoAst() {}
-    AcaoAst(const AcaoAst &other);
+    // AcaoAst(const AcaoAst &other);
     AcaoAst(AcaoAst* comando);
     AcaoAst(AcaoAst* comando, AcaoAst* tail);
     ~AcaoAst() {}

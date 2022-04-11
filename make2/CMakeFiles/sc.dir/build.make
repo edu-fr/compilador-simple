@@ -68,9 +68,22 @@ scanner.cc: ../scanner.ll
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/lipe/Documentos/Compiladores/compilador-simples/make2/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "[FLEX][Scanner] Building scanner with flex 2.6.4"
 	cd /home/lipe/Documentos/Compiladores/compilador-simples && /usr/bin/flex -o/home/lipe/Documentos/Compiladores/compilador-simples/make2/scanner.cc scanner.ll
 
+CMakeFiles/sc.dir/AST_classes.cc.o: CMakeFiles/sc.dir/flags.make
+CMakeFiles/sc.dir/AST_classes.cc.o: ../AST_classes.cc
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/lipe/Documentos/Compiladores/compilador-simples/make2/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object CMakeFiles/sc.dir/AST_classes.cc.o"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/sc.dir/AST_classes.cc.o -c /home/lipe/Documentos/Compiladores/compilador-simples/AST_classes.cc
+
+CMakeFiles/sc.dir/AST_classes.cc.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/sc.dir/AST_classes.cc.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/lipe/Documentos/Compiladores/compilador-simples/AST_classes.cc > CMakeFiles/sc.dir/AST_classes.cc.i
+
+CMakeFiles/sc.dir/AST_classes.cc.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/sc.dir/AST_classes.cc.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/lipe/Documentos/Compiladores/compilador-simples/AST_classes.cc -o CMakeFiles/sc.dir/AST_classes.cc.s
+
 CMakeFiles/sc.dir/driver.cc.o: CMakeFiles/sc.dir/flags.make
 CMakeFiles/sc.dir/driver.cc.o: ../driver.cc
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/lipe/Documentos/Compiladores/compilador-simples/make2/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object CMakeFiles/sc.dir/driver.cc.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/lipe/Documentos/Compiladores/compilador-simples/make2/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building CXX object CMakeFiles/sc.dir/driver.cc.o"
 	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/sc.dir/driver.cc.o -c /home/lipe/Documentos/Compiladores/compilador-simples/driver.cc
 
 CMakeFiles/sc.dir/driver.cc.i: cmake_force
@@ -83,7 +96,7 @@ CMakeFiles/sc.dir/driver.cc.s: cmake_force
 
 CMakeFiles/sc.dir/main.cc.o: CMakeFiles/sc.dir/flags.make
 CMakeFiles/sc.dir/main.cc.o: ../main.cc
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/lipe/Documentos/Compiladores/compilador-simples/make2/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building CXX object CMakeFiles/sc.dir/main.cc.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/lipe/Documentos/Compiladores/compilador-simples/make2/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Building CXX object CMakeFiles/sc.dir/main.cc.o"
 	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/sc.dir/main.cc.o -c /home/lipe/Documentos/Compiladores/compilador-simples/main.cc
 
 CMakeFiles/sc.dir/main.cc.i: cmake_force
@@ -97,7 +110,7 @@ CMakeFiles/sc.dir/main.cc.s: cmake_force
 CMakeFiles/sc.dir/scanner.cc.o: CMakeFiles/sc.dir/flags.make
 CMakeFiles/sc.dir/scanner.cc.o: scanner.cc
 CMakeFiles/sc.dir/scanner.cc.o: parser.hh
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/lipe/Documentos/Compiladores/compilador-simples/make2/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Building CXX object CMakeFiles/sc.dir/scanner.cc.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/lipe/Documentos/Compiladores/compilador-simples/make2/CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Building CXX object CMakeFiles/sc.dir/scanner.cc.o"
 	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/sc.dir/scanner.cc.o -c /home/lipe/Documentos/Compiladores/compilador-simples/make2/scanner.cc
 
 CMakeFiles/sc.dir/scanner.cc.i: cmake_force
@@ -110,7 +123,7 @@ CMakeFiles/sc.dir/scanner.cc.s: cmake_force
 
 CMakeFiles/sc.dir/parser.cc.o: CMakeFiles/sc.dir/flags.make
 CMakeFiles/sc.dir/parser.cc.o: parser.cc
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/lipe/Documentos/Compiladores/compilador-simples/make2/CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Building CXX object CMakeFiles/sc.dir/parser.cc.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/lipe/Documentos/Compiladores/compilador-simples/make2/CMakeFiles --progress-num=$(CMAKE_PROGRESS_7) "Building CXX object CMakeFiles/sc.dir/parser.cc.o"
 	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/sc.dir/parser.cc.o -c /home/lipe/Documentos/Compiladores/compilador-simples/make2/parser.cc
 
 CMakeFiles/sc.dir/parser.cc.i: cmake_force
@@ -123,6 +136,7 @@ CMakeFiles/sc.dir/parser.cc.s: cmake_force
 
 # Object files for target sc
 sc_OBJECTS = \
+"CMakeFiles/sc.dir/AST_classes.cc.o" \
 "CMakeFiles/sc.dir/driver.cc.o" \
 "CMakeFiles/sc.dir/main.cc.o" \
 "CMakeFiles/sc.dir/scanner.cc.o" \
@@ -131,13 +145,14 @@ sc_OBJECTS = \
 # External object files for target sc
 sc_EXTERNAL_OBJECTS =
 
+../sc: CMakeFiles/sc.dir/AST_classes.cc.o
 ../sc: CMakeFiles/sc.dir/driver.cc.o
 ../sc: CMakeFiles/sc.dir/main.cc.o
 ../sc: CMakeFiles/sc.dir/scanner.cc.o
 ../sc: CMakeFiles/sc.dir/parser.cc.o
 ../sc: CMakeFiles/sc.dir/build.make
 ../sc: CMakeFiles/sc.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/lipe/Documentos/Compiladores/compilador-simples/make2/CMakeFiles --progress-num=$(CMAKE_PROGRESS_7) "Linking CXX executable ../sc"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/lipe/Documentos/Compiladores/compilador-simples/make2/CMakeFiles --progress-num=$(CMAKE_PROGRESS_8) "Linking CXX executable ../sc"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/sc.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.

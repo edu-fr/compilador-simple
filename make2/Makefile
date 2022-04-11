@@ -123,6 +123,33 @@ sc/fast:
 	$(MAKE) -f CMakeFiles/sc.dir/build.make CMakeFiles/sc.dir/build
 .PHONY : sc/fast
 
+AST_classes.o: AST_classes.cc.o
+
+.PHONY : AST_classes.o
+
+# target to build an object file
+AST_classes.cc.o:
+	$(MAKE) -f CMakeFiles/sc.dir/build.make CMakeFiles/sc.dir/AST_classes.cc.o
+.PHONY : AST_classes.cc.o
+
+AST_classes.i: AST_classes.cc.i
+
+.PHONY : AST_classes.i
+
+# target to preprocess a source file
+AST_classes.cc.i:
+	$(MAKE) -f CMakeFiles/sc.dir/build.make CMakeFiles/sc.dir/AST_classes.cc.i
+.PHONY : AST_classes.cc.i
+
+AST_classes.s: AST_classes.cc.s
+
+.PHONY : AST_classes.s
+
+# target to generate assembly for a file
+AST_classes.cc.s:
+	$(MAKE) -f CMakeFiles/sc.dir/build.make CMakeFiles/sc.dir/AST_classes.cc.s
+.PHONY : AST_classes.cc.s
+
 driver.o: driver.cc.o
 
 .PHONY : driver.o
@@ -240,6 +267,9 @@ help:
 	@echo "... rebuild_cache"
 	@echo "... edit_cache"
 	@echo "... sc"
+	@echo "... AST_classes.o"
+	@echo "... AST_classes.i"
+	@echo "... AST_classes.s"
 	@echo "... driver.o"
 	@echo "... driver.i"
 	@echo "... driver.s"

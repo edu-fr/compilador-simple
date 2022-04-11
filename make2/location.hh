@@ -53,7 +53,7 @@
 #  endif
 # endif
 
-#line 44 "parser.yy"
+#line 47 "parser.yy"
 namespace Simples {
 #line 59 "/home/lipe/Documentos/Compiladores/compilador-simples/make2/location.hh"
 
@@ -327,7 +327,7 @@ namespace Simples {
     return ostr;
   }
 
-#line 44 "parser.yy"
+#line 47 "parser.yy"
 } // Simples
 #line 333 "/home/lipe/Documentos/Compiladores/compilador-simples/make2/location.hh"
 

@@ -44,14 +44,16 @@
 #ifndef YY_YY_HOME_LIPE_DOCUMENTOS_COMPILADORES_COMPILADOR_SIMPLES_MAKE2_PARSER_HH_INCLUDED
 # define YY_YY_HOME_LIPE_DOCUMENTOS_COMPILADORES_COMPILADOR_SIMPLES_MAKE2_PARSER_HH_INCLUDED
 // "%code requires" blocks.
-#line 15 "parser.yy"
+#line 16 "parser.yy"
 
-  #include <iostream>
-  #include "driver.hh"
-  #include "location.hh"
-  #include "position.hh"
+#include <iostream>
+#include "driver.hh"
+#include "location.hh"
+#include "position.hh"
+#include "AST_classes.hh"
+    using namespace std;
 
-#line 55 "/home/lipe/Documentos/Compiladores/compilador-simples/make2/parser.hh"
+#line 57 "/home/lipe/Documentos/Compiladores/compilador-simples/make2/parser.hh"
 
 
 # include <cstdlib> // std::abort
@@ -179,9 +181,9 @@
 # define YYDEBUG 1
 #endif
 
-#line 44 "parser.yy"
+#line 47 "parser.yy"
 namespace Simples {
-#line 185 "/home/lipe/Documentos/Compiladores/compilador-simples/make2/parser.hh"
+#line 187 "/home/lipe/Documentos/Compiladores/compilador-simples/make2/parser.hh"
 
 
 
@@ -194,14 +196,18 @@ namespace Simples {
     /// Symbol semantic values.
     union semantic_type
     {
-#line 59 "parser.yy"
+#line 62 "parser.yy"
 
- /* YYLTYPE */
-  int  			      integerVal;
-  double 			    doubleVal;
-  std::string*		stringVal;
+    /* YYLTYPE */
+    int  	         integerVal;
+    double 		     doubleVal;
+    std::string*	 stringVal;
+    ProgramaAst*   programa_val;
+    ExpAst*        exp_val;
+    AcaoAst*       acao_val;
+    LocalAst*      local_val;
 
-#line 205 "/home/lipe/Documentos/Compiladores/compilador-simples/make2/parser.hh"
+#line 211 "/home/lipe/Documentos/Compiladores/compilador-simples/make2/parser.hh"
 
     };
 #else
@@ -260,35 +266,30 @@ namespace Simples {
         REF = 281,
         RETORNE = 282,
         NULO = 283,
-        INICIO = 284,
-        FIM = 285,
-        EOL = 286,
-        COMENTARIO = 287,
-        SIMBOLO = 288,
-        MAIS = 289,
-        MENOS = 290,
-        BARRA = 291,
-        ASTERISCO = 292,
-        VIRGULA = 293,
-        DOISPONTOS = 294,
-        PONTOEVIRGULA = 295,
-        ABREPARENTESES = 296,
-        FECHAPARENTESES = 297,
-        ABRECOLCHETES = 298,
-        FECHACOLCHETES = 299,
-        ABRECHAVES = 300,
-        FECHACHAVES = 301,
-        PONTO = 302,
-        IGUAL = 303,
-        DIFERENTE = 304,
-        MENOR = 305,
-        MENORIGUAL = 306,
-        MAIOR = 307,
-        MAIORIGUAL = 308,
-        AND = 309,
-        OR = 310,
-        ATRIBUICAO = 311,
-        IGUALFUNCAO = 312
+        MAIS = 284,
+        MENOS = 285,
+        BARRA = 286,
+        ASTERISCO = 287,
+        VIRGULA = 288,
+        DOISPONTOS = 289,
+        PONTOEVIRGULA = 290,
+        ABREPARENTESES = 291,
+        FECHAPARENTESES = 292,
+        ABRECOLCHETES = 293,
+        FECHACOLCHETES = 294,
+        ABRECHAVES = 295,
+        FECHACHAVES = 296,
+        PONTO = 297,
+        EQUIVALENTE = 298,
+        DIFERENTE = 299,
+        MENOR = 300,
+        MENORIGUAL = 301,
+        MAIOR = 302,
+        MAIORIGUAL = 303,
+        AND = 304,
+        OR = 305,
+        ATRIBUICAO = 306,
+        IGUAL = 307
       };
     };
 
@@ -491,7 +492,7 @@ namespace Simples {
     static const signed char yydefact_[];
 
     // YYPGOTO[NTERM-NUM].
-    static const signed char yypgoto_[];
+    static const short yypgoto_[];
 
     // YYDEFGOTO[NTERM-NUM].
     static const short yydefgoto_[];
@@ -501,7 +502,7 @@ namespace Simples {
     // number is the opposite.  If YYTABLE_NINF, syntax error.
     static const unsigned char yytable_[];
 
-    static const short yycheck_[];
+    static const unsigned char yycheck_[];
 
     // YYSTOS[STATE-NUM] -- The (internal number of the) accessing
     // symbol of state STATE-NUM.
@@ -749,10 +750,10 @@ namespace Simples {
     enum
     {
       yyeof_ = 0,
-      yylast_ = 157,     ///< Last index in yytable_.
-      yynnts_ = 37,  ///< Number of nonterminal symbols.
-      yyfinal_ = 9, ///< Termination state number.
-      yyntokens_ = 77  ///< Number of tokens.
+      yylast_ = 162,     ///< Last index in yytable_.
+      yynnts_ = 39,  ///< Number of nonterminal symbols.
+      yyfinal_ = 6, ///< Termination state number.
+      yyntokens_ = 53  ///< Number of tokens.
     };
 
 
@@ -761,25 +762,25 @@ namespace Simples {
   };
 
 
-#line 44 "parser.yy"
+#line 47 "parser.yy"
 } // Simples
-#line 767 "/home/lipe/Documentos/Compiladores/compilador-simples/make2/parser.hh"
+#line 768 "/home/lipe/Documentos/Compiladores/compilador-simples/make2/parser.hh"
 
 
 
 // "%code provides" blocks.
-#line 22 "parser.yy"
+#line 25 "parser.yy"
 
   namespace Simples  {
     // Forward declaration of the Driver class
     class Driver;
 
     inline void yyerror (const char* msg) {
-      std::cerr << msg << std::endl;
+      cerr << msg << endl;
     }
   }
 
-#line 783 "/home/lipe/Documentos/Compiladores/compilador-simples/make2/parser.hh"
+#line 784 "/home/lipe/Documentos/Compiladores/compilador-simples/make2/parser.hh"
 
 
 #endif // !YY_YY_HOME_LIPE_DOCUMENTOS_COMPILADORES_COMPILADOR_SIMPLES_MAKE2_PARSER_HH_INCLUDED

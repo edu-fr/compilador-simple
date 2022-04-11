@@ -1,6 +1,7 @@
 file(REMOVE_RECURSE
   "../sc"
   "../sc.pdb"
+  "CMakeFiles/sc.dir/AST_classes.cc.o"
   "CMakeFiles/sc.dir/driver.cc.o"
   "CMakeFiles/sc.dir/main.cc.o"
   "CMakeFiles/sc.dir/parser.cc.o"

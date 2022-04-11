@@ -4,6 +4,7 @@ set(CMAKE_DEPENDS_LANGUAGES
   )
 # The set of files for implicit dependencies of each language:
 set(CMAKE_DEPENDS_CHECK_CXX
+  "/home/lipe/Documentos/Compiladores/compilador-simples/AST_classes.cc" "/home/lipe/Documentos/Compiladores/compilador-simples/make2/CMakeFiles/sc.dir/AST_classes.cc.o"
   "/home/lipe/Documentos/Compiladores/compilador-simples/driver.cc" "/home/lipe/Documentos/Compiladores/compilador-simples/make2/CMakeFiles/sc.dir/driver.cc.o"
   "/home/lipe/Documentos/Compiladores/compilador-simples/main.cc" "/home/lipe/Documentos/Compiladores/compilador-simples/make2/CMakeFiles/sc.dir/main.cc.o"
   "/home/lipe/Documentos/Compiladores/compilador-simples/make2/parser.cc" "/home/lipe/Documentos/Compiladores/compilador-simples/make2/CMakeFiles/sc.dir/parser.cc.o"

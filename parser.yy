@@ -134,9 +134,7 @@
 %% 
 
 programa:
-  declaracoes acao { 
-    $$ = new ProgramaAst(nullptr, $2);
-    cout << "programa" << endl; } 
+  declaracoes acao { $$ = new ProgramaAst(nullptr, $2); } 
 ;
 
 declaracoes: 
@@ -146,9 +144,7 @@ declaracoes:
 ;
 
 acao:
-  ACAO ":" lista_comandos { 
-    cout << "acao " <<  endl;
-    $$ = $3; }
+  ACAO ":" lista_comandos { $$ = $3; }
 ;
 
 lista_declaracao_de_tipo:
@@ -262,26 +258,12 @@ lista_declaracao_variavel_local:
 ;
 
 lista_comandos: 
-  comando { cout << "comando" <<  endl;
-    cout << "comando local: " << ((LocalAst*) ((AtribuicaoAst*)$$)->esq_)->val_ << endl;
-    cout << "comando exp: " << ((InteiroAst*) ((AtribuicaoAst*)$$)->dir_)->val_ << endl;
-  
-    $$ = new AcaoAst($1);  
-    cout << "comando" <<  endl;}
-| lista_comandos ";" comando { $$ = new AcaoAst($3, $1);  }
+  comando { $$ = new AcaoAst($1);  }
+| lista_comandos ";" comando { $$ = new AcaoAst($3, $1); }
 ;
 
 comando:
-  local ATRIBUICAO expr { 
-    cout << "oier" << endl;
-
-    cout << "local: " << ((LocalAst*) $1)->val_ << endl;
-    cout << "exp: " << ((InteiroAst*) $3)->val_ << endl;
-    $$ = new AtribuicaoAst($1, $3); 
-
-    cout << "local: " << ((LocalAst*) ((AtribuicaoAst*)$$)->esq_)->val_ << endl;
-    cout << "local: " << ((LocalAst*) ((AtribuicaoAst*)$$)->esq_)->val_ << endl;
-  }    
+  local ATRIBUICAO expr { $$ = new AtribuicaoAst($1, $3); }    
 | chamada_de_funcao
 | SE expr VERDADEIRO lista_comandos FSE 
 | SE expr VERDADEIRO lista_comandos FALSO lista_comandos FSE
