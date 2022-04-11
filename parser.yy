@@ -68,13 +68,14 @@
     LocalAst*                   local_val;
     DeclaracoesAst*             declaracao_val;
     DeclaracaoTiposAst*         declaracao_tipos_val;
-    DeclaracaoFuncoesAst*       declaracao_funcoes_val;
-    BaseDecVarAst*      declaracao_variavel_val;
+    BaseDecFuncAst*             declaracao_funcoes_val;
+    BaseDecVarAst*              declaracao_variavel_val;
+    BaseArgsAst*                argumento_val;
+    Modificador                 modificador_val;
+    CorpoAst*                   corpo_val;
 }
 
 /* Nao terminais */
-//%type <literal_val>    literal fator termo
-//%type <expr_arit_val>   expressao_aritmetica
 %type <programa_val> programa 
 %type <exp_val> expressao_aritmetica termo fator literal expr expressao_logica expressao_relacional inicializacao
 %type <acao_val> lista_comandos acao comando
@@ -82,7 +83,10 @@
 %type <declaracao_val> declaracoes
 %type <declaracao_tipos_val> lista_declaracao_de_tipo lista_declaracao_tipo declaracao_tipo 
 %type <declaracao_funcoes_val> lista_declaracao_de_funcao lista_declaracao_funcao declaracao_funcao
-%type <declaracao_variavel_val> declaracao_variavel lista_declaracao_de_variavel_global lista_declaracao_variavel_global
+%type <declaracao_variavel_val> declaracao_variavel lista_declaracao_de_variavel_global lista_declaracao_variavel_global lista_declaracao_variavel_local lista_declaracao_de_variavel_local
+%type <modificador_val> modificador
+%type <argumento_val> args lista_args lista_de_args
+%type <corpo_val> corpo
 
 /* Tokens */
 %token <stringVal>  IDENTIFICADOR   "identificador"
@@ -146,7 +150,9 @@ programa:
 declaracoes: 
   lista_declaracao_de_tipo 
   lista_declaracao_de_variavel_global
-  lista_declaracao_de_funcao { $$ = new DeclaracoesAst(nullptr, (DeclaracaoGlobaisAst*) $2, nullptr); }
+  lista_declaracao_de_funcao { $$ = new DeclaracoesAst( nullptr,
+                                                       (DeclaracaoGlobaisAst*) $2,
+                                                       (DeclaracaoFuncoesAst*) $3); }
 ;
 
 acao:
@@ -170,7 +176,7 @@ lista_declaracao_de_variavel_global:
 
 lista_declaracao_variavel_global:
   declaracao_variavel { $$ = new DeclaracaoGlobaisAst($1); }
-| lista_declaracao_variavel_global declaracao_variavel { $$ = new DeclaracaoGlobaisAst($2, $1); }
+| lista_declaracao_variavel_global declaracao_variavel { $$ = new DeclaracaoGlobaisAst($1, $2); }
 ;
 
 declaracao_variavel:    
@@ -215,57 +221,57 @@ tipo_constantes:
 ;
 
 lista_declaracao_de_funcao:
-  /* empty */ %empty 
-| FUNCAO ":" lista_declaracao_funcao
+  /* empty */ %empty { $$ = nullptr; }
+  | FUNCAO ":" lista_declaracao_funcao { $$ = $3; }
 ;
 
 lista_declaracao_funcao:
-  declaracao_funcao
-| lista_declaracao_funcao declaracao_funcao
+  declaracao_funcao { $$ = new DeclaracaoFuncoesAst($1); }
+| lista_declaracao_funcao declaracao_funcao { $$ = new DeclaracaoFuncoesAst($1, $2); }
 ;
 
 declaracao_funcao:
-  IDENTIFICADOR "(" lista_de_args ")" IGUAL corpo  
-| IDENTIFICADOR "(" lista_de_args ")" ":" IDENTIFICADOR IGUAL corpo  
+  IDENTIFICADOR "(" lista_de_args ")" "=" corpo { $$ = new DeclaracaoFuncaoAst(*$1, $3, $6); }
+| IDENTIFICADOR "(" lista_de_args ")" ":" IDENTIFICADOR "=" corpo { $$ = new DeclaracaoFuncaoAst(*$1, $3, *$6, $8); }
 ;
 
 lista_de_args: 
-  /* empty */ %empty 
-| lista_args
+  /* empty */ %empty { $$ = nullptr; }
+  | lista_args
 ;
 
 lista_args:
-  args
-| lista_args "," args
+  args { $$ = new ListaArgsAst($1); }
+  | lista_args "," args { $$ = new ListaArgsAst($1, $3); }
 ;
 
 args:
-  modificador IDENTIFICADOR ":" IDENTIFICADOR 
+  modificador IDENTIFICADOR ":" IDENTIFICADOR { $$ = new ArgumentoAst($1, *$2, *$4); }
 ;
 
 modificador:
-  VALOR
-| REF
+  VALOR { $$ = Modificador::VALOR; }
+| REF { $$ = Modificador::REFERENCIA; }
 ;
 
 corpo:
   lista_declaracao_de_variavel_local
-  ACAO ":" lista_comandos
+  ACAO ":" lista_comandos { $$ = new CorpoAst($1, $4); }
 ;
 
 lista_declaracao_de_variavel_local:
-  /* empty */ %empty 
-| LOCAL ":" lista_declaracao_variavel_local 
+  /* empty */ %empty { $$ = nullptr; }
+  | LOCAL ":" lista_declaracao_variavel_local { $$ = $3; }
 ;
 
 lista_declaracao_variavel_local:
-  declaracao_variavel
-| lista_declaracao_variavel_local declaracao_variavel
+  declaracao_variavel { $$ = new DeclaracaoVarLocaisAst($1); }
+| lista_declaracao_variavel_local declaracao_variavel { $$ = new DeclaracaoVarLocaisAst($1, $2); }
 ;
 
 lista_comandos: 
   comando { $$ = new AcaoAst($1);  }
-| lista_comandos ";" comando { $$ = new AcaoAst($3, $1); }
+| lista_comandos ";" comando { $$ = new AcaoAst($1, $3); }
 ;
 
 comando:
@@ -302,8 +308,8 @@ expressao_relacional:
 ;
 
 expressao_aritmetica:
-  expressao_aritmetica "+" termo  { $$ = new ExprAritAst($1, $3); }
-| expressao_aritmetica "-" termo  { $$ = new ExprAritAst($1, $3); }
+  expressao_aritmetica "+" termo { $$ = new ExprAritAst($1, $3); }
+| expressao_aritmetica "-" termo { $$ = new ExprAritAst($1, $3); }
 | termo 
 ;
 

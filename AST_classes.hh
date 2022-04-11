@@ -34,6 +34,20 @@ extern ProgramaAst* ast_root;
  *    DECLARACOES   *
  * ****************** */
 
+/* declaracao de tipos */
+
+class DeclaracaoTiposAst {
+public:
+    DeclaracaoTiposAst() {}
+    DeclaracaoTiposAst(DeclaracaoTiposAst* declaracao);
+    DeclaracaoTiposAst(DeclaracaoTiposAst* tail, DeclaracaoTiposAst* declaracao);
+    ~DeclaracaoTiposAst() {}
+
+    vector<DeclaracaoTiposAst*> lista_declaracoes_;
+};
+
+
+/* declaracao de variaveis */
 
 class BaseDecVarAst {
 public:
@@ -50,34 +64,94 @@ public:
     ExpAst* expressao_;
 };
 
+// FIX ME! ESSAS DUAS CLASSES FAZEM A MESMA COISA
 class DeclaracaoGlobaisAst : public BaseDecVarAst {
 public:
     DeclaracaoGlobaisAst(BaseDecVarAst* declaracao);
-    DeclaracaoGlobaisAst(BaseDecVarAst* declaracao, BaseDecVarAst* tail);
+    DeclaracaoGlobaisAst(BaseDecVarAst* tail, BaseDecVarAst* declaracao);
     ~DeclaracaoGlobaisAst() {}
 
     vector<DeclaracaoVariavelAst*> lista_declaracoes_;
 };
+// FIX ME! ESSAS DUAS CLASSES FAZEM A MESMA COISA
+class DeclaracaoVarLocaisAst : public BaseDecVarAst {
+public:
+    DeclaracaoVarLocaisAst(BaseDecVarAst* declaracao);
+    DeclaracaoVarLocaisAst(BaseDecVarAst* tail, BaseDecVarAst* declaracao);
+    ~DeclaracaoVarLocaisAst() {}
 
-class DeclaracaoFuncoesAst {
+    vector<DeclaracaoVariavelAst*> lista_declaracoes_;
+};
+
+/* declaracao de funcoes */
+
+class BaseDecFuncAst {
+public:
+    BaseDecFuncAst() {}
+    ~BaseDecFuncAst() {}
+};
+
+enum Modificador {
+    VALOR,
+    REFERENCIA
+};
+
+class BaseArgsAst {
+public:
+    BaseArgsAst() {}
+    ~BaseArgsAst() {}
+};
+
+class ArgumentoAst : public BaseArgsAst {
+public:
+    ArgumentoAst();
+    ArgumentoAst(Modificador mod, const string &id, const string &tipo);
+    ~ArgumentoAst();
+
+    Modificador mod_;
+    string id_, tipo_;
+};
+
+class ListaArgsAst : public BaseArgsAst {
+public:
+    ListaArgsAst(BaseArgsAst* arg);
+    ListaArgsAst(BaseArgsAst* tail, BaseArgsAst* arg);
+
+    vector<ArgumentoAst*> lista_argumentos_;
+};
+
+class CorpoAst {
+public:
+    CorpoAst() {}
+    CorpoAst(BaseDecVarAst* var_locais, AcaoAst* lista_comandos);
+    ~CorpoAst() {}
+
+    DeclaracaoVarLocaisAst* variaveis_locais_;
+    AcaoAst* lista_comandos_;
+};
+
+// ??? - MELHOR SEPARAR FUNCAO E PROCEDIMENTO???
+class DeclaracaoFuncaoAst : public BaseDecFuncAst {
+public:
+    DeclaracaoFuncaoAst(const string &id, BaseArgsAst* args, CorpoAst* corpo);
+    DeclaracaoFuncaoAst(const string &id, BaseArgsAst* args, const string &ret, CorpoAst* corpo);
+
+    string id_, retorno_;
+    ListaArgsAst* args_;
+    CorpoAst* corpo_;
+};
+
+class DeclaracaoFuncoesAst : public BaseDecFuncAst {
 public:
     DeclaracaoFuncoesAst() {}
-    DeclaracaoFuncoesAst(DeclaracaoFuncoesAst* declaracao);
-    DeclaracaoFuncoesAst(DeclaracaoFuncoesAst* declaracao, DeclaracaoFuncoesAst* tail);
+    DeclaracaoFuncoesAst(BaseDecFuncAst* declaracao);
+    DeclaracaoFuncoesAst(BaseDecFuncAst* tail, BaseDecFuncAst* declaracao);
     ~DeclaracaoFuncoesAst() {}
 
-    vector<DeclaracaoFuncoesAst*> lista_declaracoes_;
+    vector<DeclaracaoFuncaoAst*> lista_declaracoes_;
 };
 
-class DeclaracaoTiposAst {
-public:
-    DeclaracaoTiposAst() {}
-    DeclaracaoTiposAst(DeclaracaoTiposAst* declaracao);
-    DeclaracaoTiposAst(DeclaracaoTiposAst* declaracao, DeclaracaoTiposAst* tail);
-    ~DeclaracaoTiposAst() {}
-
-    vector<DeclaracaoTiposAst*> lista_declaracoes_;
-};
+/* declaracoes */
 
 class DeclaracoesAst {
 public:
@@ -99,7 +173,7 @@ class AcaoAst {
 public:
     AcaoAst() {}
     AcaoAst(AcaoAst* comando);
-    AcaoAst(AcaoAst* comando, AcaoAst* tail);
+    AcaoAst(AcaoAst* tail, AcaoAst* comando);
     ~AcaoAst() {}
 
     vector<AcaoAst*> lista_comandos_;

@@ -6,8 +6,10 @@
 
 ProgramaAst* ast_root;
 
-ProgramaAst::ProgramaAst(DeclaracoesAst* dec, AcaoAst* acao) : dec_(dec), acao_(acao)
+ProgramaAst::ProgramaAst(DeclaracoesAst* dec, AcaoAst* acao)
+    : dec_(dec), acao_(acao)
 {
+    // TESTE GLOBAIS
 //    for ( auto i : dec->globais_->lista_declaracoes_)
 //    {
 //        cout << "identificador: " << i->id_ << endl;
@@ -20,20 +22,82 @@ ProgramaAst::ProgramaAst(DeclaracoesAst* dec, AcaoAst* acao) : dec_(dec), acao_(
  *    DECLARACOES   *
  * ****************** */
 
+/* declaracao de variaveis */
+
+DeclaracaoVariavelAst::DeclaracaoVariavelAst(const string &id, const string &tipo, ExpAst* expressao)
+    : id_(id), tipo_(tipo), expressao_(expressao) {}
+
 DeclaracaoGlobaisAst::DeclaracaoGlobaisAst(BaseDecVarAst *declaracao)
 {
     lista_declaracoes_.push_back((DeclaracaoVariavelAst*)declaracao);
 }
 
-DeclaracaoGlobaisAst::DeclaracaoGlobaisAst(BaseDecVarAst *declaracao, BaseDecVarAst *tail)
+DeclaracaoGlobaisAst::DeclaracaoGlobaisAst(BaseDecVarAst *tail, BaseDecVarAst *declaracao)
 {
     lista_declaracoes_ = ((DeclaracaoGlobaisAst*) tail)->lista_declaracoes_;
     lista_declaracoes_.push_back((DeclaracaoVariavelAst*) declaracao);
 }
 
-DeclaracoesAst::DeclaracoesAst(DeclaracaoTiposAst* tipos, DeclaracaoGlobaisAst* globais, DeclaracaoFuncoesAst* funcoes) : tipos_(tipos), globais_(globais), funcoes_(funcoes) {}
+DeclaracaoVarLocaisAst::DeclaracaoVarLocaisAst(BaseDecVarAst *declaracao)
+{
+    lista_declaracoes_.push_back((DeclaracaoVariavelAst*)declaracao);
+}
 
-DeclaracaoVariavelAst::DeclaracaoVariavelAst(const string &id, const string &tipo, ExpAst* expressao) : id_(id), tipo_(tipo), expressao_(expressao) {}
+DeclaracaoVarLocaisAst::DeclaracaoVarLocaisAst(BaseDecVarAst *tail, BaseDecVarAst *declaracao)
+{
+    lista_declaracoes_ = ((DeclaracaoVarLocaisAst*) tail)->lista_declaracoes_;
+    lista_declaracoes_.push_back((DeclaracaoVariavelAst*) declaracao);
+}
+
+/* declaracao funcoes */
+
+ArgumentoAst::ArgumentoAst(Modificador mod, const string &id, const string &tipo)
+    : mod_(mod), id_(id), tipo_(tipo) {
+//    cout << "Modificador: " << mod_ << endl;
+//    cout << "Id: " << id_ << endl;
+//    cout << "Tipo: " << tipo_ << endl;
+}
+
+ListaArgsAst::ListaArgsAst(BaseArgsAst* arg)
+{
+    lista_argumentos_.push_back((ArgumentoAst*) arg);
+}
+
+ListaArgsAst::ListaArgsAst(BaseArgsAst* tail, BaseArgsAst* arg)
+{
+    lista_argumentos_ = ((ListaArgsAst*) tail)->lista_argumentos_;
+    lista_argumentos_.push_back((ArgumentoAst*) arg);
+}
+
+CorpoAst::CorpoAst(BaseDecVarAst *var_locais, AcaoAst* lista_comandos)
+    : variaveis_locais_((DeclaracaoVarLocaisAst*)var_locais), lista_comandos_(lista_comandos) {}
+
+DeclaracaoFuncaoAst::DeclaracaoFuncaoAst(const string &id, BaseArgsAst *args, CorpoAst* corpo)
+    : id_(id), args_((ListaArgsAst*)args), corpo_(corpo) {
+//    cout << "nome do procedimento: " << id_ << endl;
+}
+
+DeclaracaoFuncaoAst::DeclaracaoFuncaoAst(const string &id, BaseArgsAst* args, const string &ret, CorpoAst* corpo)
+    : id_(id), args_((ListaArgsAst*)args), retorno_(ret), corpo_(corpo) {
+//    cout << "nome da funcao: " << id_ << endl;
+}
+
+DeclaracaoFuncoesAst::DeclaracaoFuncoesAst(BaseDecFuncAst* declaracao)
+{
+    lista_declaracoes_.push_back((DeclaracaoFuncaoAst*) declaracao);
+}
+
+DeclaracaoFuncoesAst::DeclaracaoFuncoesAst(BaseDecFuncAst* tail, BaseDecFuncAst* declaracao)
+{
+    lista_declaracoes_ = ((DeclaracaoFuncoesAst*) tail)->lista_declaracoes_;
+    lista_declaracoes_.push_back((DeclaracaoFuncaoAst*) declaracao);
+}
+
+/* declaracoes */
+
+DeclaracoesAst::DeclaracoesAst(DeclaracaoTiposAst* tipos, DeclaracaoGlobaisAst* globais, DeclaracaoFuncoesAst* funcoes)
+    : tipos_(tipos), globais_(globais), funcoes_(funcoes) {}
+
 
 /* ******************
  *        ACOES     *
@@ -44,7 +108,7 @@ AcaoAst::AcaoAst(AcaoAst* comando)
     lista_comandos_.push_back(comando);
 }
 
-AcaoAst::AcaoAst(AcaoAst* comando, AcaoAst* tail)
+AcaoAst::AcaoAst(AcaoAst* tail, AcaoAst* comando)
 {
     lista_comandos_ = tail->lista_comandos_;
     lista_comandos_.push_back(comando);
@@ -53,20 +117,26 @@ AcaoAst::AcaoAst(AcaoAst* comando, AcaoAst* tail)
     // cout << "acao 1: " << ((InteiroAst*)((AtribuicaoAst*) lista_comandos_[0])->dir_)->val_ << endl;
 }
 
-AtribuicaoAst::AtribuicaoAst(LocalAst *esq, ExpAst *dir) : esq_(esq), dir_(dir) {}
+AtribuicaoAst::AtribuicaoAst(LocalAst *esq, ExpAst *dir)
+    : esq_(esq), dir_(dir) {}
 
 
 /* ******************
  *    EXPRESSOES    *
  * ****************** */
 
-InteiroAst::InteiroAst(int val) : val_(val) {}
+InteiroAst::InteiroAst(int val)
+    : val_(val) {}
 
-RealAst::RealAst(double val) : val_(val) {}
+RealAst::RealAst(double val)
+    : val_(val) {}
 
-CadeiaAst::CadeiaAst(const std::string &val) : val_(val) {}
+CadeiaAst::CadeiaAst(const std::string &val)
+    : val_(val) {}
 
-LocalAst::LocalAst(const std::string &val) : val_(val) {}
+LocalAst::LocalAst(const std::string &val)
+    : val_(val) {}
 
-ExprAritAst::ExprAritAst(ExpAst *esq, ExpAst *dir) : esq_(esq), dir_(dir) {}
+ExprAritAst::ExprAritAst(ExpAst *esq, ExpAst *dir)
+    : esq_(esq), dir_(dir) {}
 
