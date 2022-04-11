@@ -61,22 +61,30 @@
 %union
 {
     /* YYLTYPE */
-    int  	         integerVal;
-    double 		     doubleVal;
-    std::string*	 stringVal;
-    ProgramaAst*   programa_val;
-    ExpAst*        exp_val;
-    AcaoAst*       acao_val;
-    LocalAst*      local_val;
+    int  	                      integerVal;
+    double 		                  doubleVal;
+    std::string*	              stringVal;
+    ProgramaAst*                programa_val;
+    ExpAst*                     exp_val;
+    AcaoAst*                    acao_val;
+    LocalAst*                   local_val;
+    DeclaracaoAst*              declaracao_val;
+    DeclaracaoTiposAst*         declaracao_tipos_val;
+    DeclaracaoGlobaisAst*       declaracao_globais_val;
+    DeclaracaoFuncoesAst*       declaracao_funcoes_val;
 }
 
 /* Nao terminais */
 //%type <literal_val>    literal fator termo
 //%type <expr_arit_val>   expressao_aritmetica
 %type <programa_val> programa 
-%type <exp_val> expressao_aritmetica termo fator literal expr expressao_logica expressao_relacional
+%type <exp_val> expressao_aritmetica termo fator literal expr expressao_logica expressao_relacional inicializacao
 %type <acao_val> lista_comandos acao comando
 %type <local_val> local 
+%type <declaracao_val> declaracao_variavel  declaracoes
+%type <declaracao_tipos_val> lista_declaracao_de_tipo lista_declaracao_tipo declaracao_tipo 
+%type <declaracao_globais_val> lista_declaracao_de_variavel_global lista_declaracao_variavel_global 
+%type <declaracao_funcoes_val> lista_declaracao_de_funcao lista_declaracao_funcao declaracao_funcao
 
 /* Tokens */
 %token <stringVal>  IDENTIFICADOR   "identificador"
@@ -134,13 +142,13 @@
 %% 
 
 programa:
-  declaracoes acao { $$ = new ProgramaAst(nullptr, $2); } 
+  declaracoes acao { $$ = new ProgramaAst($1, $2); } 
 ;
 
 declaracoes: 
-  lista_declaracao_de_tipo
+  lista_declaracao_de_tipo 
   lista_declaracao_de_variavel_global
-  lista_declaracao_de_funcao
+  lista_declaracao_de_funcao { $$ = new DeclaracaoAst(nullptr, $2, nullptr); }
 ;
 
 acao:
@@ -159,16 +167,16 @@ lista_declaracao_tipo:
 
 lista_declaracao_de_variavel_global:
   /* empty */ %empty 
-| GLOBAL ":" lista_declaracao_variavel_global 
+| GLOBAL ":" lista_declaracao_variavel_global { $$ = $3; }
 ;
 
 lista_declaracao_variavel_global:
-  declaracao_variavel
-| lista_declaracao_variavel_global declaracao_variavel
+  declaracao_variavel { $$ = new ListaDeclarVarGlobal($1); }
+| lista_declaracao_variavel_global declaracao_variavel { $$ = new ListaDeclarVarGlobal($2, $1); }
 ;
 
-declaracao_variavel:
-  IDENTIFICADOR ":" IDENTIFICADOR ATRIBUICAO inicializacao 
+declaracao_variavel:    
+  IDENTIFICADOR ":" IDENTIFICADOR ":=" inicializacao { $$ = new DeclaraoVarAst($1, $3, $5); }
 ;
 
 inicializacao:

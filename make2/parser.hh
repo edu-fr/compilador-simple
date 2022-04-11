@@ -199,15 +199,19 @@ namespace Simples {
 #line 62 "parser.yy"
 
     /* YYLTYPE */
-    int  	         integerVal;
-    double 		     doubleVal;
-    std::string*	 stringVal;
-    ProgramaAst*   programa_val;
-    ExpAst*        exp_val;
-    AcaoAst*       acao_val;
-    LocalAst*      local_val;
+    int  	                      integerVal;
+    double 		                  doubleVal;
+    std::string*	              stringVal;
+    ProgramaAst*                programa_val;
+    ExpAst*                     exp_val;
+    AcaoAst*                    acao_val;
+    LocalAst*                   local_val;
+    DeclaracaoAst*              declaracao_val;
+    DeclaracaoTiposAst*         declaracao_tipos_val;
+    DeclaracaoGlobaisAst*       declaracao_globais_val;
+    DeclaracaoFuncoesAst*       declaracao_funcoes_val;
 
-#line 211 "/home/lipe/Documentos/Compiladores/compilador-simples/make2/parser.hh"
+#line 215 "/home/lipe/Documentos/Compiladores/compilador-simples/make2/parser.hh"
 
     };
 #else
@@ -764,7 +768,7 @@ namespace Simples {
 
 #line 47 "parser.yy"
 } // Simples
-#line 768 "/home/lipe/Documentos/Compiladores/compilador-simples/make2/parser.hh"
+#line 772 "/home/lipe/Documentos/Compiladores/compilador-simples/make2/parser.hh"
 
 
 
@@ -780,7 +784,7 @@ namespace Simples {
     }
   }
 
-#line 784 "/home/lipe/Documentos/Compiladores/compilador-simples/make2/parser.hh"
+#line 788 "/home/lipe/Documentos/Compiladores/compilador-simples/make2/parser.hh"
 
 
 #endif // !YY_YY_HOME_LIPE_DOCUMENTOS_COMPILADORES_COMPILADOR_SIMPLES_MAKE2_PARSER_HH_INCLUDED

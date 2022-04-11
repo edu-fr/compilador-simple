@@ -6,18 +6,47 @@
 #include <memory>
 #include <iostream>
 
-class NoAst {
-    public:
-    NoAst() {}
-    ~NoAst() {}
+using namespace std;
+
+class DeclaracaoGlobaisAst {
+public:
+    DeclaracaoGlobaisAst() {}
+    DeclaracaoGlobaisAst(DeclaracaoGlobaisAst* declaracao);
+    DeclaracaoGlobaisAst(DeclaracaoGlobaisAst* declaracao, DeclaracaoGlobaisAst* tail);
+    ~DeclaracaoGlobaisAst() {}
+    vector<DeclaracaoGlobaisAst*> lista_declaracoes_;    
 };
 
-class DeclaracaoAst : public NoAst {
+class DeclaracaoFuncoesAst {
+public:
+    DeclaracaoFuncoesAst() {}
+    DeclaracaoFuncoesAst(DeclaracaoFuncoesAst* declaracao);
+    DeclaracaoFuncoesAst(DeclaracaoFuncoesAst* declaracao, DeclaracaoFuncoesAst* tail);
+    ~DeclaracaoFuncoesAst() {}
+    vector<DeclaracaoFuncoesAst*> lista_declaracoes_;    
+};
+
+class DeclaracaoTiposAst {
+public:
+    DeclaracaoTiposAst() {}
+    DeclaracaoTiposAst(DeclaracaoTiposAst* declaracao);
+    DeclaracaoTiposAst(DeclaracaoTiposAst* declaracao, DeclaracaoTiposAst* tail);
+    ~DeclaracaoTiposAst() {}
+    vector<DeclaracaoTiposAst*> lista_declaracoes_;    
+};
+
+class DeclaracaoAst {
     public:
     DeclaracaoAst() {}
+    DeclaracaoAst(DeclaracaoTiposAst* tipos, DeclaracaoGlobaisAst* globais, DeclaracaoFuncoesAst* funcoes);
+
+    DeclaracaoGlobaisAst* globais_;
+    DeclaracaoFuncoesAst* funcoes_;
+    DeclaracaoTiposAst* tipos_;
 };
 
-class AcaoAst : public NoAst {
+
+class AcaoAst {
 public:
     AcaoAst() {}
     // AcaoAst(const AcaoAst &other);
@@ -25,7 +54,7 @@ public:
     AcaoAst(AcaoAst* comando, AcaoAst* tail);
     ~AcaoAst() {}
     
-    std::vector<AcaoAst*> lista_comandos_;
+    vector<AcaoAst*> lista_comandos_;
 };
 
 // class ComandoAst : public AcaoAst {
@@ -33,7 +62,7 @@ public:
 //     ComandoAst();    
 // };
 
-class ProgramaAst : public NoAst {
+class ProgramaAst {
 public:
     ProgramaAst(DeclaracaoAst* dec, AcaoAst* acao);
     ~ProgramaAst() {}
@@ -44,7 +73,7 @@ public:
 
 extern ProgramaAst* ast_root;
 
-class ExpAst : public NoAst {
+class ExpAst {
 public:
     ExpAst() {}
     ~ExpAst() {}
@@ -66,15 +95,15 @@ public:
 
 class CadeiaAst : public ExpAst {
 public:
-    CadeiaAst(const std::string &val);
-    std::string val_;
+    CadeiaAst(const string &val);
+    string val_;
 };
 
 class LocalAst : public ExpAst {
 public:
-    LocalAst(const std::string &val);
+    LocalAst(const string &val);
 
-    std::string val_;
+    string val_;
 };
 
 class ExprAritAst : public ExpAst {
@@ -91,6 +120,15 @@ public:
 
     LocalAst* esq_;
     ExpAst* dir_;
+};
+
+class DeclaracaoVarAst : public DeclaracaoAst {
+public:
+    DeclaracaoVarAst(string id, string tipo, ExpAst* expressao); 
+    ~DeclaracaoVarAst();
+
+    string id_, tipo_; 
+    ExpAst* expressao_;
 };
 
 #endif

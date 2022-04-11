@@ -30,20 +30,6 @@ parser.hh
 FlexLexer.h
 -
 
-/home/lipe/Documentos/Compiladores/compilador-simples/AST_classes.cc
-AST_classes.hh
-/home/lipe/Documentos/Compiladores/compilador-simples/AST_classes.hh
-
-/home/lipe/Documentos/Compiladores/compilador-simples/AST_classes.hh
-string
--
-vector
--
-memory
--
-iostream
--
-
 /home/lipe/Documentos/Compiladores/compilador-simples/driver.cc
 driver.hh
 /home/lipe/Documentos/Compiladores/compilador-simples/driver.hh
@@ -59,18 +45,6 @@ iostream
 -
 fstream
 -
-
-/home/lipe/Documentos/Compiladores/compilador-simples/main.cc
-string
--
-iostream
--
-unistd.h
--
-driver.hh
-/home/lipe/Documentos/Compiladores/compilador-simples/driver.hh
-AST_classes.hh
-/home/lipe/Documentos/Compiladores/compilador-simples/AST_classes.hh
 
 /home/lipe/Documentos/Compiladores/compilador-simples/make2/location.hh
 iostream

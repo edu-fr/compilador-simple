@@ -638,181 +638,241 @@ namespace Simples {
           switch (yyn)
             {
   case 2:
-#line 137 "parser.yy"
-                   { (yylhs.value.programa_val) = new ProgramaAst(nullptr, (yystack_[0].value.acao_val)); }
+#line 145 "parser.yy"
+                   { (yylhs.value.programa_val) = new ProgramaAst((yystack_[1].value.declaracao_val), (yystack_[0].value.acao_val)); }
 #line 644 "/home/lipe/Documentos/Compiladores/compilador-simples/make2/parser.cc"
     break;
 
-  case 4:
-#line 147 "parser.yy"
-                          { (yylhs.value.acao_val) = (yystack_[0].value.acao_val); }
+  case 3:
+#line 151 "parser.yy"
+                             { (yylhs.value.declaracao_val) = new DeclaracaoAst(nullptr, (yystack_[1].value.declaracao_globais_val), nullptr); }
 #line 650 "/home/lipe/Documentos/Compiladores/compilador-simples/make2/parser.cc"
     break;
 
-  case 45:
-#line 261 "parser.yy"
-          { (yylhs.value.acao_val) = new AcaoAst((yystack_[0].value.acao_val));  }
+  case 4:
+#line 155 "parser.yy"
+                          { (yylhs.value.acao_val) = (yystack_[0].value.acao_val); }
 #line 656 "/home/lipe/Documentos/Compiladores/compilador-simples/make2/parser.cc"
     break;
 
-  case 46:
-#line 262 "parser.yy"
-                             { (yylhs.value.acao_val) = new AcaoAst((yystack_[0].value.acao_val), (yystack_[2].value.acao_val)); }
+  case 7:
+#line 164 "parser.yy"
+  { (yylhs.value.declaracao_tipos_val) = (yystack_[0].value.declaracao_tipos_val); }
 #line 662 "/home/lipe/Documentos/Compiladores/compilador-simples/make2/parser.cc"
     break;
 
-  case 47:
-#line 266 "parser.yy"
-                        { (yylhs.value.acao_val) = new AtribuicaoAst((yystack_[2].value.local_val), (yystack_[0].value.exp_val)); }
+  case 8:
+#line 165 "parser.yy"
+  { (yylhs.value.declaracao_tipos_val) = (yystack_[1].value.declaracao_tipos_val); }
 #line 668 "/home/lipe/Documentos/Compiladores/compilador-simples/make2/parser.cc"
     break;
 
-  case 56:
-#line 278 "parser.yy"
-  { (yylhs.value.exp_val) = (yystack_[0].value.exp_val); }
+  case 10:
+#line 170 "parser.yy"
+                                              { (yylhs.value.declaracao_globais_val) = (yystack_[0].value.declaracao_globais_val); }
 #line 674 "/home/lipe/Documentos/Compiladores/compilador-simples/make2/parser.cc"
     break;
 
-  case 58:
-#line 283 "parser.yy"
-  { (yylhs.value.exp_val) = (yystack_[2].value.exp_val); }
+  case 11:
+#line 174 "parser.yy"
+                      { (yylhs.value.declaracao_globais_val) = new ListaDeclarVarGlobal((yystack_[0].value.declaracao_val)); }
 #line 680 "/home/lipe/Documentos/Compiladores/compilador-simples/make2/parser.cc"
     break;
 
-  case 59:
-#line 284 "parser.yy"
-  { (yylhs.value.exp_val) = (yystack_[2].value.exp_val); }
+  case 12:
+#line 175 "parser.yy"
+                                                       { (yylhs.value.declaracao_globais_val) = new ListaDeclarVarGlobal((yystack_[0].value.declaracao_val), (yystack_[1].value.declaracao_globais_val)); }
 #line 686 "/home/lipe/Documentos/Compiladores/compilador-simples/make2/parser.cc"
     break;
 
-  case 60:
-#line 285 "parser.yy"
-  { (yylhs.value.exp_val) = (yystack_[0].value.exp_val); }
+  case 13:
+#line 179 "parser.yy"
+                                                     { (yylhs.value.declaracao_val) = new DeclaraoVarAst((yystack_[4].value.stringVal), (yystack_[2].value.stringVal), (yystack_[0].value.exp_val)); }
 #line 692 "/home/lipe/Documentos/Compiladores/compilador-simples/make2/parser.cc"
     break;
 
-  case 61:
-#line 289 "parser.yy"
-  { (yylhs.value.exp_val) = (yystack_[2].value.exp_val); }
+  case 14:
+#line 183 "parser.yy"
+  { (yylhs.value.exp_val) = (yystack_[0].value.exp_val); }
 #line 698 "/home/lipe/Documentos/Compiladores/compilador-simples/make2/parser.cc"
     break;
 
-  case 62:
-#line 290 "parser.yy"
-  { (yylhs.value.exp_val) = (yystack_[2].value.exp_val); }
+  case 29:
+#line 225 "parser.yy"
+  { (yylhs.value.declaracao_funcoes_val) = (yystack_[0].value.declaracao_funcoes_val); }
 #line 704 "/home/lipe/Documentos/Compiladores/compilador-simples/make2/parser.cc"
     break;
 
-  case 63:
-#line 291 "parser.yy"
-  { (yylhs.value.exp_val) = (yystack_[2].value.exp_val); }
+  case 30:
+#line 226 "parser.yy"
+  { (yylhs.value.declaracao_funcoes_val) = (yystack_[1].value.declaracao_funcoes_val); }
 #line 710 "/home/lipe/Documentos/Compiladores/compilador-simples/make2/parser.cc"
     break;
 
-  case 64:
-#line 292 "parser.yy"
-  { (yylhs.value.exp_val) = (yystack_[2].value.exp_val); }
+  case 45:
+#line 269 "parser.yy"
+          { (yylhs.value.acao_val) = new AcaoAst((yystack_[0].value.acao_val));  }
 #line 716 "/home/lipe/Documentos/Compiladores/compilador-simples/make2/parser.cc"
     break;
 
-  case 65:
-#line 293 "parser.yy"
-  { (yylhs.value.exp_val) = (yystack_[2].value.exp_val); }
+  case 46:
+#line 270 "parser.yy"
+                             { (yylhs.value.acao_val) = new AcaoAst((yystack_[0].value.acao_val), (yystack_[2].value.acao_val)); }
 #line 722 "/home/lipe/Documentos/Compiladores/compilador-simples/make2/parser.cc"
     break;
 
-  case 66:
-#line 294 "parser.yy"
-  { (yylhs.value.exp_val) = (yystack_[2].value.exp_val); }
+  case 47:
+#line 274 "parser.yy"
+                        { (yylhs.value.acao_val) = new AtribuicaoAst((yystack_[2].value.local_val), (yystack_[0].value.exp_val)); }
 #line 728 "/home/lipe/Documentos/Compiladores/compilador-simples/make2/parser.cc"
     break;
 
-  case 67:
-#line 295 "parser.yy"
+  case 56:
+#line 286 "parser.yy"
   { (yylhs.value.exp_val) = (yystack_[0].value.exp_val); }
 #line 734 "/home/lipe/Documentos/Compiladores/compilador-simples/make2/parser.cc"
     break;
 
-  case 68:
-#line 299 "parser.yy"
-                                  { (yylhs.value.exp_val) = new ExprAritAst((yystack_[2].value.exp_val), (yystack_[0].value.exp_val)); }
+  case 58:
+#line 291 "parser.yy"
+  { (yylhs.value.exp_val) = (yystack_[2].value.exp_val); }
 #line 740 "/home/lipe/Documentos/Compiladores/compilador-simples/make2/parser.cc"
     break;
 
-  case 69:
-#line 300 "parser.yy"
-                                  { (yylhs.value.exp_val) = new ExprAritAst((yystack_[2].value.exp_val), (yystack_[0].value.exp_val)); }
+  case 59:
+#line 292 "parser.yy"
+  { (yylhs.value.exp_val) = (yystack_[2].value.exp_val); }
 #line 746 "/home/lipe/Documentos/Compiladores/compilador-simples/make2/parser.cc"
     break;
 
-  case 70:
-#line 301 "parser.yy"
+  case 60:
+#line 293 "parser.yy"
   { (yylhs.value.exp_val) = (yystack_[0].value.exp_val); }
 #line 752 "/home/lipe/Documentos/Compiladores/compilador-simples/make2/parser.cc"
     break;
 
-  case 71:
-#line 305 "parser.yy"
+  case 61:
+#line 297 "parser.yy"
   { (yylhs.value.exp_val) = (yystack_[2].value.exp_val); }
 #line 758 "/home/lipe/Documentos/Compiladores/compilador-simples/make2/parser.cc"
     break;
 
-  case 72:
-#line 306 "parser.yy"
+  case 62:
+#line 298 "parser.yy"
   { (yylhs.value.exp_val) = (yystack_[2].value.exp_val); }
 #line 764 "/home/lipe/Documentos/Compiladores/compilador-simples/make2/parser.cc"
     break;
 
-  case 73:
-#line 307 "parser.yy"
-  { (yylhs.value.exp_val) = (yystack_[0].value.exp_val); }
+  case 63:
+#line 299 "parser.yy"
+  { (yylhs.value.exp_val) = (yystack_[2].value.exp_val); }
 #line 770 "/home/lipe/Documentos/Compiladores/compilador-simples/make2/parser.cc"
     break;
 
-  case 75:
-#line 312 "parser.yy"
-  { (yylhs.value.exp_val) = (yystack_[0].value.exp_val); }
+  case 64:
+#line 300 "parser.yy"
+  { (yylhs.value.exp_val) = (yystack_[2].value.exp_val); }
 #line 776 "/home/lipe/Documentos/Compiladores/compilador-simples/make2/parser.cc"
     break;
 
-  case 83:
-#line 329 "parser.yy"
-          { (yylhs.value.exp_val) = new InteiroAst((yystack_[0].value.integerVal)); }
+  case 65:
+#line 301 "parser.yy"
+  { (yylhs.value.exp_val) = (yystack_[2].value.exp_val); }
 #line 782 "/home/lipe/Documentos/Compiladores/compilador-simples/make2/parser.cc"
     break;
 
-  case 84:
-#line 330 "parser.yy"
-       { (yylhs.value.exp_val) = new RealAst((yystack_[0].value.doubleVal)); }
+  case 66:
+#line 302 "parser.yy"
+  { (yylhs.value.exp_val) = (yystack_[2].value.exp_val); }
 #line 788 "/home/lipe/Documentos/Compiladores/compilador-simples/make2/parser.cc"
     break;
 
-  case 85:
-#line 331 "parser.yy"
-         { (yylhs.value.exp_val) = new CadeiaAst(*(yystack_[0].value.stringVal)); }
+  case 67:
+#line 303 "parser.yy"
+  { (yylhs.value.exp_val) = (yystack_[0].value.exp_val); }
 #line 794 "/home/lipe/Documentos/Compiladores/compilador-simples/make2/parser.cc"
     break;
 
-  case 86:
-#line 335 "parser.yy"
-                { (yylhs.value.local_val) = new LocalAst(*(yystack_[0].value.stringVal)); }
+  case 68:
+#line 307 "parser.yy"
+                                  { (yylhs.value.exp_val) = new ExprAritAst((yystack_[2].value.exp_val), (yystack_[0].value.exp_val)); }
 #line 800 "/home/lipe/Documentos/Compiladores/compilador-simples/make2/parser.cc"
     break;
 
-  case 87:
-#line 336 "parser.yy"
-  { (yylhs.value.local_val) = (yystack_[2].value.local_val); }
+  case 69:
+#line 308 "parser.yy"
+                                  { (yylhs.value.exp_val) = new ExprAritAst((yystack_[2].value.exp_val), (yystack_[0].value.exp_val)); }
 #line 806 "/home/lipe/Documentos/Compiladores/compilador-simples/make2/parser.cc"
     break;
 
-  case 88:
-#line 337 "parser.yy"
-  { (yylhs.value.local_val) = (yystack_[3].value.local_val); }
+  case 70:
+#line 309 "parser.yy"
+  { (yylhs.value.exp_val) = (yystack_[0].value.exp_val); }
 #line 812 "/home/lipe/Documentos/Compiladores/compilador-simples/make2/parser.cc"
     break;
 
+  case 71:
+#line 313 "parser.yy"
+  { (yylhs.value.exp_val) = (yystack_[2].value.exp_val); }
+#line 818 "/home/lipe/Documentos/Compiladores/compilador-simples/make2/parser.cc"
+    break;
 
-#line 816 "/home/lipe/Documentos/Compiladores/compilador-simples/make2/parser.cc"
+  case 72:
+#line 314 "parser.yy"
+  { (yylhs.value.exp_val) = (yystack_[2].value.exp_val); }
+#line 824 "/home/lipe/Documentos/Compiladores/compilador-simples/make2/parser.cc"
+    break;
+
+  case 73:
+#line 315 "parser.yy"
+  { (yylhs.value.exp_val) = (yystack_[0].value.exp_val); }
+#line 830 "/home/lipe/Documentos/Compiladores/compilador-simples/make2/parser.cc"
+    break;
+
+  case 75:
+#line 320 "parser.yy"
+  { (yylhs.value.exp_val) = (yystack_[0].value.exp_val); }
+#line 836 "/home/lipe/Documentos/Compiladores/compilador-simples/make2/parser.cc"
+    break;
+
+  case 83:
+#line 337 "parser.yy"
+          { (yylhs.value.exp_val) = new InteiroAst((yystack_[0].value.integerVal)); }
+#line 842 "/home/lipe/Documentos/Compiladores/compilador-simples/make2/parser.cc"
+    break;
+
+  case 84:
+#line 338 "parser.yy"
+       { (yylhs.value.exp_val) = new RealAst((yystack_[0].value.doubleVal)); }
+#line 848 "/home/lipe/Documentos/Compiladores/compilador-simples/make2/parser.cc"
+    break;
+
+  case 85:
+#line 339 "parser.yy"
+         { (yylhs.value.exp_val) = new CadeiaAst(*(yystack_[0].value.stringVal)); }
+#line 854 "/home/lipe/Documentos/Compiladores/compilador-simples/make2/parser.cc"
+    break;
+
+  case 86:
+#line 343 "parser.yy"
+                { (yylhs.value.local_val) = new LocalAst(*(yystack_[0].value.stringVal)); }
+#line 860 "/home/lipe/Documentos/Compiladores/compilador-simples/make2/parser.cc"
+    break;
+
+  case 87:
+#line 344 "parser.yy"
+  { (yylhs.value.local_val) = (yystack_[2].value.local_val); }
+#line 866 "/home/lipe/Documentos/Compiladores/compilador-simples/make2/parser.cc"
+    break;
+
+  case 88:
+#line 345 "parser.yy"
+  { (yylhs.value.local_val) = (yystack_[3].value.local_val); }
+#line 872 "/home/lipe/Documentos/Compiladores/compilador-simples/make2/parser.cc"
+    break;
+
+
+#line 876 "/home/lipe/Documentos/Compiladores/compilador-simples/make2/parser.cc"
 
             default:
               break;
@@ -1280,15 +1340,15 @@ namespace Simples {
   const short
   Parser::yyrline_[] =
   {
-       0,   137,   137,   141,   147,   151,   152,   156,   157,   161,
-     162,   166,   167,   171,   175,   179,   180,   184,   188,   192,
-     193,   194,   198,   199,   203,   207,   208,   212,   213,   217,
-     218,   222,   223,   227,   228,   232,   233,   237,   241,   242,
-     246,   251,   252,   256,   257,   261,   262,   266,   267,   268,
-     269,   270,   271,   272,   273,   274,   278,   279,   283,   284,
-     285,   289,   290,   291,   292,   293,   294,   295,   299,   300,
-     301,   305,   306,   307,   311,   312,   313,   314,   315,   319,
-     323,   324,   325,   329,   330,   331,   335,   336,   337
+       0,   145,   145,   149,   155,   159,   160,   164,   165,   169,
+     170,   174,   175,   179,   183,   187,   188,   192,   196,   200,
+     201,   202,   206,   207,   211,   215,   216,   220,   221,   225,
+     226,   230,   231,   235,   236,   240,   241,   245,   249,   250,
+     254,   259,   260,   264,   265,   269,   270,   274,   275,   276,
+     277,   278,   279,   280,   281,   282,   286,   287,   291,   292,
+     293,   297,   298,   299,   300,   301,   302,   303,   307,   308,
+     309,   313,   314,   315,   319,   320,   321,   322,   323,   327,
+     331,   332,   333,   337,   338,   339,   343,   344,   345
   };
 
   // Print the state stack on the debug stream.
@@ -1373,9 +1433,9 @@ namespace Simples {
 
 #line 47 "parser.yy"
 } // Simples
-#line 1377 "/home/lipe/Documentos/Compiladores/compilador-simples/make2/parser.cc"
+#line 1437 "/home/lipe/Documentos/Compiladores/compilador-simples/make2/parser.cc"
 
-#line 340 "parser.yy"
+#line 348 "parser.yy"
 
 
 namespace Simples {
