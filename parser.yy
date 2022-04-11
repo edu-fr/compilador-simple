@@ -56,7 +56,7 @@
 /* use newer C++ skeleton file */
 %skeleton "lalr1.cc"
 /* Entry point of grammar */
-%start literal
+%start programa
 
 %union
 {
@@ -74,7 +74,7 @@
 //%type <literal_val>    literal fator termo
 //%type <expr_arit_val>   expressao_aritmetica
 %type <programa_val> programa 
-%type <exp_val> expressao_aritmetica termo fator literal expr
+%type <exp_val> expressao_aritmetica termo fator literal expr expressao_logica expressao_relacional
 %type <acao_val> lista_comandos acao comando
 %type <local_val> local 
 
@@ -134,9 +134,9 @@
 %% 
 
 programa:
-  /* declaracoes
-  acao { cout << "programa" << endl; } */
-  literal
+  declaracoes acao { 
+    $$ = new ProgramaAst(nullptr, $2);
+    cout << "programa" << endl; } 
 ;
 
 declaracoes: 
@@ -263,18 +263,25 @@ lista_declaracao_variavel_local:
 
 lista_comandos: 
   comando { cout << "comando" <<  endl;
-    $$ = new AcaoAst($1, nullptr);  }
+    cout << "comando local: " << ((LocalAst*) ((AtribuicaoAst*)$$)->esq_)->val_ << endl;
+    cout << "comando exp: " << ((InteiroAst*) ((AtribuicaoAst*)$$)->dir_)->val_ << endl;
+  
+    $$ = new AcaoAst($1);  
+    cout << "comando" <<  endl;}
 | lista_comandos ";" comando { $$ = new AcaoAst($3, $1);  }
 ;
 
 comando:
   local ATRIBUICAO expr { 
     cout << "oier" << endl;
-    $$ = new AtribuicaoAst($1, $3); 
 
     cout << "local: " << ((LocalAst*) $1)->val_ << endl;
     cout << "exp: " << ((InteiroAst*) $3)->val_ << endl;
-  }
+    $$ = new AtribuicaoAst($1, $3); 
+
+    cout << "local: " << ((LocalAst*) ((AtribuicaoAst*)$$)->esq_)->val_ << endl;
+    cout << "local: " << ((LocalAst*) ((AtribuicaoAst*)$$)->esq_)->val_ << endl;
+  }    
 | chamada_de_funcao
 | SE expr VERDADEIRO lista_comandos FSE 
 | SE expr VERDADEIRO lista_comandos FALSO lista_comandos FSE

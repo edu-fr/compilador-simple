@@ -6,24 +6,45 @@
 #include <memory>
 #include <iostream>
 
-class ProgramaAst {
-public:
-    ProgramaAst() {}
-    ~ProgramaAst() {}
+class NoAst {
+    public:
+    NoAst() {}
+    ~NoAst() {}
 };
 
-extern ProgramaAst* ast_root;
+class DeclaracaoAst : public NoAst {
+    public:
+    DeclaracaoAst() {}
+};
 
-class AcaoAst : public ProgramaAst {
+class AcaoAst : public NoAst {
 public:
+    AcaoAst() {}
+    AcaoAst(const AcaoAst &other);
     AcaoAst(AcaoAst* comando);
     AcaoAst(AcaoAst* comando, AcaoAst* tail);
     ~AcaoAst() {}
     
-    std::vector<AcaoAst*> lista_comandos;
+    std::vector<AcaoAst*> lista_comandos_;
 };
 
-class ExpAst : public ProgramaAst {
+// class ComandoAst : public AcaoAst {
+// public:
+//     ComandoAst();    
+// };
+
+class ProgramaAst : public NoAst {
+public:
+    ProgramaAst(DeclaracaoAst* dec, AcaoAst* acao);
+    ~ProgramaAst() {}
+
+    DeclaracaoAst* dec_;
+    AcaoAst* acao_;
+};
+
+extern ProgramaAst* ast_root;
+
+class ExpAst : public NoAst {
 public:
     ExpAst() {}
     ~ExpAst() {}
