@@ -36,14 +36,78 @@ extern ProgramaAst* ast_root;
 
 /* declaracao de tipos */
 
-class DeclaracaoTiposAst {
+class BaseDecTiposAst {
 public:
-    DeclaracaoTiposAst() {}
-    DeclaracaoTiposAst(DeclaracaoTiposAst* declaracao);
-    DeclaracaoTiposAst(DeclaracaoTiposAst* tail, DeclaracaoTiposAst* declaracao);
-    ~DeclaracaoTiposAst() {}
+    BaseDecTiposAst() {}
+    ~BaseDecTiposAst() {}
+};
 
-    vector<DeclaracaoTiposAst*> lista_declaracoes_;
+class TipoCampoAst : public BaseDecTiposAst {
+public:
+    TipoCampoAst(const string &id, const string &tipo);
+
+    string id_;
+    string tipo_;
+};
+
+class TipoCamposAst : public BaseDecTiposAst {
+public:
+    TipoCamposAst(BaseDecTiposAst* campo);
+    TipoCamposAst(BaseDecTiposAst* tail, BaseDecTiposAst* campo);
+
+    vector<TipoCampoAst*> lista_campos_;
+};
+
+class DescritorTipoAst {
+public:
+    DescritorTipoAst() {}
+    ~DescritorTipoAst() {}
+};
+
+class DescritorTipoIdAst : public DescritorTipoAst {
+public:
+    DescritorTipoIdAst(const string &id);
+
+    string id_;
+};
+
+class DescritorTipoCamposAst : public DescritorTipoAst {
+public:
+    DescritorTipoCamposAst(BaseDecTiposAst* campos);
+
+    TipoCamposAst* tipo_campos_;
+};
+
+class TipoConstantesAst {
+public:
+    TipoConstantesAst(int val);
+    TipoConstantesAst(TipoConstantesAst* ctes, int val);
+
+    vector<int> tipo_ctes_;
+};
+
+class DescritorTipoCtesAst : public DescritorTipoAst {
+public:
+    DescritorTipoCtesAst(TipoConstantesAst* ctes, const string &tipo);
+
+    TipoConstantesAst* tipo_constantes_;
+    string tipo_;
+};
+
+class DeclaracaoTipoAst : public BaseDecTiposAst {
+public:
+    DeclaracaoTipoAst(const string &id, DescritorTipoAst* descritor_tipo);
+
+    string id_;
+    DescritorTipoAst* descritor_tipo_;
+};
+
+class DeclaracaoTiposAst : public BaseDecTiposAst {
+public:
+    DeclaracaoTiposAst(BaseDecTiposAst* declaracao);
+    DeclaracaoTiposAst(BaseDecTiposAst* tail, BaseDecTiposAst* declaracao);
+
+    vector<DeclaracaoTipoAst*> lista_declaracoes_;
 };
 
 
@@ -155,8 +219,8 @@ public:
 
 class DeclaracoesAst {
 public:
-    DeclaracoesAst() {}
-    DeclaracoesAst(DeclaracaoTiposAst* tipos, DeclaracaoGlobaisAst* globais, DeclaracaoFuncoesAst* funcoes);
+    DeclaracoesAst(BaseDecTiposAst* tipos, BaseDecVarAst* globais, BaseDecFuncAst* funcoes);
+    ~DeclaracoesAst() {}
 
     DeclaracaoGlobaisAst* globais_;
     DeclaracaoFuncoesAst* funcoes_;

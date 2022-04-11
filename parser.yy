@@ -67,12 +67,14 @@
     AcaoAst*                    acao_val;
     LocalAst*                   local_val;
     DeclaracoesAst*             declaracao_val;
-    DeclaracaoTiposAst*         declaracao_tipos_val;
+    BaseDecTiposAst*            declaracao_tipos_val;
     BaseDecFuncAst*             declaracao_funcoes_val;
     BaseDecVarAst*              declaracao_variavel_val;
     BaseArgsAst*                argumento_val;
     Modificador                 modificador_val;
     CorpoAst*                   corpo_val;
+    TipoConstantesAst*          tipo_ctes_val;
+    DescritorTipoAst* descritor_tipo_val;
 }
 
 /* Nao terminais */
@@ -81,12 +83,14 @@
 %type <acao_val> lista_comandos acao comando
 %type <local_val> local 
 %type <declaracao_val> declaracoes
-%type <declaracao_tipos_val> lista_declaracao_de_tipo lista_declaracao_tipo declaracao_tipo 
+%type <declaracao_tipos_val> lista_declaracao_de_tipo lista_declaracao_tipo declaracao_tipo tipo_campo tipo_campos
 %type <declaracao_funcoes_val> lista_declaracao_de_funcao lista_declaracao_funcao declaracao_funcao
 %type <declaracao_variavel_val> declaracao_variavel lista_declaracao_de_variavel_global lista_declaracao_variavel_global lista_declaracao_variavel_local lista_declaracao_de_variavel_local
 %type <modificador_val> modificador
 %type <argumento_val> args lista_args lista_de_args
 %type <corpo_val> corpo
+%type <tipo_ctes_val> tipo_constantes
+%type <descritor_tipo_val> descritor_tipo
 
 /* Tokens */
 %token <stringVal>  IDENTIFICADOR   "identificador"
@@ -150,9 +154,7 @@ programa:
 declaracoes: 
   lista_declaracao_de_tipo 
   lista_declaracao_de_variavel_global
-  lista_declaracao_de_funcao { $$ = new DeclaracoesAst( nullptr,
-                                                       (DeclaracaoGlobaisAst*) $2,
-                                                       (DeclaracaoFuncoesAst*) $3); }
+  lista_declaracao_de_funcao { $$ = new DeclaracoesAst($1, $2, $3); }
 ;
 
 acao:
@@ -160,13 +162,13 @@ acao:
 ;
 
 lista_declaracao_de_tipo:
-  /* empty */ %empty 
-| TIPO ":" lista_declaracao_tipo
+  /* empty */ %empty { $$ = nullptr; }
+  | TIPO ":" lista_declaracao_tipo { $$ = $3; }
 ;
 
 lista_declaracao_tipo:
-  declaracao_tipo
-| lista_declaracao_tipo declaracao_tipo
+  declaracao_tipo { $$ = new DeclaracaoTiposAst($1); }
+| lista_declaracao_tipo declaracao_tipo { $$ = new DeclaracaoTiposAst($1, $2); }
 ;
 
 lista_declaracao_de_variavel_global:
@@ -193,31 +195,31 @@ criacao_de_registro:
 ;
 
 atribuicao_registro:
-  IDENTIFICADOR IGUAL expr
+  IDENTIFICADOR "=" expr
 ;
 
 declaracao_tipo:
-  IDENTIFICADOR IGUAL descritor_tipo
+  IDENTIFICADOR "=" descritor_tipo { $$ = new DeclaracaoTipoAst(*$1, $3); }
 ;
 
 descritor_tipo:
-  IDENTIFICADOR
-| "{" tipo_campos "}" 
-| "[" tipo_constantes "]" DE IDENTIFICADOR 
+  IDENTIFICADOR { $$ = new DescritorTipoIdAst(*$1); }
+| "{" tipo_campos "}" { $$ = new DescritorTipoCamposAst($2); }
+| "[" tipo_constantes "]" DE IDENTIFICADOR { $$ = new DescritorTipoCtesAst($2, *$5); }
 ;
 
 tipo_campos:
-  tipo_campo
-| tipo_campos "," tipo_campo
+  tipo_campo { $$ = new TipoCamposAst($1); }
+| tipo_campos "," tipo_campo { $$ = new TipoCamposAst($1, $3); }
 ;
 
 tipo_campo:
-  IDENTIFICADOR ":" IDENTIFICADOR
+  IDENTIFICADOR ":" IDENTIFICADOR { $$ = new TipoCampoAst(*$1, *$3); }
 ;
 
 tipo_constantes:
-  INTEIRO
-| tipo_constantes "," INTEIRO
+  INTEIRO { $$ = new TipoConstantesAst($1); }
+| tipo_constantes "," INTEIRO { $$ = new TipoConstantesAst($1, $3); }
 ;
 
 lista_declaracao_de_funcao:

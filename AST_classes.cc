@@ -22,6 +22,56 @@ ProgramaAst::ProgramaAst(DeclaracoesAst* dec, AcaoAst* acao)
  *    DECLARACOES   *
  * ****************** */
 
+/* declaracao de tipos */
+
+TipoCampoAst::TipoCampoAst(const string &id, const string &tipo)
+    : id_(id), tipo_(tipo) {}
+
+TipoCamposAst::TipoCamposAst(BaseDecTiposAst* campo)
+{
+    lista_campos_.push_back((TipoCampoAst*) campo);
+}
+
+TipoCamposAst::TipoCamposAst(BaseDecTiposAst* tail, BaseDecTiposAst* campo)
+{
+    lista_campos_ = ((TipoCamposAst*) tail)->lista_campos_;
+    lista_campos_.push_back((TipoCampoAst*) campo);
+}
+
+DescritorTipoIdAst::DescritorTipoIdAst(const string &id)
+    : id_(id) {}
+
+DescritorTipoCamposAst::DescritorTipoCamposAst(BaseDecTiposAst* campos)
+    : tipo_campos_((TipoCamposAst*) campos) {}
+
+TipoConstantesAst::TipoConstantesAst(int val)
+{
+    tipo_ctes_.push_back(val);
+}
+
+TipoConstantesAst::TipoConstantesAst(TipoConstantesAst* ctes, int val)
+{
+    tipo_ctes_ = ctes->tipo_ctes_;
+    tipo_ctes_.push_back(val);
+}
+
+DescritorTipoCtesAst::DescritorTipoCtesAst(TipoConstantesAst* ctes, const string &tipo)
+    : tipo_constantes_(ctes), tipo_(tipo) {}
+
+DeclaracaoTipoAst::DeclaracaoTipoAst(const string &id, DescritorTipoAst* descritor_tipo)
+    : id_(id), descritor_tipo_(descritor_tipo) {}
+
+DeclaracaoTiposAst::DeclaracaoTiposAst(BaseDecTiposAst* declaracao)
+{
+    lista_declaracoes_.push_back((DeclaracaoTipoAst*) declaracao);
+}
+
+DeclaracaoTiposAst::DeclaracaoTiposAst(BaseDecTiposAst* tail, BaseDecTiposAst* declaracao)
+{
+    lista_declaracoes_ = ((DeclaracaoTiposAst*) tail)->lista_declaracoes_;
+    lista_declaracoes_.push_back((DeclaracaoTipoAst*) declaracao);
+}
+
 /* declaracao de variaveis */
 
 DeclaracaoVariavelAst::DeclaracaoVariavelAst(const string &id, const string &tipo, ExpAst* expressao)
@@ -95,8 +145,8 @@ DeclaracaoFuncoesAst::DeclaracaoFuncoesAst(BaseDecFuncAst* tail, BaseDecFuncAst*
 
 /* declaracoes */
 
-DeclaracoesAst::DeclaracoesAst(DeclaracaoTiposAst* tipos, DeclaracaoGlobaisAst* globais, DeclaracaoFuncoesAst* funcoes)
-    : tipos_(tipos), globais_(globais), funcoes_(funcoes) {}
+DeclaracoesAst::DeclaracoesAst(BaseDecTiposAst *tipos, BaseDecVarAst *globais, BaseDecFuncAst *funcoes)
+    : tipos_((DeclaracaoTiposAst*) tipos), globais_((DeclaracaoGlobaisAst*) globais), funcoes_((DeclaracaoFuncoesAst*) funcoes) {}
 
 
 /* ******************
