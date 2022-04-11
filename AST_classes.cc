@@ -1,10 +1,43 @@
 #include "AST_classes.hh"
 
-using namespace std;
+/* ******************
+ *      PROGRAMA    *
+ * ****************** */
 
 ProgramaAst* ast_root;
 
-ProgramaAst::ProgramaAst(DeclaracaoAst* dec, AcaoAst* acao) : dec_(dec), acao_(acao) {}
+ProgramaAst::ProgramaAst(DeclaracoesAst* dec, AcaoAst* acao) : dec_(dec), acao_(acao)
+{
+//    for ( auto i : dec->globais_->lista_declaracoes_)
+//    {
+//        cout << "identificador: " << i->id_ << endl;
+//        cout << "tipo: " << i->tipo_ << endl;
+//        cout << "expressao: " << ((InteiroAst*) i->expressao_)->val_ << endl;
+//    }
+}
+
+/* ******************
+ *    DECLARACOES   *
+ * ****************** */
+
+DeclaracaoGlobaisAst::DeclaracaoGlobaisAst(BaseDecVarAst *declaracao)
+{
+    lista_declaracoes_.push_back((DeclaracaoVariavelAst*)declaracao);
+}
+
+DeclaracaoGlobaisAst::DeclaracaoGlobaisAst(BaseDecVarAst *declaracao, BaseDecVarAst *tail)
+{
+    lista_declaracoes_ = ((DeclaracaoGlobaisAst*) tail)->lista_declaracoes_;
+    lista_declaracoes_.push_back((DeclaracaoVariavelAst*) declaracao);
+}
+
+DeclaracoesAst::DeclaracoesAst(DeclaracaoTiposAst* tipos, DeclaracaoGlobaisAst* globais, DeclaracaoFuncoesAst* funcoes) : tipos_(tipos), globais_(globais), funcoes_(funcoes) {}
+
+DeclaracaoVariavelAst::DeclaracaoVariavelAst(const string &id, const string &tipo, ExpAst* expressao) : id_(id), tipo_(tipo), expressao_(expressao) {}
+
+/* ******************
+ *        ACOES     *
+ * ****************** */
 
 AcaoAst::AcaoAst(AcaoAst* comando)
 {
@@ -20,18 +53,12 @@ AcaoAst::AcaoAst(AcaoAst* comando, AcaoAst* tail)
     // cout << "acao 1: " << ((InteiroAst*)((AtribuicaoAst*) lista_comandos_[0])->dir_)->val_ << endl;
 }
 
-DeclaracaoGlobaisAst::DeclaracaoGlobaisAst(DeclaracaoGlobaisAst* declaracao)
-{
-    lista_declaracoes_.push_back(declaracao);
-}
+AtribuicaoAst::AtribuicaoAst(LocalAst *esq, ExpAst *dir) : esq_(esq), dir_(dir) {}
 
-DeclaracaoGlobaisAst::DeclaracaoGlobaisAst(DeclaracaoGlobaisAst* declaracao, DeclaracaoGlobaisAst* tail)
-{
-    lista_declaracoes_ = tail->lista_declaracoes_;
-    lista_declaracoes_.push_back(declaracao);
-}
 
-DeclaracaoAst::DeclaracaoAst(DeclaracaoTiposAst* tipos, DeclaracaoGlobaisAst* globais, DeclaracaoFuncoesAst* funcoes) : tipos_(tipos), globais_(globais), funcoes_(funcoes) {}
+/* ******************
+ *    EXPRESSOES    *
+ * ****************** */
 
 InteiroAst::InteiroAst(int val) : val_(val) {}
 
@@ -43,6 +70,3 @@ LocalAst::LocalAst(const std::string &val) : val_(val) {}
 
 ExprAritAst::ExprAritAst(ExpAst *esq, ExpAst *dir) : esq_(esq), dir_(dir) {}
 
-AtribuicaoAst::AtribuicaoAst(LocalAst *esq, ExpAst *dir) : esq_(esq), dir_(dir) {}
-
-DeclaracaoVarAst::DeclaracaoVarAst(string id, string tipo, ExpAst* expressao) : id_(id), tipo_(tipo), expressao_(expressao) {}  

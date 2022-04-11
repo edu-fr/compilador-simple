@@ -8,13 +8,55 @@
 
 using namespace std;
 
-class DeclaracaoGlobaisAst {
+class ExpAst;
+class LocalAst;
+class AcaoAst;
+class DeclaracoesAst;
+
+
+/* ******************
+ *      PROGRAMA    *
+ * ****************** */
+
+class ProgramaAst {
 public:
-    DeclaracaoGlobaisAst() {}
-    DeclaracaoGlobaisAst(DeclaracaoGlobaisAst* declaracao);
-    DeclaracaoGlobaisAst(DeclaracaoGlobaisAst* declaracao, DeclaracaoGlobaisAst* tail);
+    ProgramaAst(DeclaracoesAst* dec, AcaoAst* acao);
+    ~ProgramaAst() {}
+
+    DeclaracoesAst* dec_;
+    AcaoAst* acao_;
+};
+
+extern ProgramaAst* ast_root;
+
+
+/* ******************
+ *    DECLARACOES   *
+ * ****************** */
+
+
+class BaseDecVarAst {
+public:
+    BaseDecVarAst() {}
+    ~BaseDecVarAst() {}
+};
+
+class DeclaracaoVariavelAst : public BaseDecVarAst {
+public:
+    DeclaracaoVariavelAst(const string &id, const string &tipo, ExpAst* expressao);
+    ~DeclaracaoVariavelAst();
+
+    string id_, tipo_;
+    ExpAst* expressao_;
+};
+
+class DeclaracaoGlobaisAst : public BaseDecVarAst {
+public:
+    DeclaracaoGlobaisAst(BaseDecVarAst* declaracao);
+    DeclaracaoGlobaisAst(BaseDecVarAst* declaracao, BaseDecVarAst* tail);
     ~DeclaracaoGlobaisAst() {}
-    vector<DeclaracaoGlobaisAst*> lista_declaracoes_;    
+
+    vector<DeclaracaoVariavelAst*> lista_declaracoes_;
 };
 
 class DeclaracaoFuncoesAst {
@@ -23,7 +65,8 @@ public:
     DeclaracaoFuncoesAst(DeclaracaoFuncoesAst* declaracao);
     DeclaracaoFuncoesAst(DeclaracaoFuncoesAst* declaracao, DeclaracaoFuncoesAst* tail);
     ~DeclaracaoFuncoesAst() {}
-    vector<DeclaracaoFuncoesAst*> lista_declaracoes_;    
+
+    vector<DeclaracaoFuncoesAst*> lista_declaracoes_;
 };
 
 class DeclaracaoTiposAst {
@@ -32,13 +75,14 @@ public:
     DeclaracaoTiposAst(DeclaracaoTiposAst* declaracao);
     DeclaracaoTiposAst(DeclaracaoTiposAst* declaracao, DeclaracaoTiposAst* tail);
     ~DeclaracaoTiposAst() {}
-    vector<DeclaracaoTiposAst*> lista_declaracoes_;    
+
+    vector<DeclaracaoTiposAst*> lista_declaracoes_;
 };
 
-class DeclaracaoAst {
-    public:
-    DeclaracaoAst() {}
-    DeclaracaoAst(DeclaracaoTiposAst* tipos, DeclaracaoGlobaisAst* globais, DeclaracaoFuncoesAst* funcoes);
+class DeclaracoesAst {
+public:
+    DeclaracoesAst() {}
+    DeclaracoesAst(DeclaracaoTiposAst* tipos, DeclaracaoGlobaisAst* globais, DeclaracaoFuncoesAst* funcoes);
 
     DeclaracaoGlobaisAst* globais_;
     DeclaracaoFuncoesAst* funcoes_;
@@ -46,32 +90,34 @@ class DeclaracaoAst {
 };
 
 
+/* ******************
+ *        ACOES     *
+ * ****************** */
+
+
 class AcaoAst {
 public:
     AcaoAst() {}
-    // AcaoAst(const AcaoAst &other);
     AcaoAst(AcaoAst* comando);
     AcaoAst(AcaoAst* comando, AcaoAst* tail);
     ~AcaoAst() {}
-    
+
     vector<AcaoAst*> lista_comandos_;
 };
 
-// class ComandoAst : public AcaoAst {
-// public:
-//     ComandoAst();    
-// };
-
-class ProgramaAst {
+class AtribuicaoAst : public AcaoAst {
 public:
-    ProgramaAst(DeclaracaoAst* dec, AcaoAst* acao);
-    ~ProgramaAst() {}
+    AtribuicaoAst(LocalAst* esq, ExpAst* dir);
 
-    DeclaracaoAst* dec_;
-    AcaoAst* acao_;
+    LocalAst* esq_;
+    ExpAst* dir_;
 };
 
-extern ProgramaAst* ast_root;
+
+/* ******************
+ *    EXPRESSOES    *
+ * ****************** */
+
 
 class ExpAst {
 public:
@@ -112,23 +158,6 @@ public:
 
     ExpAst* esq_;
     ExpAst* dir_;
-};
-
-class AtribuicaoAst : public AcaoAst {
-public:
-    AtribuicaoAst(LocalAst* esq, ExpAst* dir);
-
-    LocalAst* esq_;
-    ExpAst* dir_;
-};
-
-class DeclaracaoVarAst : public DeclaracaoAst {
-public:
-    DeclaracaoVarAst(string id, string tipo, ExpAst* expressao); 
-    ~DeclaracaoVarAst();
-
-    string id_, tipo_; 
-    ExpAst* expressao_;
 };
 
 #endif
