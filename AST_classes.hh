@@ -3,15 +3,15 @@
 
 #include <string>
 #include <vector>
-#include <memory>
 #include <iostream>
 
 using namespace std;
 
 class ExprAst;
 class LocalAst;
-class AcaoAst;
+class ListaComandosAst;
 class DeclaracoesAst;
+class BaseComandoAst;
 
 
 /* ******************
@@ -20,11 +20,11 @@ class DeclaracoesAst;
 
 class ProgramaAst {
 public:
-    ProgramaAst(DeclaracoesAst* dec, AcaoAst* acao);
+    ProgramaAst(DeclaracoesAst* dec, BaseComandoAst* acao);
     ~ProgramaAst() {}
 
     DeclaracoesAst* dec_;
-    AcaoAst* acao_;
+    ListaComandosAst* acao_;
 };
 
 extern ProgramaAst* ast_root;
@@ -58,20 +58,20 @@ public:
     vector<TipoCampoAst*> lista_campos_;
 };
 
-class DescritorTipoAst {
+class BaseDescritorTipoAst {
 public:
-    DescritorTipoAst() {}
-    ~DescritorTipoAst() {}
+    BaseDescritorTipoAst() {}
+    ~BaseDescritorTipoAst() {}
 };
 
-class DescritorTipoIdAst : public DescritorTipoAst {
+class DescritorTipoIdAst : public BaseDescritorTipoAst {
 public:
     DescritorTipoIdAst(const string &id);
 
     string id_;
 };
 
-class DescritorTipoCamposAst : public DescritorTipoAst {
+class DescritorTipoCamposAst : public BaseDescritorTipoAst {
 public:
     DescritorTipoCamposAst(BaseDecTiposAst* campos);
 
@@ -86,7 +86,7 @@ public:
     vector<int> tipo_ctes_;
 };
 
-class DescritorTipoCtesAst : public DescritorTipoAst {
+class DescritorTipoCtesAst : public BaseDescritorTipoAst {
 public:
     DescritorTipoCtesAst(TipoConstantesAst* ctes, const string &tipo);
 
@@ -96,10 +96,10 @@ public:
 
 class DeclaracaoTipoAst : public BaseDecTiposAst {
 public:
-    DeclaracaoTipoAst(const string &id, DescritorTipoAst* descritor_tipo);
+    DeclaracaoTipoAst(const string &id, BaseDescritorTipoAst* descritor_tipo);
 
     string id_;
-    DescritorTipoAst* descritor_tipo_;
+    BaseDescritorTipoAst* descritor_tipo_;
 };
 
 class DeclaracaoTiposAst : public BaseDecTiposAst {
@@ -133,7 +133,6 @@ class DeclaracaoGlobaisAst : public BaseDecVarAst {
 public:
     DeclaracaoGlobaisAst(BaseDecVarAst* declaracao);
     DeclaracaoGlobaisAst(BaseDecVarAst* tail, BaseDecVarAst* declaracao);
-    ~DeclaracaoGlobaisAst() {}
 
     vector<DeclaracaoVariavelAst*> lista_declaracoes_;
 };
@@ -142,7 +141,6 @@ class DeclaracaoVarLocaisAst : public BaseDecVarAst {
 public:
     DeclaracaoVarLocaisAst(BaseDecVarAst* declaracao);
     DeclaracaoVarLocaisAst(BaseDecVarAst* tail, BaseDecVarAst* declaracao);
-    ~DeclaracaoVarLocaisAst() {}
 
     vector<DeclaracaoVariavelAst*> lista_declaracoes_;
 };
@@ -168,9 +166,7 @@ public:
 
 class ArgumentoAst : public BaseArgsAst {
 public:
-    ArgumentoAst();
     ArgumentoAst(Modificador mod, const string &id, const string &tipo);
-    ~ArgumentoAst();
 
     Modificador mod_;
     string id_, tipo_;
@@ -186,12 +182,11 @@ public:
 
 class CorpoAst {
 public:
-    CorpoAst() {}
-    CorpoAst(BaseDecVarAst* var_locais, AcaoAst* lista_comandos);
+    CorpoAst(BaseDecVarAst* var_locais, BaseComandoAst* lista_comandos);
     ~CorpoAst() {}
 
     DeclaracaoVarLocaisAst* variaveis_locais_;
-    AcaoAst* lista_comandos_;
+    ListaComandosAst* lista_comandos_;
 };
 
 // ??? - MELHOR SEPARAR FUNCAO E PROCEDIMENTO???
@@ -200,17 +195,16 @@ public:
     DeclaracaoFuncaoAst(const string &id, BaseArgsAst* args, CorpoAst* corpo);
     DeclaracaoFuncaoAst(const string &id, BaseArgsAst* args, const string &ret, CorpoAst* corpo);
 
-    string id_, retorno_;
+    string id_;
     ListaArgsAst* args_;
+    string retorno_;
     CorpoAst* corpo_;
 };
 
 class DeclaracaoFuncoesAst : public BaseDecFuncAst {
 public:
-    DeclaracaoFuncoesAst() {}
     DeclaracaoFuncoesAst(BaseDecFuncAst* declaracao);
     DeclaracaoFuncoesAst(BaseDecFuncAst* tail, BaseDecFuncAst* declaracao);
-    ~DeclaracaoFuncoesAst() {}
 
     vector<DeclaracaoFuncaoAst*> lista_declaracoes_;
 };
@@ -222,9 +216,9 @@ public:
     DeclaracoesAst(BaseDecTiposAst* tipos, BaseDecVarAst* globais, BaseDecFuncAst* funcoes);
     ~DeclaracoesAst() {}
 
+    DeclaracaoTiposAst* tipos_;
     DeclaracaoGlobaisAst* globais_;
     DeclaracaoFuncoesAst* funcoes_;
-    DeclaracaoTiposAst* tipos_;
 };
 
 
@@ -232,23 +226,61 @@ public:
  *        ACOES     *
  * ****************** */
 
-
-class AcaoAst {
+class BaseComandoAst {
 public:
-    AcaoAst() {}
-    AcaoAst(AcaoAst* comando);
-    AcaoAst(AcaoAst* tail, AcaoAst* comando);
-    ~AcaoAst() {}
-
-    vector<AcaoAst*> lista_comandos_;
+    BaseComandoAst() {}
+    ~BaseComandoAst() {}
 };
 
-class AtribuicaoAst : public AcaoAst {
+class ListaComandosAst : public BaseComandoAst {
+public:
+    ListaComandosAst(BaseComandoAst* comando);
+    ListaComandosAst(BaseComandoAst* tail, BaseComandoAst* comando);
+
+    vector<BaseComandoAst*> lista_comandos_;
+};
+
+class AtribuicaoAst : public BaseComandoAst {
 public:
     AtribuicaoAst(LocalAst* esq, ExprAst* dir);
 
     LocalAst* esq_;
     ExprAst* dir_;
+};
+
+class SeAst : public BaseComandoAst {
+public:
+    SeAst(ExprAst* expr, BaseComandoAst* comandos_v);
+    SeAst(ExprAst* expr, BaseComandoAst* comandos_v, BaseComandoAst* comandos_f);
+
+    ExprAst* expr_;
+    ListaComandosAst* comandos_verdadeiro_;
+    ListaComandosAst* comandos_falso_;
+};
+
+class ParaAst : public BaseComandoAst {
+public:
+    ParaAst(const string &it, ExprAst* inicio, ExprAst* fim, BaseComandoAst* comandos);
+
+    string it_;
+    ExprAst* expr_inicio_;
+    ExprAst* expr_fim_;
+    ListaComandosAst* comandos_;
+};
+
+class EnquantoAst : public BaseComandoAst {
+public:
+    EnquantoAst(ExprAst* expr, BaseComandoAst* comandos);
+
+    ExprAst* expr_;
+    ListaComandosAst* comandos_;
+};
+
+class RetorneAst : public BaseComandoAst {
+public:
+    RetorneAst(ExprAst* expr);
+
+    ExprAst* expr_;
 };
 
 
@@ -280,6 +312,7 @@ public:
 class CadeiaAst : public ExprAst {
 public:
     CadeiaAst(const string &val);
+
     string val_;
 };
 

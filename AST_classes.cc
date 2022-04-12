@@ -6,8 +6,8 @@
 
 ProgramaAst* ast_root;
 
-ProgramaAst::ProgramaAst(DeclaracoesAst* dec, AcaoAst* acao)
-    : dec_(dec), acao_(acao)
+ProgramaAst::ProgramaAst(DeclaracoesAst* dec, BaseComandoAst *acao)
+    : dec_(dec), acao_((ListaComandosAst*) acao)
 {
     // TESTE GLOBAIS
 //    for ( auto i : dec->globais_->lista_declaracoes_)
@@ -58,7 +58,7 @@ TipoConstantesAst::TipoConstantesAst(TipoConstantesAst* ctes, int val)
 DescritorTipoCtesAst::DescritorTipoCtesAst(TipoConstantesAst* ctes, const string &tipo)
     : tipo_constantes_(ctes), tipo_(tipo) {}
 
-DeclaracaoTipoAst::DeclaracaoTipoAst(const string &id, DescritorTipoAst* descritor_tipo)
+DeclaracaoTipoAst::DeclaracaoTipoAst(const string &id, BaseDescritorTipoAst* descritor_tipo)
     : id_(id), descritor_tipo_(descritor_tipo) {}
 
 DeclaracaoTiposAst::DeclaracaoTiposAst(BaseDecTiposAst* declaracao)
@@ -119,8 +119,8 @@ ListaArgsAst::ListaArgsAst(BaseArgsAst* tail, BaseArgsAst* arg)
     lista_argumentos_.push_back((ArgumentoAst*) arg);
 }
 
-CorpoAst::CorpoAst(BaseDecVarAst *var_locais, AcaoAst* lista_comandos)
-    : variaveis_locais_((DeclaracaoVarLocaisAst*)var_locais), lista_comandos_(lista_comandos) {}
+CorpoAst::CorpoAst(BaseDecVarAst *var_locais, BaseComandoAst *lista_comandos)
+    : variaveis_locais_((DeclaracaoVarLocaisAst*) var_locais), lista_comandos_((ListaComandosAst*) lista_comandos) {}
 
 DeclaracaoFuncaoAst::DeclaracaoFuncaoAst(const string &id, BaseArgsAst *args, CorpoAst* corpo)
     : id_(id), args_((ListaArgsAst*)args), corpo_(corpo) {
@@ -153,14 +153,15 @@ DeclaracoesAst::DeclaracoesAst(BaseDecTiposAst *tipos, BaseDecVarAst *globais, B
  *        ACOES     *
  * ****************** */
 
-AcaoAst::AcaoAst(AcaoAst* comando)
+
+ListaComandosAst::ListaComandosAst(BaseComandoAst* comando)
 {
     lista_comandos_.push_back(comando);
 }
 
-AcaoAst::AcaoAst(AcaoAst* tail, AcaoAst* comando)
+ListaComandosAst::ListaComandosAst(BaseComandoAst *tail, BaseComandoAst *comando)
 {
-    lista_comandos_ = tail->lista_comandos_;
+    lista_comandos_ = ((ListaComandosAst*) tail)->lista_comandos_;
     lista_comandos_.push_back(comando);
 
     // cout << "acao 1: " << ((LocalAst*)((AtribuicaoAst*) lista_comandos_[0])->esq_)->val_ << endl;
@@ -170,10 +171,26 @@ AcaoAst::AcaoAst(AcaoAst* tail, AcaoAst* comando)
 AtribuicaoAst::AtribuicaoAst(LocalAst *esq, ExprAst *dir)
     : esq_(esq), dir_(dir) {}
 
+SeAst::SeAst(ExprAst* expr, BaseComandoAst* comandos_v)
+    : expr_(expr), comandos_verdadeiro_((ListaComandosAst*) comandos_v) {}
+
+SeAst::SeAst(ExprAst* expr, BaseComandoAst* comandos_v, BaseComandoAst* comandos_f)
+    : expr_(expr), comandos_verdadeiro_((ListaComandosAst*) comandos_v), comandos_falso_((ListaComandosAst*) comandos_f) {}
+
+ParaAst::ParaAst(const string &it, ExprAst* inicio, ExprAst* fim, BaseComandoAst* comandos)
+    : it_(it), expr_inicio_(inicio), expr_fim_(fim), comandos_((ListaComandosAst*) comandos) {}
+
+EnquantoAst::EnquantoAst(ExprAst* expr, BaseComandoAst* comandos)
+    : expr_(expr), comandos_((ListaComandosAst*) comandos) {}
+
+RetorneAst::RetorneAst(ExprAst* expr)
+    : expr_(expr) {}
+
 
 /* ******************
  *    EXPRESSOES    *
  * ****************** */
+
 
 InteiroAst::InteiroAst(int val)
     : val_(val) {}

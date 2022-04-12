@@ -64,7 +64,7 @@
     std::string*                stringVal;
     ProgramaAst*                programa_val;
     ExprAst*                    exp_val;
-    AcaoAst*                    acao_val;
+    BaseComandoAst*             acao_val;
     LocalAst*                   local_val;
     DeclaracoesAst*             declaracao_val;
     BaseDecTiposAst*            declaracao_tipos_val;
@@ -74,12 +74,12 @@
     Modificador                 modificador_val;
     CorpoAst*                   corpo_val;
     TipoConstantesAst*          tipo_ctes_val;
-    DescritorTipoAst* descritor_tipo_val;
+    BaseDescritorTipoAst*       descritor_tipo_val;
 }
 
 /* Nao terminais */
 %type <programa_val> programa 
-%type <exp_val> termo fator literal expr expressao_logica expressao_relacional expressao_aritmetica inicializacao
+%type <exp_val> termo fator literal expr expressao_logica expressao_relacional expressao_aritmetica inicializacao criacao_de_registro
 %type <acao_val> lista_comandos acao comando
 %type <local_val> local 
 %type <declaracao_val> declaracoes
@@ -263,25 +263,25 @@ lista_declaracao_variavel_local:
 ;
 
 lista_comandos: 
-  comando { $$ = new AcaoAst($1);  }
-| lista_comandos ";" comando { $$ = new AcaoAst($1, $3); }
+  comando { $$ = new ListaComandosAst($1); }
+| lista_comandos ";" comando { $$ = new ListaComandosAst($1, $3); }
 ;
 
 comando:
   local ATRIBUICAO expr { $$ = new AtribuicaoAst($1, $3); }    
 | chamada_de_funcao
-| SE expr VERDADEIRO lista_comandos FSE 
-| SE expr VERDADEIRO lista_comandos FALSO lista_comandos FSE
-| PARA IDENTIFICADOR DE expr LIMITE expr FACA lista_comandos FPARA 
-| ENQUANTO expr FACA lista_comandos FENQUANTO 
-| PARE 
+| SE expr VERDADEIRO lista_comandos FSE { $$ = new SeAst($2, $4); }
+| SE expr VERDADEIRO lista_comandos FALSO lista_comandos FSE { $$ = new SeAst($2, $4, $6); }
+| PARA IDENTIFICADOR DE expr LIMITE expr FACA lista_comandos FPARA { $$ = new ParaAst(*$2, $4, $6, $8); }
+| ENQUANTO expr FACA lista_comandos FENQUANTO { $$ = new EnquantoAst($2, $4); }
+| PARE // O QUE FAZER AQUI ???
 | CONTINUE 
-| RETORNE expr 
+| RETORNE expr { $$ = new RetorneAst($2); }
 ;
 
 expr:
-  expressao_logica
-| "{" criacao_de_registro "}"
+  expressao_logica { $$ = $1; }
+| "{" criacao_de_registro "}" { $$ = $2; }
 ;
 
 criacao_de_registro:
