@@ -74,7 +74,7 @@ DeclaracaoTiposAst::DeclaracaoTiposAst(BaseDecTiposAst* tail, BaseDecTiposAst* d
 
 /* declaracao de variaveis */
 
-DeclaracaoVariavelAst::DeclaracaoVariavelAst(const string &id, const string &tipo, ExpAst* expressao)
+DeclaracaoVariavelAst::DeclaracaoVariavelAst(const string &id, const string &tipo, ExprAst* expressao)
     : id_(id), tipo_(tipo), expressao_(expressao) {}
 
 DeclaracaoGlobaisAst::DeclaracaoGlobaisAst(BaseDecVarAst *declaracao)
@@ -167,7 +167,7 @@ AcaoAst::AcaoAst(AcaoAst* tail, AcaoAst* comando)
     // cout << "acao 1: " << ((InteiroAst*)((AtribuicaoAst*) lista_comandos_[0])->dir_)->val_ << endl;
 }
 
-AtribuicaoAst::AtribuicaoAst(LocalAst *esq, ExpAst *dir)
+AtribuicaoAst::AtribuicaoAst(LocalAst *esq, ExprAst *dir)
     : esq_(esq), dir_(dir) {}
 
 
@@ -187,6 +187,38 @@ CadeiaAst::CadeiaAst(const std::string &val)
 LocalAst::LocalAst(const std::string &val)
     : val_(val) {}
 
-ExprAritAst::ExprAritAst(ExpAst *esq, ExpAst *dir)
+SomaAst::SomaAst(ExprAst* esq, ExprAst* dir)
     : esq_(esq), dir_(dir) {}
 
+SubtracaoAst::SubtracaoAst(ExprAst* esq, ExprAst* dir)
+    : esq_(esq), dir_(dir) {}
+
+MaiorAst::MaiorAst(ExprAst* esq, ExprAst* dir)
+    : esq_(esq), dir_(dir) {}
+
+MenorAst::MenorAst(ExprAst* esq, ExprAst* dir)
+    : esq_(esq), dir_(dir) {}
+
+MaiorIgualAst::MaiorIgualAst(ExprAst* esq, ExprAst* dir)
+    : esq_(esq), dir_(dir) {}
+
+MenorIgualAst::MenorIgualAst(ExprAst* esq, ExprAst* dir)
+    : esq_(esq), dir_(dir) {}
+
+EquivalenteAst::EquivalenteAst(ExprAst* esq, ExprAst* dir)
+    : esq_(esq), dir_(dir) {}
+
+DiferenteAst::DiferenteAst(ExprAst* esq, ExprAst* dir)
+    : esq_(esq), dir_(dir) {}
+
+MultiplicacaoAst::MultiplicacaoAst(ExprAst* esq, ExprAst* dir)
+    : esq_(esq), dir_(dir) {}
+
+DivisaoAst::DivisaoAst(ExprAst* esq, ExprAst* dir)
+    : esq_(esq), dir_(dir) {}
+
+AndAst::AndAst(ExprAst* esq, ExprAst* dir)
+    : esq_(esq), dir_(dir) {}
+
+OrAst::OrAst(ExprAst* esq, ExprAst* dir)
+    : esq_(esq), dir_(dir) {}

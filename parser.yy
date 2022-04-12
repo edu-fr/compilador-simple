@@ -63,7 +63,7 @@
     double 	                    doubleVal;
     std::string*                stringVal;
     ProgramaAst*                programa_val;
-    ExpAst*                     exp_val;
+    ExprAst*                    exp_val;
     AcaoAst*                    acao_val;
     LocalAst*                   local_val;
     DeclaracoesAst*             declaracao_val;
@@ -79,7 +79,7 @@
 
 /* Nao terminais */
 %type <programa_val> programa 
-%type <exp_val> expressao_aritmetica termo fator literal expr expressao_logica expressao_relacional inicializacao
+%type <exp_val> termo fator literal expr expressao_logica expressao_relacional expressao_aritmetica inicializacao
 %type <acao_val> lista_comandos acao comando
 %type <local_val> local 
 %type <declaracao_val> declaracoes
@@ -118,7 +118,7 @@
 %token              VALOR           "valor"
 %token              REF             "ref" 
 %token              RETORNE         "retorne"  
-%token              NULO            "nulo"   
+%token <exp_val>    NULO            "nulo"
 %token              TOK_EOF 0       "end of file"
 %token              MAIS            "+"
 %token              MENOS           "-"
@@ -187,15 +187,6 @@ declaracao_variavel:
 
 inicializacao:
   expr
-;
-
-criacao_de_registro:
-  atribuicao_registro
-| criacao_de_registro "," atribuicao_registro
-;
-
-atribuicao_registro:
-  IDENTIFICADOR "=" expr
 ;
 
 declaracao_tipo:
@@ -293,36 +284,45 @@ expr:
 | "{" criacao_de_registro "}"
 ;
 
+criacao_de_registro:
+  atribuicao_registro
+| criacao_de_registro "," atribuicao_registro
+;
+
+atribuicao_registro:
+  IDENTIFICADOR "=" expr
+;
+
 expressao_logica:
-  expressao_logica "&" expressao_relacional 
-| expressao_logica "|" expressao_relacional 
+  expressao_logica "&" expressao_relacional { $$ = new AndAst($1, $3); }
+| expressao_logica "|" expressao_relacional { $$ = new OrAst($1, $3); }
 | expressao_relacional
 ;
 
 expressao_relacional:
-  expressao_relacional "<=" expressao_aritmetica 
-| expressao_relacional ">=" expressao_aritmetica 
-| expressao_relacional "<" expressao_aritmetica 
-| expressao_relacional ">" expressao_aritmetica 
-| expressao_relacional "!=" expressao_aritmetica
-| expressao_relacional "==" expressao_aritmetica 
+  expressao_relacional "<=" expressao_aritmetica { $$ = new MenorIgualAst($1, $3); }
+| expressao_relacional ">=" expressao_aritmetica { $$ = new MaiorIgualAst($1, $3); }
+| expressao_relacional "<" expressao_aritmetica { $$ = new MenorAst($1, $3); }
+| expressao_relacional ">" expressao_aritmetica { $$ = new MaiorAst($1, $3); }
+| expressao_relacional "!=" expressao_aritmetica { $$ = new DiferenteAst($1, $3); }
+| expressao_relacional "==" expressao_aritmetica { $$ = new EquivalenteAst($1, $3); }
 | expressao_aritmetica
 ;
 
 expressao_aritmetica:
-  expressao_aritmetica "+" termo { $$ = new ExprAritAst($1, $3); }
-| expressao_aritmetica "-" termo { $$ = new ExprAritAst($1, $3); }
+  expressao_aritmetica "+" termo { $$ = new SomaAst($1, $3); }
+| expressao_aritmetica "-" termo { $$ = new SubtracaoAst($1, $3); }
 | termo 
 ;
 
 termo:
-  termo "*" fator 
-| termo "/" fator 
+  termo "*" fator { $$ = new MultiplicacaoAst($1, $3); }
+| termo "/" fator { $$ = new DivisaoAst($1, $3); }
 | fator
 ;
 
 fator:
-  "(" expr ")" 
+  "(" expr ")" { $$ = $2; }
 | literal
 | local
 | chamada_de_funcao

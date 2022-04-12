@@ -8,7 +8,7 @@
 
 using namespace std;
 
-class ExpAst;
+class ExprAst;
 class LocalAst;
 class AcaoAst;
 class DeclaracoesAst;
@@ -121,11 +121,11 @@ public:
 
 class DeclaracaoVariavelAst : public BaseDecVarAst {
 public:
-    DeclaracaoVariavelAst(const string &id, const string &tipo, ExpAst* expressao);
+    DeclaracaoVariavelAst(const string &id, const string &tipo, ExprAst* expressao);
     ~DeclaracaoVariavelAst();
 
     string id_, tipo_;
-    ExpAst* expressao_;
+    ExprAst* expressao_;
 };
 
 // FIX ME! ESSAS DUAS CLASSES FAZEM A MESMA COISA
@@ -245,10 +245,10 @@ public:
 
 class AtribuicaoAst : public AcaoAst {
 public:
-    AtribuicaoAst(LocalAst* esq, ExpAst* dir);
+    AtribuicaoAst(LocalAst* esq, ExprAst* dir);
 
     LocalAst* esq_;
-    ExpAst* dir_;
+    ExprAst* dir_;
 };
 
 
@@ -257,45 +257,133 @@ public:
  * ****************** */
 
 
-class ExpAst {
+class ExprAst {
 public:
-    ExpAst() {}
-    ~ExpAst() {}
+    ExprAst() {}
+    ~ExprAst() {}
 };
 
-class InteiroAst : public ExpAst {
+class InteiroAst : public ExprAst {
 public:
     InteiroAst(int val);
 
     int val_;
 };
 
-class RealAst : public ExpAst {
+class RealAst : public ExprAst {
 public:
     RealAst(double val);
 
     double val_;
 };
 
-class CadeiaAst : public ExpAst {
+class CadeiaAst : public ExprAst {
 public:
     CadeiaAst(const string &val);
     string val_;
 };
 
-class LocalAst : public ExpAst {
+class LocalAst : public ExprAst {
 public:
     LocalAst(const string &val);
 
     string val_;
 };
 
-class ExprAritAst : public ExpAst {
+class SomaAst : public ExprAst {
 public:
-    ExprAritAst(ExpAst* esq, ExpAst* dir);
+    SomaAst(ExprAst* esq, ExprAst* dir);
 
-    ExpAst* esq_;
-    ExpAst* dir_;
+    ExprAst* esq_;
+    ExprAst* dir_;
+};
+
+class SubtracaoAst : public ExprAst {
+public:
+    SubtracaoAst(ExprAst* esq, ExprAst* dir);
+
+    ExprAst* esq_;
+    ExprAst* dir_;
+};
+
+class MaiorAst : public ExprAst {
+public:
+    MaiorAst(ExprAst* esq, ExprAst* dir);
+
+    ExprAst* esq_;
+    ExprAst* dir_;
+};
+
+class MenorAst : public ExprAst {
+public:
+    MenorAst(ExprAst* esq, ExprAst* dir);
+
+    ExprAst* esq_;
+    ExprAst* dir_;
+};
+
+class MaiorIgualAst : public ExprAst {
+public:
+    MaiorIgualAst(ExprAst* esq, ExprAst* dir);
+
+    ExprAst* esq_;
+    ExprAst* dir_;
+};
+
+class MenorIgualAst : public ExprAst {
+public:
+    MenorIgualAst(ExprAst* esq, ExprAst* dir);
+
+    ExprAst* esq_;
+    ExprAst* dir_;
+};
+
+class EquivalenteAst : public ExprAst {
+public:
+    EquivalenteAst(ExprAst* esq, ExprAst* dir);
+
+    ExprAst* esq_;
+    ExprAst* dir_;
+};
+
+class DiferenteAst : public ExprAst {
+public:
+    DiferenteAst(ExprAst* esq, ExprAst* dir);
+
+    ExprAst* esq_;
+    ExprAst* dir_;
+};
+
+class MultiplicacaoAst : public ExprAst {
+public:
+    MultiplicacaoAst(ExprAst* esq, ExprAst* dir);
+
+    ExprAst* esq_;
+    ExprAst* dir_;
+};
+
+class DivisaoAst : public ExprAst {
+public:
+    DivisaoAst(ExprAst* esq, ExprAst* dir);
+
+    ExprAst* esq_;
+    ExprAst* dir_;
+};
+
+class AndAst : public ExprAst {
+public:
+    AndAst(ExprAst* esq, ExprAst* dir);
+
+    ExprAst* esq_;
+    ExprAst* dir_;
+};
+
+class OrAst : public ExprAst {
+public:
+    OrAst(ExprAst* esq, ExprAst* dir);
+
+    ExprAst* esq_;
+    ExprAst* dir_;
 };
 
 #endif
