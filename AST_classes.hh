@@ -128,19 +128,10 @@ public:
     ExprAst* expressao_;
 };
 
-// FIX ME! ESSAS DUAS CLASSES FAZEM A MESMA COISA
-class DeclaracaoGlobaisAst : public BaseDecVarAst {
+class ListaDecVarAst : public BaseDecVarAst {
 public:
-    DeclaracaoGlobaisAst(BaseDecVarAst* declaracao);
-    DeclaracaoGlobaisAst(BaseDecVarAst* tail, BaseDecVarAst* declaracao);
-
-    vector<DeclaracaoVariavelAst*> lista_declaracoes_;
-};
-// FIX ME! ESSAS DUAS CLASSES FAZEM A MESMA COISA
-class DeclaracaoVarLocaisAst : public BaseDecVarAst {
-public:
-    DeclaracaoVarLocaisAst(BaseDecVarAst* declaracao);
-    DeclaracaoVarLocaisAst(BaseDecVarAst* tail, BaseDecVarAst* declaracao);
+    ListaDecVarAst(BaseDecVarAst* declaracao);
+    ListaDecVarAst(BaseDecVarAst* tail, BaseDecVarAst* declaracao);
 
     vector<DeclaracaoVariavelAst*> lista_declaracoes_;
 };
@@ -185,7 +176,7 @@ public:
     CorpoAst(BaseDecVarAst* var_locais, BaseComandoAst* lista_comandos);
     ~CorpoAst() {}
 
-    DeclaracaoVarLocaisAst* variaveis_locais_;
+    ListaDecVarAst* variaveis_locais_;
     ListaComandosAst* lista_comandos_;
 };
 
@@ -217,7 +208,7 @@ public:
     ~DeclaracoesAst() {}
 
     DeclaracaoTiposAst* tipos_;
-    DeclaracaoGlobaisAst* globais_;
+    ListaDecVarAst* globais_;
     DeclaracaoFuncoesAst* funcoes_;
 };
 

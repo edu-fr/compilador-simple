@@ -85,7 +85,7 @@
 %type <declaracao_val> declaracoes
 %type <declaracao_tipos_val> lista_declaracao_de_tipo lista_declaracao_tipo declaracao_tipo tipo_campo tipo_campos
 %type <declaracao_funcoes_val> lista_declaracao_de_funcao lista_declaracao_funcao declaracao_funcao
-%type <declaracao_variavel_val> declaracao_variavel lista_declaracao_de_variavel_global lista_declaracao_variavel_global lista_declaracao_variavel_local lista_declaracao_de_variavel_local
+%type <declaracao_variavel_val> declaracao_variavel lista_declaracao_de_variavel_global lista_declaracao_de_variavel_local lista_declaracao_variavel
 %type <modificador_val> modificador
 %type <argumento_val> args lista_args lista_de_args
 %type <corpo_val> corpo
@@ -173,12 +173,12 @@ lista_declaracao_tipo:
 
 lista_declaracao_de_variavel_global:
   /* empty */ %empty { $$ = nullptr; }
-| GLOBAL ":" lista_declaracao_variavel_global { $$ = $3; }
+| GLOBAL ":" lista_declaracao_variavel { $$ = $3; }
 ;
 
-lista_declaracao_variavel_global:
-  declaracao_variavel { $$ = new DeclaracaoGlobaisAst($1); }
-| lista_declaracao_variavel_global declaracao_variavel { $$ = new DeclaracaoGlobaisAst($1, $2); }
+lista_declaracao_variavel:
+  declaracao_variavel { $$ = new ListaDecVarAst($1); }
+| lista_declaracao_variavel declaracao_variavel { $$ = new ListaDecVarAst($1, $2); }
 ;
 
 declaracao_variavel:    
@@ -254,12 +254,7 @@ corpo:
 
 lista_declaracao_de_variavel_local:
   /* empty */ %empty { $$ = nullptr; }
-  | LOCAL ":" lista_declaracao_variavel_local { $$ = $3; }
-;
-
-lista_declaracao_variavel_local:
-  declaracao_variavel { $$ = new DeclaracaoVarLocaisAst($1); }
-| lista_declaracao_variavel_local declaracao_variavel { $$ = new DeclaracaoVarLocaisAst($1, $2); }
+  | LOCAL ":" lista_declaracao_variavel { $$ = $3; }
 ;
 
 lista_comandos: 

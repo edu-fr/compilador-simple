@@ -77,25 +77,14 @@ DeclaracaoTiposAst::DeclaracaoTiposAst(BaseDecTiposAst* tail, BaseDecTiposAst* d
 DeclaracaoVariavelAst::DeclaracaoVariavelAst(const string &id, const string &tipo, ExprAst* expressao)
     : id_(id), tipo_(tipo), expressao_(expressao) {}
 
-DeclaracaoGlobaisAst::DeclaracaoGlobaisAst(BaseDecVarAst *declaracao)
+ListaDecVarAst::ListaDecVarAst(BaseDecVarAst *declaracao)
 {
     lista_declaracoes_.push_back((DeclaracaoVariavelAst*)declaracao);
 }
 
-DeclaracaoGlobaisAst::DeclaracaoGlobaisAst(BaseDecVarAst *tail, BaseDecVarAst *declaracao)
+ListaDecVarAst::ListaDecVarAst(BaseDecVarAst *tail, BaseDecVarAst *declaracao)
 {
-    lista_declaracoes_ = ((DeclaracaoGlobaisAst*) tail)->lista_declaracoes_;
-    lista_declaracoes_.push_back((DeclaracaoVariavelAst*) declaracao);
-}
-
-DeclaracaoVarLocaisAst::DeclaracaoVarLocaisAst(BaseDecVarAst *declaracao)
-{
-    lista_declaracoes_.push_back((DeclaracaoVariavelAst*)declaracao);
-}
-
-DeclaracaoVarLocaisAst::DeclaracaoVarLocaisAst(BaseDecVarAst *tail, BaseDecVarAst *declaracao)
-{
-    lista_declaracoes_ = ((DeclaracaoVarLocaisAst*) tail)->lista_declaracoes_;
+    lista_declaracoes_ = ((ListaDecVarAst*) tail)->lista_declaracoes_;
     lista_declaracoes_.push_back((DeclaracaoVariavelAst*) declaracao);
 }
 
@@ -120,7 +109,7 @@ ListaArgsAst::ListaArgsAst(BaseArgsAst* tail, BaseArgsAst* arg)
 }
 
 CorpoAst::CorpoAst(BaseDecVarAst *var_locais, BaseComandoAst *lista_comandos)
-    : variaveis_locais_((DeclaracaoVarLocaisAst*) var_locais), lista_comandos_((ListaComandosAst*) lista_comandos) {}
+    : variaveis_locais_((ListaDecVarAst*) var_locais), lista_comandos_((ListaComandosAst*) lista_comandos) {}
 
 DeclaracaoFuncaoAst::DeclaracaoFuncaoAst(const string &id, BaseArgsAst *args, CorpoAst* corpo)
     : id_(id), args_((ListaArgsAst*)args), corpo_(corpo) {
@@ -146,7 +135,7 @@ DeclaracaoFuncoesAst::DeclaracaoFuncoesAst(BaseDecFuncAst* tail, BaseDecFuncAst*
 /* declaracoes */
 
 DeclaracoesAst::DeclaracoesAst(BaseDecTiposAst *tipos, BaseDecVarAst *globais, BaseDecFuncAst *funcoes)
-    : tipos_((DeclaracaoTiposAst*) tipos), globais_((DeclaracaoGlobaisAst*) globais), funcoes_((DeclaracaoFuncoesAst*) funcoes) {}
+    : tipos_((DeclaracaoTiposAst*) tipos), globais_((ListaDecVarAst*) globais), funcoes_((DeclaracaoFuncoesAst*) funcoes) {}
 
 
 /* ******************
