@@ -79,7 +79,7 @@
 
 /* Nao terminais */
 %type <programa_val> programa 
-%type <exp_val> termo fator literal expr expressao_logica expressao_relacional expressao_aritmetica inicializacao criacao_de_registro
+%type <exp_val> termo fator literal expr expressao_logica expressao_relacional expressao_aritmetica inicializacao criacao_de_registro atribuicao_registro lista_args_chamada
 %type <acao_val> lista_comandos acao comando
 %type <local_val> local 
 %type <declaracao_val> declaracoes
@@ -269,8 +269,8 @@ comando:
 | SE expr VERDADEIRO lista_comandos FALSO lista_comandos FSE { $$ = new SeAst($2, $4, $6); }
 | PARA IDENTIFICADOR DE expr LIMITE expr FACA lista_comandos FPARA { $$ = new ParaAst(*$2, $4, $6, $8); }
 | ENQUANTO expr FACA lista_comandos FENQUANTO { $$ = new EnquantoAst($2, $4); }
-| PARE // O QUE FAZER AQUI ???
-| CONTINUE 
+| PARE { $$ = new PareAst(); } // ESTA CORRETO ISSO ???
+| CONTINUE { $$ = new ContinueAst(); }
 | RETORNE expr { $$ = new RetorneAst($2); }
 ;
 
@@ -280,12 +280,12 @@ expr:
 ;
 
 criacao_de_registro:
-  atribuicao_registro
-| criacao_de_registro "," atribuicao_registro
+  atribuicao_registro { $$ = new CriacaoRegistroAst($1); }
+| criacao_de_registro "," atribuicao_registro { $$ = new CriacaoRegistroAst($1, $3); }
 ;
 
 atribuicao_registro:
-  IDENTIFICADOR "=" expr
+  IDENTIFICADOR "=" expr { $$ = new AtribuicaoRegistroAst(*$1, $3); }
 ;
 
 expressao_logica:
@@ -321,17 +321,17 @@ fator:
 | literal
 | local
 | chamada_de_funcao
-| NULO
+| NULO { $$ = new NuloAst(); }
 ;
 
 chamada_de_funcao:
-  IDENTIFICADOR "(" lista_args_chamada ")"
+  IDENTIFICADOR "(" lista_args_chamada ")" { $$ = new ChamadaFuncaoAst(*$1, $3); }
 ;
 
 lista_args_chamada: 
-  /* empty */ %empty
-| fator
-| lista_args_chamada "," fator
+  /* empty */ %empty { $$ = nullptr; }
+| fator { $$ = new ListaArgsChamada($1); }
+| lista_args_chamada "," fator { $$ = new ListaArgsChamada($1, $3); }
 ;
 
 literal:

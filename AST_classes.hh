@@ -217,6 +217,7 @@ public:
  *        ACOES     *
  * ****************** */
 
+
 class BaseComandoAst {
 public:
     BaseComandoAst() {}
@@ -274,6 +275,16 @@ public:
     ExprAst* expr_;
 };
 
+class PareAst : public BaseComandoAst {
+public:
+    PareAst() {}
+};
+
+class ContinueAst : public BaseComandoAst {
+public:
+    ContinueAst() {}
+};
+
 
 /* ******************
  *    EXPRESSOES    *
@@ -285,6 +296,23 @@ public:
     ExprAst() {}
     ~ExprAst() {}
 };
+
+class AtribuicaoRegistroAst : public ExprAst {
+public:
+    AtribuicaoRegistroAst(const string &id, ExprAst* expr);
+
+    string id_;
+    ExprAst* expr_;
+};
+
+class CriacaoRegistroAst : public ExprAst {
+public:
+    CriacaoRegistroAst(ExprAst* atribuicao_registro);
+    CriacaoRegistroAst(ExprAst* tail, ExprAst* atribuicao_registro);
+
+    vector<AtribuicaoRegistroAst*> lista_;
+};
+
 
 class InteiroAst : public ExprAst {
 public:
@@ -408,6 +436,27 @@ public:
 
     ExprAst* esq_;
     ExprAst* dir_;
+};
+
+class NuloAst : public ExprAst {
+public:
+    NuloAst();
+};
+
+class ListaArgsChamada : public ExprAst {
+public:
+    ListaArgsChamada(ExprAst* fator);
+    ListaArgsChamada(ExprAst* tail, ExprAst* fator);
+
+    vector<ExprAst*> args_;
+};
+
+class ChamadaFuncaoAst : public ExprAst {
+public:
+    ChamadaFuncaoAst(const string &id, ListaArgsChamada* lista);
+
+    string id_;
+    ListaArgsChamada* lista_;
 };
 
 #endif

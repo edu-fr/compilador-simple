@@ -180,6 +180,19 @@ RetorneAst::RetorneAst(ExprAst* expr)
  *    EXPRESSOES    *
  * ****************** */
 
+AtribuicaoRegistroAst::AtribuicaoRegistroAst(const string &id, ExprAst* expr)
+    : id_(id), expr_(expr) {}
+
+CriacaoRegistroAst::CriacaoRegistroAst(ExprAst* atribuicao_registro)
+{
+    lista_.push_back((AtribuicaoRegistroAst*) atribuicao_registro);
+}
+
+CriacaoRegistroAst::CriacaoRegistroAst(ExprAst* tail, ExprAst* atribuicao_registro)
+{
+    lista_ = ((CriacaoRegistroAst*) tail)->lista_;
+    lista_.push_back((AtribuicaoRegistroAst*) atribuicao_registro);
+}
 
 InteiroAst::InteiroAst(int val)
     : val_(val) {}
@@ -228,3 +241,17 @@ AndAst::AndAst(ExprAst* esq, ExprAst* dir)
 
 OrAst::OrAst(ExprAst* esq, ExprAst* dir)
     : esq_(esq), dir_(dir) {}
+
+ListaArgsChamada::ListaArgsChamada(ExprAst* fator)
+{
+    args_.push_back(fator);
+}
+
+ListaArgsChamada::ListaArgsChamada(ExprAst* tail, ExprAst* fator)
+{
+    args_ = ((ListaArgsChamada*) tail)->args_;
+    args_.push_back(fator);
+}
+
+ChamadaFuncaoAst::ChamadaFuncaoAst(const string &id, ListaArgsChamada* lista)
+    : id_(id), lista_(lista) {}
