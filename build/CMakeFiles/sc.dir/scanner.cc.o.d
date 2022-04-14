@@ -158,6 +158,133 @@ CMakeFiles/sc.dir/scanner.cc.o: \
  /usr/include/c++/9/bits/stl_uninitialized.h \
  /usr/include/c++/9/bits/stl_vector.h \
  /usr/include/c++/9/bits/stl_bvector.h /usr/include/c++/9/bits/vector.tcc \
+ /usr/include/llvm/ADT/APFloat.h /usr/include/llvm/ADT/APInt.h \
+ /usr/include/llvm/Support/Compiler.h \
+ /usr/include/llvm/Config/llvm-config.h \
+ /usr/include/llvm/Support/MathExtras.h \
+ /usr/include/llvm/Support/SwapByteOrder.h \
+ /usr/include/llvm/Support/DataTypes.h /usr/include/llvm-c/DataTypes.h \
+ /usr/include/c++/9/cmath /usr/include/math.h \
+ /usr/include/x86_64-linux-gnu/bits/math-vector.h \
+ /usr/include/x86_64-linux-gnu/bits/libm-simd-decl-stubs.h \
+ /usr/include/x86_64-linux-gnu/bits/flt-eval-method.h \
+ /usr/include/x86_64-linux-gnu/bits/fp-logb.h \
+ /usr/include/x86_64-linux-gnu/bits/fp-fast.h \
+ /usr/include/x86_64-linux-gnu/bits/mathcalls-helper-functions.h \
+ /usr/include/x86_64-linux-gnu/bits/mathcalls.h \
+ /usr/include/x86_64-linux-gnu/bits/mathcalls-narrow.h \
+ /usr/include/x86_64-linux-gnu/bits/iscanonical.h \
+ /usr/include/x86_64-linux-gnu/bits/mathinline.h /usr/include/inttypes.h \
+ /usr/include/c++/9/cstddef /usr/include/c++/9/algorithm \
+ /usr/include/c++/9/utility /usr/include/c++/9/bits/stl_relops.h \
+ /usr/include/c++/9/bits/stl_algo.h \
+ /usr/include/c++/9/bits/algorithmfwd.h \
+ /usr/include/c++/9/bits/stl_heap.h /usr/include/c++/9/bits/stl_tempbuf.h \
+ /usr/include/c++/9/bits/uniform_int_dist.h /usr/include/c++/9/limits \
+ /usr/include/c++/9/cassert /usr/include/assert.h \
+ /usr/include/c++/9/climits \
+ /usr/lib/gcc/x86_64-linux-gnu/9/include/limits.h \
+ /usr/lib/gcc/x86_64-linux-gnu/9/include/syslimits.h \
+ /usr/include/limits.h /usr/include/x86_64-linux-gnu/bits/posix1_lim.h \
+ /usr/include/x86_64-linux-gnu/bits/local_lim.h \
+ /usr/include/linux/limits.h \
+ /usr/include/x86_64-linux-gnu/bits/posix2_lim.h \
+ /usr/include/x86_64-linux-gnu/bits/xopen_lim.h \
+ /usr/include/x86_64-linux-gnu/bits/uio_lim.h \
+ /usr/include/llvm/ADT/ArrayRef.h /usr/include/llvm/ADT/Hashing.h \
+ /usr/include/llvm/Support/ErrorHandling.h \
+ /usr/include/llvm/Support/type_traits.h /usr/include/llvm/ADT/None.h \
+ /usr/include/llvm/ADT/SmallVector.h \
+ /usr/include/llvm/ADT/iterator_range.h /usr/include/c++/9/iterator \
+ /usr/include/c++/9/bits/stream_iterator.h \
+ /usr/include/llvm/Support/AlignOf.h /usr/include/llvm/Support/MemAlloc.h \
+ /usr/include/c++/9/memory /usr/include/c++/9/bits/stl_raw_storage_iter.h \
+ /usr/include/c++/9/ext/concurrence.h \
+ /usr/include/c++/9/bits/uses_allocator.h \
+ /usr/include/c++/9/bits/unique_ptr.h /usr/include/c++/9/tuple \
+ /usr/include/c++/9/array /usr/include/c++/9/bits/invoke.h \
+ /usr/include/c++/9/bits/shared_ptr.h \
+ /usr/include/c++/9/bits/shared_ptr_base.h \
+ /usr/include/c++/9/bits/allocated_ptr.h \
+ /usr/include/c++/9/bits/refwrap.h \
+ /usr/include/c++/9/ext/aligned_buffer.h \
+ /usr/include/c++/9/bits/shared_ptr_atomic.h \
+ /usr/include/c++/9/bits/atomic_base.h \
+ /usr/include/c++/9/bits/atomic_lockfree_defines.h \
+ /usr/include/c++/9/backward/auto_ptr.h /usr/include/llvm/ADT/STLExtras.h \
+ /usr/include/llvm/ADT/Optional.h /usr/include/llvm/ADT/iterator.h \
+ /usr/include/llvm/Config/abi-breaking.h /usr/include/c++/9/functional \
+ /usr/include/c++/9/bits/std_function.h /usr/include/llvm/IR/BasicBlock.h \
+ /usr/include/llvm-c/Types.h /usr/include/llvm-c/ExternC.h \
+ /usr/include/llvm/ADT/Twine.h /usr/include/llvm/ADT/StringRef.h \
+ /usr/include/llvm/ADT/ilist.h /usr/include/llvm/ADT/simple_ilist.h \
+ /usr/include/llvm/ADT/ilist_base.h \
+ /usr/include/llvm/ADT/ilist_node_base.h \
+ /usr/include/llvm/ADT/PointerIntPair.h \
+ /usr/include/llvm/Support/PointerLikeTypeTraits.h \
+ /usr/include/llvm/ADT/ilist_iterator.h \
+ /usr/include/llvm/ADT/ilist_node.h \
+ /usr/include/llvm/ADT/ilist_node_options.h \
+ /usr/include/llvm/IR/Instruction.h /usr/include/llvm/IR/DebugLoc.h \
+ /usr/include/llvm/IR/TrackingMDRef.h /usr/include/llvm/IR/Metadata.h \
+ /usr/include/llvm/ADT/DenseMap.h /usr/include/llvm/ADT/DenseMapInfo.h \
+ /usr/include/llvm/Support/TypeSize.h \
+ /usr/include/llvm/ADT/EpochTracker.h \
+ /usr/include/llvm/Support/ReverseIteration.h \
+ /usr/include/llvm/ADT/PointerUnion.h /usr/include/llvm/ADT/StringMap.h \
+ /usr/include/llvm/Support/Allocator.h \
+ /usr/include/llvm/Support/Alignment.h /usr/include/llvm/IR/Constant.h \
+ /usr/include/llvm/IR/User.h /usr/include/llvm/IR/Use.h \
+ /usr/include/llvm/Support/CBindingWrapping.h \
+ /usr/include/llvm/Support/Casting.h /usr/include/llvm/IR/Value.h \
+ /usr/include/llvm/IR/Value.def /usr/include/llvm/IR/LLVMContext.h \
+ /usr/include/llvm/IR/DiagnosticHandler.h \
+ /usr/include/llvm/IR/FixedMetadataKinds.def \
+ /usr/include/llvm/IR/Metadata.def \
+ /usr/include/llvm/IR/SymbolTableListTraits.h \
+ /usr/include/llvm/IR/Instruction.def /usr/include/llvm/IR/Constants.h \
+ /usr/include/llvm/IR/DerivedTypes.h /usr/include/llvm/IR/Type.h \
+ /usr/include/llvm/ADT/SmallPtrSet.h /usr/include/llvm/IR/OperandTraits.h \
+ /usr/include/llvm/IR/Function.h /usr/include/llvm/ADT/DenseSet.h \
+ /usr/include/llvm/IR/Argument.h /usr/include/llvm/IR/Attributes.h \
+ /usr/include/llvm/ADT/FoldingSet.h /usr/include/c++/9/bitset \
+ /usr/include/c++/9/map /usr/include/c++/9/bits/stl_tree.h \
+ /usr/include/c++/9/bits/stl_map.h /usr/include/c++/9/bits/stl_multimap.h \
+ /usr/include/c++/9/bits/erase_if.h /usr/include/llvm/IR/Attributes.inc \
+ /usr/include/llvm/IR/CallingConv.h /usr/include/llvm/IR/GlobalObject.h \
+ /usr/include/llvm/IR/GlobalValue.h /usr/include/llvm/Support/MD5.h \
+ /usr/include/llvm/ADT/SmallString.h /usr/include/llvm/Support/Endian.h \
+ /usr/include/llvm/Support/Host.h /usr/include/llvm/IR/IRBuilder.h \
+ /usr/include/llvm/IR/ConstantFolder.h /usr/include/llvm/IR/InstrTypes.h \
+ /usr/include/llvm/IR/DataLayout.h /usr/include/llvm/IR/GlobalVariable.h \
+ /usr/include/llvm/IR/Instructions.h \
+ /usr/include/llvm/Support/AtomicOrdering.h \
+ /usr/include/llvm/IR/IntrinsicInst.h /usr/include/llvm/IR/FPEnv.h \
+ /usr/include/llvm/IR/Intrinsics.h \
+ /usr/include/llvm/IR/IntrinsicEnums.inc /usr/include/llvm/IR/Module.h \
+ /usr/include/llvm/IR/Comdat.h /usr/include/llvm/IR/GlobalAlias.h \
+ /usr/include/llvm/IR/GlobalIndirectSymbol.h \
+ /usr/include/llvm/IR/GlobalIFunc.h /usr/include/llvm/IR/ProfileSummary.h \
+ /usr/include/llvm/Support/CodeGen.h /usr/include/llvm/IR/Operator.h \
+ /usr/include/llvm/IR/ValueHandle.h \
+ /usr/include/llvm/IR/ConstrainedOps.def /usr/include/llvm/IR/Verifier.h \
+ /usr/include/llvm/IR/PassManager.h /usr/include/llvm/ADT/TinyPtrVector.h \
+ /usr/include/llvm/IR/PassInstrumentation.h /usr/include/llvm/ADT/Any.h \
+ /usr/include/llvm/ADT/FunctionExtras.h \
+ /usr/include/llvm/Support/TypeName.h \
+ /usr/include/llvm/IR/PassManagerInternal.h /usr/include/llvm/Pass.h \
+ /usr/include/llvm/PassAnalysisSupport.h /usr/include/llvm/Pass.h \
+ /usr/include/llvm/PassSupport.h /usr/include/llvm/PassInfo.h \
+ /usr/include/llvm/PassRegistry.h /usr/include/llvm/Support/RWMutex.h \
+ /usr/include/llvm/Support/Threading.h /usr/include/c++/9/ciso646 \
+ /usr/include/c++/9/mutex /usr/include/c++/9/chrono \
+ /usr/include/c++/9/ratio /usr/include/c++/9/ctime \
+ /usr/include/c++/9/bits/parse_numbers.h \
+ /usr/include/c++/9/bits/std_mutex.h \
+ /usr/include/c++/9/bits/unique_lock.h /usr/include/c++/9/shared_mutex \
+ /usr/include/c++/9/condition_variable /usr/include/llvm/Support/Debug.h \
+ /usr/include/llvm/Support/raw_ostream.h /usr/include/c++/9/list \
+ /usr/include/c++/9/bits/stl_list.h /usr/include/c++/9/bits/list.tcc \
  /home/dudu/Documentos/Facul/compiladores/projeto/compilador-simples/scanner.hh \
  /home/dudu/Documentos/Facul/compiladores/projeto/compilador-simples/build/parser.hh \
  /usr/include/unistd.h /usr/include/x86_64-linux-gnu/bits/posix_opt.h \
