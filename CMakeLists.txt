@@ -15,7 +15,7 @@ find_package(FLEX)
 # Variables
 set(CXX "clang++")
 set(CMAKE_CXX_FLAGS_DEBUG "-Wall -W -Werror -pedantic -g")
-set(CMAKE_CXX_FLAGS "-O3 -Wall -W -pedantic")
+set(CMAKE_CXX_FLAGS "-O3 -DLLVM_DISABLE_ABI_BREAKING_CHECKS_ENFORCING -Wall -W -pedantic")
 
 # Files
 file(GLOB HH_FILES *.hh)

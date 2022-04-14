@@ -130,7 +130,7 @@ public:
     BaseDecVarAst() {}
     ~BaseDecVarAst() {}
 
-    // virtual Value *codegen() = 0;
+    virtual Value *codegen() = 0;
 };
 
 class DeclaracaoVariavelAst : public BaseDecVarAst {
@@ -236,6 +236,8 @@ class BaseComandoAst {
 public:
     BaseComandoAst() {}
     ~BaseComandoAst() {}
+
+    virtual Value *codegen() = 0;
 };
 
 class ListaComandosAst : public BaseComandoAst {
@@ -252,6 +254,8 @@ public:
 
     LocalAst* esq_;
     ExprAst* dir_;
+
+    virtual Value *codegen() override;
 };
 
 class SeAst : public BaseComandoAst {
@@ -309,6 +313,8 @@ class ExprAst {
 public:
     ExprAst() {}
     ~ExprAst() {}
+
+    virtual Value *codegen() = 0;
 };
 
 class AtribuicaoRegistroAst : public ExprAst {
@@ -333,6 +339,8 @@ public:
     InteiroAst(int val);
 
     int val_;
+
+    virtual Value *codegen() override;
 };
 
 class RealAst : public ExprAst {
@@ -340,6 +348,8 @@ public:
     RealAst(double val);
 
     double val_;
+
+    virtual Value *codegen() override;
 };
 
 class CadeiaAst : public ExprAst {

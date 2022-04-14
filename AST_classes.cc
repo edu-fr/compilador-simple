@@ -258,3 +258,27 @@ ChamadaFuncaoAst::ChamadaFuncaoAst(const string &id, ExprAst* lista)
 
 ChamadaProcedimentoAst::ChamadaProcedimentoAst(const string &id, ExprAst* lista)
     : id_(id), lista_((ListaArgsChamada*) lista) {}
+
+
+//===----------------------------------------------------------------------===//
+// Code Generation CAP 8
+//===----------------------------------------------------------------------===//
+
+static std::unique_ptr<LLVMContext> TheContext;
+static std::unique_ptr<Module> TheModule;
+static std::unique_ptr<IRBuilder<>> Builder;
+
+//Value* AtribuicaoAst::codegen()
+//{
+
+//}
+
+//Value* InteiroAst::codegen()
+//{
+//    return ConstantFP::get(*TheContext, APInt());
+//}
+
+Value* RealAst::codegen()
+{
+    return ConstantFP::get(*TheContext, APFloat(val_));
+}
