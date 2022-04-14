@@ -47,10 +47,10 @@
 #define yylex driver.scanner_->yylex
 
 
-#line 51 "/home/dudu/Documentos/Facul/compiladores/projeto/compilador-simples/build/parser.cc"
+#line 51 "parser.tab.cc"
 
 
-#include "parser.hh"
+#include "parser.tab.hh"
 
 
 
@@ -144,7 +144,7 @@
 
 #line 45 "parser.yy"
 namespace Simples {
-#line 148 "/home/dudu/Documentos/Facul/compiladores/projeto/compilador-simples/build/parser.cc"
+#line 148 "parser.tab.cc"
 
 
   /* Return YYSTR after stripping away unnecessary quotes and
@@ -640,521 +640,521 @@ namespace Simples {
   case 2:
 #line 149 "parser.yy"
                    { (yylhs.value.programa_val) = new ProgramaAst((yystack_[1].value.declaracao_val), (yystack_[0].value.acao_val)); }
-#line 644 "/home/dudu/Documentos/Facul/compiladores/projeto/compilador-simples/build/parser.cc"
+#line 644 "parser.tab.cc"
     break;
 
   case 3:
 #line 155 "parser.yy"
                              { (yylhs.value.declaracao_val) = new DeclaracoesAst((yystack_[2].value.declaracao_tipos_val), (yystack_[1].value.declaracao_variavel_val), (yystack_[0].value.declaracao_funcoes_val)); }
-#line 650 "/home/dudu/Documentos/Facul/compiladores/projeto/compilador-simples/build/parser.cc"
+#line 650 "parser.tab.cc"
     break;
 
   case 4:
 #line 159 "parser.yy"
                           { (yylhs.value.acao_val) = (yystack_[0].value.acao_val); }
-#line 656 "/home/dudu/Documentos/Facul/compiladores/projeto/compilador-simples/build/parser.cc"
+#line 656 "parser.tab.cc"
     break;
 
   case 5:
 #line 163 "parser.yy"
                      { (yylhs.value.declaracao_tipos_val) = nullptr; }
-#line 662 "/home/dudu/Documentos/Facul/compiladores/projeto/compilador-simples/build/parser.cc"
+#line 662 "parser.tab.cc"
     break;
 
   case 6:
 #line 164 "parser.yy"
                                    { (yylhs.value.declaracao_tipos_val) = (yystack_[0].value.declaracao_tipos_val); }
-#line 668 "/home/dudu/Documentos/Facul/compiladores/projeto/compilador-simples/build/parser.cc"
+#line 668 "parser.tab.cc"
     break;
 
   case 7:
 #line 168 "parser.yy"
                   { (yylhs.value.declaracao_tipos_val) = new DeclaracaoTiposAst((yystack_[0].value.declaracao_tipos_val)); }
-#line 674 "/home/dudu/Documentos/Facul/compiladores/projeto/compilador-simples/build/parser.cc"
+#line 674 "parser.tab.cc"
     break;
 
   case 8:
 #line 169 "parser.yy"
                                         { (yylhs.value.declaracao_tipos_val) = new DeclaracaoTiposAst((yystack_[1].value.declaracao_tipos_val), (yystack_[0].value.declaracao_tipos_val)); }
-#line 680 "/home/dudu/Documentos/Facul/compiladores/projeto/compilador-simples/build/parser.cc"
+#line 680 "parser.tab.cc"
     break;
 
   case 9:
 #line 173 "parser.yy"
                      { (yylhs.value.declaracao_variavel_val) = nullptr; }
-#line 686 "/home/dudu/Documentos/Facul/compiladores/projeto/compilador-simples/build/parser.cc"
+#line 686 "parser.tab.cc"
     break;
 
   case 10:
 #line 174 "parser.yy"
                                        { (yylhs.value.declaracao_variavel_val) = (yystack_[0].value.declaracao_variavel_val); }
-#line 692 "/home/dudu/Documentos/Facul/compiladores/projeto/compilador-simples/build/parser.cc"
+#line 692 "parser.tab.cc"
     break;
 
   case 11:
 #line 178 "parser.yy"
                       { (yylhs.value.declaracao_variavel_val) = new ListaDecVarAst((yystack_[0].value.declaracao_variavel_val)); }
-#line 698 "/home/dudu/Documentos/Facul/compiladores/projeto/compilador-simples/build/parser.cc"
+#line 698 "parser.tab.cc"
     break;
 
   case 12:
 #line 179 "parser.yy"
                                                 { (yylhs.value.declaracao_variavel_val) = new ListaDecVarAst((yystack_[1].value.declaracao_variavel_val), (yystack_[0].value.declaracao_variavel_val)); }
-#line 704 "/home/dudu/Documentos/Facul/compiladores/projeto/compilador-simples/build/parser.cc"
+#line 704 "parser.tab.cc"
     break;
 
   case 13:
 #line 183 "parser.yy"
                                                      { (yylhs.value.declaracao_variavel_val) = new DeclaracaoVariavelAst(*(yystack_[4].value.stringVal), *(yystack_[2].value.stringVal), (yystack_[0].value.exp_val)); }
-#line 710 "/home/dudu/Documentos/Facul/compiladores/projeto/compilador-simples/build/parser.cc"
+#line 710 "parser.tab.cc"
     break;
 
   case 14:
 #line 187 "parser.yy"
   { (yylhs.value.exp_val) = (yystack_[0].value.exp_val); }
-#line 716 "/home/dudu/Documentos/Facul/compiladores/projeto/compilador-simples/build/parser.cc"
+#line 716 "parser.tab.cc"
     break;
 
   case 15:
 #line 191 "parser.yy"
                                    { (yylhs.value.declaracao_tipos_val) = new DeclaracaoTipoAst(*(yystack_[2].value.stringVal), (yystack_[0].value.descritor_tipo_val)); }
-#line 722 "/home/dudu/Documentos/Facul/compiladores/projeto/compilador-simples/build/parser.cc"
+#line 722 "parser.tab.cc"
     break;
 
   case 16:
 #line 195 "parser.yy"
                 { (yylhs.value.descritor_tipo_val) = new DescritorTipoIdAst(*(yystack_[0].value.stringVal)); }
-#line 728 "/home/dudu/Documentos/Facul/compiladores/projeto/compilador-simples/build/parser.cc"
+#line 728 "parser.tab.cc"
     break;
 
   case 17:
 #line 196 "parser.yy"
                       { (yylhs.value.descritor_tipo_val) = new DescritorTipoCamposAst((yystack_[1].value.declaracao_tipos_val)); }
-#line 734 "/home/dudu/Documentos/Facul/compiladores/projeto/compilador-simples/build/parser.cc"
+#line 734 "parser.tab.cc"
     break;
 
   case 18:
 #line 197 "parser.yy"
                                            { (yylhs.value.descritor_tipo_val) = new DescritorTipoCtesAst((yystack_[3].value.tipo_ctes_val), *(yystack_[0].value.stringVal)); }
-#line 740 "/home/dudu/Documentos/Facul/compiladores/projeto/compilador-simples/build/parser.cc"
+#line 740 "parser.tab.cc"
     break;
 
   case 19:
 #line 201 "parser.yy"
              { (yylhs.value.declaracao_tipos_val) = new TipoCamposAst((yystack_[0].value.declaracao_tipos_val)); }
-#line 746 "/home/dudu/Documentos/Facul/compiladores/projeto/compilador-simples/build/parser.cc"
+#line 746 "parser.tab.cc"
     break;
 
   case 20:
 #line 202 "parser.yy"
                              { (yylhs.value.declaracao_tipos_val) = new TipoCamposAst((yystack_[2].value.declaracao_tipos_val), (yystack_[0].value.declaracao_tipos_val)); }
-#line 752 "/home/dudu/Documentos/Facul/compiladores/projeto/compilador-simples/build/parser.cc"
+#line 752 "parser.tab.cc"
     break;
 
   case 21:
 #line 206 "parser.yy"
                                   { (yylhs.value.declaracao_tipos_val) = new TipoCampoAst(*(yystack_[2].value.stringVal), *(yystack_[0].value.stringVal)); }
-#line 758 "/home/dudu/Documentos/Facul/compiladores/projeto/compilador-simples/build/parser.cc"
+#line 758 "parser.tab.cc"
     break;
 
   case 22:
 #line 210 "parser.yy"
           { (yylhs.value.tipo_ctes_val) = new TipoConstantesAst((yystack_[0].value.integerVal)); }
-#line 764 "/home/dudu/Documentos/Facul/compiladores/projeto/compilador-simples/build/parser.cc"
+#line 764 "parser.tab.cc"
     break;
 
   case 23:
 #line 211 "parser.yy"
                               { (yylhs.value.tipo_ctes_val) = new TipoConstantesAst((yystack_[2].value.tipo_ctes_val), (yystack_[0].value.integerVal)); }
-#line 770 "/home/dudu/Documentos/Facul/compiladores/projeto/compilador-simples/build/parser.cc"
+#line 770 "parser.tab.cc"
     break;
 
   case 24:
 #line 215 "parser.yy"
                      { (yylhs.value.declaracao_funcoes_val) = nullptr; }
-#line 776 "/home/dudu/Documentos/Facul/compiladores/projeto/compilador-simples/build/parser.cc"
+#line 776 "parser.tab.cc"
     break;
 
   case 25:
 #line 216 "parser.yy"
                                        { (yylhs.value.declaracao_funcoes_val) = (yystack_[0].value.declaracao_funcoes_val); }
-#line 782 "/home/dudu/Documentos/Facul/compiladores/projeto/compilador-simples/build/parser.cc"
+#line 782 "parser.tab.cc"
     break;
 
   case 26:
 #line 220 "parser.yy"
                     { (yylhs.value.declaracao_funcoes_val) = new DeclaracaoFuncoesAst((yystack_[0].value.declaracao_funcoes_val)); }
-#line 788 "/home/dudu/Documentos/Facul/compiladores/projeto/compilador-simples/build/parser.cc"
+#line 788 "parser.tab.cc"
     break;
 
   case 27:
 #line 221 "parser.yy"
                                             { (yylhs.value.declaracao_funcoes_val) = new DeclaracaoFuncoesAst((yystack_[1].value.declaracao_funcoes_val), (yystack_[0].value.declaracao_funcoes_val)); }
-#line 794 "/home/dudu/Documentos/Facul/compiladores/projeto/compilador-simples/build/parser.cc"
+#line 794 "parser.tab.cc"
     break;
 
   case 28:
 #line 225 "parser.yy"
                                                 { (yylhs.value.declaracao_funcoes_val) = new DeclaracaoFuncaoAst(*(yystack_[5].value.stringVal), (yystack_[3].value.argumento_val), (yystack_[0].value.corpo_val)); }
-#line 800 "/home/dudu/Documentos/Facul/compiladores/projeto/compilador-simples/build/parser.cc"
+#line 800 "parser.tab.cc"
     break;
 
   case 29:
 #line 226 "parser.yy"
                                                                   { (yylhs.value.declaracao_funcoes_val) = new DeclaracaoFuncaoAst(*(yystack_[7].value.stringVal), (yystack_[5].value.argumento_val), *(yystack_[2].value.stringVal), (yystack_[0].value.corpo_val)); }
-#line 806 "/home/dudu/Documentos/Facul/compiladores/projeto/compilador-simples/build/parser.cc"
+#line 806 "parser.tab.cc"
     break;
 
   case 30:
 #line 230 "parser.yy"
                      { (yylhs.value.argumento_val) = nullptr; }
-#line 812 "/home/dudu/Documentos/Facul/compiladores/projeto/compilador-simples/build/parser.cc"
+#line 812 "parser.tab.cc"
     break;
 
   case 31:
 #line 231 "parser.yy"
     { (yylhs.value.argumento_val) = (yystack_[0].value.argumento_val); }
-#line 818 "/home/dudu/Documentos/Facul/compiladores/projeto/compilador-simples/build/parser.cc"
+#line 818 "parser.tab.cc"
     break;
 
   case 32:
 #line 235 "parser.yy"
        { (yylhs.value.argumento_val) = new ListaArgsAst((yystack_[0].value.argumento_val)); }
-#line 824 "/home/dudu/Documentos/Facul/compiladores/projeto/compilador-simples/build/parser.cc"
+#line 824 "parser.tab.cc"
     break;
 
   case 33:
 #line 236 "parser.yy"
                         { (yylhs.value.argumento_val) = new ListaArgsAst((yystack_[2].value.argumento_val), (yystack_[0].value.argumento_val)); }
-#line 830 "/home/dudu/Documentos/Facul/compiladores/projeto/compilador-simples/build/parser.cc"
+#line 830 "parser.tab.cc"
     break;
 
   case 34:
 #line 240 "parser.yy"
                                               { (yylhs.value.argumento_val) = new ArgumentoAst((yystack_[3].value.modificador_val), *(yystack_[2].value.stringVal), *(yystack_[0].value.stringVal)); }
-#line 836 "/home/dudu/Documentos/Facul/compiladores/projeto/compilador-simples/build/parser.cc"
+#line 836 "parser.tab.cc"
     break;
 
   case 35:
 #line 244 "parser.yy"
         { (yylhs.value.modificador_val) = Modificador::VALOR; }
-#line 842 "/home/dudu/Documentos/Facul/compiladores/projeto/compilador-simples/build/parser.cc"
+#line 842 "parser.tab.cc"
     break;
 
   case 36:
 #line 245 "parser.yy"
       { (yylhs.value.modificador_val) = Modificador::REFERENCIA; }
-#line 848 "/home/dudu/Documentos/Facul/compiladores/projeto/compilador-simples/build/parser.cc"
+#line 848 "parser.tab.cc"
     break;
 
   case 37:
 #line 250 "parser.yy"
                           { (yylhs.value.corpo_val) = new CorpoAst((yystack_[3].value.declaracao_variavel_val), (yystack_[0].value.acao_val)); }
-#line 854 "/home/dudu/Documentos/Facul/compiladores/projeto/compilador-simples/build/parser.cc"
+#line 854 "parser.tab.cc"
     break;
 
   case 38:
 #line 254 "parser.yy"
                      { (yylhs.value.declaracao_variavel_val) = nullptr; }
-#line 860 "/home/dudu/Documentos/Facul/compiladores/projeto/compilador-simples/build/parser.cc"
+#line 860 "parser.tab.cc"
     break;
 
   case 39:
 #line 255 "parser.yy"
                                         { (yylhs.value.declaracao_variavel_val) = (yystack_[0].value.declaracao_variavel_val); }
-#line 866 "/home/dudu/Documentos/Facul/compiladores/projeto/compilador-simples/build/parser.cc"
+#line 866 "parser.tab.cc"
     break;
 
   case 40:
 #line 259 "parser.yy"
           { (yylhs.value.acao_val) = new ListaComandosAst((yystack_[0].value.acao_val)); }
-#line 872 "/home/dudu/Documentos/Facul/compiladores/projeto/compilador-simples/build/parser.cc"
+#line 872 "parser.tab.cc"
     break;
 
   case 41:
 #line 260 "parser.yy"
                              { (yylhs.value.acao_val) = new ListaComandosAst((yystack_[2].value.acao_val), (yystack_[0].value.acao_val)); }
-#line 878 "/home/dudu/Documentos/Facul/compiladores/projeto/compilador-simples/build/parser.cc"
+#line 878 "parser.tab.cc"
     break;
 
   case 42:
 #line 264 "parser.yy"
                         { (yylhs.value.acao_val) = new AtribuicaoAst((yystack_[2].value.exp_val), (yystack_[0].value.exp_val)); }
-#line 884 "/home/dudu/Documentos/Facul/compiladores/projeto/compilador-simples/build/parser.cc"
+#line 884 "parser.tab.cc"
     break;
 
   case 43:
 #line 265 "parser.yy"
   { (yylhs.value.acao_val) = (yystack_[0].value.acao_val); }
-#line 890 "/home/dudu/Documentos/Facul/compiladores/projeto/compilador-simples/build/parser.cc"
+#line 890 "parser.tab.cc"
     break;
 
   case 44:
 #line 266 "parser.yy"
                                         { (yylhs.value.acao_val) = new SeAst((yystack_[3].value.exp_val), (yystack_[1].value.acao_val)); }
-#line 896 "/home/dudu/Documentos/Facul/compiladores/projeto/compilador-simples/build/parser.cc"
+#line 896 "parser.tab.cc"
     break;
 
   case 45:
 #line 267 "parser.yy"
                                                              { (yylhs.value.acao_val) = new SeAst((yystack_[5].value.exp_val), (yystack_[3].value.acao_val), (yystack_[1].value.acao_val)); }
-#line 902 "/home/dudu/Documentos/Facul/compiladores/projeto/compilador-simples/build/parser.cc"
+#line 902 "parser.tab.cc"
     break;
 
   case 46:
 #line 268 "parser.yy"
                                                                    { (yylhs.value.acao_val) = new ParaAst(*(yystack_[7].value.stringVal), (yystack_[5].value.exp_val), (yystack_[3].value.exp_val), (yystack_[1].value.acao_val)); }
-#line 908 "/home/dudu/Documentos/Facul/compiladores/projeto/compilador-simples/build/parser.cc"
+#line 908 "parser.tab.cc"
     break;
 
   case 47:
 #line 269 "parser.yy"
                                               { (yylhs.value.acao_val) = new EnquantoAst((yystack_[3].value.exp_val), (yystack_[1].value.acao_val)); }
-#line 914 "/home/dudu/Documentos/Facul/compiladores/projeto/compilador-simples/build/parser.cc"
+#line 914 "parser.tab.cc"
     break;
 
   case 48:
 #line 270 "parser.yy"
        { (yylhs.value.acao_val) = new PareAst(); }
-#line 920 "/home/dudu/Documentos/Facul/compiladores/projeto/compilador-simples/build/parser.cc"
+#line 920 "parser.tab.cc"
     break;
 
   case 49:
 #line 271 "parser.yy"
            { (yylhs.value.acao_val) = new ContinueAst(); }
-#line 926 "/home/dudu/Documentos/Facul/compiladores/projeto/compilador-simples/build/parser.cc"
+#line 926 "parser.tab.cc"
     break;
 
   case 50:
 #line 272 "parser.yy"
                { (yylhs.value.acao_val) = new RetorneAst((yystack_[0].value.exp_val)); }
-#line 932 "/home/dudu/Documentos/Facul/compiladores/projeto/compilador-simples/build/parser.cc"
+#line 932 "parser.tab.cc"
     break;
 
   case 51:
 #line 276 "parser.yy"
                                            { (yylhs.value.acao_val) = new ChamadaProcedimentoAst(*(yystack_[3].value.stringVal), (yystack_[1].value.exp_val)); }
-#line 938 "/home/dudu/Documentos/Facul/compiladores/projeto/compilador-simples/build/parser.cc"
+#line 938 "parser.tab.cc"
     break;
 
   case 52:
 #line 281 "parser.yy"
                    { (yylhs.value.exp_val) = (yystack_[0].value.exp_val); }
-#line 944 "/home/dudu/Documentos/Facul/compiladores/projeto/compilador-simples/build/parser.cc"
+#line 944 "parser.tab.cc"
     break;
 
   case 53:
 #line 282 "parser.yy"
                               { (yylhs.value.exp_val) = (yystack_[1].value.exp_val); }
-#line 950 "/home/dudu/Documentos/Facul/compiladores/projeto/compilador-simples/build/parser.cc"
+#line 950 "parser.tab.cc"
     break;
 
   case 54:
 #line 286 "parser.yy"
                       { (yylhs.value.exp_val) = new CriacaoRegistroAst((yystack_[0].value.exp_val)); }
-#line 956 "/home/dudu/Documentos/Facul/compiladores/projeto/compilador-simples/build/parser.cc"
+#line 956 "parser.tab.cc"
     break;
 
   case 55:
 #line 287 "parser.yy"
                                               { (yylhs.value.exp_val) = new CriacaoRegistroAst((yystack_[2].value.exp_val), (yystack_[0].value.exp_val)); }
-#line 962 "/home/dudu/Documentos/Facul/compiladores/projeto/compilador-simples/build/parser.cc"
+#line 962 "parser.tab.cc"
     break;
 
   case 56:
 #line 291 "parser.yy"
                          { (yylhs.value.exp_val) = new AtribuicaoRegistroAst(*(yystack_[2].value.stringVal), (yystack_[0].value.exp_val)); }
-#line 968 "/home/dudu/Documentos/Facul/compiladores/projeto/compilador-simples/build/parser.cc"
+#line 968 "parser.tab.cc"
     break;
 
   case 57:
 #line 295 "parser.yy"
                                             { (yylhs.value.exp_val) = new AndAst((yystack_[2].value.exp_val), (yystack_[0].value.exp_val)); }
-#line 974 "/home/dudu/Documentos/Facul/compiladores/projeto/compilador-simples/build/parser.cc"
+#line 974 "parser.tab.cc"
     break;
 
   case 58:
 #line 296 "parser.yy"
                                             { (yylhs.value.exp_val) = new OrAst((yystack_[2].value.exp_val), (yystack_[0].value.exp_val)); }
-#line 980 "/home/dudu/Documentos/Facul/compiladores/projeto/compilador-simples/build/parser.cc"
+#line 980 "parser.tab.cc"
     break;
 
   case 59:
 #line 297 "parser.yy"
   { (yylhs.value.exp_val) = (yystack_[0].value.exp_val); }
-#line 986 "/home/dudu/Documentos/Facul/compiladores/projeto/compilador-simples/build/parser.cc"
+#line 986 "parser.tab.cc"
     break;
 
   case 60:
 #line 301 "parser.yy"
                                                  { (yylhs.value.exp_val) = new MenorIgualAst((yystack_[2].value.exp_val), (yystack_[0].value.exp_val)); }
-#line 992 "/home/dudu/Documentos/Facul/compiladores/projeto/compilador-simples/build/parser.cc"
+#line 992 "parser.tab.cc"
     break;
 
   case 61:
 #line 302 "parser.yy"
                                                  { (yylhs.value.exp_val) = new MaiorIgualAst((yystack_[2].value.exp_val), (yystack_[0].value.exp_val)); }
-#line 998 "/home/dudu/Documentos/Facul/compiladores/projeto/compilador-simples/build/parser.cc"
+#line 998 "parser.tab.cc"
     break;
 
   case 62:
 #line 303 "parser.yy"
                                                 { (yylhs.value.exp_val) = new MenorAst((yystack_[2].value.exp_val), (yystack_[0].value.exp_val)); }
-#line 1004 "/home/dudu/Documentos/Facul/compiladores/projeto/compilador-simples/build/parser.cc"
+#line 1004 "parser.tab.cc"
     break;
 
   case 63:
 #line 304 "parser.yy"
                                                 { (yylhs.value.exp_val) = new MaiorAst((yystack_[2].value.exp_val), (yystack_[0].value.exp_val)); }
-#line 1010 "/home/dudu/Documentos/Facul/compiladores/projeto/compilador-simples/build/parser.cc"
+#line 1010 "parser.tab.cc"
     break;
 
   case 64:
 #line 305 "parser.yy"
                                                  { (yylhs.value.exp_val) = new DiferenteAst((yystack_[2].value.exp_val), (yystack_[0].value.exp_val)); }
-#line 1016 "/home/dudu/Documentos/Facul/compiladores/projeto/compilador-simples/build/parser.cc"
+#line 1016 "parser.tab.cc"
     break;
 
   case 65:
 #line 306 "parser.yy"
                                                  { (yylhs.value.exp_val) = new EquivalenteAst((yystack_[2].value.exp_val), (yystack_[0].value.exp_val)); }
-#line 1022 "/home/dudu/Documentos/Facul/compiladores/projeto/compilador-simples/build/parser.cc"
+#line 1022 "parser.tab.cc"
     break;
 
   case 66:
 #line 307 "parser.yy"
   { (yylhs.value.exp_val) = (yystack_[0].value.exp_val); }
-#line 1028 "/home/dudu/Documentos/Facul/compiladores/projeto/compilador-simples/build/parser.cc"
+#line 1028 "parser.tab.cc"
     break;
 
   case 67:
 #line 311 "parser.yy"
                                  { (yylhs.value.exp_val) = new SomaAst((yystack_[2].value.exp_val), (yystack_[0].value.exp_val)); }
-#line 1034 "/home/dudu/Documentos/Facul/compiladores/projeto/compilador-simples/build/parser.cc"
+#line 1034 "parser.tab.cc"
     break;
 
   case 68:
 #line 312 "parser.yy"
                                  { (yylhs.value.exp_val) = new SubtracaoAst((yystack_[2].value.exp_val), (yystack_[0].value.exp_val)); }
-#line 1040 "/home/dudu/Documentos/Facul/compiladores/projeto/compilador-simples/build/parser.cc"
+#line 1040 "parser.tab.cc"
     break;
 
   case 69:
 #line 313 "parser.yy"
   { (yylhs.value.exp_val) = (yystack_[0].value.exp_val); }
-#line 1046 "/home/dudu/Documentos/Facul/compiladores/projeto/compilador-simples/build/parser.cc"
+#line 1046 "parser.tab.cc"
     break;
 
   case 70:
 #line 317 "parser.yy"
                   { (yylhs.value.exp_val) = new MultiplicacaoAst((yystack_[2].value.exp_val), (yystack_[0].value.exp_val)); }
-#line 1052 "/home/dudu/Documentos/Facul/compiladores/projeto/compilador-simples/build/parser.cc"
+#line 1052 "parser.tab.cc"
     break;
 
   case 71:
 #line 318 "parser.yy"
                   { (yylhs.value.exp_val) = new DivisaoAst((yystack_[2].value.exp_val), (yystack_[0].value.exp_val)); }
-#line 1058 "/home/dudu/Documentos/Facul/compiladores/projeto/compilador-simples/build/parser.cc"
+#line 1058 "parser.tab.cc"
     break;
 
   case 72:
 #line 319 "parser.yy"
   { (yylhs.value.exp_val) = (yystack_[0].value.exp_val); }
-#line 1064 "/home/dudu/Documentos/Facul/compiladores/projeto/compilador-simples/build/parser.cc"
+#line 1064 "parser.tab.cc"
     break;
 
   case 73:
 #line 323 "parser.yy"
                { (yylhs.value.exp_val) = (yystack_[1].value.exp_val); }
-#line 1070 "/home/dudu/Documentos/Facul/compiladores/projeto/compilador-simples/build/parser.cc"
+#line 1070 "parser.tab.cc"
     break;
 
   case 74:
 #line 324 "parser.yy"
   { (yylhs.value.exp_val) = (yystack_[0].value.exp_val); }
-#line 1076 "/home/dudu/Documentos/Facul/compiladores/projeto/compilador-simples/build/parser.cc"
+#line 1076 "parser.tab.cc"
     break;
 
   case 75:
 #line 325 "parser.yy"
   { (yylhs.value.exp_val) = (yystack_[0].value.exp_val); }
-#line 1082 "/home/dudu/Documentos/Facul/compiladores/projeto/compilador-simples/build/parser.cc"
+#line 1082 "parser.tab.cc"
     break;
 
   case 76:
 #line 326 "parser.yy"
   { (yylhs.value.exp_val) = (yystack_[0].value.exp_val); }
-#line 1088 "/home/dudu/Documentos/Facul/compiladores/projeto/compilador-simples/build/parser.cc"
+#line 1088 "parser.tab.cc"
     break;
 
   case 77:
 #line 327 "parser.yy"
        { (yylhs.value.exp_val) = new NuloAst(); }
-#line 1094 "/home/dudu/Documentos/Facul/compiladores/projeto/compilador-simples/build/parser.cc"
+#line 1094 "parser.tab.cc"
     break;
 
   case 78:
 #line 331 "parser.yy"
                                            { (yylhs.value.exp_val) = new ChamadaFuncaoAst(*(yystack_[3].value.stringVal), (yystack_[1].value.exp_val)); }
-#line 1100 "/home/dudu/Documentos/Facul/compiladores/projeto/compilador-simples/build/parser.cc"
+#line 1100 "parser.tab.cc"
     break;
 
   case 79:
 #line 335 "parser.yy"
                      { (yylhs.value.exp_val) = nullptr; }
-#line 1106 "/home/dudu/Documentos/Facul/compiladores/projeto/compilador-simples/build/parser.cc"
+#line 1106 "parser.tab.cc"
     break;
 
   case 80:
 #line 336 "parser.yy"
         { (yylhs.value.exp_val) = new ListaArgsChamada((yystack_[0].value.exp_val)); }
-#line 1112 "/home/dudu/Documentos/Facul/compiladores/projeto/compilador-simples/build/parser.cc"
+#line 1112 "parser.tab.cc"
     break;
 
   case 81:
 #line 337 "parser.yy"
                                { (yylhs.value.exp_val) = new ListaArgsChamada((yystack_[2].value.exp_val), (yystack_[0].value.exp_val)); }
-#line 1118 "/home/dudu/Documentos/Facul/compiladores/projeto/compilador-simples/build/parser.cc"
+#line 1118 "parser.tab.cc"
     break;
 
   case 82:
 #line 341 "parser.yy"
           { (yylhs.value.exp_val) = new InteiroAst((yystack_[0].value.integerVal)); }
-#line 1124 "/home/dudu/Documentos/Facul/compiladores/projeto/compilador-simples/build/parser.cc"
+#line 1124 "parser.tab.cc"
     break;
 
   case 83:
 #line 342 "parser.yy"
        { (yylhs.value.exp_val) = new RealAst((yystack_[0].value.doubleVal)); }
-#line 1130 "/home/dudu/Documentos/Facul/compiladores/projeto/compilador-simples/build/parser.cc"
+#line 1130 "parser.tab.cc"
     break;
 
   case 84:
 #line 343 "parser.yy"
          { (yylhs.value.exp_val) = new CadeiaAst(*(yystack_[0].value.stringVal)); }
-#line 1136 "/home/dudu/Documentos/Facul/compiladores/projeto/compilador-simples/build/parser.cc"
+#line 1136 "parser.tab.cc"
     break;
 
   case 85:
 #line 347 "parser.yy"
                 { (yylhs.value.exp_val) = new LocalAst(*(yystack_[0].value.stringVal)); }
-#line 1142 "/home/dudu/Documentos/Facul/compiladores/projeto/compilador-simples/build/parser.cc"
+#line 1142 "parser.tab.cc"
     break;
 
   case 86:
 #line 348 "parser.yy"
   { (yylhs.value.exp_val) = (yystack_[2].value.exp_val); }
-#line 1148 "/home/dudu/Documentos/Facul/compiladores/projeto/compilador-simples/build/parser.cc"
+#line 1148 "parser.tab.cc"
     break;
 
   case 87:
 #line 349 "parser.yy"
   { (yylhs.value.exp_val) = (yystack_[3].value.exp_val); }
-#line 1154 "/home/dudu/Documentos/Facul/compiladores/projeto/compilador-simples/build/parser.cc"
+#line 1154 "parser.tab.cc"
     break;
 
 
-#line 1158 "/home/dudu/Documentos/Facul/compiladores/projeto/compilador-simples/build/parser.cc"
+#line 1158 "parser.tab.cc"
 
             default:
               break;
@@ -1715,7 +1715,7 @@ namespace Simples {
 
 #line 45 "parser.yy"
 } // Simples
-#line 1719 "/home/dudu/Documentos/Facul/compiladores/projeto/compilador-simples/build/parser.cc"
+#line 1719 "parser.tab.cc"
 
 #line 352 "parser.yy"
 

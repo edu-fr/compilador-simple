@@ -31,12 +31,12 @@
 // version 2.2 of Bison.
 
 /**
- ** \file /home/dudu/Documentos/Facul/compiladores/projeto/compilador-simples/build/location.hh
+ ** \file location.hh
  ** Define the Simples::location class.
  */
 
-#ifndef YY_YY_HOME_DUDU_DOCUMENTOS_FACUL_COMPILADORES_PROJETO_COMPILADOR_SIMPLES_BUILD_LOCATION_HH_INCLUDED
-# define YY_YY_HOME_DUDU_DOCUMENTOS_FACUL_COMPILADORES_PROJETO_COMPILADOR_SIMPLES_BUILD_LOCATION_HH_INCLUDED
+#ifndef YY_YY_LOCATION_HH_INCLUDED
+# define YY_YY_LOCATION_HH_INCLUDED
 
 # include <iostream>
 # include <string>
@@ -55,7 +55,7 @@
 
 #line 45 "parser.yy"
 namespace Simples {
-#line 59 "/home/dudu/Documentos/Facul/compiladores/projeto/compilador-simples/build/location.hh"
+#line 59 "location.hh"
 
   /// A point in a source file.
   class position
@@ -329,6 +329,6 @@ namespace Simples {
 
 #line 45 "parser.yy"
 } // Simples
-#line 333 "/home/dudu/Documentos/Facul/compiladores/projeto/compilador-simples/build/location.hh"
+#line 333 "location.hh"
 
-#endif // !YY_YY_HOME_DUDU_DOCUMENTOS_FACUL_COMPILADORES_PROJETO_COMPILADOR_SIMPLES_BUILD_LOCATION_HH_INCLUDED
+#endif // !YY_YY_LOCATION_HH_INCLUDED

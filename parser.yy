@@ -65,7 +65,6 @@
     ProgramaAst*                programa_val;
     ExprAst*                    exp_val;
     BaseComandoAst*             acao_val;
-    LocalAst*                   local_val;
     DeclaracoesAst*             declaracao_val;
     BaseDecTiposAst*            declaracao_tipos_val;
     BaseDecFuncAst*             declaracao_funcoes_val;
@@ -79,9 +78,8 @@
 
 /* Nao terminais */
 %type <programa_val> programa 
-%type <exp_val> termo fator literal expr expressao_logica expressao_relacional expressao_aritmetica inicializacao criacao_de_registro atribuicao_registro lista_args_chamada
-%type <acao_val> lista_comandos acao comando
-%type <local_val> local 
+%type <exp_val> local termo fator literal expr expressao_logica expressao_relacional expressao_aritmetica inicializacao criacao_de_registro atribuicao_registro lista_args_chamada chamada_de_funcao
+%type <acao_val> lista_comandos acao comando chamada_de_procedimento
 %type <declaracao_val> declaracoes
 %type <declaracao_tipos_val> lista_declaracao_de_tipo lista_declaracao_tipo declaracao_tipo tipo_campo tipo_campos
 %type <declaracao_funcoes_val> lista_declaracao_de_funcao lista_declaracao_funcao declaracao_funcao
@@ -264,15 +262,20 @@ lista_comandos:
 
 comando:
   local ATRIBUICAO expr { $$ = new AtribuicaoAst($1, $3); }    
-| chamada_de_funcao
+| chamada_de_procedimento
 | SE expr VERDADEIRO lista_comandos FSE { $$ = new SeAst($2, $4); }
 | SE expr VERDADEIRO lista_comandos FALSO lista_comandos FSE { $$ = new SeAst($2, $4, $6); }
 | PARA IDENTIFICADOR DE expr LIMITE expr FACA lista_comandos FPARA { $$ = new ParaAst(*$2, $4, $6, $8); }
 | ENQUANTO expr FACA lista_comandos FENQUANTO { $$ = new EnquantoAst($2, $4); }
-| PARE { $$ = new PareAst(); } // ESTA CORRETO ISSO ???
+| PARE { $$ = new PareAst(); }
 | CONTINUE { $$ = new ContinueAst(); }
 | RETORNE expr { $$ = new RetorneAst($2); }
 ;
+
+chamada_de_procedimento:
+  IDENTIFICADOR "(" lista_args_chamada ")" { $$ = new ChamadaProcedimentoAst(*$1, $3); }
+;
+
 
 expr:
   expressao_logica { $$ = $1; }

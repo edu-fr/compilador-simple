@@ -157,8 +157,8 @@ ListaComandosAst::ListaComandosAst(BaseComandoAst *tail, BaseComandoAst *comando
     // cout << "acao 1: " << ((InteiroAst*)((AtribuicaoAst*) lista_comandos_[0])->dir_)->val_ << endl;
 }
 
-AtribuicaoAst::AtribuicaoAst(LocalAst *esq, ExprAst *dir)
-    : esq_(esq), dir_(dir) {}
+AtribuicaoAst::AtribuicaoAst(ExprAst *esq, ExprAst *dir)
+    : esq_((LocalAst*) esq), dir_(dir) {}
 
 SeAst::SeAst(ExprAst* expr, BaseComandoAst* comandos_v)
     : expr_(expr), comandos_verdadeiro_((ListaComandosAst*) comandos_v) {}
@@ -253,5 +253,8 @@ ListaArgsChamada::ListaArgsChamada(ExprAst* tail, ExprAst* fator)
     args_.push_back(fator);
 }
 
-ChamadaFuncaoAst::ChamadaFuncaoAst(const string &id, ListaArgsChamada* lista)
-    : id_(id), lista_(lista) {}
+ChamadaFuncaoAst::ChamadaFuncaoAst(const string &id, ExprAst* lista)
+    : id_(id), lista_((ListaArgsChamada*) lista) {}
+
+ChamadaProcedimentoAst::ChamadaProcedimentoAst(const string &id, ExprAst* lista)
+    : id_(id), lista_((ListaArgsChamada*) lista) {}

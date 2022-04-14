@@ -97,7 +97,7 @@ public:
 class DeclaracaoTipoAst : public BaseDecTiposAst {
 public:
     DeclaracaoTipoAst(const string &id, BaseDescritorTipoAst* descritor_tipo);
-
+    
     string id_;
     BaseDescritorTipoAst* descritor_tipo_;
 };
@@ -234,7 +234,7 @@ public:
 
 class AtribuicaoAst : public BaseComandoAst {
 public:
-    AtribuicaoAst(LocalAst* esq, ExprAst* dir);
+    AtribuicaoAst(ExprAst* esq, ExprAst* dir);
 
     LocalAst* esq_;
     ExprAst* dir_;
@@ -440,7 +440,7 @@ public:
 
 class NuloAst : public ExprAst {
 public:
-    NuloAst();
+    NuloAst() {}
 };
 
 class ListaArgsChamada : public ExprAst {
@@ -453,10 +453,19 @@ public:
 
 class ChamadaFuncaoAst : public ExprAst {
 public:
-    ChamadaFuncaoAst(const string &id, ListaArgsChamada* lista);
+    ChamadaFuncaoAst(const string &id, ExprAst* lista);
 
     string id_;
     ListaArgsChamada* lista_;
 };
+
+class ChamadaProcedimentoAst : public BaseComandoAst {
+public:
+    ChamadaProcedimentoAst(const string &id, ExprAst* lista);
+
+    string id_;
+    ListaArgsChamada* lista_;
+};
+
 
 #endif
