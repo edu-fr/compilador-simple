@@ -265,10 +265,10 @@ ChamadaProcedimentoAst::ChamadaProcedimentoAst(const string &id, ExprAst* lista)
 // Code Generation Globals
 //===----------------------------------------------------------------------===//
 
-static std::unique_ptr<LLVMContext> TheContext;
-static std::unique_ptr<Module> TheModule;
-static std::unique_ptr<IRBuilder<>> Builder;
-static std::map<std::string, Value *> NamedValues;
+// static std::unique_ptr<LLVMContext> TheContext;
+// static std::unique_ptr<Module> TheModule;
+// static std::unique_ptr<IRBuilder<>> Builder;
+// static std::map<std::string, Value *> NamedValues;
 // static std::unique_ptr<KaleidoscopeJIT> TheJIT;
 // static std::map<std::string, std::unique_ptr<PrototypeAST>> FunctionProtos;
 
@@ -286,17 +286,17 @@ static std::map<std::string, Value *> NamedValues;
 //    return ConstantFP::get(*TheContext, APSInt(val_));
 // }
 
-Value* RealAst::codegen()
-{
-    return ConstantFP::get(*TheContext, APFloat(val_));
-}
+// Value* RealAst::codegen()
+// {
+//     return ConstantFP::get(*TheContext, APFloat(val_));
+// }
 
 
 void LogError(const char *Str) {
   fprintf(stderr, "LogError: %s\n", Str);
 }
 
-Value *LogErrorV(const char *Str) {
-  LogError(Str);
-  return nullptr;
-}
+// Value *LogErrorV(const char *Str) {
+//   LogError(Str);
+//   return nullptr;
+// }

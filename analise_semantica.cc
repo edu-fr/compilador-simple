@@ -1,6 +1,6 @@
 #include "analise_semantica.hh"
 
-map<string, Value*> named_values;
+// map<string, Value*> named_values;
 
 void declaracao_variavel(DeclaracaoVariavelAst* declaracao)
 {
