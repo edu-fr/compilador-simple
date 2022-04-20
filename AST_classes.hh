@@ -15,16 +15,17 @@
 #include "llvm/IR/Module.h"
 #include "llvm/IR/Type.h"
 #include "llvm/IR/Verifier.h"
+// #include "../include/KaleidoscopeJIT.h"
 
 using namespace std;
 using namespace llvm;
 
-class ExprAst;
+class ExprAst;  
 class LocalAst;
 class ListaComandosAst;
 class DeclaracoesAst;
 class BaseComandoAst;
-
+class ListaArgsChamada;
 
 /* ******************
  *      PROGRAMA    *
@@ -52,6 +53,8 @@ class BaseDecTiposAst {
 public:
     BaseDecTiposAst() {}
     ~BaseDecTiposAst() {}
+
+    virtual Value *codegen() = 0;
 };
 
 class TipoCampoAst : public BaseDecTiposAst {
@@ -60,6 +63,8 @@ public:
 
     string id_;
     string tipo_;
+
+    Value *codegen() override;
 };
 
 class TipoCamposAst : public BaseDecTiposAst {
@@ -68,12 +73,16 @@ public:
     TipoCamposAst(BaseDecTiposAst* tail, BaseDecTiposAst* campo);
 
     vector<TipoCampoAst*> lista_campos_;
+
+    Value *codegen() override;
 };
 
 class BaseDescritorTipoAst {
 public:
     BaseDescritorTipoAst() {}
     ~BaseDescritorTipoAst() {}
+
+    virtual Value *codegen() = 0;
 };
 
 class DescritorTipoIdAst : public BaseDescritorTipoAst {
@@ -81,6 +90,8 @@ public:
     DescritorTipoIdAst(const string &id);
 
     string id_;
+
+    Value *codegen() override;
 };
 
 class DescritorTipoCamposAst : public BaseDescritorTipoAst {
@@ -88,6 +99,8 @@ public:
     DescritorTipoCamposAst(BaseDecTiposAst* campos);
 
     TipoCamposAst* tipo_campos_;
+
+    Value *codegen() override;
 };
 
 class TipoConstantesAst {
@@ -96,6 +109,8 @@ public:
     TipoConstantesAst(TipoConstantesAst* ctes, int val);
 
     vector<int> tipo_ctes_;
+
+    Value *codegen();
 };
 
 class DescritorTipoCtesAst : public BaseDescritorTipoAst {
@@ -104,6 +119,8 @@ public:
 
     TipoConstantesAst* tipo_constantes_;
     string tipo_;
+
+    Value *codegen() override;
 };
 
 class DeclaracaoTipoAst : public BaseDecTiposAst {
@@ -112,6 +129,8 @@ public:
     
     string id_;
     BaseDescritorTipoAst* descritor_tipo_;
+
+    Value *codegen() override;
 };
 
 class DeclaracaoTiposAst : public BaseDecTiposAst {
@@ -120,6 +139,8 @@ public:
     DeclaracaoTiposAst(BaseDecTiposAst* tail, BaseDecTiposAst* declaracao);
 
     vector<DeclaracaoTipoAst*> lista_declaracoes_;
+
+    Value *codegen() override;
 };
 
 
@@ -140,6 +161,8 @@ public:
 
     string id_, tipo_;
     ExprAst* expressao_;
+
+    Value *codegen() override;
 };
 
 class ListaDecVarAst : public BaseDecVarAst {
@@ -148,6 +171,8 @@ public:
     ListaDecVarAst(BaseDecVarAst* tail, BaseDecVarAst* declaracao);
 
     vector<DeclaracaoVariavelAst*> lista_declaracoes_;
+
+    Value *codegen() override;
 };
 
 /* declaracao de funcoes */
@@ -156,6 +181,8 @@ class BaseDecFuncAst {
 public:
     BaseDecFuncAst() {}
     ~BaseDecFuncAst() {}
+
+    virtual Value *codegen() = 0;
 };
 
 enum Modificador {
@@ -167,6 +194,8 @@ class BaseArgsAst {
 public:
     BaseArgsAst() {}
     ~BaseArgsAst() {}
+
+    virtual Value *codegen() = 0;
 };
 
 class ArgumentoAst : public BaseArgsAst {
@@ -175,6 +204,8 @@ public:
 
     Modificador mod_;
     string id_, tipo_;
+
+    Value *codegen() override;
 };
 
 class ListaArgsAst : public BaseArgsAst {
@@ -183,6 +214,8 @@ public:
     ListaArgsAst(BaseArgsAst* tail, BaseArgsAst* arg);
 
     vector<ArgumentoAst*> lista_argumentos_;
+
+    Value *codegen() override;
 };
 
 class CorpoAst {
@@ -192,9 +225,10 @@ public:
 
     ListaDecVarAst* variaveis_locais_;
     ListaComandosAst* lista_comandos_;
+
+    Value *codegen();
 };
 
-// ??? - MELHOR SEPARAR FUNCAO E PROCEDIMENTO???
 class DeclaracaoFuncaoAst : public BaseDecFuncAst {
 public:
     DeclaracaoFuncaoAst(const string &id, BaseArgsAst* args, CorpoAst* corpo);
@@ -204,6 +238,8 @@ public:
     ListaArgsAst* args_;
     string retorno_;
     CorpoAst* corpo_;
+
+    Value *codegen() override;
 };
 
 class DeclaracaoFuncoesAst : public BaseDecFuncAst {
@@ -212,6 +248,8 @@ public:
     DeclaracaoFuncoesAst(BaseDecFuncAst* tail, BaseDecFuncAst* declaracao);
 
     vector<DeclaracaoFuncaoAst*> lista_declaracoes_;
+
+    Value *codegen() override;
 };
 
 /* declaracoes */
@@ -224,6 +262,8 @@ public:
     DeclaracaoTiposAst* tipos_;
     ListaDecVarAst* globais_;
     DeclaracaoFuncoesAst* funcoes_;
+
+    Value *codegen() override;
 };
 
 
@@ -246,6 +286,8 @@ public:
     ListaComandosAst(BaseComandoAst* tail, BaseComandoAst* comando);
 
     vector<BaseComandoAst*> lista_comandos_;
+
+    Value *codegen() override;
 };
 
 class AtribuicaoAst : public BaseComandoAst {
@@ -255,7 +297,7 @@ public:
     LocalAst* esq_;
     ExprAst* dir_;
 
-    virtual Value *codegen() override;
+    Value *codegen() override;
 };
 
 class SeAst : public BaseComandoAst {
@@ -266,6 +308,8 @@ public:
     ExprAst* expr_;
     ListaComandosAst* comandos_verdadeiro_;
     ListaComandosAst* comandos_falso_;
+
+    Value *codegen() override;
 };
 
 class ParaAst : public BaseComandoAst {
@@ -276,6 +320,8 @@ public:
     ExprAst* expr_inicio_;
     ExprAst* expr_fim_;
     ListaComandosAst* comandos_;
+
+    Value *codegen() override;
 };
 
 class EnquantoAst : public BaseComandoAst {
@@ -284,6 +330,8 @@ public:
 
     ExprAst* expr_;
     ListaComandosAst* comandos_;
+
+    Value *codegen() override;
 };
 
 class RetorneAst : public BaseComandoAst {
@@ -291,18 +339,31 @@ public:
     RetorneAst(ExprAst* expr);
 
     ExprAst* expr_;
+
+    Value *codegen() override;
 };
 
 class PareAst : public BaseComandoAst {
 public:
     PareAst() {}
+    Value *codegen() override;
 };
 
 class ContinueAst : public BaseComandoAst {
 public:
     ContinueAst() {}
+    Value *codegen() override;
 };
 
+class ChamadaProcedimentoAst : public BaseComandoAst {
+public:
+    ChamadaProcedimentoAst(const string &id, ExprAst* lista);
+
+    string id_;
+    ListaArgsChamada* lista_;
+
+    Value *codegen() override;
+};
 
 /* ******************
  *    EXPRESSOES    *
@@ -323,6 +384,8 @@ public:
 
     string id_;
     ExprAst* expr_;
+
+    Value *codegen() override;
 };
 
 class CriacaoRegistroAst : public ExprAst {
@@ -331,6 +394,8 @@ public:
     CriacaoRegistroAst(ExprAst* tail, ExprAst* atribuicao_registro);
 
     vector<AtribuicaoRegistroAst*> lista_;
+
+    Value *codegen() override;
 };
 
 
@@ -340,7 +405,7 @@ public:
 
     int val_;
 
-    virtual Value *codegen() override;
+    Value *codegen() override;
 };
 
 class RealAst : public ExprAst {
@@ -349,7 +414,7 @@ public:
 
     double val_;
 
-    virtual Value *codegen() override;
+    Value *codegen() override;
 };
 
 class CadeiaAst : public ExprAst {
@@ -357,6 +422,8 @@ public:
     CadeiaAst(const string &val);
 
     string val_;
+
+    Value *codegen() override;
 };
 
 class LocalAst : public ExprAst {
@@ -364,6 +431,8 @@ public:
     LocalAst(const string &val);
 
     string val_;
+
+    Value *codegen() override;
 };
 
 class SomaAst : public ExprAst {
@@ -372,6 +441,8 @@ public:
 
     ExprAst* esq_;
     ExprAst* dir_;
+    
+    Value *codegen() override;
 };
 
 class SubtracaoAst : public ExprAst {
@@ -380,6 +451,8 @@ public:
 
     ExprAst* esq_;
     ExprAst* dir_;
+
+    Value *codegen() override;
 };
 
 class MaiorAst : public ExprAst {
@@ -388,6 +461,8 @@ public:
 
     ExprAst* esq_;
     ExprAst* dir_;
+
+    Value *codegen() override;
 };
 
 class MenorAst : public ExprAst {
@@ -396,6 +471,8 @@ public:
 
     ExprAst* esq_;
     ExprAst* dir_;
+
+    Value *codegen() override;
 };
 
 class MaiorIgualAst : public ExprAst {
@@ -404,6 +481,8 @@ public:
 
     ExprAst* esq_;
     ExprAst* dir_;
+
+    Value *codegen() override;
 };
 
 class MenorIgualAst : public ExprAst {
@@ -412,6 +491,8 @@ public:
 
     ExprAst* esq_;
     ExprAst* dir_;
+
+    Value *codegen() override;
 };
 
 class EquivalenteAst : public ExprAst {
@@ -420,6 +501,8 @@ public:
 
     ExprAst* esq_;
     ExprAst* dir_;
+
+    Value *codegen() override;
 };
 
 class DiferenteAst : public ExprAst {
@@ -428,6 +511,8 @@ public:
 
     ExprAst* esq_;
     ExprAst* dir_;
+
+    Value *codegen() override;
 };
 
 class MultiplicacaoAst : public ExprAst {
@@ -436,6 +521,8 @@ public:
 
     ExprAst* esq_;
     ExprAst* dir_;
+
+    Value *codegen() override;
 };
 
 class DivisaoAst : public ExprAst {
@@ -444,6 +531,8 @@ public:
 
     ExprAst* esq_;
     ExprAst* dir_;
+
+    Value *codegen() override;
 };
 
 class AndAst : public ExprAst {
@@ -452,6 +541,8 @@ public:
 
     ExprAst* esq_;
     ExprAst* dir_;
+
+    Value *codegen() override;
 };
 
 class OrAst : public ExprAst {
@@ -460,11 +551,14 @@ public:
 
     ExprAst* esq_;
     ExprAst* dir_;
+
+    Value *codegen() override;
 };
 
 class NuloAst : public ExprAst {
 public:
     NuloAst() {}
+    Value *codegen() override;
 };
 
 class ListaArgsChamada : public ExprAst {
@@ -473,6 +567,8 @@ public:
     ListaArgsChamada(ExprAst* tail, ExprAst* fator);
 
     vector<ExprAst*> args_;
+
+    Value *codegen() override;
 };
 
 class ChamadaFuncaoAst : public ExprAst {
@@ -481,15 +577,8 @@ public:
 
     string id_;
     ListaArgsChamada* lista_;
+
+    Value *codegen() override;
 };
-
-class ChamadaProcedimentoAst : public BaseComandoAst {
-public:
-    ChamadaProcedimentoAst(const string &id, ExprAst* lista);
-
-    string id_;
-    ListaArgsChamada* lista_;
-};
-
 
 #endif

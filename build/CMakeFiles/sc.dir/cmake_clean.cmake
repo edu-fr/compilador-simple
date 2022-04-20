@@ -3,6 +3,8 @@ file(REMOVE_RECURSE
   "../sc.pdb"
   "CMakeFiles/sc.dir/AST_classes.cc.o"
   "CMakeFiles/sc.dir/AST_classes.cc.o.d"
+  "CMakeFiles/sc.dir/analise_semantica.cc.o"
+  "CMakeFiles/sc.dir/analise_semantica.cc.o.d"
   "CMakeFiles/sc.dir/driver.cc.o"
   "CMakeFiles/sc.dir/driver.cc.o.d"
   "CMakeFiles/sc.dir/main.cc.o"

@@ -1,5 +1,7 @@
 #include "AST_classes.hh"
 
+
+
 /* ******************
  *      PROGRAMA    *
  * ****************** */
@@ -259,14 +261,24 @@ ChamadaFuncaoAst::ChamadaFuncaoAst(const string &id, ExprAst* lista)
 ChamadaProcedimentoAst::ChamadaProcedimentoAst(const string &id, ExprAst* lista)
     : id_(id), lista_((ListaArgsChamada*) lista) {}
 
-
 //===----------------------------------------------------------------------===//
-// Code Generation CAP 8
+// Code Generation Globals
 //===----------------------------------------------------------------------===//
 
 static std::unique_ptr<LLVMContext> TheContext;
 static std::unique_ptr<Module> TheModule;
 static std::unique_ptr<IRBuilder<>> Builder;
+// static ExitOnError ExitOnErr;
+
+static std::map<std::string, AllocaInst *> NamedValues;
+// static std::unique_ptr<KaleidoscopeJIT> TheJIT;
+// static std::map<std::string, std::unique_ptr<PrototypeAST>> FunctionProtos;
+
+
+
+//===----------------------------------------------------------------------===//
+// Code Generation CAP 8
+//===----------------------------------------------------------------------===//
 
 //Value* AtribuicaoAst::codegen()
 //{

@@ -2,11 +2,6 @@
 
 map<string, Value*> named_values;
 
-void declaracao(DeclaracoesAst* declaracoes)
-{
-    declaracao_globais(declaracoes->globais_);
-}
-
 void declaracao_variavel(DeclaracaoVariavelAst* declaracao)
 {
 
@@ -16,6 +11,11 @@ void declaracao_globais(ListaDecVarAst* lista_var)
 {
     for (auto i : lista_var->lista_declaracoes_)
         declaracao_variavel(i);
+}
+
+void declaracao(DeclaracoesAst* declaracoes)
+{
+    declaracao_globais(declaracoes->globais_);
 }
 
 void acao(ListaComandosAst* lista_comandos)

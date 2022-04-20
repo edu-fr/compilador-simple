@@ -9,6 +9,7 @@ set(CMAKE_DEPENDS_LANGUAGES
 # The set of dependency files which are needed:
 set(CMAKE_DEPENDS_DEPENDENCY_FILES
   "/home/dudu/Documentos/Facul/compiladores/projeto/compilador-simples/AST_classes.cc" "CMakeFiles/sc.dir/AST_classes.cc.o" "gcc" "CMakeFiles/sc.dir/AST_classes.cc.o.d"
+  "/home/dudu/Documentos/Facul/compiladores/projeto/compilador-simples/analise_semantica.cc" "CMakeFiles/sc.dir/analise_semantica.cc.o" "gcc" "CMakeFiles/sc.dir/analise_semantica.cc.o.d"
   "/home/dudu/Documentos/Facul/compiladores/projeto/compilador-simples/driver.cc" "CMakeFiles/sc.dir/driver.cc.o" "gcc" "CMakeFiles/sc.dir/driver.cc.o.d"
   "/home/dudu/Documentos/Facul/compiladores/projeto/compilador-simples/main.cc" "CMakeFiles/sc.dir/main.cc.o" "gcc" "CMakeFiles/sc.dir/main.cc.o.d"
   "/home/dudu/Documentos/Facul/compiladores/projeto/compilador-simples/build/parser.cc" "CMakeFiles/sc.dir/parser.cc.o" "gcc" "CMakeFiles/sc.dir/parser.cc.o.d"

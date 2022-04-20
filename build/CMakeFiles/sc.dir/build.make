@@ -94,10 +94,24 @@ CMakeFiles/sc.dir/AST_classes.cc.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/sc.dir/AST_classes.cc.s"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/dudu/Documentos/Facul/compiladores/projeto/compilador-simples/AST_classes.cc -o CMakeFiles/sc.dir/AST_classes.cc.s
 
+CMakeFiles/sc.dir/analise_semantica.cc.o: CMakeFiles/sc.dir/flags.make
+CMakeFiles/sc.dir/analise_semantica.cc.o: ../analise_semantica.cc
+CMakeFiles/sc.dir/analise_semantica.cc.o: CMakeFiles/sc.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/dudu/Documentos/Facul/compiladores/projeto/compilador-simples/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building CXX object CMakeFiles/sc.dir/analise_semantica.cc.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/sc.dir/analise_semantica.cc.o -MF CMakeFiles/sc.dir/analise_semantica.cc.o.d -o CMakeFiles/sc.dir/analise_semantica.cc.o -c /home/dudu/Documentos/Facul/compiladores/projeto/compilador-simples/analise_semantica.cc
+
+CMakeFiles/sc.dir/analise_semantica.cc.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/sc.dir/analise_semantica.cc.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/dudu/Documentos/Facul/compiladores/projeto/compilador-simples/analise_semantica.cc > CMakeFiles/sc.dir/analise_semantica.cc.i
+
+CMakeFiles/sc.dir/analise_semantica.cc.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/sc.dir/analise_semantica.cc.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/dudu/Documentos/Facul/compiladores/projeto/compilador-simples/analise_semantica.cc -o CMakeFiles/sc.dir/analise_semantica.cc.s
+
 CMakeFiles/sc.dir/driver.cc.o: CMakeFiles/sc.dir/flags.make
 CMakeFiles/sc.dir/driver.cc.o: ../driver.cc
 CMakeFiles/sc.dir/driver.cc.o: CMakeFiles/sc.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/dudu/Documentos/Facul/compiladores/projeto/compilador-simples/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building CXX object CMakeFiles/sc.dir/driver.cc.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/dudu/Documentos/Facul/compiladores/projeto/compilador-simples/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Building CXX object CMakeFiles/sc.dir/driver.cc.o"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/sc.dir/driver.cc.o -MF CMakeFiles/sc.dir/driver.cc.o.d -o CMakeFiles/sc.dir/driver.cc.o -c /home/dudu/Documentos/Facul/compiladores/projeto/compilador-simples/driver.cc
 
 CMakeFiles/sc.dir/driver.cc.i: cmake_force
@@ -111,7 +125,7 @@ CMakeFiles/sc.dir/driver.cc.s: cmake_force
 CMakeFiles/sc.dir/main.cc.o: CMakeFiles/sc.dir/flags.make
 CMakeFiles/sc.dir/main.cc.o: ../main.cc
 CMakeFiles/sc.dir/main.cc.o: CMakeFiles/sc.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/dudu/Documentos/Facul/compiladores/projeto/compilador-simples/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Building CXX object CMakeFiles/sc.dir/main.cc.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/dudu/Documentos/Facul/compiladores/projeto/compilador-simples/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Building CXX object CMakeFiles/sc.dir/main.cc.o"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/sc.dir/main.cc.o -MF CMakeFiles/sc.dir/main.cc.o.d -o CMakeFiles/sc.dir/main.cc.o -c /home/dudu/Documentos/Facul/compiladores/projeto/compilador-simples/main.cc
 
 CMakeFiles/sc.dir/main.cc.i: cmake_force
@@ -126,7 +140,7 @@ CMakeFiles/sc.dir/scanner.cc.o: CMakeFiles/sc.dir/flags.make
 CMakeFiles/sc.dir/scanner.cc.o: scanner.cc
 CMakeFiles/sc.dir/scanner.cc.o: parser.hh
 CMakeFiles/sc.dir/scanner.cc.o: CMakeFiles/sc.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/dudu/Documentos/Facul/compiladores/projeto/compilador-simples/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Building CXX object CMakeFiles/sc.dir/scanner.cc.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/dudu/Documentos/Facul/compiladores/projeto/compilador-simples/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_7) "Building CXX object CMakeFiles/sc.dir/scanner.cc.o"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/sc.dir/scanner.cc.o -MF CMakeFiles/sc.dir/scanner.cc.o.d -o CMakeFiles/sc.dir/scanner.cc.o -c /home/dudu/Documentos/Facul/compiladores/projeto/compilador-simples/build/scanner.cc
 
 CMakeFiles/sc.dir/scanner.cc.i: cmake_force
@@ -140,7 +154,7 @@ CMakeFiles/sc.dir/scanner.cc.s: cmake_force
 CMakeFiles/sc.dir/parser.cc.o: CMakeFiles/sc.dir/flags.make
 CMakeFiles/sc.dir/parser.cc.o: parser.cc
 CMakeFiles/sc.dir/parser.cc.o: CMakeFiles/sc.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/dudu/Documentos/Facul/compiladores/projeto/compilador-simples/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_7) "Building CXX object CMakeFiles/sc.dir/parser.cc.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/dudu/Documentos/Facul/compiladores/projeto/compilador-simples/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_8) "Building CXX object CMakeFiles/sc.dir/parser.cc.o"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/sc.dir/parser.cc.o -MF CMakeFiles/sc.dir/parser.cc.o.d -o CMakeFiles/sc.dir/parser.cc.o -c /home/dudu/Documentos/Facul/compiladores/projeto/compilador-simples/build/parser.cc
 
 CMakeFiles/sc.dir/parser.cc.i: cmake_force
@@ -154,6 +168,7 @@ CMakeFiles/sc.dir/parser.cc.s: cmake_force
 # Object files for target sc
 sc_OBJECTS = \
 "CMakeFiles/sc.dir/AST_classes.cc.o" \
+"CMakeFiles/sc.dir/analise_semantica.cc.o" \
 "CMakeFiles/sc.dir/driver.cc.o" \
 "CMakeFiles/sc.dir/main.cc.o" \
 "CMakeFiles/sc.dir/scanner.cc.o" \
@@ -163,13 +178,14 @@ sc_OBJECTS = \
 sc_EXTERNAL_OBJECTS =
 
 ../sc: CMakeFiles/sc.dir/AST_classes.cc.o
+../sc: CMakeFiles/sc.dir/analise_semantica.cc.o
 ../sc: CMakeFiles/sc.dir/driver.cc.o
 ../sc: CMakeFiles/sc.dir/main.cc.o
 ../sc: CMakeFiles/sc.dir/scanner.cc.o
 ../sc: CMakeFiles/sc.dir/parser.cc.o
 ../sc: CMakeFiles/sc.dir/build.make
 ../sc: CMakeFiles/sc.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/dudu/Documentos/Facul/compiladores/projeto/compilador-simples/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_8) "Linking CXX executable ../sc"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/dudu/Documentos/Facul/compiladores/projeto/compilador-simples/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_9) "Linking CXX executable ../sc"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/sc.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.

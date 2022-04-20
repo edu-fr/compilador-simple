@@ -6,5 +6,5 @@ CXX_DEFINES =
 
 CXX_INCLUDES = -I/home/dudu/Documentos/Facul/compiladores/projeto/compilador-simples -I/home/dudu/Documentos/Facul/compiladores/projeto/compilador-simples/build
 
-CXX_FLAGS = -O3 -Wall -W -pedantic
+CXX_FLAGS = -O3 -DLLVM_DISABLE_ABI_BREAKING_CHECKS_ENFORCING -Wall -W -pedantic
 

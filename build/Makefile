@@ -153,6 +153,30 @@ AST_classes.cc.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/sc.dir/build.make CMakeFiles/sc.dir/AST_classes.cc.s
 .PHONY : AST_classes.cc.s
 
+analise_semantica.o: analise_semantica.cc.o
+.PHONY : analise_semantica.o
+
+# target to build an object file
+analise_semantica.cc.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/sc.dir/build.make CMakeFiles/sc.dir/analise_semantica.cc.o
+.PHONY : analise_semantica.cc.o
+
+analise_semantica.i: analise_semantica.cc.i
+.PHONY : analise_semantica.i
+
+# target to preprocess a source file
+analise_semantica.cc.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/sc.dir/build.make CMakeFiles/sc.dir/analise_semantica.cc.i
+.PHONY : analise_semantica.cc.i
+
+analise_semantica.s: analise_semantica.cc.s
+.PHONY : analise_semantica.s
+
+# target to generate assembly for a file
+analise_semantica.cc.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/sc.dir/build.make CMakeFiles/sc.dir/analise_semantica.cc.s
+.PHONY : analise_semantica.cc.s
+
 driver.o: driver.cc.o
 .PHONY : driver.o
 
@@ -261,6 +285,9 @@ help:
 	@echo "... AST_classes.o"
 	@echo "... AST_classes.i"
 	@echo "... AST_classes.s"
+	@echo "... analise_semantica.o"
+	@echo "... analise_semantica.i"
+	@echo "... analise_semantica.s"
 	@echo "... driver.o"
 	@echo "... driver.i"
 	@echo "... driver.s"
