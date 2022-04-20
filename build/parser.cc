@@ -1,8 +1,8 @@
-// A Bison parser, made by GNU Bison 3.5.1.
+// A Bison parser, made by GNU Bison 3.7.6.
 
 // Skeleton implementation for Bison LALR(1) parsers in C++
 
-// Copyright (C) 2002-2015, 2018-2020 Free Software Foundation, Inc.
+// Copyright (C) 2002-2015, 2018-2021 Free Software Foundation, Inc.
 
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -15,7 +15,7 @@
 // GNU General Public License for more details.
 
 // You should have received a copy of the GNU General Public License
-// along with this program.  If not, see <http://www.gnu.org/licenses/>.
+// along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 // As a special exception, you may create a larger work that contains
 // part or all of the Bison parser skeleton and distribute that work
@@ -30,8 +30,9 @@
 // This special exception was added by the Free Software Foundation in
 // version 2.2 of Bison.
 
-// Undocumented macros, especially those whose name start with YY_,
-// are private implementation details.  Do not rely on them.
+// DO NOT RELY ON FEATURES THAT ARE NOT DOCUMENTED in the manual,
+// especially those whose name start with YY_ or yy_.  They are
+// private implementation details that can be changed or removed.
 
 
 
@@ -47,7 +48,7 @@
 #define yylex driver.scanner_->yylex
 
 
-#line 51 "/home/dudu/Documentos/Facul/compiladores/projeto/compilador-simples/build/parser.cc"
+#line 52 "/home/dudu/compiladores/projeto/compilador-simples/build/parser.cc"
 
 
 #include "parser.hh"
@@ -66,6 +67,7 @@
 #  define YY_(msgid) msgid
 # endif
 #endif
+
 
 // Whether we are compiled with exception support.
 #ifndef YY_EXCEPTIONS
@@ -122,13 +124,13 @@
 # define YY_STACK_PRINT()               \
   do {                                  \
     if (yydebug_)                       \
-      yystack_print_ ();                \
+      yy_stack_print_ ();                \
   } while (false)
 
 #else // !YYDEBUG
 
 # define YYCDEBUG if (false) std::cerr
-# define YY_SYMBOL_PRINT(Title, Symbol)  YYUSE (Symbol)
+# define YY_SYMBOL_PRINT(Title, Symbol)  YY_USE (Symbol)
 # define YY_REDUCE_PRINT(Rule)           static_cast<void> (0)
 # define YY_STACK_PRINT()                static_cast<void> (0)
 
@@ -144,49 +146,7 @@
 
 #line 45 "parser.yy"
 namespace Simples {
-#line 148 "/home/dudu/Documentos/Facul/compiladores/projeto/compilador-simples/build/parser.cc"
-
-
-  /* Return YYSTR after stripping away unnecessary quotes and
-     backslashes, so that it's suitable for yyerror.  The heuristic is
-     that double-quoting is unnecessary unless the string contains an
-     apostrophe, a comma, or backslash (other than backslash-backslash).
-     YYSTR is taken from yytname.  */
-  std::string
-  Parser::yytnamerr_ (const char *yystr)
-  {
-    if (*yystr == '"')
-      {
-        std::string yyr;
-        char const *yyp = yystr;
-
-        for (;;)
-          switch (*++yyp)
-            {
-            case '\'':
-            case ',':
-              goto do_not_strip_quotes;
-
-            case '\\':
-              if (*++yyp != '\\')
-                goto do_not_strip_quotes;
-              else
-                goto append;
-
-            append:
-            default:
-              yyr += *yyp;
-              break;
-
-            case '"':
-              return yyr;
-            }
-      do_not_strip_quotes: ;
-      }
-
-    return yystr;
-  }
-
+#line 150 "/home/dudu/compiladores/projeto/compilador-simples/build/parser.cc"
 
   /// Build a parser object.
   Parser::Parser (Driver &driver_yyarg)
@@ -206,19 +166,10 @@ namespace Simples {
   {}
 
   /*---------------.
-  | Symbol types.  |
+  | symbol kinds.  |
   `---------------*/
 
   // basic_symbol.
-#if 201103L <= YY_CPLUSPLUS
-  template <typename Base>
-  Parser::basic_symbol<Base>::basic_symbol (basic_symbol&& that)
-    : Base (std::move (that))
-    , value (std::move (that.value))
-    , location (std::move (that.location))
-  {}
-#endif
-
   template <typename Base>
   Parser::basic_symbol<Base>::basic_symbol (const basic_symbol& that)
     : Base (that)
@@ -243,10 +194,17 @@ namespace Simples {
   {}
 
   template <typename Base>
+  Parser::symbol_kind_type
+  Parser::basic_symbol<Base>::type_get () const YY_NOEXCEPT
+  {
+    return this->kind ();
+  }
+
+  template <typename Base>
   bool
   Parser::basic_symbol<Base>::empty () const YY_NOEXCEPT
   {
-    return Base::type_get () == empty_symbol;
+    return this->kind () == symbol_kind::S_YYEMPTY;
   }
 
   template <typename Base>
@@ -258,44 +216,50 @@ namespace Simples {
     location = YY_MOVE (s.location);
   }
 
-  // by_type.
-  Parser::by_type::by_type ()
-    : type (empty_symbol)
+  // by_kind.
+  Parser::by_kind::by_kind ()
+    : kind_ (symbol_kind::S_YYEMPTY)
   {}
 
 #if 201103L <= YY_CPLUSPLUS
-  Parser::by_type::by_type (by_type&& that)
-    : type (that.type)
+  Parser::by_kind::by_kind (by_kind&& that)
+    : kind_ (that.kind_)
   {
     that.clear ();
   }
 #endif
 
-  Parser::by_type::by_type (const by_type& that)
-    : type (that.type)
+  Parser::by_kind::by_kind (const by_kind& that)
+    : kind_ (that.kind_)
   {}
 
-  Parser::by_type::by_type (token_type t)
-    : type (yytranslate_ (t))
+  Parser::by_kind::by_kind (token_kind_type t)
+    : kind_ (yytranslate_ (t))
   {}
 
   void
-  Parser::by_type::clear ()
+  Parser::by_kind::clear () YY_NOEXCEPT
   {
-    type = empty_symbol;
+    kind_ = symbol_kind::S_YYEMPTY;
   }
 
   void
-  Parser::by_type::move (by_type& that)
+  Parser::by_kind::move (by_kind& that)
   {
-    type = that.type;
+    kind_ = that.kind_;
     that.clear ();
   }
 
-  int
-  Parser::by_type::type_get () const YY_NOEXCEPT
+  Parser::symbol_kind_type
+  Parser::by_kind::kind () const YY_NOEXCEPT
   {
-    return type;
+    return kind_;
+  }
+
+  Parser::symbol_kind_type
+  Parser::by_kind::type_get () const YY_NOEXCEPT
+  {
+    return this->kind ();
   }
 
 
@@ -325,13 +289,13 @@ namespace Simples {
     : state (s)
   {}
 
-  Parser::symbol_number_type
-  Parser::by_state::type_get () const YY_NOEXCEPT
+  Parser::symbol_kind_type
+  Parser::by_state::kind () const YY_NOEXCEPT
   {
     if (state == empty_state)
-      return empty_symbol;
+      return symbol_kind::S_YYEMPTY;
     else
-      return yystos_[+state];
+      return YY_CAST (symbol_kind_type, yystos_[+state]);
   }
 
   Parser::stack_symbol_type::stack_symbol_type ()
@@ -350,7 +314,7 @@ namespace Simples {
     : super_type (s, YY_MOVE (that.value), YY_MOVE (that.location))
   {
     // that is emptied.
-    that.type = empty_symbol;
+    that.kind_ = symbol_kind::S_YYEMPTY;
   }
 
 #if YY_CPLUSPLUS < 201103L
@@ -383,29 +347,27 @@ namespace Simples {
       YY_SYMBOL_PRINT (yymsg, yysym);
 
     // User destructor.
-    YYUSE (yysym.type_get ());
+    YY_USE (yysym.kind ());
   }
 
 #if YYDEBUG
   template <typename Base>
   void
-  Parser::yy_print_ (std::ostream& yyo,
-                                     const basic_symbol<Base>& yysym) const
+  Parser::yy_print_ (std::ostream& yyo, const basic_symbol<Base>& yysym) const
   {
     std::ostream& yyoutput = yyo;
-    YYUSE (yyoutput);
-    symbol_number_type yytype = yysym.type_get ();
-#if defined __GNUC__ && ! defined __clang__ && ! defined __ICC && __GNUC__ * 100 + __GNUC_MINOR__ <= 408
-    // Avoid a (spurious) G++ 4.8 warning about "array subscript is
-    // below array bounds".
+    YY_USE (yyoutput);
     if (yysym.empty ())
-      std::abort ();
-#endif
-    yyo << (yytype < yyntokens_ ? "token" : "nterm")
-        << ' ' << yytname_[yytype] << " ("
-        << yysym.location << ": ";
-    YYUSE (yytype);
-    yyo << ')';
+      yyo << "empty symbol";
+    else
+      {
+        symbol_kind_type yykind = yysym.kind ();
+        yyo << (yykind < YYNTOKENS ? "token" : "nterm")
+            << ' ' << yysym.name () << " ("
+            << yysym.location << ": ";
+        YY_USE (yykind);
+        yyo << ')';
+      }
   }
 #endif
 
@@ -464,11 +426,11 @@ namespace Simples {
   Parser::state_type
   Parser::yy_lr_goto_state_ (state_type yystate, int yysym)
   {
-    int yyr = yypgoto_[yysym - yyntokens_] + yystate;
+    int yyr = yypgoto_[yysym - YYNTOKENS] + yystate;
     if (0 <= yyr && yyr <= yylast_ && yycheck_[yyr] == yystate)
       return yytable_[yyr];
     else
-      return yydefgoto_[yysym - yyntokens_];
+      return yydefgoto_[yysym - YYNTOKENS];
   }
 
   bool
@@ -528,6 +490,7 @@ namespace Simples {
   `-----------------------------------------------*/
   yynewstate:
     YYCDEBUG << "Entering state " << int (yystack_[0].state) << '\n';
+    YY_STACK_PRINT ();
 
     // Accept?
     if (yystack_[0].state == yyfinal_)
@@ -548,12 +511,12 @@ namespace Simples {
     // Read a lookahead token.
     if (yyla.empty ())
       {
-        YYCDEBUG << "Reading a token: ";
+        YYCDEBUG << "Reading a token\n";
 #if YY_EXCEPTIONS
         try
 #endif // YY_EXCEPTIONS
           {
-            yyla.type = yytranslate_ (yylex (&yyla.value, &yyla.location, driver));
+            yyla.kind_ = yytranslate_ (yylex (&yyla.value, &yyla.location, driver));
           }
 #if YY_EXCEPTIONS
         catch (const syntax_error& yyexc)
@@ -566,10 +529,20 @@ namespace Simples {
       }
     YY_SYMBOL_PRINT ("Next token is", yyla);
 
+    if (yyla.kind () == symbol_kind::S_YYerror)
+    {
+      // The scanner already issued an error message, process directly
+      // to error recovery.  But do not keep the error token as
+      // lookahead, it is too special and may lead us to an endless
+      // loop in error recovery. */
+      yyla.kind_ = symbol_kind::S_YYUNDEF;
+      goto yyerrlab1;
+    }
+
     /* If the proper action on seeing token YYLA.TYPE is to reduce or
        to detect an error, take that action.  */
-    yyn += yyla.type_get ();
-    if (yyn < 0 || yylast_ < yyn || yycheck_[yyn] != yyla.type_get ())
+    yyn += yyla.kind ();
+    if (yyn < 0 || yylast_ < yyn || yycheck_[yyn] != yyla.kind ())
       {
         goto yydefault;
       }
@@ -637,524 +610,524 @@ namespace Simples {
         {
           switch (yyn)
             {
-  case 2:
+  case 2: // programa: declaracoes acao
 #line 149 "parser.yy"
                    { (yylhs.value.programa_val) = new ProgramaAst((yystack_[1].value.declaracao_val), (yystack_[0].value.acao_val)); }
-#line 644 "/home/dudu/Documentos/Facul/compiladores/projeto/compilador-simples/build/parser.cc"
+#line 617 "/home/dudu/compiladores/projeto/compilador-simples/build/parser.cc"
     break;
 
-  case 3:
+  case 3: // declaracoes: lista_declaracao_de_tipo lista_declaracao_de_variavel_global lista_declaracao_de_funcao
 #line 155 "parser.yy"
                              { (yylhs.value.declaracao_val) = new DeclaracoesAst((yystack_[2].value.declaracao_tipos_val), (yystack_[1].value.declaracao_variavel_val), (yystack_[0].value.declaracao_funcoes_val)); }
-#line 650 "/home/dudu/Documentos/Facul/compiladores/projeto/compilador-simples/build/parser.cc"
+#line 623 "/home/dudu/compiladores/projeto/compilador-simples/build/parser.cc"
     break;
 
-  case 4:
+  case 4: // acao: "ação" ":" lista_comandos
 #line 159 "parser.yy"
                           { (yylhs.value.acao_val) = (yystack_[0].value.acao_val); }
-#line 656 "/home/dudu/Documentos/Facul/compiladores/projeto/compilador-simples/build/parser.cc"
+#line 629 "/home/dudu/compiladores/projeto/compilador-simples/build/parser.cc"
     break;
 
-  case 5:
+  case 5: // lista_declaracao_de_tipo: %empty
 #line 163 "parser.yy"
                      { (yylhs.value.declaracao_tipos_val) = nullptr; }
-#line 662 "/home/dudu/Documentos/Facul/compiladores/projeto/compilador-simples/build/parser.cc"
+#line 635 "/home/dudu/compiladores/projeto/compilador-simples/build/parser.cc"
     break;
 
-  case 6:
+  case 6: // lista_declaracao_de_tipo: "tipo" ":" lista_declaracao_tipo
 #line 164 "parser.yy"
                                    { (yylhs.value.declaracao_tipos_val) = (yystack_[0].value.declaracao_tipos_val); }
-#line 668 "/home/dudu/Documentos/Facul/compiladores/projeto/compilador-simples/build/parser.cc"
+#line 641 "/home/dudu/compiladores/projeto/compilador-simples/build/parser.cc"
     break;
 
-  case 7:
+  case 7: // lista_declaracao_tipo: declaracao_tipo
 #line 168 "parser.yy"
                   { (yylhs.value.declaracao_tipos_val) = new DeclaracaoTiposAst((yystack_[0].value.declaracao_tipos_val)); }
-#line 674 "/home/dudu/Documentos/Facul/compiladores/projeto/compilador-simples/build/parser.cc"
+#line 647 "/home/dudu/compiladores/projeto/compilador-simples/build/parser.cc"
     break;
 
-  case 8:
+  case 8: // lista_declaracao_tipo: lista_declaracao_tipo declaracao_tipo
 #line 169 "parser.yy"
                                         { (yylhs.value.declaracao_tipos_val) = new DeclaracaoTiposAst((yystack_[1].value.declaracao_tipos_val), (yystack_[0].value.declaracao_tipos_val)); }
-#line 680 "/home/dudu/Documentos/Facul/compiladores/projeto/compilador-simples/build/parser.cc"
+#line 653 "/home/dudu/compiladores/projeto/compilador-simples/build/parser.cc"
     break;
 
-  case 9:
+  case 9: // lista_declaracao_de_variavel_global: %empty
 #line 173 "parser.yy"
                      { (yylhs.value.declaracao_variavel_val) = nullptr; }
-#line 686 "/home/dudu/Documentos/Facul/compiladores/projeto/compilador-simples/build/parser.cc"
+#line 659 "/home/dudu/compiladores/projeto/compilador-simples/build/parser.cc"
     break;
 
-  case 10:
+  case 10: // lista_declaracao_de_variavel_global: "global" ":" lista_declaracao_variavel
 #line 174 "parser.yy"
                                        { (yylhs.value.declaracao_variavel_val) = (yystack_[0].value.declaracao_variavel_val); }
-#line 692 "/home/dudu/Documentos/Facul/compiladores/projeto/compilador-simples/build/parser.cc"
+#line 665 "/home/dudu/compiladores/projeto/compilador-simples/build/parser.cc"
     break;
 
-  case 11:
+  case 11: // lista_declaracao_variavel: declaracao_variavel
 #line 178 "parser.yy"
                       { (yylhs.value.declaracao_variavel_val) = new ListaDecVarAst((yystack_[0].value.declaracao_variavel_val)); }
-#line 698 "/home/dudu/Documentos/Facul/compiladores/projeto/compilador-simples/build/parser.cc"
+#line 671 "/home/dudu/compiladores/projeto/compilador-simples/build/parser.cc"
     break;
 
-  case 12:
+  case 12: // lista_declaracao_variavel: lista_declaracao_variavel declaracao_variavel
 #line 179 "parser.yy"
                                                 { (yylhs.value.declaracao_variavel_val) = new ListaDecVarAst((yystack_[1].value.declaracao_variavel_val), (yystack_[0].value.declaracao_variavel_val)); }
-#line 704 "/home/dudu/Documentos/Facul/compiladores/projeto/compilador-simples/build/parser.cc"
+#line 677 "/home/dudu/compiladores/projeto/compilador-simples/build/parser.cc"
     break;
 
-  case 13:
+  case 13: // declaracao_variavel: "identificador" ":" "identificador" ":=" inicializacao
 #line 183 "parser.yy"
                                                      { (yylhs.value.declaracao_variavel_val) = new DeclaracaoVariavelAst(*(yystack_[4].value.stringVal), *(yystack_[2].value.stringVal), (yystack_[0].value.exp_val)); }
-#line 710 "/home/dudu/Documentos/Facul/compiladores/projeto/compilador-simples/build/parser.cc"
+#line 683 "/home/dudu/compiladores/projeto/compilador-simples/build/parser.cc"
     break;
 
-  case 14:
+  case 14: // inicializacao: expr
 #line 187 "parser.yy"
   { (yylhs.value.exp_val) = (yystack_[0].value.exp_val); }
-#line 716 "/home/dudu/Documentos/Facul/compiladores/projeto/compilador-simples/build/parser.cc"
+#line 689 "/home/dudu/compiladores/projeto/compilador-simples/build/parser.cc"
     break;
 
-  case 15:
+  case 15: // declaracao_tipo: "identificador" "=" descritor_tipo
 #line 191 "parser.yy"
                                    { (yylhs.value.declaracao_tipos_val) = new DeclaracaoTipoAst(*(yystack_[2].value.stringVal), (yystack_[0].value.descritor_tipo_val)); }
-#line 722 "/home/dudu/Documentos/Facul/compiladores/projeto/compilador-simples/build/parser.cc"
+#line 695 "/home/dudu/compiladores/projeto/compilador-simples/build/parser.cc"
     break;
 
-  case 16:
+  case 16: // descritor_tipo: "identificador"
 #line 195 "parser.yy"
                 { (yylhs.value.descritor_tipo_val) = new DescritorTipoIdAst(*(yystack_[0].value.stringVal)); }
-#line 728 "/home/dudu/Documentos/Facul/compiladores/projeto/compilador-simples/build/parser.cc"
+#line 701 "/home/dudu/compiladores/projeto/compilador-simples/build/parser.cc"
     break;
 
-  case 17:
+  case 17: // descritor_tipo: "{" tipo_campos "}"
 #line 196 "parser.yy"
                       { (yylhs.value.descritor_tipo_val) = new DescritorTipoCamposAst((yystack_[1].value.declaracao_tipos_val)); }
-#line 734 "/home/dudu/Documentos/Facul/compiladores/projeto/compilador-simples/build/parser.cc"
+#line 707 "/home/dudu/compiladores/projeto/compilador-simples/build/parser.cc"
     break;
 
-  case 18:
+  case 18: // descritor_tipo: "[" tipo_constantes "]" "de" "identificador"
 #line 197 "parser.yy"
                                            { (yylhs.value.descritor_tipo_val) = new DescritorTipoCtesAst((yystack_[3].value.tipo_ctes_val), *(yystack_[0].value.stringVal)); }
-#line 740 "/home/dudu/Documentos/Facul/compiladores/projeto/compilador-simples/build/parser.cc"
+#line 713 "/home/dudu/compiladores/projeto/compilador-simples/build/parser.cc"
     break;
 
-  case 19:
+  case 19: // tipo_campos: tipo_campo
 #line 201 "parser.yy"
              { (yylhs.value.declaracao_tipos_val) = new TipoCamposAst((yystack_[0].value.declaracao_tipos_val)); }
-#line 746 "/home/dudu/Documentos/Facul/compiladores/projeto/compilador-simples/build/parser.cc"
+#line 719 "/home/dudu/compiladores/projeto/compilador-simples/build/parser.cc"
     break;
 
-  case 20:
+  case 20: // tipo_campos: tipo_campos "," tipo_campo
 #line 202 "parser.yy"
                              { (yylhs.value.declaracao_tipos_val) = new TipoCamposAst((yystack_[2].value.declaracao_tipos_val), (yystack_[0].value.declaracao_tipos_val)); }
-#line 752 "/home/dudu/Documentos/Facul/compiladores/projeto/compilador-simples/build/parser.cc"
+#line 725 "/home/dudu/compiladores/projeto/compilador-simples/build/parser.cc"
     break;
 
-  case 21:
+  case 21: // tipo_campo: "identificador" ":" "identificador"
 #line 206 "parser.yy"
                                   { (yylhs.value.declaracao_tipos_val) = new TipoCampoAst(*(yystack_[2].value.stringVal), *(yystack_[0].value.stringVal)); }
-#line 758 "/home/dudu/Documentos/Facul/compiladores/projeto/compilador-simples/build/parser.cc"
+#line 731 "/home/dudu/compiladores/projeto/compilador-simples/build/parser.cc"
     break;
 
-  case 22:
+  case 22: // tipo_constantes: "inteiro"
 #line 210 "parser.yy"
           { (yylhs.value.tipo_ctes_val) = new TipoConstantesAst((yystack_[0].value.integerVal)); }
-#line 764 "/home/dudu/Documentos/Facul/compiladores/projeto/compilador-simples/build/parser.cc"
+#line 737 "/home/dudu/compiladores/projeto/compilador-simples/build/parser.cc"
     break;
 
-  case 23:
+  case 23: // tipo_constantes: tipo_constantes "," "inteiro"
 #line 211 "parser.yy"
                               { (yylhs.value.tipo_ctes_val) = new TipoConstantesAst((yystack_[2].value.tipo_ctes_val), (yystack_[0].value.integerVal)); }
-#line 770 "/home/dudu/Documentos/Facul/compiladores/projeto/compilador-simples/build/parser.cc"
+#line 743 "/home/dudu/compiladores/projeto/compilador-simples/build/parser.cc"
     break;
 
-  case 24:
+  case 24: // lista_declaracao_de_funcao: %empty
 #line 215 "parser.yy"
                      { (yylhs.value.declaracao_funcoes_val) = nullptr; }
-#line 776 "/home/dudu/Documentos/Facul/compiladores/projeto/compilador-simples/build/parser.cc"
+#line 749 "/home/dudu/compiladores/projeto/compilador-simples/build/parser.cc"
     break;
 
-  case 25:
+  case 25: // lista_declaracao_de_funcao: "função" ":" lista_declaracao_funcao
 #line 216 "parser.yy"
                                        { (yylhs.value.declaracao_funcoes_val) = (yystack_[0].value.declaracao_funcoes_val); }
-#line 782 "/home/dudu/Documentos/Facul/compiladores/projeto/compilador-simples/build/parser.cc"
+#line 755 "/home/dudu/compiladores/projeto/compilador-simples/build/parser.cc"
     break;
 
-  case 26:
+  case 26: // lista_declaracao_funcao: declaracao_funcao
 #line 220 "parser.yy"
                     { (yylhs.value.declaracao_funcoes_val) = new DeclaracaoFuncoesAst((yystack_[0].value.declaracao_funcoes_val)); }
-#line 788 "/home/dudu/Documentos/Facul/compiladores/projeto/compilador-simples/build/parser.cc"
+#line 761 "/home/dudu/compiladores/projeto/compilador-simples/build/parser.cc"
     break;
 
-  case 27:
+  case 27: // lista_declaracao_funcao: lista_declaracao_funcao declaracao_funcao
 #line 221 "parser.yy"
                                             { (yylhs.value.declaracao_funcoes_val) = new DeclaracaoFuncoesAst((yystack_[1].value.declaracao_funcoes_val), (yystack_[0].value.declaracao_funcoes_val)); }
-#line 794 "/home/dudu/Documentos/Facul/compiladores/projeto/compilador-simples/build/parser.cc"
+#line 767 "/home/dudu/compiladores/projeto/compilador-simples/build/parser.cc"
     break;
 
-  case 28:
+  case 28: // declaracao_funcao: "identificador" "(" lista_de_args ")" "=" corpo
 #line 225 "parser.yy"
                                                 { (yylhs.value.declaracao_funcoes_val) = new DeclaracaoFuncaoAst(*(yystack_[5].value.stringVal), (yystack_[3].value.argumento_val), (yystack_[0].value.corpo_val)); }
-#line 800 "/home/dudu/Documentos/Facul/compiladores/projeto/compilador-simples/build/parser.cc"
+#line 773 "/home/dudu/compiladores/projeto/compilador-simples/build/parser.cc"
     break;
 
-  case 29:
+  case 29: // declaracao_funcao: "identificador" "(" lista_de_args ")" ":" "identificador" "=" corpo
 #line 226 "parser.yy"
                                                                   { (yylhs.value.declaracao_funcoes_val) = new DeclaracaoFuncaoAst(*(yystack_[7].value.stringVal), (yystack_[5].value.argumento_val), *(yystack_[2].value.stringVal), (yystack_[0].value.corpo_val)); }
-#line 806 "/home/dudu/Documentos/Facul/compiladores/projeto/compilador-simples/build/parser.cc"
+#line 779 "/home/dudu/compiladores/projeto/compilador-simples/build/parser.cc"
     break;
 
-  case 30:
+  case 30: // lista_de_args: %empty
 #line 230 "parser.yy"
                      { (yylhs.value.argumento_val) = nullptr; }
-#line 812 "/home/dudu/Documentos/Facul/compiladores/projeto/compilador-simples/build/parser.cc"
+#line 785 "/home/dudu/compiladores/projeto/compilador-simples/build/parser.cc"
     break;
 
-  case 31:
+  case 31: // lista_de_args: lista_args
 #line 231 "parser.yy"
     { (yylhs.value.argumento_val) = (yystack_[0].value.argumento_val); }
-#line 818 "/home/dudu/Documentos/Facul/compiladores/projeto/compilador-simples/build/parser.cc"
+#line 791 "/home/dudu/compiladores/projeto/compilador-simples/build/parser.cc"
     break;
 
-  case 32:
+  case 32: // lista_args: args
 #line 235 "parser.yy"
        { (yylhs.value.argumento_val) = new ListaArgsAst((yystack_[0].value.argumento_val)); }
-#line 824 "/home/dudu/Documentos/Facul/compiladores/projeto/compilador-simples/build/parser.cc"
+#line 797 "/home/dudu/compiladores/projeto/compilador-simples/build/parser.cc"
     break;
 
-  case 33:
+  case 33: // lista_args: lista_args "," args
 #line 236 "parser.yy"
                         { (yylhs.value.argumento_val) = new ListaArgsAst((yystack_[2].value.argumento_val), (yystack_[0].value.argumento_val)); }
-#line 830 "/home/dudu/Documentos/Facul/compiladores/projeto/compilador-simples/build/parser.cc"
+#line 803 "/home/dudu/compiladores/projeto/compilador-simples/build/parser.cc"
     break;
 
-  case 34:
+  case 34: // args: modificador "identificador" ":" "identificador"
 #line 240 "parser.yy"
                                               { (yylhs.value.argumento_val) = new ArgumentoAst((yystack_[3].value.modificador_val), *(yystack_[2].value.stringVal), *(yystack_[0].value.stringVal)); }
-#line 836 "/home/dudu/Documentos/Facul/compiladores/projeto/compilador-simples/build/parser.cc"
+#line 809 "/home/dudu/compiladores/projeto/compilador-simples/build/parser.cc"
     break;
 
-  case 35:
+  case 35: // modificador: "valor"
 #line 244 "parser.yy"
         { (yylhs.value.modificador_val) = Modificador::VALOR; }
-#line 842 "/home/dudu/Documentos/Facul/compiladores/projeto/compilador-simples/build/parser.cc"
+#line 815 "/home/dudu/compiladores/projeto/compilador-simples/build/parser.cc"
     break;
 
-  case 36:
+  case 36: // modificador: "ref"
 #line 245 "parser.yy"
       { (yylhs.value.modificador_val) = Modificador::REFERENCIA; }
-#line 848 "/home/dudu/Documentos/Facul/compiladores/projeto/compilador-simples/build/parser.cc"
+#line 821 "/home/dudu/compiladores/projeto/compilador-simples/build/parser.cc"
     break;
 
-  case 37:
+  case 37: // corpo: lista_declaracao_de_variavel_local "ação" ":" lista_comandos
 #line 250 "parser.yy"
                           { (yylhs.value.corpo_val) = new CorpoAst((yystack_[3].value.declaracao_variavel_val), (yystack_[0].value.acao_val)); }
-#line 854 "/home/dudu/Documentos/Facul/compiladores/projeto/compilador-simples/build/parser.cc"
+#line 827 "/home/dudu/compiladores/projeto/compilador-simples/build/parser.cc"
     break;
 
-  case 38:
+  case 38: // lista_declaracao_de_variavel_local: %empty
 #line 254 "parser.yy"
                      { (yylhs.value.declaracao_variavel_val) = nullptr; }
-#line 860 "/home/dudu/Documentos/Facul/compiladores/projeto/compilador-simples/build/parser.cc"
+#line 833 "/home/dudu/compiladores/projeto/compilador-simples/build/parser.cc"
     break;
 
-  case 39:
+  case 39: // lista_declaracao_de_variavel_local: "local" ":" lista_declaracao_variavel
 #line 255 "parser.yy"
                                         { (yylhs.value.declaracao_variavel_val) = (yystack_[0].value.declaracao_variavel_val); }
-#line 866 "/home/dudu/Documentos/Facul/compiladores/projeto/compilador-simples/build/parser.cc"
+#line 839 "/home/dudu/compiladores/projeto/compilador-simples/build/parser.cc"
     break;
 
-  case 40:
+  case 40: // lista_comandos: comando
 #line 259 "parser.yy"
           { (yylhs.value.acao_val) = new ListaComandosAst((yystack_[0].value.acao_val)); }
-#line 872 "/home/dudu/Documentos/Facul/compiladores/projeto/compilador-simples/build/parser.cc"
+#line 845 "/home/dudu/compiladores/projeto/compilador-simples/build/parser.cc"
     break;
 
-  case 41:
+  case 41: // lista_comandos: lista_comandos ";" comando
 #line 260 "parser.yy"
                              { (yylhs.value.acao_val) = new ListaComandosAst((yystack_[2].value.acao_val), (yystack_[0].value.acao_val)); }
-#line 878 "/home/dudu/Documentos/Facul/compiladores/projeto/compilador-simples/build/parser.cc"
+#line 851 "/home/dudu/compiladores/projeto/compilador-simples/build/parser.cc"
     break;
 
-  case 42:
+  case 42: // comando: local ":=" expr
 #line 264 "parser.yy"
                         { (yylhs.value.acao_val) = new AtribuicaoAst((yystack_[2].value.exp_val), (yystack_[0].value.exp_val)); }
-#line 884 "/home/dudu/Documentos/Facul/compiladores/projeto/compilador-simples/build/parser.cc"
+#line 857 "/home/dudu/compiladores/projeto/compilador-simples/build/parser.cc"
     break;
 
-  case 43:
+  case 43: // comando: chamada_de_procedimento
 #line 265 "parser.yy"
   { (yylhs.value.acao_val) = (yystack_[0].value.acao_val); }
-#line 890 "/home/dudu/Documentos/Facul/compiladores/projeto/compilador-simples/build/parser.cc"
+#line 863 "/home/dudu/compiladores/projeto/compilador-simples/build/parser.cc"
     break;
 
-  case 44:
+  case 44: // comando: "se" expr "verdadeiro" lista_comandos "fse"
 #line 266 "parser.yy"
                                         { (yylhs.value.acao_val) = new SeAst((yystack_[3].value.exp_val), (yystack_[1].value.acao_val)); }
-#line 896 "/home/dudu/Documentos/Facul/compiladores/projeto/compilador-simples/build/parser.cc"
+#line 869 "/home/dudu/compiladores/projeto/compilador-simples/build/parser.cc"
     break;
 
-  case 45:
+  case 45: // comando: "se" expr "verdadeiro" lista_comandos "falso" lista_comandos "fse"
 #line 267 "parser.yy"
                                                              { (yylhs.value.acao_val) = new SeAst((yystack_[5].value.exp_val), (yystack_[3].value.acao_val), (yystack_[1].value.acao_val)); }
-#line 902 "/home/dudu/Documentos/Facul/compiladores/projeto/compilador-simples/build/parser.cc"
+#line 875 "/home/dudu/compiladores/projeto/compilador-simples/build/parser.cc"
     break;
 
-  case 46:
+  case 46: // comando: "para" "identificador" "de" expr "limite" expr "faça" lista_comandos "fpara"
 #line 268 "parser.yy"
                                                                    { (yylhs.value.acao_val) = new ParaAst(*(yystack_[7].value.stringVal), (yystack_[5].value.exp_val), (yystack_[3].value.exp_val), (yystack_[1].value.acao_val)); }
-#line 908 "/home/dudu/Documentos/Facul/compiladores/projeto/compilador-simples/build/parser.cc"
+#line 881 "/home/dudu/compiladores/projeto/compilador-simples/build/parser.cc"
     break;
 
-  case 47:
+  case 47: // comando: "enquanto" expr "faça" lista_comandos "fenquanto"
 #line 269 "parser.yy"
                                               { (yylhs.value.acao_val) = new EnquantoAst((yystack_[3].value.exp_val), (yystack_[1].value.acao_val)); }
-#line 914 "/home/dudu/Documentos/Facul/compiladores/projeto/compilador-simples/build/parser.cc"
+#line 887 "/home/dudu/compiladores/projeto/compilador-simples/build/parser.cc"
     break;
 
-  case 48:
+  case 48: // comando: "pare"
 #line 270 "parser.yy"
        { (yylhs.value.acao_val) = new PareAst(); }
-#line 920 "/home/dudu/Documentos/Facul/compiladores/projeto/compilador-simples/build/parser.cc"
+#line 893 "/home/dudu/compiladores/projeto/compilador-simples/build/parser.cc"
     break;
 
-  case 49:
+  case 49: // comando: "continue"
 #line 271 "parser.yy"
            { (yylhs.value.acao_val) = new ContinueAst(); }
-#line 926 "/home/dudu/Documentos/Facul/compiladores/projeto/compilador-simples/build/parser.cc"
+#line 899 "/home/dudu/compiladores/projeto/compilador-simples/build/parser.cc"
     break;
 
-  case 50:
+  case 50: // comando: "retorne" expr
 #line 272 "parser.yy"
                { (yylhs.value.acao_val) = new RetorneAst((yystack_[0].value.exp_val)); }
-#line 932 "/home/dudu/Documentos/Facul/compiladores/projeto/compilador-simples/build/parser.cc"
+#line 905 "/home/dudu/compiladores/projeto/compilador-simples/build/parser.cc"
     break;
 
-  case 51:
+  case 51: // chamada_de_procedimento: "identificador" "(" lista_args_chamada ")"
 #line 276 "parser.yy"
                                            { (yylhs.value.acao_val) = new ChamadaProcedimentoAst(*(yystack_[3].value.stringVal), (yystack_[1].value.exp_val)); }
-#line 938 "/home/dudu/Documentos/Facul/compiladores/projeto/compilador-simples/build/parser.cc"
+#line 911 "/home/dudu/compiladores/projeto/compilador-simples/build/parser.cc"
     break;
 
-  case 52:
+  case 52: // expr: expressao_logica
 #line 281 "parser.yy"
                    { (yylhs.value.exp_val) = (yystack_[0].value.exp_val); }
-#line 944 "/home/dudu/Documentos/Facul/compiladores/projeto/compilador-simples/build/parser.cc"
+#line 917 "/home/dudu/compiladores/projeto/compilador-simples/build/parser.cc"
     break;
 
-  case 53:
+  case 53: // expr: "{" criacao_de_registro "}"
 #line 282 "parser.yy"
                               { (yylhs.value.exp_val) = (yystack_[1].value.exp_val); }
-#line 950 "/home/dudu/Documentos/Facul/compiladores/projeto/compilador-simples/build/parser.cc"
+#line 923 "/home/dudu/compiladores/projeto/compilador-simples/build/parser.cc"
     break;
 
-  case 54:
+  case 54: // criacao_de_registro: atribuicao_registro
 #line 286 "parser.yy"
                       { (yylhs.value.exp_val) = new CriacaoRegistroAst((yystack_[0].value.exp_val)); }
-#line 956 "/home/dudu/Documentos/Facul/compiladores/projeto/compilador-simples/build/parser.cc"
+#line 929 "/home/dudu/compiladores/projeto/compilador-simples/build/parser.cc"
     break;
 
-  case 55:
+  case 55: // criacao_de_registro: criacao_de_registro "," atribuicao_registro
 #line 287 "parser.yy"
                                               { (yylhs.value.exp_val) = new CriacaoRegistroAst((yystack_[2].value.exp_val), (yystack_[0].value.exp_val)); }
-#line 962 "/home/dudu/Documentos/Facul/compiladores/projeto/compilador-simples/build/parser.cc"
+#line 935 "/home/dudu/compiladores/projeto/compilador-simples/build/parser.cc"
     break;
 
-  case 56:
+  case 56: // atribuicao_registro: "identificador" "=" expr
 #line 291 "parser.yy"
                          { (yylhs.value.exp_val) = new AtribuicaoRegistroAst(*(yystack_[2].value.stringVal), (yystack_[0].value.exp_val)); }
-#line 968 "/home/dudu/Documentos/Facul/compiladores/projeto/compilador-simples/build/parser.cc"
+#line 941 "/home/dudu/compiladores/projeto/compilador-simples/build/parser.cc"
     break;
 
-  case 57:
+  case 57: // expressao_logica: expressao_logica "&" expressao_relacional
 #line 295 "parser.yy"
                                             { (yylhs.value.exp_val) = new AndAst((yystack_[2].value.exp_val), (yystack_[0].value.exp_val)); }
-#line 974 "/home/dudu/Documentos/Facul/compiladores/projeto/compilador-simples/build/parser.cc"
+#line 947 "/home/dudu/compiladores/projeto/compilador-simples/build/parser.cc"
     break;
 
-  case 58:
+  case 58: // expressao_logica: expressao_logica "|" expressao_relacional
 #line 296 "parser.yy"
                                             { (yylhs.value.exp_val) = new OrAst((yystack_[2].value.exp_val), (yystack_[0].value.exp_val)); }
-#line 980 "/home/dudu/Documentos/Facul/compiladores/projeto/compilador-simples/build/parser.cc"
+#line 953 "/home/dudu/compiladores/projeto/compilador-simples/build/parser.cc"
     break;
 
-  case 59:
+  case 59: // expressao_logica: expressao_relacional
 #line 297 "parser.yy"
   { (yylhs.value.exp_val) = (yystack_[0].value.exp_val); }
-#line 986 "/home/dudu/Documentos/Facul/compiladores/projeto/compilador-simples/build/parser.cc"
+#line 959 "/home/dudu/compiladores/projeto/compilador-simples/build/parser.cc"
     break;
 
-  case 60:
+  case 60: // expressao_relacional: expressao_relacional "<=" expressao_aritmetica
 #line 301 "parser.yy"
                                                  { (yylhs.value.exp_val) = new MenorIgualAst((yystack_[2].value.exp_val), (yystack_[0].value.exp_val)); }
-#line 992 "/home/dudu/Documentos/Facul/compiladores/projeto/compilador-simples/build/parser.cc"
+#line 965 "/home/dudu/compiladores/projeto/compilador-simples/build/parser.cc"
     break;
 
-  case 61:
+  case 61: // expressao_relacional: expressao_relacional ">=" expressao_aritmetica
 #line 302 "parser.yy"
                                                  { (yylhs.value.exp_val) = new MaiorIgualAst((yystack_[2].value.exp_val), (yystack_[0].value.exp_val)); }
-#line 998 "/home/dudu/Documentos/Facul/compiladores/projeto/compilador-simples/build/parser.cc"
+#line 971 "/home/dudu/compiladores/projeto/compilador-simples/build/parser.cc"
     break;
 
-  case 62:
+  case 62: // expressao_relacional: expressao_relacional "<" expressao_aritmetica
 #line 303 "parser.yy"
                                                 { (yylhs.value.exp_val) = new MenorAst((yystack_[2].value.exp_val), (yystack_[0].value.exp_val)); }
-#line 1004 "/home/dudu/Documentos/Facul/compiladores/projeto/compilador-simples/build/parser.cc"
+#line 977 "/home/dudu/compiladores/projeto/compilador-simples/build/parser.cc"
     break;
 
-  case 63:
+  case 63: // expressao_relacional: expressao_relacional ">" expressao_aritmetica
 #line 304 "parser.yy"
                                                 { (yylhs.value.exp_val) = new MaiorAst((yystack_[2].value.exp_val), (yystack_[0].value.exp_val)); }
-#line 1010 "/home/dudu/Documentos/Facul/compiladores/projeto/compilador-simples/build/parser.cc"
+#line 983 "/home/dudu/compiladores/projeto/compilador-simples/build/parser.cc"
     break;
 
-  case 64:
+  case 64: // expressao_relacional: expressao_relacional "!=" expressao_aritmetica
 #line 305 "parser.yy"
                                                  { (yylhs.value.exp_val) = new DiferenteAst((yystack_[2].value.exp_val), (yystack_[0].value.exp_val)); }
-#line 1016 "/home/dudu/Documentos/Facul/compiladores/projeto/compilador-simples/build/parser.cc"
+#line 989 "/home/dudu/compiladores/projeto/compilador-simples/build/parser.cc"
     break;
 
-  case 65:
+  case 65: // expressao_relacional: expressao_relacional "==" expressao_aritmetica
 #line 306 "parser.yy"
                                                  { (yylhs.value.exp_val) = new EquivalenteAst((yystack_[2].value.exp_val), (yystack_[0].value.exp_val)); }
-#line 1022 "/home/dudu/Documentos/Facul/compiladores/projeto/compilador-simples/build/parser.cc"
+#line 995 "/home/dudu/compiladores/projeto/compilador-simples/build/parser.cc"
     break;
 
-  case 66:
+  case 66: // expressao_relacional: expressao_aritmetica
 #line 307 "parser.yy"
   { (yylhs.value.exp_val) = (yystack_[0].value.exp_val); }
-#line 1028 "/home/dudu/Documentos/Facul/compiladores/projeto/compilador-simples/build/parser.cc"
+#line 1001 "/home/dudu/compiladores/projeto/compilador-simples/build/parser.cc"
     break;
 
-  case 67:
+  case 67: // expressao_aritmetica: expressao_aritmetica "+" termo
 #line 311 "parser.yy"
                                  { (yylhs.value.exp_val) = new SomaAst((yystack_[2].value.exp_val), (yystack_[0].value.exp_val)); }
-#line 1034 "/home/dudu/Documentos/Facul/compiladores/projeto/compilador-simples/build/parser.cc"
+#line 1007 "/home/dudu/compiladores/projeto/compilador-simples/build/parser.cc"
     break;
 
-  case 68:
+  case 68: // expressao_aritmetica: expressao_aritmetica "-" termo
 #line 312 "parser.yy"
                                  { (yylhs.value.exp_val) = new SubtracaoAst((yystack_[2].value.exp_val), (yystack_[0].value.exp_val)); }
-#line 1040 "/home/dudu/Documentos/Facul/compiladores/projeto/compilador-simples/build/parser.cc"
+#line 1013 "/home/dudu/compiladores/projeto/compilador-simples/build/parser.cc"
     break;
 
-  case 69:
+  case 69: // expressao_aritmetica: termo
 #line 313 "parser.yy"
   { (yylhs.value.exp_val) = (yystack_[0].value.exp_val); }
-#line 1046 "/home/dudu/Documentos/Facul/compiladores/projeto/compilador-simples/build/parser.cc"
+#line 1019 "/home/dudu/compiladores/projeto/compilador-simples/build/parser.cc"
     break;
 
-  case 70:
+  case 70: // termo: termo "*" fator
 #line 317 "parser.yy"
                   { (yylhs.value.exp_val) = new MultiplicacaoAst((yystack_[2].value.exp_val), (yystack_[0].value.exp_val)); }
-#line 1052 "/home/dudu/Documentos/Facul/compiladores/projeto/compilador-simples/build/parser.cc"
+#line 1025 "/home/dudu/compiladores/projeto/compilador-simples/build/parser.cc"
     break;
 
-  case 71:
+  case 71: // termo: termo "/" fator
 #line 318 "parser.yy"
                   { (yylhs.value.exp_val) = new DivisaoAst((yystack_[2].value.exp_val), (yystack_[0].value.exp_val)); }
-#line 1058 "/home/dudu/Documentos/Facul/compiladores/projeto/compilador-simples/build/parser.cc"
+#line 1031 "/home/dudu/compiladores/projeto/compilador-simples/build/parser.cc"
     break;
 
-  case 72:
+  case 72: // termo: fator
 #line 319 "parser.yy"
   { (yylhs.value.exp_val) = (yystack_[0].value.exp_val); }
-#line 1064 "/home/dudu/Documentos/Facul/compiladores/projeto/compilador-simples/build/parser.cc"
+#line 1037 "/home/dudu/compiladores/projeto/compilador-simples/build/parser.cc"
     break;
 
-  case 73:
+  case 73: // fator: "(" expr ")"
 #line 323 "parser.yy"
                { (yylhs.value.exp_val) = (yystack_[1].value.exp_val); }
-#line 1070 "/home/dudu/Documentos/Facul/compiladores/projeto/compilador-simples/build/parser.cc"
+#line 1043 "/home/dudu/compiladores/projeto/compilador-simples/build/parser.cc"
     break;
 
-  case 74:
+  case 74: // fator: literal
 #line 324 "parser.yy"
   { (yylhs.value.exp_val) = (yystack_[0].value.exp_val); }
-#line 1076 "/home/dudu/Documentos/Facul/compiladores/projeto/compilador-simples/build/parser.cc"
+#line 1049 "/home/dudu/compiladores/projeto/compilador-simples/build/parser.cc"
     break;
 
-  case 75:
+  case 75: // fator: local
 #line 325 "parser.yy"
   { (yylhs.value.exp_val) = (yystack_[0].value.exp_val); }
-#line 1082 "/home/dudu/Documentos/Facul/compiladores/projeto/compilador-simples/build/parser.cc"
+#line 1055 "/home/dudu/compiladores/projeto/compilador-simples/build/parser.cc"
     break;
 
-  case 76:
+  case 76: // fator: chamada_de_funcao
 #line 326 "parser.yy"
   { (yylhs.value.exp_val) = (yystack_[0].value.exp_val); }
-#line 1088 "/home/dudu/Documentos/Facul/compiladores/projeto/compilador-simples/build/parser.cc"
+#line 1061 "/home/dudu/compiladores/projeto/compilador-simples/build/parser.cc"
     break;
 
-  case 77:
+  case 77: // fator: "nulo"
 #line 327 "parser.yy"
        { (yylhs.value.exp_val) = new NuloAst(); }
-#line 1094 "/home/dudu/Documentos/Facul/compiladores/projeto/compilador-simples/build/parser.cc"
+#line 1067 "/home/dudu/compiladores/projeto/compilador-simples/build/parser.cc"
     break;
 
-  case 78:
+  case 78: // chamada_de_funcao: "identificador" "(" lista_args_chamada ")"
 #line 331 "parser.yy"
                                            { (yylhs.value.exp_val) = new ChamadaFuncaoAst(*(yystack_[3].value.stringVal), (yystack_[1].value.exp_val)); }
-#line 1100 "/home/dudu/Documentos/Facul/compiladores/projeto/compilador-simples/build/parser.cc"
+#line 1073 "/home/dudu/compiladores/projeto/compilador-simples/build/parser.cc"
     break;
 
-  case 79:
+  case 79: // lista_args_chamada: %empty
 #line 335 "parser.yy"
                      { (yylhs.value.exp_val) = nullptr; }
-#line 1106 "/home/dudu/Documentos/Facul/compiladores/projeto/compilador-simples/build/parser.cc"
+#line 1079 "/home/dudu/compiladores/projeto/compilador-simples/build/parser.cc"
     break;
 
-  case 80:
+  case 80: // lista_args_chamada: fator
 #line 336 "parser.yy"
         { (yylhs.value.exp_val) = new ListaArgsChamada((yystack_[0].value.exp_val)); }
-#line 1112 "/home/dudu/Documentos/Facul/compiladores/projeto/compilador-simples/build/parser.cc"
+#line 1085 "/home/dudu/compiladores/projeto/compilador-simples/build/parser.cc"
     break;
 
-  case 81:
+  case 81: // lista_args_chamada: lista_args_chamada "," fator
 #line 337 "parser.yy"
                                { (yylhs.value.exp_val) = new ListaArgsChamada((yystack_[2].value.exp_val), (yystack_[0].value.exp_val)); }
-#line 1118 "/home/dudu/Documentos/Facul/compiladores/projeto/compilador-simples/build/parser.cc"
+#line 1091 "/home/dudu/compiladores/projeto/compilador-simples/build/parser.cc"
     break;
 
-  case 82:
+  case 82: // literal: "inteiro"
 #line 341 "parser.yy"
           { (yylhs.value.exp_val) = new InteiroAst((yystack_[0].value.integerVal)); }
-#line 1124 "/home/dudu/Documentos/Facul/compiladores/projeto/compilador-simples/build/parser.cc"
+#line 1097 "/home/dudu/compiladores/projeto/compilador-simples/build/parser.cc"
     break;
 
-  case 83:
+  case 83: // literal: "real"
 #line 342 "parser.yy"
        { (yylhs.value.exp_val) = new RealAst((yystack_[0].value.doubleVal)); }
-#line 1130 "/home/dudu/Documentos/Facul/compiladores/projeto/compilador-simples/build/parser.cc"
+#line 1103 "/home/dudu/compiladores/projeto/compilador-simples/build/parser.cc"
     break;
 
-  case 84:
+  case 84: // literal: "cadeia"
 #line 343 "parser.yy"
          { (yylhs.value.exp_val) = new CadeiaAst(*(yystack_[0].value.stringVal)); }
-#line 1136 "/home/dudu/Documentos/Facul/compiladores/projeto/compilador-simples/build/parser.cc"
+#line 1109 "/home/dudu/compiladores/projeto/compilador-simples/build/parser.cc"
     break;
 
-  case 85:
+  case 85: // local: "identificador"
 #line 347 "parser.yy"
                 { (yylhs.value.exp_val) = new LocalAst(*(yystack_[0].value.stringVal)); }
-#line 1142 "/home/dudu/Documentos/Facul/compiladores/projeto/compilador-simples/build/parser.cc"
+#line 1115 "/home/dudu/compiladores/projeto/compilador-simples/build/parser.cc"
     break;
 
-  case 86:
+  case 86: // local: local "." "identificador"
 #line 348 "parser.yy"
   { (yylhs.value.exp_val) = (yystack_[2].value.exp_val); }
-#line 1148 "/home/dudu/Documentos/Facul/compiladores/projeto/compilador-simples/build/parser.cc"
+#line 1121 "/home/dudu/compiladores/projeto/compilador-simples/build/parser.cc"
     break;
 
-  case 87:
+  case 87: // local: local "[" lista_args_chamada "]"
 #line 349 "parser.yy"
   { (yylhs.value.exp_val) = (yystack_[3].value.exp_val); }
-#line 1154 "/home/dudu/Documentos/Facul/compiladores/projeto/compilador-simples/build/parser.cc"
+#line 1127 "/home/dudu/compiladores/projeto/compilador-simples/build/parser.cc"
     break;
 
 
-#line 1158 "/home/dudu/Documentos/Facul/compiladores/projeto/compilador-simples/build/parser.cc"
+#line 1131 "/home/dudu/compiladores/projeto/compilador-simples/build/parser.cc"
 
             default:
               break;
@@ -1171,7 +1144,6 @@ namespace Simples {
       YY_SYMBOL_PRINT ("-> $$ =", yylhs);
       yypop_ (yylen);
       yylen = 0;
-      YY_STACK_PRINT ();
 
       // Shift the result of the reduction.
       yypush_ (YY_NULLPTR, YY_MOVE (yylhs));
@@ -1187,7 +1159,9 @@ namespace Simples {
     if (!yyerrstatus_)
       {
         ++yynerrs_;
-        error (yyla.location, yysyntax_error_ (yystack_[0].state, yyla));
+        context yyctx (*this, yyla);
+        std::string msg = yysyntax_error_ (yyctx);
+        error (yyla.location, YY_MOVE (msg));
       }
 
 
@@ -1198,7 +1172,7 @@ namespace Simples {
            error, discard it.  */
 
         // Return failure if at end of input.
-        if (yyla.type_get () == yyeof_)
+        if (yyla.kind () == symbol_kind::S_YYEOF)
           YYABORT;
         else if (!yyla.empty ())
           {
@@ -1224,6 +1198,7 @@ namespace Simples {
        this YYERROR.  */
     yypop_ (yylen);
     yylen = 0;
+    YY_STACK_PRINT ();
     goto yyerrlab1;
 
 
@@ -1232,31 +1207,33 @@ namespace Simples {
   `-------------------------------------------------------------*/
   yyerrlab1:
     yyerrstatus_ = 3;   // Each real token shifted decrements this.
+    // Pop stack until we find a state that shifts the error token.
+    for (;;)
+      {
+        yyn = yypact_[+yystack_[0].state];
+        if (!yy_pact_value_is_default_ (yyn))
+          {
+            yyn += symbol_kind::S_YYerror;
+            if (0 <= yyn && yyn <= yylast_
+                && yycheck_[yyn] == symbol_kind::S_YYerror)
+              {
+                yyn = yytable_[yyn];
+                if (0 < yyn)
+                  break;
+              }
+          }
+
+        // Pop the current state because it cannot handle the error token.
+        if (yystack_.size () == 1)
+          YYABORT;
+
+        yyerror_range[1].location = yystack_[0].location;
+        yy_destroy_ ("Error: popping", yystack_[0]);
+        yypop_ ();
+        YY_STACK_PRINT ();
+      }
     {
       stack_symbol_type error_token;
-      for (;;)
-        {
-          yyn = yypact_[+yystack_[0].state];
-          if (!yy_pact_value_is_default_ (yyn))
-            {
-              yyn += yy_error_token_;
-              if (0 <= yyn && yyn <= yylast_ && yycheck_[yyn] == yy_error_token_)
-                {
-                  yyn = yytable_[yyn];
-                  if (0 < yyn)
-                    break;
-                }
-            }
-
-          // Pop the current state because it cannot handle the error token.
-          if (yystack_.size () == 1)
-            YYABORT;
-
-          yyerror_range[1].location = yystack_[0].location;
-          yy_destroy_ ("Error: popping", yystack_[0]);
-          yypop_ ();
-          YY_STACK_PRINT ();
-        }
 
       yyerror_range[2].location = yyla.location;
       YYLLOC_DEFAULT (error_token.location, yyerror_range, 2);
@@ -1294,6 +1271,7 @@ namespace Simples {
     /* Do not reclaim the symbols of the rule whose action triggered
        this YYABORT or YYACCEPT.  */
     yypop_ (yylen);
+    YY_STACK_PRINT ();
     while (1 < yystack_.size ())
       {
         yy_destroy_ ("Cleanup: popping", yystack_[0]);
@@ -1327,18 +1305,100 @@ namespace Simples {
     error (yyexc.location, yyexc.what ());
   }
 
-  // Generate an error message.
+  /* Return YYSTR after stripping away unnecessary quotes and
+     backslashes, so that it's suitable for yyerror.  The heuristic is
+     that double-quoting is unnecessary unless the string contains an
+     apostrophe, a comma, or backslash (other than backslash-backslash).
+     YYSTR is taken from yytname.  */
   std::string
-  Parser::yysyntax_error_ (state_type yystate, const symbol_type& yyla) const
+  Parser::yytnamerr_ (const char *yystr)
   {
-    // Number of reported tokens (one for the "unexpected", one per
-    // "expected").
-    std::ptrdiff_t yycount = 0;
-    // Its maximum.
-    enum { YYERROR_VERBOSE_ARGS_MAXIMUM = 5 };
-    // Arguments of yyformat.
-    char const *yyarg[YYERROR_VERBOSE_ARGS_MAXIMUM];
+    if (*yystr == '"')
+      {
+        std::string yyr;
+        char const *yyp = yystr;
 
+        for (;;)
+          switch (*++yyp)
+            {
+            case '\'':
+            case ',':
+              goto do_not_strip_quotes;
+
+            case '\\':
+              if (*++yyp != '\\')
+                goto do_not_strip_quotes;
+              else
+                goto append;
+
+            append:
+            default:
+              yyr += *yyp;
+              break;
+
+            case '"':
+              return yyr;
+            }
+      do_not_strip_quotes: ;
+      }
+
+    return yystr;
+  }
+
+  std::string
+  Parser::symbol_name (symbol_kind_type yysymbol)
+  {
+    return yytnamerr_ (yytname_[yysymbol]);
+  }
+
+
+
+  // Parser::context.
+  Parser::context::context (const Parser& yyparser, const symbol_type& yyla)
+    : yyparser_ (yyparser)
+    , yyla_ (yyla)
+  {}
+
+  int
+  Parser::context::expected_tokens (symbol_kind_type yyarg[], int yyargn) const
+  {
+    // Actual number of expected tokens
+    int yycount = 0;
+
+    int yyn = yypact_[+yyparser_.yystack_[0].state];
+    if (!yy_pact_value_is_default_ (yyn))
+      {
+        /* Start YYX at -YYN if negative to avoid negative indexes in
+           YYCHECK.  In other words, skip the first -YYN actions for
+           this state because they are default actions.  */
+        int yyxbegin = yyn < 0 ? -yyn : 0;
+        // Stay within bounds of both yycheck and yytname.
+        int yychecklim = yylast_ - yyn + 1;
+        int yyxend = yychecklim < YYNTOKENS ? yychecklim : YYNTOKENS;
+        for (int yyx = yyxbegin; yyx < yyxend; ++yyx)
+          if (yycheck_[yyx + yyn] == yyx && yyx != symbol_kind::S_YYerror
+              && !yy_table_value_is_error_ (yytable_[yyx + yyn]))
+            {
+              if (!yyarg)
+                ++yycount;
+              else if (yycount == yyargn)
+                return 0;
+              else
+                yyarg[yycount++] = YY_CAST (symbol_kind_type, yyx);
+            }
+      }
+
+    if (yyarg && yycount == 0 && 0 < yyargn)
+      yyarg[0] = symbol_kind::S_YYEMPTY;
+    return yycount;
+  }
+
+
+
+  int
+  Parser::yy_syntax_error_arguments_ (const context& yyctx,
+                                                 symbol_kind_type yyarg[], int yyargn) const
+  {
     /* There are many possibilities here to consider:
        - If this state is a consistent state with a default action, then
          the only way this function was invoked is if the default action
@@ -1363,35 +1423,26 @@ namespace Simples {
          one exception: it will still contain any token that will not be
          accepted due to an error action in a later state.
     */
-    if (!yyla.empty ())
-      {
-        symbol_number_type yytoken = yyla.type_get ();
-        yyarg[yycount++] = yytname_[yytoken];
 
-        int yyn = yypact_[+yystate];
-        if (!yy_pact_value_is_default_ (yyn))
-          {
-            /* Start YYX at -YYN if negative to avoid negative indexes in
-               YYCHECK.  In other words, skip the first -YYN actions for
-               this state because they are default actions.  */
-            int yyxbegin = yyn < 0 ? -yyn : 0;
-            // Stay within bounds of both yycheck and yytname.
-            int yychecklim = yylast_ - yyn + 1;
-            int yyxend = yychecklim < yyntokens_ ? yychecklim : yyntokens_;
-            for (int yyx = yyxbegin; yyx < yyxend; ++yyx)
-              if (yycheck_[yyx + yyn] == yyx && yyx != yy_error_token_
-                  && !yy_table_value_is_error_ (yytable_[yyx + yyn]))
-                {
-                  if (yycount == YYERROR_VERBOSE_ARGS_MAXIMUM)
-                    {
-                      yycount = 1;
-                      break;
-                    }
-                  else
-                    yyarg[yycount++] = yytname_[yyx];
-                }
-          }
+    if (!yyctx.lookahead ().empty ())
+      {
+        if (yyarg)
+          yyarg[0] = yyctx.token ();
+        int yyn = yyctx.expected_tokens (yyarg ? yyarg + 1 : yyarg, yyargn - 1);
+        return yyn + 1;
       }
+    return 0;
+  }
+
+  // Generate an error message.
+  std::string
+  Parser::yysyntax_error_ (const context& yyctx) const
+  {
+    // Its maximum.
+    enum { YYARGS_MAX = 5 };
+    // Arguments of yyformat.
+    symbol_kind_type yyarg[YYARGS_MAX];
+    int yycount = yy_syntax_error_arguments_ (yyctx, yyarg, YYARGS_MAX);
 
     char const* yyformat = YY_NULLPTR;
     switch (yycount)
@@ -1416,7 +1467,7 @@ namespace Simples {
     for (char const* yyp = yyformat; *yyp; ++yyp)
       if (yyp[0] == '%' && yyp[1] == 's' && yyi < yycount)
         {
-          yyres += yytnamerr_ (yyarg[yyi++]);
+          yyres += symbol_name (yyarg[yyi++]);
           ++yyp;
         }
       else
@@ -1484,10 +1535,10 @@ namespace Simples {
      -78,     4,    16,    18,   -34,   -78,   -52,   -78,   -14
   };
 
-  const short
+  const unsigned char
   Parser::yydefgoto_[] =
   {
-      -1,     2,     3,     8,     4,    12,    10,    32,    33,   149,
+       0,     2,     3,     8,     4,    12,    10,    32,    33,   149,
       13,    38,    71,    72,    69,    17,    66,    67,   133,   134,
      135,   136,   165,   166,    27,    28,    29,    48,    79,    80,
       49,    50,    51,    52,    53,    54,    74,    55,    56
@@ -1589,13 +1640,13 @@ namespace Simples {
   };
 
 
-
+#if YYDEBUG || 1
   // YYTNAME[SYMBOL-NUM] -- String name of the symbol SYMBOL-NUM.
-  // First, the terminals, then, starting at \a yyntokens_, nonterminals.
+  // First, the terminals, then, starting at \a YYNTOKENS, nonterminals.
   const char*
   const Parser::yytname_[] =
   {
-  "\"end of file\"", "error", "$undefined", "\"identificador\"",
+  "\"end of file\"", "error", "\"invalid token\"", "\"identificador\"",
   "\"função\"", "\"ação\"", "\"pare\"", "\"continue\"", "\"para\"",
   "\"fpara\"", "\"enquanto\"", "\"fenquanto\"", "\"faça\"", "\"se\"",
   "\"fse\"", "\"verdadeiro\"", "\"falso\"", "\"tipo\"", "\"de\"",
@@ -1617,6 +1668,8 @@ namespace Simples {
   "expressao_aritmetica", "termo", "fator", "chamada_de_funcao",
   "lista_args_chamada", "literal", "local", YY_NULLPTR
   };
+#endif
+
 
 #if YYDEBUG
   const short
@@ -1633,9 +1686,8 @@ namespace Simples {
      336,   337,   341,   342,   343,   347,   348,   349
   };
 
-  // Print the state stack on the debug stream.
   void
-  Parser::yystack_print_ ()
+  Parser::yy_stack_print_ () const
   {
     *yycdebug_ << "Stack now";
     for (stack_type::const_iterator
@@ -1646,9 +1698,8 @@ namespace Simples {
     *yycdebug_ << '\n';
   }
 
-  // Report on the debug stream that the rule \a yyrule is going to be reduced.
   void
-  Parser::yy_reduce_print_ (int yyrule)
+  Parser::yy_reduce_print_ (int yyrule) const
   {
     int yylno = yyrline_[yyrule];
     int yynrhs = yyr2_[yyrule];
@@ -1662,13 +1713,13 @@ namespace Simples {
   }
 #endif // YYDEBUG
 
-  Parser::token_number_type
+  Parser::symbol_kind_type
   Parser::yytranslate_ (int t)
   {
     // YYTRANSLATE[TOKEN-NUM] -- Symbol number corresponding to
     // TOKEN-NUM as returned by yylex.
     static
-    const token_number_type
+    const signed char
     translate_table[] =
     {
        0,     2,     2,     2,     2,     2,     2,     2,     2,     2,
@@ -1703,19 +1754,20 @@ namespace Simples {
       35,    36,    37,    38,    39,    40,    41,    42,    43,    44,
       45,    46,    47,    48,    49,    50,    51,    52
     };
-    const int user_token_number_max_ = 307;
+    // Last valid token kind.
+    const int code_max = 307;
 
     if (t <= 0)
-      return yyeof_;
-    else if (t <= user_token_number_max_)
-      return translate_table[t];
+      return symbol_kind::S_YYEOF;
+    else if (t <= code_max)
+      return YY_CAST (symbol_kind_type, translate_table[t]);
     else
-      return yy_undef_token_;
+      return symbol_kind::S_YYUNDEF;
   }
 
 #line 45 "parser.yy"
 } // Simples
-#line 1719 "/home/dudu/Documentos/Facul/compiladores/projeto/compilador-simples/build/parser.cc"
+#line 1771 "/home/dudu/compiladores/projeto/compilador-simples/build/parser.cc"
 
 #line 352 "parser.yy"
 
