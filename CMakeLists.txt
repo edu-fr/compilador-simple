@@ -7,15 +7,33 @@ cmake_minimum_required(VERSION 2.6)
 # Includes
 include_directories(${CMAKE_CURRENT_SOURCE_DIR})
 include_directories(${CMAKE_CURRENT_BINARY_DIR})
+include_directories(/usr/include/llvm-13)
+include_directories(/usr/include/llvm-c-13)
 
 # Packages
 find_package(BISON)
 find_package(FLEX)
 
+link_libraries()
+execute_process(COMMAND llvm-config --libs OUTPUT_VARIABLE LIBS)
+execute_process(COMMAND llvm-config --system-libs OUTPUT_VARIABLE SYS_LIBS)
+execute_process(COMMAND llvm-config --ldflags OUTPUT_VARIABLE LDF)
+message(STATUS "Found LLVM: " ${LIBS})
+
+string(STRIP ${LIBS} LIBS)
+string(STRIP ${SYS_LIBS} SYS_LIBS)
+string(STRIP ${LDF} LDF)
+
+link_libraries(${LIBS} ${SYS_LIBS} ${LDF})
+
+execute_process(COMMAND llvm-config --cxxflags OUTPUT_VARIABLE CMAKE_CXX_FLAGS)
+string(STRIP ${CMAKE_CXX_FLAGS} CMAKE_CXX_FLAGS)
+
 # Variables
 set(CXX "clang++")
 set(CMAKE_CXX_FLAGS_DEBUG "-Wall -W -Werror -pedantic -g")
-set(CMAKE_CXX_FLAGS "-O3 -DLLVM_DISABLE_ABI_BREAKING_CHECKS_ENFORCING -Wall -W -pedantic")
+set(CMAKE_CXX_FLAGS "-O3 -DLLVM_DISABLE_ABI_BREAKING_CHECKS_ENFORCING -W -pedantic")
+
 
 # Files
 file(GLOB HH_FILES *.hh)
