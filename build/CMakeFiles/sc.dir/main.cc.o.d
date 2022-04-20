@@ -230,10 +230,10 @@ CMakeFiles/sc.dir/main.cc.o: \
  /usr/include/llvm/ADT/APFloat.h /usr/include/llvm/ADT/APInt.h \
  /usr/include/llvm/ADT/ArrayRef.h /usr/include/llvm/ADT/Hashing.h \
  /usr/include/llvm/ADT/SmallVector.h /usr/include/llvm/Support/AlignOf.h \
- /usr/include/llvm/Support/MemAlloc.h /usr/include/llvm/IR/BasicBlock.h \
- /usr/include/llvm/ADT/Twine.h /usr/include/llvm/ADT/StringRef.h \
- /usr/include/llvm/ADT/ilist.h /usr/include/llvm/ADT/simple_ilist.h \
- /usr/include/llvm/ADT/ilist_base.h \
+ /usr/include/llvm/Support/MemAlloc.h /usr/include/llvm/ADT/APSInt.h \
+ /usr/include/llvm/IR/BasicBlock.h /usr/include/llvm/ADT/Twine.h \
+ /usr/include/llvm/ADT/StringRef.h /usr/include/llvm/ADT/ilist.h \
+ /usr/include/llvm/ADT/simple_ilist.h /usr/include/llvm/ADT/ilist_base.h \
  /usr/include/llvm/ADT/ilist_node_base.h \
  /usr/include/llvm/ADT/ilist_iterator.h \
  /usr/include/llvm/ADT/ilist_node.h \

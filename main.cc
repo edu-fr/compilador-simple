@@ -41,9 +41,7 @@ int main(int argc, char **argv)
         default: std::cerr << std::endl; abort();
         }
 
-    double a = 0.2;
-
-    RealAst r{a};
+    RealAst r{2.9};
     auto r_c = r.codegen();
     cout << r_c->ConstantFPVal << endl;
 

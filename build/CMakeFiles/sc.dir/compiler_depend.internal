@@ -268,6 +268,7 @@ CMakeFiles/sc.dir/AST_classes.cc.o
  /usr/include/llvm/Config/abi-breaking.h
  /usr/include/c++/9/functional
  /usr/include/c++/9/bits/std_function.h
+ /usr/include/llvm/ADT/APSInt.h
  /usr/include/llvm/IR/BasicBlock.h
  /usr/include/llvm-c/Types.h
  /usr/include/llvm-c/ExternC.h
@@ -668,6 +669,7 @@ CMakeFiles/sc.dir/analise_semantica.cc.o
  /usr/include/llvm/ADT/SmallVector.h
  /usr/include/llvm/Support/AlignOf.h
  /usr/include/llvm/Support/MemAlloc.h
+ /usr/include/llvm/ADT/APSInt.h
  /usr/include/llvm/IR/BasicBlock.h
  /usr/include/llvm/ADT/Twine.h
  /usr/include/llvm/ADT/StringRef.h
@@ -1046,6 +1048,7 @@ CMakeFiles/sc.dir/driver.cc.o
  /usr/include/llvm/Config/abi-breaking.h
  /usr/include/c++/9/functional
  /usr/include/c++/9/bits/std_function.h
+ /usr/include/llvm/ADT/APSInt.h
  /usr/include/llvm/IR/BasicBlock.h
  /usr/include/llvm-c/Types.h
  /usr/include/llvm-c/ExternC.h
@@ -1462,6 +1465,7 @@ CMakeFiles/sc.dir/main.cc.o
  /usr/include/llvm/ADT/SmallVector.h
  /usr/include/llvm/Support/AlignOf.h
  /usr/include/llvm/Support/MemAlloc.h
+ /usr/include/llvm/ADT/APSInt.h
  /usr/include/llvm/IR/BasicBlock.h
  /usr/include/llvm/ADT/Twine.h
  /usr/include/llvm/ADT/StringRef.h
@@ -1840,6 +1844,7 @@ CMakeFiles/sc.dir/parser.cc.o
  /usr/include/llvm/Config/abi-breaking.h
  /usr/include/c++/9/functional
  /usr/include/c++/9/bits/std_function.h
+ /usr/include/llvm/ADT/APSInt.h
  /usr/include/llvm/IR/BasicBlock.h
  /usr/include/llvm-c/Types.h
  /usr/include/llvm-c/ExternC.h
@@ -2237,6 +2242,7 @@ CMakeFiles/sc.dir/scanner.cc.o
  /usr/include/llvm/Config/abi-breaking.h
  /usr/include/c++/9/functional
  /usr/include/c++/9/bits/std_function.h
+ /usr/include/llvm/ADT/APSInt.h
  /usr/include/llvm/IR/BasicBlock.h
  /usr/include/llvm-c/Types.h
  /usr/include/llvm-c/ExternC.h

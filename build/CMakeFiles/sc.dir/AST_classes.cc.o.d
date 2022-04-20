@@ -207,11 +207,11 @@ CMakeFiles/sc.dir/AST_classes.cc.o: \
  /usr/include/c++/9/backward/auto_ptr.h /usr/include/llvm/ADT/STLExtras.h \
  /usr/include/llvm/ADT/Optional.h /usr/include/llvm/ADT/iterator.h \
  /usr/include/llvm/Config/abi-breaking.h /usr/include/c++/9/functional \
- /usr/include/c++/9/bits/std_function.h /usr/include/llvm/IR/BasicBlock.h \
- /usr/include/llvm-c/Types.h /usr/include/llvm-c/ExternC.h \
- /usr/include/llvm/ADT/Twine.h /usr/include/llvm/ADT/StringRef.h \
- /usr/include/llvm/ADT/ilist.h /usr/include/llvm/ADT/simple_ilist.h \
- /usr/include/llvm/ADT/ilist_base.h \
+ /usr/include/c++/9/bits/std_function.h /usr/include/llvm/ADT/APSInt.h \
+ /usr/include/llvm/IR/BasicBlock.h /usr/include/llvm-c/Types.h \
+ /usr/include/llvm-c/ExternC.h /usr/include/llvm/ADT/Twine.h \
+ /usr/include/llvm/ADT/StringRef.h /usr/include/llvm/ADT/ilist.h \
+ /usr/include/llvm/ADT/simple_ilist.h /usr/include/llvm/ADT/ilist_base.h \
  /usr/include/llvm/ADT/ilist_node_base.h \
  /usr/include/llvm/ADT/PointerIntPair.h \
  /usr/include/llvm/Support/PointerLikeTypeTraits.h \

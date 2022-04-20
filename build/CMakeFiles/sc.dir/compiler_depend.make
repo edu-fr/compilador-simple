@@ -267,6 +267,7 @@ CMakeFiles/sc.dir/AST_classes.cc.o: ../AST_classes.cc \
   /usr/include/llvm/Config/abi-breaking.h \
   /usr/include/c++/9/functional \
   /usr/include/c++/9/bits/std_function.h \
+  /usr/include/llvm/ADT/APSInt.h \
   /usr/include/llvm/IR/BasicBlock.h \
   /usr/include/llvm-c/Types.h \
   /usr/include/llvm-c/ExternC.h \
@@ -666,6 +667,7 @@ CMakeFiles/sc.dir/analise_semantica.cc.o: ../analise_semantica.cc \
   /usr/include/llvm/ADT/SmallVector.h \
   /usr/include/llvm/Support/AlignOf.h \
   /usr/include/llvm/Support/MemAlloc.h \
+  /usr/include/llvm/ADT/APSInt.h \
   /usr/include/llvm/IR/BasicBlock.h \
   /usr/include/llvm/ADT/Twine.h \
   /usr/include/llvm/ADT/StringRef.h \
@@ -1043,6 +1045,7 @@ CMakeFiles/sc.dir/driver.cc.o: ../driver.cc \
   /usr/include/llvm/Config/abi-breaking.h \
   /usr/include/c++/9/functional \
   /usr/include/c++/9/bits/std_function.h \
+  /usr/include/llvm/ADT/APSInt.h \
   /usr/include/llvm/IR/BasicBlock.h \
   /usr/include/llvm-c/Types.h \
   /usr/include/llvm-c/ExternC.h \
@@ -1458,6 +1461,7 @@ CMakeFiles/sc.dir/main.cc.o: ../main.cc \
   /usr/include/llvm/ADT/SmallVector.h \
   /usr/include/llvm/Support/AlignOf.h \
   /usr/include/llvm/Support/MemAlloc.h \
+  /usr/include/llvm/ADT/APSInt.h \
   /usr/include/llvm/IR/BasicBlock.h \
   /usr/include/llvm/ADT/Twine.h \
   /usr/include/llvm/ADT/StringRef.h \
@@ -1835,6 +1839,7 @@ CMakeFiles/sc.dir/parser.cc.o: parser.cc \
   /usr/include/llvm/Config/abi-breaking.h \
   /usr/include/c++/9/functional \
   /usr/include/c++/9/bits/std_function.h \
+  /usr/include/llvm/ADT/APSInt.h \
   /usr/include/llvm/IR/BasicBlock.h \
   /usr/include/llvm-c/Types.h \
   /usr/include/llvm-c/ExternC.h \
@@ -2231,6 +2236,7 @@ CMakeFiles/sc.dir/scanner.cc.o: scanner.cc \
   /usr/include/llvm/Config/abi-breaking.h \
   /usr/include/c++/9/functional \
   /usr/include/c++/9/bits/std_function.h \
+  /usr/include/llvm/ADT/APSInt.h \
   /usr/include/llvm/IR/BasicBlock.h \
   /usr/include/llvm-c/Types.h \
   /usr/include/llvm-c/ExternC.h \
@@ -2748,6 +2754,8 @@ position.hh:
 /usr/include/c++/9/type_traits:
 
 /usr/include/c++/9/bits/stl_algo.h:
+
+/usr/include/llvm/ADT/APSInt.h:
 
 /usr/include/c++/9/cctype:
 
