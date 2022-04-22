@@ -380,36 +380,35 @@ namespace Simples {
         S_lista_declaracao_de_variavel_global = 59, // lista_declaracao_de_variavel_global
         S_lista_declaracao_variavel = 60,        // lista_declaracao_variavel
         S_declaracao_variavel = 61,              // declaracao_variavel
-        S_inicializacao = 62,                    // inicializacao
-        S_declaracao_tipo = 63,                  // declaracao_tipo
-        S_descritor_tipo = 64,                   // descritor_tipo
-        S_tipo_campos = 65,                      // tipo_campos
-        S_tipo_campo = 66,                       // tipo_campo
-        S_tipo_constantes = 67,                  // tipo_constantes
-        S_lista_declaracao_de_funcao = 68,       // lista_declaracao_de_funcao
-        S_lista_declaracao_funcao = 69,          // lista_declaracao_funcao
-        S_declaracao_funcao = 70,                // declaracao_funcao
-        S_lista_de_args = 71,                    // lista_de_args
-        S_lista_args = 72,                       // lista_args
-        S_args = 73,                             // args
-        S_modificador = 74,                      // modificador
-        S_corpo = 75,                            // corpo
-        S_lista_declaracao_de_variavel_local = 76, // lista_declaracao_de_variavel_local
-        S_lista_comandos = 77,                   // lista_comandos
-        S_comando = 78,                          // comando
-        S_chamada_de_procedimento = 79,          // chamada_de_procedimento
-        S_expr = 80,                             // expr
-        S_criacao_de_registro = 81,              // criacao_de_registro
-        S_atribuicao_registro = 82,              // atribuicao_registro
-        S_expressao_logica = 83,                 // expressao_logica
-        S_expressao_relacional = 84,             // expressao_relacional
-        S_expressao_aritmetica = 85,             // expressao_aritmetica
-        S_termo = 86,                            // termo
-        S_fator = 87,                            // fator
-        S_chamada_de_funcao = 88,                // chamada_de_funcao
-        S_lista_args_chamada = 89,               // lista_args_chamada
-        S_literal = 90,                          // literal
-        S_local = 91                             // local
+        S_declaracao_tipo = 62,                  // declaracao_tipo
+        S_descritor_tipo = 63,                   // descritor_tipo
+        S_tipo_campos = 64,                      // tipo_campos
+        S_tipo_campo = 65,                       // tipo_campo
+        S_tipo_constantes = 66,                  // tipo_constantes
+        S_lista_declaracao_de_funcao = 67,       // lista_declaracao_de_funcao
+        S_lista_declaracao_funcao = 68,          // lista_declaracao_funcao
+        S_declaracao_funcao = 69,                // declaracao_funcao
+        S_lista_de_args = 70,                    // lista_de_args
+        S_lista_args = 71,                       // lista_args
+        S_args = 72,                             // args
+        S_modificador = 73,                      // modificador
+        S_corpo = 74,                            // corpo
+        S_lista_declaracao_de_variavel_local = 75, // lista_declaracao_de_variavel_local
+        S_lista_comandos = 76,                   // lista_comandos
+        S_comando = 77,                          // comando
+        S_chamada_de_procedimento = 78,          // chamada_de_procedimento
+        S_expr = 79,                             // expr
+        S_criacao_de_registro = 80,              // criacao_de_registro
+        S_atribuicao_registro = 81,              // atribuicao_registro
+        S_expressao_logica = 82,                 // expressao_logica
+        S_expressao_relacional = 83,             // expressao_relacional
+        S_expressao_aritmetica = 84,             // expressao_aritmetica
+        S_termo = 85,                            // termo
+        S_fator = 86,                            // fator
+        S_chamada_de_funcao = 87,                // chamada_de_funcao
+        S_lista_args_chamada = 88,               // lista_args_chamada
+        S_literal = 89,                          // literal
+        S_local = 90                             // local
       };
     };
 
@@ -675,7 +674,7 @@ namespace Simples {
     // number is the opposite.  If YYTABLE_NINF, syntax error.
     static const unsigned char yytable_[];
 
-    static const short yycheck_[];
+    static const unsigned char yycheck_[];
 
     // YYSTOS[STATE-NUM] -- The (internal number of the) accessing
     // symbol of state STATE-NUM.
@@ -917,8 +916,8 @@ namespace Simples {
     /// Constants.
     enum
     {
-      yylast_ = 161,     ///< Last index in yytable_.
-      yynnts_ = 39,  ///< Number of nonterminal symbols.
+      yylast_ = 160,     ///< Last index in yytable_.
+      yynnts_ = 38,  ///< Number of nonterminal symbols.
       yyfinal_ = 6 ///< Termination state number.
     };
 
@@ -931,7 +930,7 @@ namespace Simples {
 
 #line 45 "parser.yy"
 } // Simples
-#line 935 "/home/dudu/compiladores/projeto/compilador-simples/build/parser.hh"
+#line 934 "/home/dudu/compiladores/projeto/compilador-simples/build/parser.hh"
 
 
 // "%code provides" blocks.
@@ -946,7 +945,7 @@ namespace Simples {
     }
   }
 
-#line 950 "/home/dudu/compiladores/projeto/compilador-simples/build/parser.hh"
+#line 949 "/home/dudu/compiladores/projeto/compilador-simples/build/parser.hh"
 
 
 #endif // !YY_YY_HOME_DUDU_COMPILADORES_PROJETO_COMPILADOR_SIMPLES_BUILD_PARSER_HH_INCLUDED

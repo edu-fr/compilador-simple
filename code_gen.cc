@@ -4,21 +4,26 @@
 // Code Generation Globals
 //===----------------------------------------------------------------------===//
 
-static std::unique_ptr<LLVMContext> TheContext;
-static std::unique_ptr<Module> TheModule;
-static std::unique_ptr<IRBuilder<>> Builder;
-static std::map<std::string, Value *> NamedValues;
+std::unique_ptr<LLVMContext> TheContext;
+std::unique_ptr<Module> TheModule;
+std::unique_ptr<IRBuilder<>> Builder;
+std::map<std::string, Value *> NamedValues;
 // static std::unique_ptr<KaleidoscopeJIT> TheJIT;
 // static std::map<std::string, std::unique_ptr<PrototypeAST>> FunctionProtos;
+
+void InitializeModule() {
+  // Open a new context and module.
+  TheContext = std::make_unique<LLVMContext>();
+  TheModule = std::make_unique<Module>("my cool jit", *TheContext);
+
+  // Create a new builder for the module.
+  Builder = std::make_unique<IRBuilder<>>(*TheContext);
+}
+
 
 //===----------------------------------------------------------------------===//
 // Code Generation CAP 8
 //===----------------------------------------------------------------------===//
-
-// Value* BaseDecTiposAst::codegen()
-// {
-//     return nullptr;
-// }
 
 Value* TipoCampoAst::codegen()
 {
@@ -122,7 +127,8 @@ Value* EnquantoAst::codegen()
 
 Value* RetorneAst::codegen()
 {
-    return nullptr;
+    cout << "print retorneAST codegen" << endl;
+    return expr_->codegen();
 }
 
 Value* PareAst::codegen()
@@ -157,6 +163,7 @@ Value* InteiroAst::codegen()
 
 Value* RealAst::codegen()
 {
+    cout << "print realAST codegen" << endl;
     return ConstantFP::get(*TheContext, APFloat(val_));
 }
 

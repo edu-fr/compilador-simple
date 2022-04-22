@@ -78,7 +78,7 @@
 
 /* Nao terminais */
 %type <programa_val> programa 
-%type <exp_val> local termo fator literal expr expressao_logica expressao_relacional expressao_aritmetica inicializacao criacao_de_registro atribuicao_registro lista_args_chamada chamada_de_funcao
+%type <exp_val> local termo fator literal expr expressao_logica expressao_relacional expressao_aritmetica criacao_de_registro atribuicao_registro lista_args_chamada chamada_de_funcao
 %type <acao_val> lista_comandos acao comando chamada_de_procedimento
 %type <declaracao_val> declaracoes
 %type <declaracao_tipos_val> lista_declaracao_de_tipo lista_declaracao_tipo declaracao_tipo tipo_campo tipo_campos
@@ -146,7 +146,7 @@
 %% 
 
 programa:
-  declaracoes acao { $$ = new ProgramaAst($1, $2); } 
+  declaracoes acao { ast_root = new ProgramaAst($1, $2); } 
 ;
 
 declaracoes: 
@@ -180,11 +180,7 @@ lista_declaracao_variavel:
 ;
 
 declaracao_variavel:    
-  IDENTIFICADOR ":" IDENTIFICADOR ":=" inicializacao { $$ = new DeclaracaoVariavelAst(*$1, *$3, $5); }
-;
-
-inicializacao:
-  expr
+  IDENTIFICADOR ":" IDENTIFICADOR ":=" expr { $$ = new DeclaracaoVariavelAst(*$1, *$3, $5); }
 ;
 
 declaracao_tipo:

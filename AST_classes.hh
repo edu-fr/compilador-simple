@@ -1,6 +1,5 @@
 #ifndef AST_classes_HH
 #define AST_classes_HH
-
 #include <string>
 #include <vector>
 #include <iostream>
@@ -20,6 +19,17 @@
 
 using namespace std;
 using namespace llvm;
+
+/* ********************* *
+ *     GLOBAIS CODEGEN   *
+ * ********************* */
+
+extern std::unique_ptr<LLVMContext> TheContext;
+extern std::unique_ptr<Module> TheModule;
+extern std::unique_ptr<IRBuilder<>> Builder;
+extern std::map<std::string, Value *> NamedValues;
+
+void InitializeModule();
 
 class ExprAst;  
 class LocalAst;
@@ -42,7 +52,6 @@ public:
 };
 
 extern ProgramaAst* ast_root;
-
 
 /* ******************
  *    DECLARACOES   *
