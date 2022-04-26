@@ -9,10 +9,10 @@ int main(int argc, char **argv)
     std::string filename;
     int opt;
 
-    // InitializeNativeTarget();
-    // InitializeNativeTargetAsmPrinter();
-    // InitializeNativeTargetAsmParser();
-    // TheJIT = std::make_unique<KaleidoscopeJIT>();
+    InitializeNativeTarget();
+    InitializeNativeTargetAsmPrinter();
+    InitializeNativeTargetAsmParser();
+    TheJIT = ExitOnErr(KaleidoscopeJIT::Create());
 
     while ((opt = getopt(argc, argv, "i:?")) != EOF)
         switch(opt) {
@@ -31,3 +31,5 @@ int main(int argc, char **argv)
 
     return 0;
 }
+
+    // cout << (typeid(t) == typeid(oie::teste)) << endl;

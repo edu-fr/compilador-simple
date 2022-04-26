@@ -339,7 +339,7 @@ literal:
 | CADEIA { $$ = new CadeiaAst(*$1); }
 ;
 
-local:
+local: // TODO 
   IDENTIFICADOR { $$ = new LocalAst(*$1); }
 | local "." IDENTIFICADOR
 | local "[" lista_args_chamada "]"
