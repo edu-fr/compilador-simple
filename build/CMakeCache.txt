@@ -148,7 +148,7 @@ CMAKE_PROJECT_DESCRIPTION:STATIC=
 CMAKE_PROJECT_HOMEPAGE_URL:STATIC=
 
 //Value Computed by CMake
-CMAKE_PROJECT_NAME:STATIC=parser
+CMAKE_PROJECT_NAME:STATIC=compilador-simples
 
 //Path to a program.
 CMAKE_RANLIB:FILEPATH=/usr/bin/ranlib
@@ -220,6 +220,12 @@ FLEX_INCLUDE_DIR:PATH=/usr/include
 
 //Path to the fl library
 FL_LIBRARY:FILEPATH=/usr/lib/x86_64-linux-gnu/libfl.so
+
+//Value Computed by CMake
+compilador-simples_BINARY_DIR:STATIC=/home/dudu/compiladores/projeto/compilador-simples/build
+
+//Value Computed by CMake
+compilador-simples_SOURCE_DIR:STATIC=/home/dudu/compiladores/projeto/compilador-simples
 
 //Value Computed by CMake
 parser_BINARY_DIR:STATIC=/home/dudu/compiladores/projeto/compilador-simples/build

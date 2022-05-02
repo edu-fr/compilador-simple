@@ -6,5 +6,5 @@ CXX_DEFINES =
 
 CXX_INCLUDES = -I/home/dudu/compiladores/projeto/compilador-simples -I/home/dudu/compiladores/projeto/compilador-simples/build -I/usr/include/llvm-13 -I/usr/include/llvm-c-13
 
-CXX_FLAGS = -O3 -DLLVM_DISABLE_ABI_BREAKING_CHECKS_ENFORCING -Wall -W -Werror -pedantic -Wno-error=unused-parameter -Wno-unused-parameter
+CXX_FLAGS = -O3 -DLLVM_DISABLE_ABI_BREAKING_CHECKS_ENFORCING -Wall -W -pedantic -Wno-error=unused-parameter -Wno-unused-parameter
 

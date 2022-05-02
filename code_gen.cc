@@ -51,6 +51,7 @@ Value* ProgramaAst::codegen()
 {
     this->dec_->codegen();
     this->acao_->codegen();
+    return nullptr;
 }
 
 Value* TipoCampoAst::codegen()
@@ -116,26 +117,30 @@ Value* ListaArgsAst::codegen()
 
 Value* CorpoAst::codegen()
 {
-    return nullptr;
+    if(variaveis_locais_ != nullptr) {
+        variaveis_locais_->codegen();
+    }
+    return lista_comandos_->codegen();
+
 }
 
 Function* DeclaracaoFuncaoAst::codegen()
 {
     // First, check for an existing function from a previous 'extern' declaration.
-    Function *TheFunction = TheModule->getFunction(this->id_);
+    
+    // Procura na tabela de simbolos (?)
+    // Function *TheFunction = TheModule->getFunction(this->id_);
+    Function *TheFunction;
 
-    if (!TheFunction) {
-        vector<Type*> Doubles(this->args_->lista_argumentos_.size(),
-                              Type::getDoubleTy(*TheContext));
-        FunctionType* FT = FunctionType::get(Type::getDoubleTy(*TheContext), Doubles, false);
-        Function* F = Function::Create(FT, Function::ExternalLinkage, this->id_, TheModule.get());
+    vector<Type*> Doubles(this->args_->lista_argumentos_.size(), Type::getDoubleTy(*TheContext));
+    FunctionType* FT = FunctionType::get(Type::getDoubleTy(*TheContext), Doubles, false);
+    Function* F = Function::Create(FT, Function::ExternalLinkage, this->id_, TheModule.get());
 
-        // Set names for all arguments.
-        unsigned Idx = 0;
-        for (auto &Arg : F->args())
-            Arg.setName(Args[Idx++]);
-        TheFunction = F;
-    }
+    // Set names for all arguments.
+    unsigned Idx = 0;
+    for (auto &Arg : F->args())
+        Arg.setName(this->args_->lista_argumentos_[Idx++]->id_);
+    TheFunction = F;
 
     if (!TheFunction) return nullptr;
 
@@ -154,7 +159,7 @@ Function* DeclaracaoFuncaoAst::codegen()
 
         // Validate the generated code, checking for consistency.
         verifyFunction(*TheFunction);
-
+        RetVal->print(errs());
         return TheFunction;
     }
 
@@ -165,24 +170,36 @@ Function* DeclaracaoFuncaoAst::codegen()
 
 Function* DeclaracaoFuncoesAst::codegen()
 {
-    for (auto funcao : this->lista_declaracoes_)
+    for (auto funcao : this->lista_declaracoes_) {
         funcao->codegen();
+    }
 
     return nullptr;
 }
 
 Value* DeclaracoesAst::codegen()
 {
-    this->tipos_->codegen();
-    this->globais_->codegen();
-    this->funcoes_->codegen();
-
+    if (this->tipos_ != nullptr) {
+        this->tipos_->codegen();
+    }
+    if (this->globais_ != nullptr)
+    {
+        this->globais_->codegen();
+    }   
+    if (this->funcoes_ != nullptr) {
+        this->funcoes_->codegen();
+    } 
+    
     return nullptr;
 }
 
 Value* ListaComandosAst::codegen()
 {
-    return nullptr;
+    Value* return_value = nullptr;
+    for (auto comando : lista_comandos_) {
+       return_value = comando->codegen();
+    }
+    return return_value;
 }
 
 Value* AtribuicaoAst::codegen()
@@ -207,10 +224,7 @@ Value* EnquantoAst::codegen()
 
 Value* RetorneAst::codegen()
 {
-    //    cout << "print retorneAST codegen" << endl;
-    // expr_->codegen()->print(errs());
-    //    return expr_->codegen();
-    return nullptr;
+    return expr_->codegen();
 }
 
 Value* PareAst::codegen()
@@ -365,5 +379,5 @@ Value* ChamadaFuncaoAst::codegen()
 void code_generation()
 {
     InitializeModule();
-    TheModule->print(errs(), nullptr);
+    ast_root->codegen();
 }
