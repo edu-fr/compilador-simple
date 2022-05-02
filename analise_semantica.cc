@@ -1,4 +1,6 @@
 #include "analise_semantica.hh"
+
+#include <iostream>
 #include <unordered_map>
 
 unordered_map<string, DeclaracaoVariavelAst*> tabela_variaveis;
@@ -96,7 +98,6 @@ int expressao_to_enum(ExprAst* expressao)
     return -1;
 }
 
-
 void comando(BaseComandoAst* comando) 
 {
     switch (comando_to_enum(comando))
@@ -105,7 +106,6 @@ void comando(BaseComandoAst* comando)
         // tabela_variaveis.find((AtribuicaoAst*) comando)->esq_->val_);
         // Caso encontrou na tabela
             // Checa o tipo
-                comando->codegen();
         // Caso contrário
         
         break;
@@ -148,14 +148,13 @@ void acao(ListaComandosAst* lista_comandos)
 {
     for (auto comando : lista_comandos->lista_comandos_) {
         //
-        comando->codegen()->printAsOperand(errs());
-
+        comando->codegen();
     }
 }
 
 void declaracao_variavel(DeclaracaoVariavelAst* declaracao)
 {
-    if(!tabela_variaveis.insert(make_pair(hash_(declaracao->id_), declaracao)).second) {
+    if (!tabela_variaveis.insert(make_pair(hash_(declaracao->id_), declaracao)).second) {
         cout << "Erro ao inserir a variável " << declaracao->id_ << " no escopo " << pilha_escopos.size() << "." << endl; 
         exit(1);
     }

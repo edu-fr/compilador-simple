@@ -1,41 +1,57 @@
-#include "AST_classes.hh"
+#include "code_gen.hh"
 
+#include <iostream>
+
+#include "AST_classes.hh"
+#include "llvm/ADT/APFloat.h"
+#include "llvm/ADT/STLExtras.h"
+#include "llvm/IR/BasicBlock.h"
+#include "llvm/IR/Constants.h"
+#include "llvm/IR/DerivedTypes.h"
+#include "llvm/IR/Function.h"
+#include "llvm/IR/IRBuilder.h"
+#include "llvm/IR/LLVMContext.h"
+#include "llvm/IR/LegacyPassManager.h"
+#include "llvm/IR/Module.h"
+#include "llvm/IR/Type.h"
+#include "llvm/IR/Verifier.h"
+#include "llvm/Support/TargetSelect.h"
+#include "llvm/Target/TargetMachine.h"
+#include "llvm/Transforms/InstCombine/InstCombine.h"
+#include "llvm/Transforms/Scalar.h"
+#include "llvm/Transforms/Scalar/GVN.h"
+#include "KaleidoscopeJIT.hh"
+
+using namespace llvm;
+using namespace llvm::orc;
 
 //===----------------------------------------------------------------------===//
 // Code Generation Globals
 //===----------------------------------------------------------------------===//
 
-std::unique_ptr<LLVMContext> TheContext;
-std::unique_ptr<Module> TheModule;
-std::unique_ptr<IRBuilder<>> Builder;
-std::map<std::string, AllocaInst *> NamedValues;
-std::unique_ptr<KaleidoscopeJIT> TheJIT;
-ExitOnError ExitOnErr;
-// static std::map<std::string, std::unique_ptr<PrototypeAST>> FunctionProtos;
+static std::unique_ptr<LLVMContext> TheContext;
+static std::unique_ptr<Module> TheModule;
+static std::unique_ptr<IRBuilder<>> Builder;
+static std::map<std::string, Value *> NamedValues;
 
 void InitializeModule() {
-  // Open a new context and module.
-  TheContext = std::make_unique<LLVMContext>();
-  TheModule = std::make_unique<Module>("my cool jit", *TheContext);
-  TheModule->setDataLayout(TheJIT->getDataLayout());
+    // Open a new context and module.
+    TheContext = std::make_unique<LLVMContext>();
+    TheModule = std::make_unique<Module>("my cool jit", *TheContext);
 
-  // Create a new builder for the module.
-  Builder = std::make_unique<IRBuilder<>>(*TheContext);
+    // Create a new builder for the module.
+    Builder = std::make_unique<IRBuilder<>>(*TheContext);
 }
 
-/// CreateEntryBlockAlloca - Create an alloca instruction in the entry block of
-/// the function.  This is used for mutable variables etc.
-// static AllocaInst *CreateEntryBlockAlloca(Function *TheFunction,
-//                                           StringRef VarName) {
-//   IRBuilder<> TmpB(&TheFunction->getEntryBlock(),
-//                    TheFunction->getEntryBlock().begin());
-//   return TmpB.CreateAlloca(Type::getDoubleTy(*TheContext), nullptr, VarName);
-// }
-
-
 //===----------------------------------------------------------------------===//
-// Code Generation CAP 8
+// Implementação das funções codegen() da AST
 //===----------------------------------------------------------------------===//
+
+Value* ProgramaAst::codegen()
+{
+    this->dec_->codegen();
+    this->acao_->codegen();
+}
 
 Value* TipoCampoAst::codegen()
 {
@@ -103,18 +119,64 @@ Value* CorpoAst::codegen()
     return nullptr;
 }
 
-Value* DeclaracaoFuncaoAst::codegen()
+Function* DeclaracaoFuncaoAst::codegen()
 {
+    // First, check for an existing function from a previous 'extern' declaration.
+    Function *TheFunction = TheModule->getFunction(this->id_);
+
+    if (!TheFunction) {
+        vector<Type*> Doubles(this->args_->lista_argumentos_.size(),
+                              Type::getDoubleTy(*TheContext));
+        FunctionType* FT = FunctionType::get(Type::getDoubleTy(*TheContext), Doubles, false);
+        Function* F = Function::Create(FT, Function::ExternalLinkage, this->id_, TheModule.get());
+
+        // Set names for all arguments.
+        unsigned Idx = 0;
+        for (auto &Arg : F->args())
+            Arg.setName(Args[Idx++]);
+        TheFunction = F;
+    }
+
+    if (!TheFunction) return nullptr;
+
+    // Create a new basic block to start insertion into.
+    BasicBlock *BB = BasicBlock::Create(*TheContext, "entry", TheFunction);
+    Builder->SetInsertPoint(BB);
+
+    // Record the function arguments in the NamedValues map.
+    NamedValues.clear();
+    for (auto &Arg : TheFunction->args())
+        NamedValues[string(Arg.getName())] = &Arg;
+
+    if (Value* RetVal = this->corpo_->codegen()) {
+        // Finish off the function.
+        Builder->CreateRet(RetVal);
+
+        // Validate the generated code, checking for consistency.
+        verifyFunction(*TheFunction);
+
+        return TheFunction;
+    }
+
+    // Error reading body, remove function.
+    TheFunction->eraseFromParent();
     return nullptr;
 }
 
-Value* DeclaracaoFuncoesAst::codegen()
+Function* DeclaracaoFuncoesAst::codegen()
 {
+    for (auto funcao : this->lista_declaracoes_)
+        funcao->codegen();
+
     return nullptr;
 }
 
 Value* DeclaracoesAst::codegen()
 {
+    this->tipos_->codegen();
+    this->globais_->codegen();
+    this->funcoes_->codegen();
+
     return nullptr;
 }
 
@@ -145,9 +207,10 @@ Value* EnquantoAst::codegen()
 
 Value* RetorneAst::codegen()
 {
-    cout << "print retorneAST codegen" << endl;
+    //    cout << "print retorneAST codegen" << endl;
     // expr_->codegen()->print(errs());
-    return expr_->codegen();
+    //    return expr_->codegen();
+    return nullptr;
 }
 
 Value* PareAst::codegen()
@@ -182,8 +245,7 @@ Value* InteiroAst::codegen()
 
 Value* RealAst::codegen()
 {
-    cout << "print realAST codegen" << endl;
-    return ConstantFP::get(*TheContext, APFloat(val_));
+    return ConstantFP::get(*TheContext, APFloat(this->val_));
 }
 
 Value* CadeiaAst::codegen()
@@ -200,6 +262,7 @@ Value* SomaAst::codegen()
 {
     Value *E = esq_->codegen();
     Value *D = dir_->codegen();
+
     if (!E || !D)
         return nullptr;
 
@@ -208,7 +271,13 @@ Value* SomaAst::codegen()
 
 Value* SubtracaoAst::codegen()
 {
-    return nullptr;
+    Value *E = esq_->codegen();
+    Value *D = dir_->codegen();
+
+    if (!E || !D)
+        return nullptr;
+
+    return Builder->CreateFSub(E, D, "subtmp");
 }
 
 Value* MaiorAst::codegen()
@@ -243,12 +312,24 @@ Value* DiferenteAst::codegen()
 
 Value* MultiplicacaoAst::codegen()
 {
-    return nullptr;
+    Value *E = esq_->codegen();
+    Value *D = dir_->codegen();
+
+    if (!E || !D)
+        return nullptr;
+
+    return Builder->CreateFMul(E, D, "multmp");
 }
 
 Value* DivisaoAst::codegen()
 {
-    return nullptr;
+    Value *E = esq_->codegen();
+    Value *D = dir_->codegen();
+
+    if (!E || !D)
+        return nullptr;
+
+    return Builder->CreateFDiv(E, D, "divtmp");
 }
 
 Value* AndAst::codegen()
@@ -276,22 +357,13 @@ Value* ChamadaFuncaoAst::codegen()
     return nullptr;
 }
 
-// Value* InteiroAst::codegen()
-// {
-//    return ConstantFP::get(*TheContext, APSInt(val_));
-// }
 
-// Value* RealAst::codegen()
-// {
-//     return ConstantFP::get(*TheContext, APFloat(val_));
-// }
+//===----------------------------------------------------------------------===//
+// Top-Level codegen
+//===----------------------------------------------------------------------===//
 
-
-void LogError(const char *Str) {
-  fprintf(stderr, "LogError: %s\n", Str);
+void code_generation()
+{
+    InitializeModule();
+    TheModule->print(errs(), nullptr);
 }
-
-// Value *LogErrorV(const char *Str) {
-//   LogError(Str);
-//   return nullptr;
-// }

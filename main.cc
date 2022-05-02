@@ -1,18 +1,14 @@
 #include <string>
 #include <iostream>
 #include <unistd.h>
-#include "driver.hh"
 #include "analise_semantica.hh"
+#include "code_gen.hh"
+#include "driver.hh"
 
 int main(int argc, char **argv)
 {
     std::string filename;
     int opt;
-
-    InitializeNativeTarget();
-    InitializeNativeTargetAsmPrinter();
-    InitializeNativeTargetAsmParser();
-    TheJIT = ExitOnErr(KaleidoscopeJIT::Create());
 
     while ((opt = getopt(argc, argv, "i:?")) != EOF)
         switch(opt) {
@@ -22,12 +18,10 @@ int main(int argc, char **argv)
         }
 
     Simples::Driver driver;
-    
     driver.parse_file(filename);
 
-    InitializeModule();
-    
-    analise_semantica();
+//    analise_semantica();
+    code_generation();
 
     return 0;
 }

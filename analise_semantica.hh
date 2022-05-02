@@ -3,8 +3,6 @@
 
 #include "AST_classes.hh"
 
-using namespace std;
-
 void analise_semantica();
 
 #endif // ANALISE_SEMANTICA_HH
