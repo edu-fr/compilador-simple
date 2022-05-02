@@ -20,10 +20,10 @@ int main(int argc, char **argv)
     Simples::Driver driver;
     driver.parse_file(filename);
 
-//    analise_semantica();
+    //    analise_semantica();
     code_generation();
-
+    system("clang output.o -o main");
     return 0;
 }
 
-    // cout << (typeid(t) == typeid(oie::teste)) << endl;
+// cout << (typeid(t) == typeid(oie::teste)) << endl;

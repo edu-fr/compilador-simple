@@ -1,7 +1,7 @@
 FUNÇÃO:
-    funcTeste(valor arg1 : real, valor arg2: real) = 
+    main(valor arg1 : real, valor arg2: real) : real =
         ação:   
             retorne 1.1
 
 AçÃo:
-    funcTeste(3.1, 4.1)
+        retorne 2.1

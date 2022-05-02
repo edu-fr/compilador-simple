@@ -4,26 +4,31 @@
 
 #include "AST_classes.hh"
 #include "llvm/ADT/APFloat.h"
+#include "llvm/ADT/Optional.h"
 #include "llvm/ADT/STLExtras.h"
 #include "llvm/IR/BasicBlock.h"
 #include "llvm/IR/Constants.h"
 #include "llvm/IR/DerivedTypes.h"
 #include "llvm/IR/Function.h"
+#include "llvm/IR/Instructions.h"
 #include "llvm/IR/IRBuilder.h"
 #include "llvm/IR/LLVMContext.h"
 #include "llvm/IR/LegacyPassManager.h"
 #include "llvm/IR/Module.h"
 #include "llvm/IR/Type.h"
 #include "llvm/IR/Verifier.h"
+#include "llvm/Support/FileSystem.h"
+#include "llvm/Support/Host.h"
+#include "llvm/Support/raw_ostream.h"
+#include "llvm/Support/TargetRegistry.h"
 #include "llvm/Support/TargetSelect.h"
 #include "llvm/Target/TargetMachine.h"
-#include "llvm/Transforms/InstCombine/InstCombine.h"
-#include "llvm/Transforms/Scalar.h"
-#include "llvm/Transforms/Scalar/GVN.h"
+#include "llvm/Target/TargetOptions.h"
 #include "KaleidoscopeJIT.hh"
 
 using namespace llvm;
 using namespace llvm::orc;
+using namespace llvm::sys;
 
 //===----------------------------------------------------------------------===//
 // Code Generation Globals
@@ -50,8 +55,7 @@ void InitializeModule() {
 Value* ProgramaAst::codegen()
 {
     this->dec_->codegen();
-    this->acao_->codegen();
-    return nullptr;
+    return this->acao_->codegen();
 }
 
 Value* TipoCampoAst::codegen()
@@ -159,7 +163,7 @@ Function* DeclaracaoFuncaoAst::codegen()
 
         // Validate the generated code, checking for consistency.
         verifyFunction(*TheFunction);
-        RetVal->print(errs());
+//        RetVal->print(errs());
         return TheFunction;
     }
 
@@ -376,8 +380,67 @@ Value* ChamadaFuncaoAst::codegen()
 // Top-Level codegen
 //===----------------------------------------------------------------------===//
 
+int generate_bin()
+{
+    // Initialize the target registry etc.
+    InitializeAllTargetInfos();
+    InitializeAllTargets();
+    InitializeAllTargetMCs();
+    InitializeAllAsmParsers();
+    InitializeAllAsmPrinters();
+
+    auto TargetTriple = getDefaultTargetTriple();
+    TheModule->setTargetTriple(TargetTriple);
+
+    string Error;
+    auto Target = TargetRegistry::lookupTarget(TargetTriple, Error);
+
+    // Print an error and exit if we couldn't find the requested target.
+    // This generally occurs if we've forgotten to initialise the
+    // TargetRegistry or we have a bogus target triple.
+    if (!Target) {
+        errs() << Error;
+        return 1;
+    }
+
+    auto CPU = "generic";
+    auto Features = "";
+
+    TargetOptions opt;
+    auto RM = Optional<Reloc::Model>();
+    auto TheTargetMachine =
+            Target->createTargetMachine(TargetTriple, CPU, Features, opt, RM);
+
+    TheModule->setDataLayout(TheTargetMachine->createDataLayout());
+
+    auto Filename = "output.o";
+    error_code EC;
+    raw_fd_ostream dest(Filename, EC, sys::fs::OF_None);
+
+    if (EC) {
+        errs() << "Could not open file: " << EC.message();
+        return 1;
+    }
+
+    legacy::PassManager pass;
+    auto FileType = CGFT_ObjectFile;
+
+    if (TheTargetMachine->addPassesToEmitFile(pass, dest, nullptr, FileType)) {
+        errs() << "TheTargetMachine can't emit a file of this type";
+        return 1;
+    }
+
+    pass.run(*TheModule);
+    dest.flush();
+
+//    outs() << "Wrote " << Filename << "\n";
+    return 0;
+}
+
 void code_generation()
 {
     InitializeModule();
     ast_root->codegen();
+    TheModule->print(errs(), nullptr);
+    generate_bin();
 }
