@@ -26,6 +26,11 @@
 #include "llvm/Support/TargetSelect.h"
 #include "llvm/Target/TargetMachine.h"
 #include "llvm/Target/TargetOptions.h"
+#include "llvm/Transforms/InstCombine/InstCombine.h"
+#include "llvm/Transforms/Scalar.h"
+#include "llvm/Transforms/Scalar/GVN.h"
+#include "llvm/Transforms/Utils.h"
+
 #include "KaleidoscopeJIT.hh"
 
 using namespace llvm;
@@ -39,7 +44,8 @@ using namespace llvm::sys;
 static std::unique_ptr<LLVMContext> TheContext;
 static std::unique_ptr<Module> TheModule;
 static std::unique_ptr<IRBuilder<>> Builder;
-static std::map<std::string, Value *> NamedValues;
+static std::map<std::string, AllocaInst *> NamedValues;
+static std::unique_ptr<legacy::FunctionPassManager> TheFPM;
 
 void insert_std_print()
 {
@@ -62,6 +68,31 @@ void InitializeModule() {
     Builder = std::make_unique<IRBuilder<>>(*TheContext);
 
     insert_std_print();
+
+    // Create a new pass manager attached to it.
+    TheFPM = std::make_unique<legacy::FunctionPassManager>(TheModule.get());
+
+    // Promote allocas to registers.
+    TheFPM->add(createPromoteMemoryToRegisterPass());
+    // Do simple "peephole" optimizations and bit-twiddling optzns.
+    TheFPM->add(createInstructionCombiningPass());
+    // Reassociate expressions.
+    TheFPM->add(createReassociatePass());
+    // Eliminate Common SubExpressions.
+    TheFPM->add(createGVNPass());
+    // Simplify the control flow graph (deleting unreachable blocks, etc).
+    TheFPM->add(createCFGSimplificationPass());
+
+    TheFPM->doInitialization();
+}
+
+// Precisa receber o tipo caso seja diferente de inteiro
+static AllocaInst *CreateEntryBlockAlloca(Function *TheFunction,
+                                          const std::string &VarName) {
+  IRBuilder<> TmpB(&TheFunction->getEntryBlock(),
+                 TheFunction->getEntryBlock().begin());
+  return TmpB.CreateAlloca(Type::getInt32Ty(*TheContext), 0,
+                           VarName.c_str());
 }
 
 //===----------------------------------------------------------------------===//
@@ -116,22 +147,24 @@ Value* DeclaracaoTiposAst::codegen()
 
 Value* DeclaracaoVariavelAst::codegen()
 {
-    // Value *V = NamedValues[id_];
-    // if (!V)
-    //     return LogErrorV("Unknown variable name");
-
-    // // Load the value.
-    // return Builder.CreateLoad(V, Name.c_str());
     return nullptr;
 }
 
 Value* ListaDecVarAst::codegen()
 {
-    // if (this->lista_declaracoes_.empty()) 
-    //     return nullptr;
-    
-    // for (auto dec : this->lista_declaracoes_) 
-    //     dec->codegen();
+    if (this->lista_declaracoes_.empty()) 
+        return nullptr;
+
+    std::vector<AllocaInst *> OldBindings;
+    Function *TheFunction = Builder->GetInsertBlock()->getParent();
+   
+    for (auto dec : this->lista_declaracoes_) {
+        AllocaInst *Alloca = CreateEntryBlockAlloca(TheFunction, dec->id_);
+        Builder->CreateStore(dec->expressao_->codegen(), Alloca);
+        OldBindings.push_back(NamedValues[dec->id_]);
+        // Remember this binding.
+        NamedValues[dec->id_] = Alloca;
+    }
             
     return nullptr;
     
@@ -178,8 +211,12 @@ Function* DeclaracaoFuncaoAst::codegen()
 
     // Record the function arguments in the NamedValues map.
     NamedValues.clear();
-    for (auto &Arg : F->args())
-        NamedValues[string(Arg.getName())] = &Arg;
+    for (auto &Arg : F->args()) {
+        AllocaInst *Alloca = CreateEntryBlockAlloca(F, string(Arg.getName()));
+        Builder->CreateStore(&Arg, Alloca);
+
+        NamedValues[string(Arg.getName())] = Alloca;
+    }
     
     Value* RetVal = this->corpo_->codegen();
     if (RetVal) {
@@ -234,7 +271,20 @@ Value* ListaComandosAst::codegen()
 
 Value* AtribuicaoAst::codegen()
 {
-    return nullptr;
+    // Codegen the RHS.
+    Value *Val = this->dir_->codegen();
+    // TODO tirar, pois analise semantica
+    if (!Val)
+        return nullptr;
+
+    // Look up the name.
+    Value *Variable = NamedValues[esq_->val_];
+    // TODO tirar, pois analise semantica
+    if (!Variable)
+        return LogErrorV("Unknown variable name");
+
+    Builder->CreateStore(Val, Variable);
+    return Val;
 }
 
 Value* SeAst::codegen()
@@ -320,7 +370,9 @@ Value* LocalAst::codegen()
   Value *V = NamedValues[this->val_];
   if (!V)
     LogErrorV("Unknown variable name");
-  return V;
+
+    // Load the value.
+  return Builder->CreateLoad(V, this->val_.c_str());
 }
 
 Value* SomaAst::codegen()

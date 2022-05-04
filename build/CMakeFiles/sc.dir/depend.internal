@@ -78,6 +78,7 @@ CMakeFiles/sc.dir/code_gen.cc.o
  /usr/include/llvm-13/llvm/ADT/DenseMap.h
  /usr/include/llvm-13/llvm/ADT/DenseMapInfo.h
  /usr/include/llvm-13/llvm/ADT/DenseSet.h
+ /usr/include/llvm-13/llvm/ADT/DepthFirstIterator.h
  /usr/include/llvm-13/llvm/ADT/EpochTracker.h
  /usr/include/llvm-13/llvm/ADT/FloatingPointMode.h
  /usr/include/llvm-13/llvm/ADT/FunctionExtras.h
@@ -89,8 +90,10 @@ CMakeFiles/sc.dir/code_gen.cc.o
  /usr/include/llvm-13/llvm/ADT/Optional.h
  /usr/include/llvm-13/llvm/ADT/PointerIntPair.h
  /usr/include/llvm-13/llvm/ADT/PointerUnion.h
+ /usr/include/llvm-13/llvm/ADT/PostOrderIterator.h
  /usr/include/llvm-13/llvm/ADT/STLExtras.h
  /usr/include/llvm-13/llvm/ADT/STLForwardCompat.h
+ /usr/include/llvm-13/llvm/ADT/SetVector.h
  /usr/include/llvm-13/llvm/ADT/SmallPtrSet.h
  /usr/include/llvm-13/llvm/ADT/SmallString.h
  /usr/include/llvm-13/llvm/ADT/SmallVector.h
@@ -113,6 +116,7 @@ CMakeFiles/sc.dir/code_gen.cc.o
  /usr/include/llvm-13/llvm/ADT/iterator.h
  /usr/include/llvm-13/llvm/ADT/iterator_range.h
  /usr/include/llvm-13/llvm/ADT/simple_ilist.h
+ /usr/include/llvm-13/llvm/Analysis/InstructionPrecedenceTracking.h
  /usr/include/llvm-13/llvm/BinaryFormat/Dwarf.def
  /usr/include/llvm-13/llvm/BinaryFormat/Dwarf.h
  /usr/include/llvm-13/llvm/BinaryFormat/Magic.h
@@ -163,6 +167,7 @@ CMakeFiles/sc.dir/code_gen.cc.o
  /usr/include/llvm-13/llvm/IR/DebugLoc.h
  /usr/include/llvm-13/llvm/IR/DerivedTypes.h
  /usr/include/llvm-13/llvm/IR/DiagnosticHandler.h
+ /usr/include/llvm-13/llvm/IR/Dominators.h
  /usr/include/llvm-13/llvm/IR/FPEnv.h
  /usr/include/llvm-13/llvm/IR/FixedMetadataKinds.def
  /usr/include/llvm-13/llvm/IR/Function.h
@@ -221,10 +226,13 @@ CMakeFiles/sc.dir/code_gen.cc.o
  /usr/include/llvm-13/llvm/PassSupport.h
  /usr/include/llvm-13/llvm/Support/AlignOf.h
  /usr/include/llvm-13/llvm/Support/Alignment.h
+ /usr/include/llvm-13/llvm/Support/Allocator.h
  /usr/include/llvm-13/llvm/Support/AllocatorBase.h
  /usr/include/llvm-13/llvm/Support/Atomic.h
  /usr/include/llvm-13/llvm/Support/AtomicOrdering.h
  /usr/include/llvm-13/llvm/Support/CBindingWrapping.h
+ /usr/include/llvm-13/llvm/Support/CFGDiff.h
+ /usr/include/llvm-13/llvm/Support/CFGUpdate.h
  /usr/include/llvm-13/llvm/Support/Casting.h
  /usr/include/llvm-13/llvm/Support/Chrono.h
  /usr/include/llvm-13/llvm/Support/CodeGen.h
@@ -245,6 +253,7 @@ CMakeFiles/sc.dir/code_gen.cc.o
  /usr/include/llvm-13/llvm/Support/FormatProviders.h
  /usr/include/llvm-13/llvm/Support/FormatVariadicDetails.h
  /usr/include/llvm-13/llvm/Support/FormattedStream.h
+ /usr/include/llvm-13/llvm/Support/GenericDomTree.h
  /usr/include/llvm-13/llvm/Support/Host.h
  /usr/include/llvm-13/llvm/Support/MD5.h
  /usr/include/llvm-13/llvm/Support/MSVCErrorWorkarounds.h
@@ -274,6 +283,12 @@ CMakeFiles/sc.dir/code_gen.cc.o
  /usr/include/llvm-13/llvm/Target/CGPassBuilderOption.h
  /usr/include/llvm-13/llvm/Target/TargetMachine.h
  /usr/include/llvm-13/llvm/Target/TargetOptions.h
+ /usr/include/llvm-13/llvm/Transforms/InstCombine/InstCombine.h
+ /usr/include/llvm-13/llvm/Transforms/InstCombine/InstCombineWorklist.h
+ /usr/include/llvm-13/llvm/Transforms/Scalar.h
+ /usr/include/llvm-13/llvm/Transforms/Scalar/GVN.h
+ /usr/include/llvm-13/llvm/Transforms/Utils.h
+ /usr/include/llvm-13/llvm/Transforms/Utils/SimplifyCFGOptions.h
  /usr/include/llvm-c-13/llvm-c/DataTypes.h
  /usr/include/llvm-c-13/llvm-c/DisassemblerTypes.h
  /usr/include/llvm-c-13/llvm-c/Error.h

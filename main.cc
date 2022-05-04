@@ -20,7 +20,7 @@ int main(int argc, char **argv)
     Simples::Driver driver;
     driver.parse_file(filename);
 
-    //    analise_semantica();
+    // analise_semantica();
     code_generation();
     system("clang++ -c utils.cc");
     system("clang output.o utils.o -o execucao_teste");
