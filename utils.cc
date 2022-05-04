@@ -1,6 +1,12 @@
+#ifdef _WIN32
+#define DLLEXPORT __declspec(dllexport)
+#else
+#define DLLEXPORT
+#endif
+
 #include "stdio.h"
 
-void imprimei(int i)
+extern "C" DLLEXPORT void imprimei(long int i)
 {
-    printf("%d", i); 
+    printf("%ld\n", i); 
 }

@@ -22,8 +22,8 @@ int main(int argc, char **argv)
 
     //    analise_semantica();
     code_generation();
+    system("clang++ -c utils.cc");
     system("clang output.o utils.o -o execucao_teste");
-
     return 0;
 }
 

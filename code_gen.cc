@@ -1,6 +1,8 @@
 #include "code_gen.hh"
 
 #include <iostream>
+#include <fstream>
+#include <sstream>
 
 #include "AST_classes.hh"
 #include "llvm/ADT/APFloat.h"
@@ -39,36 +41,27 @@ static std::unique_ptr<Module> TheModule;
 static std::unique_ptr<IRBuilder<>> Builder;
 static std::map<std::string, Value *> NamedValues;
 
-// void insert_std_functions()
-// {
-//     Function *TheFunction;
+void insert_std_print()
+{
+  std::vector<Type *> Doubles(1, Type::getDoubleTy(*TheContext));
+  FunctionType *FT = FunctionType::get(Type::getInt32Ty(*TheContext), Doubles, false);
+  Function *F = Function::Create(FT, Function::ExternalLinkage, "imprimei", TheModule.get());
 
-//     vector<Type*> args(this->args_->lista_argumentos_.size(), Type::getInt8Ty(*TheContext));
-
-//     FunctionType* FT = FunctionType::get(Type::getInt8Ty(*TheContext), args, false);
-
-//     Function* F = Function::Create(FT, Function::ExternalLinkage, this->id_, TheModule.get());
-
-//     // Set names for all arguments.
-//     unsigned Idx = 0;
-//     for (auto &Arg : F->args())
-//         Arg.setName(this->args_->lista_argumentos_[Idx++]->id_);
-//     TheFunction = F;
-
-//     if (!TheFunction) return nullptr;
-
-//     // Create a new basic block to start insertion into.
-//     BasicBlock *BB = BasicBlock::Create(*TheContext, "f" + this->id_, TheFunction);
-//     Builder->SetInsertPoint(BB);
-// }
+  // Set names for all arguments.
+  for (auto &Arg : F->args())
+    Arg.setName("i");
+}
 
 void InitializeModule() {
-    // Open a new context and module.
+        // Open a new context and module.
     TheContext = std::make_unique<LLVMContext>();
     TheModule = std::make_unique<Module>("my cool jit", *TheContext);
 
+
     // Create a new builder for the module.
     Builder = std::make_unique<IRBuilder<>>(*TheContext);
+
+    insert_std_print();
 }
 
 //===----------------------------------------------------------------------===//
@@ -165,10 +158,9 @@ Value* CorpoAst::codegen()
 }
 
 Function* DeclaracaoFuncaoAst::codegen()
-{
-    
-    vector<Type*> args(this->args_ == nullptr ? 0 : this->args_->lista_argumentos_.size(), Type::getInt8Ty(*TheContext));
-    FunctionType* FT = FunctionType::get(Type::getInt8Ty(*TheContext), args, false);
+{    
+    vector<Type*> args(this->args_ == nullptr ? 0 : this->args_->lista_argumentos_.size(), Type::getInt32Ty(*TheContext));
+    FunctionType* FT = FunctionType::get(Type::getInt32Ty(*TheContext), args, false);
 
     Function* F = Function::Create(FT, Function::ExternalLinkage, this->id_, TheModule.get());
 
@@ -309,7 +301,7 @@ Value* InteiroAst::codegen()
 {
 //    ConstantInt::get(*TheContext, APSInt(this->val_))->print(errs());
 //    cout << "\n\n";
-    return ConstantInt::get(*TheContext, APInt(sizeof(int), this->val_));
+    return ConstantInt::get(*TheContext, APInt(32, this->val_));
 }
 
 Value* RealAst::codegen()
@@ -506,7 +498,6 @@ int generate_bin()
     pass.run(*TheModule);
     dest.flush();
 
-//    outs() << "Wrote " << Filename << "\n";
     return 0;
 }
 

@@ -45,6 +45,10 @@ code_gen.hh
 /home/dudu/compiladores/projeto/compilador-simples/code_gen.hh
 iostream
 -
+fstream
+-
+sstream
+-
 AST_classes.hh
 /home/dudu/compiladores/projeto/compilador-simples/AST_classes.hh
 llvm/ADT/APFloat.h

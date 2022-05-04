@@ -5,4 +5,4 @@ make
 cd ..
 ./sc -i test.s
 ./execucao_teste
-echo $?
+# echo $?

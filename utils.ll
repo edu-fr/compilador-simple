@@ -6,7 +6,7 @@ target triple = "x86_64-pc-linux-gnu"
 @.str = private unnamed_addr constant [3 x i8] c"%d\00", align 1
 
 ; Function Attrs: mustprogress noinline optnone uwtable
-define dso_local void @_Z8imprimeii(i32 %0) #0 {
+define dso_local void @imprimei(i32 %0) #0 {
   %2 = alloca i32, align 4
   store i32 %0, i32* %2, align 4
   %3 = load i32, i32* %2, align 4
