@@ -1,15 +1,15 @@
 FUNÇÃO:
     funcao(valor arg3 : inteiro, valor arg4: inteiro) : inteiro = 
-        ação:
-            retorne imprimei(9)
+        local:
+            a : inteiro := arg3
 
-    funcao2(valor argzada : inteiro) : inteiro =
         ação:
-            retorne imprimei(99)
+            retorne imprimei(a)
 
     main() : inteiro =
-        ação:   
-            retorne imprimei(12983)
+        ação:
+            a := 10;
+            retorne funcao(109, 2)
 
 AçÃo:
        retorne 91

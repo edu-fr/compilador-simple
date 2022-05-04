@@ -3,6 +3,7 @@
 
 #include <vector>
 #include "llvm/IR/Value.h"
+#include "llvm/IR/Instructions.h"
 
 using namespace std;
 using namespace llvm;
@@ -140,7 +141,7 @@ public:
     BaseDecVarAst() {}
     ~BaseDecVarAst() {}
 
-    virtual Value *codegen() = 0;
+    virtual Value *codegen(std::vector<AllocaInst *> OldBindings, Function *TheFunction) = 0;
 };
 
 class DeclaracaoVariavelAst : public BaseDecVarAst {
@@ -151,7 +152,7 @@ public:
     string id_, tipo_;
     ExprAst* expressao_;
 
-    Value *codegen() override;
+    Value *codegen(std::vector<AllocaInst *> OldBindings, Function *TheFunction) override;
 };
 
 class ListaDecVarAst : public BaseDecVarAst {
@@ -161,7 +162,7 @@ public:
 
     vector<DeclaracaoVariavelAst*> lista_declaracoes_;
 
-    Value *codegen() override;
+    Value *codegen(std::vector<AllocaInst *> OldBindings, Function *TheFunction) override;
 };
 
 /* declaracao de funcoes */

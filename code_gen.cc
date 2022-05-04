@@ -12,7 +12,6 @@
 #include "llvm/IR/Constants.h"
 #include "llvm/IR/DerivedTypes.h"
 #include "llvm/IR/Function.h"
-#include "llvm/IR/Instructions.h"
 #include "llvm/IR/IRBuilder.h"
 #include "llvm/IR/LLVMContext.h"
 #include "llvm/IR/LegacyPassManager.h"
@@ -145,25 +144,23 @@ Value* DeclaracaoTiposAst::codegen()
     return nullptr;
 }
 
-Value* DeclaracaoVariavelAst::codegen()
+Value* DeclaracaoVariavelAst::codegen(std::vector<AllocaInst *> OldBindings, Function *TheFunction)
 {
+    AllocaInst *Alloca = CreateEntryBlockAlloca(TheFunction, this->id_);
+    Builder->CreateStore(this->expressao_->codegen(), Alloca);
+    OldBindings.push_back(NamedValues[this->id_]);
+    // Remember this binding.
+    NamedValues[this->id_] = Alloca;
     return nullptr;
 }
 
-Value* ListaDecVarAst::codegen()
+Value* ListaDecVarAst::codegen(std::vector<AllocaInst *> OldBindings, Function *TheFunction)
 {
     if (this->lista_declaracoes_.empty()) 
         return nullptr;
-
-    std::vector<AllocaInst *> OldBindings;
-    Function *TheFunction = Builder->GetInsertBlock()->getParent();
    
     for (auto dec : this->lista_declaracoes_) {
-        AllocaInst *Alloca = CreateEntryBlockAlloca(TheFunction, dec->id_);
-        Builder->CreateStore(dec->expressao_->codegen(), Alloca);
-        OldBindings.push_back(NamedValues[dec->id_]);
-        // Remember this binding.
-        NamedValues[dec->id_] = Alloca;
+        dec->codegen(OldBindings, TheFunction);
     }
             
     return nullptr;
@@ -183,8 +180,12 @@ Value* ListaArgsAst::codegen()
 Value* CorpoAst::codegen()
 {
     // cout << "corpo" << endl;
+
+    std::vector<AllocaInst *> OldBindings;
+    Function *TheFunction = Builder->GetInsertBlock()->getParent();
+
     if(variaveis_locais_ != nullptr) {
-        variaveis_locais_->codegen();
+        variaveis_locais_->codegen(OldBindings, TheFunction);
     }
     return lista_comandos_->codegen();
 
@@ -244,12 +245,16 @@ Function* DeclaracaoFuncoesAst::codegen()
 
 Value* DeclaracoesAst::codegen()
 {
+    
     if (this->tipos_ != nullptr) {
         this->tipos_->codegen();
     }
 
     if (this->globais_ != nullptr) {
-        this->globais_->codegen();
+        // std::vector<AllocaInst *> OldBindings;
+        // Function *TheFunction = Builder->GetInsertBlock()->getParent();
+
+        // this->globais_->codegen();
     }
 
     if (this->funcoes_ != nullptr) {
