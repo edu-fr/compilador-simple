@@ -8,6 +8,7 @@ file(REMOVE_RECURSE
   "CMakeFiles/sc.dir/main.cc.o"
   "CMakeFiles/sc.dir/parser.cc.o"
   "CMakeFiles/sc.dir/scanner.cc.o"
+  "CMakeFiles/sc.dir/utils.cc.o"
   "parser.cc"
   "parser.hh"
   "scanner.cc"

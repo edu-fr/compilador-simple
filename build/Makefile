@@ -331,6 +331,33 @@ scanner.cc.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/sc.dir/build.make CMakeFiles/sc.dir/scanner.cc.s
 .PHONY : scanner.cc.s
 
+utils.o: utils.cc.o
+
+.PHONY : utils.o
+
+# target to build an object file
+utils.cc.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/sc.dir/build.make CMakeFiles/sc.dir/utils.cc.o
+.PHONY : utils.cc.o
+
+utils.i: utils.cc.i
+
+.PHONY : utils.i
+
+# target to preprocess a source file
+utils.cc.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/sc.dir/build.make CMakeFiles/sc.dir/utils.cc.i
+.PHONY : utils.cc.i
+
+utils.s: utils.cc.s
+
+.PHONY : utils.s
+
+# target to generate assembly for a file
+utils.cc.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/sc.dir/build.make CMakeFiles/sc.dir/utils.cc.s
+.PHONY : utils.cc.s
+
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
@@ -361,6 +388,9 @@ help:
 	@echo "... scanner.o"
 	@echo "... scanner.i"
 	@echo "... scanner.s"
+	@echo "... utils.o"
+	@echo "... utils.i"
+	@echo "... utils.s"
 .PHONY : help
 
 

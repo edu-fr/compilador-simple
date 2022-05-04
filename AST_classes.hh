@@ -32,7 +32,6 @@ public:
 
 extern ProgramaAst* ast_root;
 
-
 /* ******************
  *    DECLARACOES   *
  * ****************** */

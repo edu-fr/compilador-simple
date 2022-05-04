@@ -77,7 +77,6 @@ CMakeFiles/sc.dir/code_gen.cc.o: /usr/include/llvm-13/llvm/ADT/BitmaskEnum.h
 CMakeFiles/sc.dir/code_gen.cc.o: /usr/include/llvm-13/llvm/ADT/DenseMap.h
 CMakeFiles/sc.dir/code_gen.cc.o: /usr/include/llvm-13/llvm/ADT/DenseMapInfo.h
 CMakeFiles/sc.dir/code_gen.cc.o: /usr/include/llvm-13/llvm/ADT/DenseSet.h
-CMakeFiles/sc.dir/code_gen.cc.o: /usr/include/llvm-13/llvm/ADT/DepthFirstIterator.h
 CMakeFiles/sc.dir/code_gen.cc.o: /usr/include/llvm-13/llvm/ADT/EpochTracker.h
 CMakeFiles/sc.dir/code_gen.cc.o: /usr/include/llvm-13/llvm/ADT/FloatingPointMode.h
 CMakeFiles/sc.dir/code_gen.cc.o: /usr/include/llvm-13/llvm/ADT/FunctionExtras.h
@@ -89,10 +88,8 @@ CMakeFiles/sc.dir/code_gen.cc.o: /usr/include/llvm-13/llvm/ADT/None.h
 CMakeFiles/sc.dir/code_gen.cc.o: /usr/include/llvm-13/llvm/ADT/Optional.h
 CMakeFiles/sc.dir/code_gen.cc.o: /usr/include/llvm-13/llvm/ADT/PointerIntPair.h
 CMakeFiles/sc.dir/code_gen.cc.o: /usr/include/llvm-13/llvm/ADT/PointerUnion.h
-CMakeFiles/sc.dir/code_gen.cc.o: /usr/include/llvm-13/llvm/ADT/PostOrderIterator.h
 CMakeFiles/sc.dir/code_gen.cc.o: /usr/include/llvm-13/llvm/ADT/STLExtras.h
 CMakeFiles/sc.dir/code_gen.cc.o: /usr/include/llvm-13/llvm/ADT/STLForwardCompat.h
-CMakeFiles/sc.dir/code_gen.cc.o: /usr/include/llvm-13/llvm/ADT/SetVector.h
 CMakeFiles/sc.dir/code_gen.cc.o: /usr/include/llvm-13/llvm/ADT/SmallPtrSet.h
 CMakeFiles/sc.dir/code_gen.cc.o: /usr/include/llvm-13/llvm/ADT/SmallString.h
 CMakeFiles/sc.dir/code_gen.cc.o: /usr/include/llvm-13/llvm/ADT/SmallVector.h
@@ -104,6 +101,7 @@ CMakeFiles/sc.dir/code_gen.cc.o: /usr/include/llvm-13/llvm/ADT/StringSwitch.h
 CMakeFiles/sc.dir/code_gen.cc.o: /usr/include/llvm-13/llvm/ADT/TinyPtrVector.h
 CMakeFiles/sc.dir/code_gen.cc.o: /usr/include/llvm-13/llvm/ADT/Triple.h
 CMakeFiles/sc.dir/code_gen.cc.o: /usr/include/llvm-13/llvm/ADT/Twine.h
+CMakeFiles/sc.dir/code_gen.cc.o: /usr/include/llvm-13/llvm/ADT/bit.h
 CMakeFiles/sc.dir/code_gen.cc.o: /usr/include/llvm-13/llvm/ADT/fallible_iterator.h
 CMakeFiles/sc.dir/code_gen.cc.o: /usr/include/llvm-13/llvm/ADT/ilist.h
 CMakeFiles/sc.dir/code_gen.cc.o: /usr/include/llvm-13/llvm/ADT/ilist_base.h
@@ -114,7 +112,6 @@ CMakeFiles/sc.dir/code_gen.cc.o: /usr/include/llvm-13/llvm/ADT/ilist_node_option
 CMakeFiles/sc.dir/code_gen.cc.o: /usr/include/llvm-13/llvm/ADT/iterator.h
 CMakeFiles/sc.dir/code_gen.cc.o: /usr/include/llvm-13/llvm/ADT/iterator_range.h
 CMakeFiles/sc.dir/code_gen.cc.o: /usr/include/llvm-13/llvm/ADT/simple_ilist.h
-CMakeFiles/sc.dir/code_gen.cc.o: /usr/include/llvm-13/llvm/Analysis/InstructionPrecedenceTracking.h
 CMakeFiles/sc.dir/code_gen.cc.o: /usr/include/llvm-13/llvm/BinaryFormat/Dwarf.def
 CMakeFiles/sc.dir/code_gen.cc.o: /usr/include/llvm-13/llvm/BinaryFormat/Dwarf.h
 CMakeFiles/sc.dir/code_gen.cc.o: /usr/include/llvm-13/llvm/BinaryFormat/Magic.h
@@ -165,7 +162,6 @@ CMakeFiles/sc.dir/code_gen.cc.o: /usr/include/llvm-13/llvm/IR/DebugInfoMetadata.
 CMakeFiles/sc.dir/code_gen.cc.o: /usr/include/llvm-13/llvm/IR/DebugLoc.h
 CMakeFiles/sc.dir/code_gen.cc.o: /usr/include/llvm-13/llvm/IR/DerivedTypes.h
 CMakeFiles/sc.dir/code_gen.cc.o: /usr/include/llvm-13/llvm/IR/DiagnosticHandler.h
-CMakeFiles/sc.dir/code_gen.cc.o: /usr/include/llvm-13/llvm/IR/Dominators.h
 CMakeFiles/sc.dir/code_gen.cc.o: /usr/include/llvm-13/llvm/IR/FPEnv.h
 CMakeFiles/sc.dir/code_gen.cc.o: /usr/include/llvm-13/llvm/IR/FixedMetadataKinds.def
 CMakeFiles/sc.dir/code_gen.cc.o: /usr/include/llvm-13/llvm/IR/Function.h
@@ -204,6 +200,12 @@ CMakeFiles/sc.dir/code_gen.cc.o: /usr/include/llvm-13/llvm/IR/Value.def
 CMakeFiles/sc.dir/code_gen.cc.o: /usr/include/llvm-13/llvm/IR/Value.h
 CMakeFiles/sc.dir/code_gen.cc.o: /usr/include/llvm-13/llvm/IR/ValueHandle.h
 CMakeFiles/sc.dir/code_gen.cc.o: /usr/include/llvm-13/llvm/IR/Verifier.h
+CMakeFiles/sc.dir/code_gen.cc.o: /usr/include/llvm-13/llvm/MC/MCExpr.h
+CMakeFiles/sc.dir/code_gen.cc.o: /usr/include/llvm-13/llvm/MC/MCFixup.h
+CMakeFiles/sc.dir/code_gen.cc.o: /usr/include/llvm-13/llvm/MC/MCFragment.h
+CMakeFiles/sc.dir/code_gen.cc.o: /usr/include/llvm-13/llvm/MC/MCInst.h
+CMakeFiles/sc.dir/code_gen.cc.o: /usr/include/llvm-13/llvm/MC/MCObjectFileInfo.h
+CMakeFiles/sc.dir/code_gen.cc.o: /usr/include/llvm-13/llvm/MC/MCSymbol.h
 CMakeFiles/sc.dir/code_gen.cc.o: /usr/include/llvm-13/llvm/MC/MCTargetOptions.h
 CMakeFiles/sc.dir/code_gen.cc.o: /usr/include/llvm-13/llvm/MC/SubtargetFeature.h
 CMakeFiles/sc.dir/code_gen.cc.o: /usr/include/llvm-13/llvm/Object/Archive.h
@@ -218,13 +220,10 @@ CMakeFiles/sc.dir/code_gen.cc.o: /usr/include/llvm-13/llvm/PassRegistry.h
 CMakeFiles/sc.dir/code_gen.cc.o: /usr/include/llvm-13/llvm/PassSupport.h
 CMakeFiles/sc.dir/code_gen.cc.o: /usr/include/llvm-13/llvm/Support/AlignOf.h
 CMakeFiles/sc.dir/code_gen.cc.o: /usr/include/llvm-13/llvm/Support/Alignment.h
-CMakeFiles/sc.dir/code_gen.cc.o: /usr/include/llvm-13/llvm/Support/Allocator.h
 CMakeFiles/sc.dir/code_gen.cc.o: /usr/include/llvm-13/llvm/Support/AllocatorBase.h
 CMakeFiles/sc.dir/code_gen.cc.o: /usr/include/llvm-13/llvm/Support/Atomic.h
 CMakeFiles/sc.dir/code_gen.cc.o: /usr/include/llvm-13/llvm/Support/AtomicOrdering.h
 CMakeFiles/sc.dir/code_gen.cc.o: /usr/include/llvm-13/llvm/Support/CBindingWrapping.h
-CMakeFiles/sc.dir/code_gen.cc.o: /usr/include/llvm-13/llvm/Support/CFGDiff.h
-CMakeFiles/sc.dir/code_gen.cc.o: /usr/include/llvm-13/llvm/Support/CFGUpdate.h
 CMakeFiles/sc.dir/code_gen.cc.o: /usr/include/llvm-13/llvm/Support/Casting.h
 CMakeFiles/sc.dir/code_gen.cc.o: /usr/include/llvm-13/llvm/Support/Chrono.h
 CMakeFiles/sc.dir/code_gen.cc.o: /usr/include/llvm-13/llvm/Support/CodeGen.h
@@ -244,7 +243,8 @@ CMakeFiles/sc.dir/code_gen.cc.o: /usr/include/llvm-13/llvm/Support/FileSystem/Un
 CMakeFiles/sc.dir/code_gen.cc.o: /usr/include/llvm-13/llvm/Support/Format.h
 CMakeFiles/sc.dir/code_gen.cc.o: /usr/include/llvm-13/llvm/Support/FormatProviders.h
 CMakeFiles/sc.dir/code_gen.cc.o: /usr/include/llvm-13/llvm/Support/FormatVariadicDetails.h
-CMakeFiles/sc.dir/code_gen.cc.o: /usr/include/llvm-13/llvm/Support/GenericDomTree.h
+CMakeFiles/sc.dir/code_gen.cc.o: /usr/include/llvm-13/llvm/Support/FormattedStream.h
+CMakeFiles/sc.dir/code_gen.cc.o: /usr/include/llvm-13/llvm/Support/Host.h
 CMakeFiles/sc.dir/code_gen.cc.o: /usr/include/llvm-13/llvm/Support/MD5.h
 CMakeFiles/sc.dir/code_gen.cc.o: /usr/include/llvm-13/llvm/Support/MSVCErrorWorkarounds.h
 CMakeFiles/sc.dir/code_gen.cc.o: /usr/include/llvm-13/llvm/Support/ManagedStatic.h
@@ -257,25 +257,24 @@ CMakeFiles/sc.dir/code_gen.cc.o: /usr/include/llvm-13/llvm/Support/NativeFormatt
 CMakeFiles/sc.dir/code_gen.cc.o: /usr/include/llvm-13/llvm/Support/PointerLikeTypeTraits.h
 CMakeFiles/sc.dir/code_gen.cc.o: /usr/include/llvm-13/llvm/Support/RWMutex.h
 CMakeFiles/sc.dir/code_gen.cc.o: /usr/include/llvm-13/llvm/Support/ReverseIteration.h
+CMakeFiles/sc.dir/code_gen.cc.o: /usr/include/llvm-13/llvm/Support/SMLoc.h
 CMakeFiles/sc.dir/code_gen.cc.o: /usr/include/llvm-13/llvm/Support/SwapByteOrder.h
+CMakeFiles/sc.dir/code_gen.cc.o: /usr/include/llvm-13/llvm/Support/TargetRegistry.h
 CMakeFiles/sc.dir/code_gen.cc.o: /usr/include/llvm-13/llvm/Support/TargetSelect.h
 CMakeFiles/sc.dir/code_gen.cc.o: /usr/include/llvm-13/llvm/Support/Threading.h
 CMakeFiles/sc.dir/code_gen.cc.o: /usr/include/llvm-13/llvm/Support/TimeProfiler.h
 CMakeFiles/sc.dir/code_gen.cc.o: /usr/include/llvm-13/llvm/Support/TrailingObjects.h
 CMakeFiles/sc.dir/code_gen.cc.o: /usr/include/llvm-13/llvm/Support/TypeName.h
 CMakeFiles/sc.dir/code_gen.cc.o: /usr/include/llvm-13/llvm/Support/TypeSize.h
+CMakeFiles/sc.dir/code_gen.cc.o: /usr/include/llvm-13/llvm/Support/VersionTuple.h
 CMakeFiles/sc.dir/code_gen.cc.o: /usr/include/llvm-13/llvm/Support/WithColor.h
 CMakeFiles/sc.dir/code_gen.cc.o: /usr/include/llvm-13/llvm/Support/raw_ostream.h
 CMakeFiles/sc.dir/code_gen.cc.o: /usr/include/llvm-13/llvm/Support/type_traits.h
 CMakeFiles/sc.dir/code_gen.cc.o: /usr/include/llvm-13/llvm/Target/CGPassBuilderOption.h
 CMakeFiles/sc.dir/code_gen.cc.o: /usr/include/llvm-13/llvm/Target/TargetMachine.h
 CMakeFiles/sc.dir/code_gen.cc.o: /usr/include/llvm-13/llvm/Target/TargetOptions.h
-CMakeFiles/sc.dir/code_gen.cc.o: /usr/include/llvm-13/llvm/Transforms/InstCombine/InstCombine.h
-CMakeFiles/sc.dir/code_gen.cc.o: /usr/include/llvm-13/llvm/Transforms/InstCombine/InstCombineWorklist.h
-CMakeFiles/sc.dir/code_gen.cc.o: /usr/include/llvm-13/llvm/Transforms/Scalar.h
-CMakeFiles/sc.dir/code_gen.cc.o: /usr/include/llvm-13/llvm/Transforms/Scalar/GVN.h
-CMakeFiles/sc.dir/code_gen.cc.o: /usr/include/llvm-13/llvm/Transforms/Utils/SimplifyCFGOptions.h
 CMakeFiles/sc.dir/code_gen.cc.o: /usr/include/llvm-c-13/llvm-c/DataTypes.h
+CMakeFiles/sc.dir/code_gen.cc.o: /usr/include/llvm-c-13/llvm-c/DisassemblerTypes.h
 CMakeFiles/sc.dir/code_gen.cc.o: /usr/include/llvm-c-13/llvm-c/Error.h
 CMakeFiles/sc.dir/code_gen.cc.o: /usr/include/llvm-c-13/llvm-c/ExecutionEngine.h
 CMakeFiles/sc.dir/code_gen.cc.o: /usr/include/llvm-c-13/llvm-c/ExternC.h
@@ -420,4 +419,6 @@ CMakeFiles/sc.dir/scanner.cc.o: /usr/include/llvm-13/llvm/Support/type_traits.h
 CMakeFiles/sc.dir/scanner.cc.o: /usr/include/llvm-c-13/llvm-c/DataTypes.h
 CMakeFiles/sc.dir/scanner.cc.o: /usr/include/llvm-c-13/llvm-c/ExternC.h
 CMakeFiles/sc.dir/scanner.cc.o: /usr/include/llvm-c-13/llvm-c/Types.h
+
+CMakeFiles/sc.dir/utils.cc.o: ../utils.cc
 

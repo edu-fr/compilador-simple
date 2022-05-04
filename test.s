@@ -1,7 +1,11 @@
 FUNÇÃO:
-    main(valor arg1 : inteiro, valor arg2: inteiro) : inteiro =
+    funcao(valor arg3 : inteiro, valor arg4: inteiro) : inteiro = 
+        ação:
+            retorne arg3
+
+    main() : inteiro =
         ação:   
-            retorne 5
+            retorne imprimei(1)
 
 AçÃo:
-        retorne 2
+       retorne 91

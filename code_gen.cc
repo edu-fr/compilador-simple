@@ -39,6 +39,29 @@ static std::unique_ptr<Module> TheModule;
 static std::unique_ptr<IRBuilder<>> Builder;
 static std::map<std::string, Value *> NamedValues;
 
+// void insert_std_functions()
+// {
+//     Function *TheFunction;
+
+//     vector<Type*> args(this->args_->lista_argumentos_.size(), Type::getInt8Ty(*TheContext));
+
+//     FunctionType* FT = FunctionType::get(Type::getInt8Ty(*TheContext), args, false);
+
+//     Function* F = Function::Create(FT, Function::ExternalLinkage, this->id_, TheModule.get());
+
+//     // Set names for all arguments.
+//     unsigned Idx = 0;
+//     for (auto &Arg : F->args())
+//         Arg.setName(this->args_->lista_argumentos_[Idx++]->id_);
+//     TheFunction = F;
+
+//     if (!TheFunction) return nullptr;
+
+//     // Create a new basic block to start insertion into.
+//     BasicBlock *BB = BasicBlock::Create(*TheContext, "f" + this->id_, TheFunction);
+//     Builder->SetInsertPoint(BB);
+// }
+
 void InitializeModule() {
     // Open a new context and module.
     TheContext = std::make_unique<LLVMContext>();
@@ -51,6 +74,11 @@ void InitializeModule() {
 //===----------------------------------------------------------------------===//
 // Implementação das funções codegen() da AST
 //===----------------------------------------------------------------------===//
+
+Value *LogErrorV(const char *Str) {
+    fprintf(stderr, "Error: %s\n", Str);
+    return nullptr;
+}
 
 Value* ProgramaAst::codegen()
 {
@@ -106,7 +134,14 @@ Value* DeclaracaoVariavelAst::codegen()
 
 Value* ListaDecVarAst::codegen()
 {
+    // if (this->lista_declaracoes_.empty()) 
+    //     return nullptr;
+    
+    // for (auto dec : this->lista_declaracoes_) 
+    //     dec->codegen();
+            
     return nullptr;
+    
 }
 
 Value* ArgumentoAst::codegen()
@@ -121,6 +156,7 @@ Value* ListaArgsAst::codegen()
 
 Value* CorpoAst::codegen()
 {
+    // cout << "corpo" << endl;
     if(variaveis_locais_ != nullptr) {
         variaveis_locais_->codegen();
     }
@@ -130,49 +166,41 @@ Value* CorpoAst::codegen()
 
 Function* DeclaracaoFuncaoAst::codegen()
 {
-    // First, check for an existing function from a previous 'extern' declaration.
     
-    // Procura na tabela de simbolos (?)
-    // Function *TheFunction = TheModule->getFunction(this->id_);
-    Function *TheFunction;
-
-//    vector<Type*> Doubles(this->args_->lista_argumentos_.size(), Type::getDoubleTy(*TheContext));
-    vector<Type*> args(this->args_->lista_argumentos_.size(), Type::getInt8Ty(*TheContext));
-
-//    FunctionType* FT = FunctionType::get(Type::getDoubleTy(*TheContext), Doubles, false);
+    vector<Type*> args(this->args_ == nullptr ? 0 : this->args_->lista_argumentos_.size(), Type::getInt8Ty(*TheContext));
     FunctionType* FT = FunctionType::get(Type::getInt8Ty(*TheContext), args, false);
 
     Function* F = Function::Create(FT, Function::ExternalLinkage, this->id_, TheModule.get());
 
     // Set names for all arguments.
     unsigned Idx = 0;
-    for (auto &Arg : F->args())
+    for (auto &Arg : F->args()) 
         Arg.setName(this->args_->lista_argumentos_[Idx++]->id_);
-    TheFunction = F;
-
-    if (!TheFunction) return nullptr;
-
+    
+    if (!F)
+        return nullptr;
+    
     // Create a new basic block to start insertion into.
-    BasicBlock *BB = BasicBlock::Create(*TheContext, "entry", TheFunction);
+    BasicBlock *BB = BasicBlock::Create(*TheContext, "entry", F);
     Builder->SetInsertPoint(BB);
 
     // Record the function arguments in the NamedValues map.
     NamedValues.clear();
-    for (auto &Arg : TheFunction->args())
+    for (auto &Arg : F->args())
         NamedValues[string(Arg.getName())] = &Arg;
-
-    if (Value* RetVal = this->corpo_->codegen()) {
+    
+    Value* RetVal = this->corpo_->codegen();
+    if (RetVal) {
         // Finish off the function.
         Builder->CreateRet(RetVal);
 
         // Validate the generated code, checking for consistency.
-        verifyFunction(*TheFunction);
-//        RetVal->print(errs());
-        return TheFunction;
+        verifyFunction(*F);
+        return F;
     }
-
+    
     // Error reading body, remove function.
-    TheFunction->eraseFromParent();
+    F->eraseFromParent();
     return nullptr;
 }
 
@@ -204,6 +232,7 @@ Value* DeclaracoesAst::codegen()
 
 Value* ListaComandosAst::codegen()
 {
+    // cout << "lista comandos" << endl;
     Value* return_value = nullptr;
     for (auto comando : lista_comandos_) {
        return_value = comando->codegen();
@@ -233,6 +262,7 @@ Value* EnquantoAst::codegen()
 
 Value* RetorneAst::codegen()
 {
+    // << "retorne" << endl;
     return expr_->codegen();
 }
 
@@ -248,7 +278,21 @@ Value* ContinueAst::codegen()
 
 Value* ChamadaProcedimentoAst::codegen()
 {
-    return nullptr;
+    Function *call_proc = TheModule->getFunction(id_);
+    if (!call_proc)
+        return LogErrorV("Unknown function referenced");
+
+    if (call_proc->arg_size() != lista_->args_.size())
+        return LogErrorV("Incorrect # arguments passed");
+
+    std::vector<Value *> ArgsV;
+    for (unsigned i = 0; lista_->args_.size(); i++) {
+        ArgsV.push_back(lista_->args_[i]->codegen());
+        if (!ArgsV.back())
+            return nullptr;
+    }
+
+    return Builder->CreateCall(call_proc, ArgsV, "calltmp");
 }
 
 Value* AtribuicaoRegistroAst::codegen()
@@ -265,7 +309,7 @@ Value* InteiroAst::codegen()
 {
 //    ConstantInt::get(*TheContext, APSInt(this->val_))->print(errs());
 //    cout << "\n\n";
-    return ConstantInt::get(*TheContext, APInt(this->val_));
+    return ConstantInt::get(*TheContext, APInt(sizeof(int), this->val_));
 }
 
 Value* RealAst::codegen()
@@ -280,7 +324,11 @@ Value* CadeiaAst::codegen()
 
 Value* LocalAst::codegen()
 {
-    return nullptr;
+    // Look this variable up in the function.
+  Value *V = NamedValues[this->val_];
+  if (!V)
+    LogErrorV("Unknown variable name");
+  return V;
 }
 
 Value* SomaAst::codegen()
@@ -379,7 +427,25 @@ Value* ListaArgsChamada::codegen()
 
 Value* ChamadaFuncaoAst::codegen()
 {
-    return nullptr;
+    cout << this->id_ << endl;
+    Function *CalleeF = TheModule->getFunction(this->id_);
+  // ANALISE SEMANTICA
+  if (!CalleeF)
+    return LogErrorV("Unknown function referenced");
+
+  // If argument mismatch error.
+  // ANALISE SEMANTICA
+  if (CalleeF->arg_size() != this->lista_->args_.size())
+    return LogErrorV("Incorrect # arguments passed");
+
+  vector<Value *> ArgsV;
+  for (unsigned i = 0, e = this->lista_->args_.size(); i != e; ++i) {
+    ArgsV.push_back(this->lista_->args_[i]->codegen());
+    if (!ArgsV.back())
+      return nullptr;
+  }
+
+  return Builder->CreateCall(CalleeF, ArgsV, "calltmp");
 }
 
 

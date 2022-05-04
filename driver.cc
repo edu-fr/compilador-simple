@@ -7,13 +7,11 @@ namespace Simples {
 		     parser_ (new Parser(*this)),
 		     location_ (new location()) { }
 
-
   Driver::~Driver() {
     delete parser_;
     delete scanner_;
     delete location_;
   }
-
 
   void Driver::reset() {
     delete location_;

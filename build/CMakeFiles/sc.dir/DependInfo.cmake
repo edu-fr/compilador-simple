@@ -11,6 +11,7 @@ set(CMAKE_DEPENDS_CHECK_CXX
   "/home/dudu/compiladores/projeto/compilador-simples/main.cc" "/home/dudu/compiladores/projeto/compilador-simples/build/CMakeFiles/sc.dir/main.cc.o"
   "/home/dudu/compiladores/projeto/compilador-simples/build/parser.cc" "/home/dudu/compiladores/projeto/compilador-simples/build/CMakeFiles/sc.dir/parser.cc.o"
   "/home/dudu/compiladores/projeto/compilador-simples/build/scanner.cc" "/home/dudu/compiladores/projeto/compilador-simples/build/CMakeFiles/sc.dir/scanner.cc.o"
+  "/home/dudu/compiladores/projeto/compilador-simples/utils.cc" "/home/dudu/compiladores/projeto/compilador-simples/build/CMakeFiles/sc.dir/utils.cc.o"
   )
 set(CMAKE_CXX_COMPILER_ID "GNU")
 
