@@ -196,7 +196,7 @@ CriacaoRegistroAst::CriacaoRegistroAst(ExprAst* tail, ExprAst* atribuicao_regist
     lista_.push_back((AtribuicaoRegistroAst*) atribuicao_registro);
 }
 
-InteiroAst::InteiroAst(int val)
+InteiroAst::InteiroAst(uint64_t val)
     : val_(val) {}
 
 RealAst::RealAst(double val)

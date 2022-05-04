@@ -23,6 +23,7 @@ int main(int argc, char **argv)
     //    analise_semantica();
     code_generation();
     system("clang output.o -o main");
+
     return 0;
 }
 

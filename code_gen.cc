@@ -136,8 +136,12 @@ Function* DeclaracaoFuncaoAst::codegen()
     // Function *TheFunction = TheModule->getFunction(this->id_);
     Function *TheFunction;
 
-    vector<Type*> Doubles(this->args_->lista_argumentos_.size(), Type::getDoubleTy(*TheContext));
-    FunctionType* FT = FunctionType::get(Type::getDoubleTy(*TheContext), Doubles, false);
+//    vector<Type*> Doubles(this->args_->lista_argumentos_.size(), Type::getDoubleTy(*TheContext));
+    vector<Type*> args(this->args_->lista_argumentos_.size(), Type::getInt8Ty(*TheContext));
+
+//    FunctionType* FT = FunctionType::get(Type::getDoubleTy(*TheContext), Doubles, false);
+    FunctionType* FT = FunctionType::get(Type::getInt8Ty(*TheContext), args, false);
+
     Function* F = Function::Create(FT, Function::ExternalLinkage, this->id_, TheModule.get());
 
     // Set names for all arguments.
@@ -186,13 +190,14 @@ Value* DeclaracoesAst::codegen()
     if (this->tipos_ != nullptr) {
         this->tipos_->codegen();
     }
-    if (this->globais_ != nullptr)
-    {
+
+    if (this->globais_ != nullptr) {
         this->globais_->codegen();
-    }   
+    }
+
     if (this->funcoes_ != nullptr) {
         this->funcoes_->codegen();
-    } 
+    }
     
     return nullptr;
 }
@@ -258,7 +263,9 @@ Value* CriacaoRegistroAst::codegen()
 
 Value* InteiroAst::codegen()
 {
-    return nullptr;
+//    ConstantInt::get(*TheContext, APSInt(this->val_))->print(errs());
+//    cout << "\n\n";
+    return ConstantInt::get(*TheContext, APInt(this->val_));
 }
 
 Value* RealAst::codegen()

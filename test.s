@@ -1,7 +1,7 @@
 FUNÇÃO:
-    main(valor arg1 : real, valor arg2: real) : real =
+    main(valor arg1 : inteiro, valor arg2: inteiro) : inteiro =
         ação:   
-            retorne 1.1
+            retorne 5
 
 AçÃo:
-        retorne 2.1
+        retorne 2

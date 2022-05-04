@@ -390,9 +390,9 @@ public:
 
 class InteiroAst : public ExprAst {
 public:
-    InteiroAst(int val);
+    InteiroAst(uint64_t val);
 
-    int val_;
+    uint64_t val_;
 
     Value *codegen() override;
 };
