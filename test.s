@@ -8,9 +8,6 @@ FUNÇÃO:
             a := 6 + 2 * 2;
             imprimei(a)
 
-    main() : inteiro =
-        ação:
-            retorne funcao(109, 2)
-
 AçÃo:
-       retorne 91
+       imprimei(20);
+       funcao(3, 4)

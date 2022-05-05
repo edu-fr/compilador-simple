@@ -9,16 +9,7 @@
 ProgramaAst* ast_root;
 
 ProgramaAst::ProgramaAst(DeclaracoesAst* dec, BaseComandoAst *acao)
-    : dec_(dec), acao_((ListaComandosAst*) acao)
-{
-    // TESTE GLOBAIS
-//    for ( auto i : dec->globais_->lista_declaracoes_)
-//    {
-//        cout << "identificador: " << i->id_ << endl;
-//        cout << "tipo: " << i->tipo_ << endl;
-//        cout << "expressao: " << ((InteiroAst*) i->expressao_)->val_ << endl;
-//    }
-}
+    : dec_(dec), acao_((ListaComandosAst*) acao) {}
 
 /* ******************
  *    DECLARACOES   *
@@ -93,11 +84,7 @@ ListaDecVarAst::ListaDecVarAst(BaseDecVarAst *tail, BaseDecVarAst *declaracao)
 /* declaracao funcoes */
 
 ArgumentoAst::ArgumentoAst(Modificador mod, const string &id, const string &tipo)
-    : mod_(mod), id_(id), tipo_(tipo) {
-//    cout << "Modificador: " << mod_ << endl;
-//    cout << "Id: " << id_ << endl;
-//    cout << "Tipo: " << tipo_ << endl;
-}
+    : mod_(mod), id_(id), tipo_(tipo) {}
 
 ListaArgsAst::ListaArgsAst(BaseArgsAst* arg)
 {
@@ -114,14 +101,10 @@ CorpoAst::CorpoAst(BaseDecVarAst *var_locais, BaseComandoAst *lista_comandos)
     : variaveis_locais_((ListaDecVarAst*) var_locais), lista_comandos_((ListaComandosAst*) lista_comandos) {}
 
 DeclaracaoFuncaoAst::DeclaracaoFuncaoAst(const string &id, BaseArgsAst *args, CorpoAst* corpo)
-    : id_(id), args_((ListaArgsAst*)args), corpo_(corpo) {
-//    cout << "nome do procedimento: " << id_ << endl;
-}
+    : id_(id), args_((ListaArgsAst*)args), corpo_(corpo) {}
 
 DeclaracaoFuncaoAst::DeclaracaoFuncaoAst(const string &id, BaseArgsAst* args, const string &ret, CorpoAst* corpo)
-    : id_(id), args_((ListaArgsAst*)args), retorno_(ret), corpo_(corpo) {
-//    cout << "nome da funcao: " << id_ << endl;
-}
+    : id_(id), args_((ListaArgsAst*)args), retorno_(ret), corpo_(corpo) {}
 
 DeclaracaoFuncoesAst::DeclaracaoFuncoesAst(BaseDecFuncAst* declaracao)
 {
@@ -154,9 +137,6 @@ ListaComandosAst::ListaComandosAst(BaseComandoAst *tail, BaseComandoAst *comando
 {
     lista_comandos_ = ((ListaComandosAst*) tail)->lista_comandos_;
     lista_comandos_.push_back(comando);
-
-    // cout << "acao 1: " << ((LocalAst*)((AtribuicaoAst*) lista_comandos_[0])->esq_)->val_ << endl;
-    // cout << "acao 1: " << ((InteiroAst*)((AtribuicaoAst*) lista_comandos_[0])->dir_)->val_ << endl;
 }
 
 AtribuicaoAst::AtribuicaoAst(ExprAst *esq, ExprAst *dir)
@@ -196,7 +176,7 @@ CriacaoRegistroAst::CriacaoRegistroAst(ExprAst* tail, ExprAst* atribuicao_regist
     lista_.push_back((AtribuicaoRegistroAst*) atribuicao_registro);
 }
 
-InteiroAst::InteiroAst(uint64_t val)
+InteiroAst::InteiroAst(long val)
     : val_(val) {}
 
 RealAst::RealAst(double val)

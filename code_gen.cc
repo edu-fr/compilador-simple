@@ -29,7 +29,6 @@
 #include "llvm/Transforms/Scalar.h"
 #include "llvm/Transforms/Scalar/GVN.h"
 #include "llvm/Transforms/Utils.h"
-
 #include "KaleidoscopeJIT.hh"
 
 using namespace llvm;
@@ -40,37 +39,35 @@ using namespace llvm::sys;
 // Code Generation Globals
 //===----------------------------------------------------------------------===//
 
-static std::unique_ptr<LLVMContext> TheContext;
-static std::unique_ptr<Module> TheModule;
-static std::unique_ptr<IRBuilder<>> Builder;
-static std::map<std::string, AllocaInst *> NamedValues;
-static std::unique_ptr<legacy::FunctionPassManager> TheFPM;
+static unique_ptr<LLVMContext> TheContext;
+static unique_ptr<Module> TheModule;
+static unique_ptr<IRBuilder<>> Builder;
+static map<string, AllocaInst *> NamedValues;
+static unique_ptr<legacy::FunctionPassManager> TheFPM;
 
 void insert_std_print()
 {
-  std::vector<Type *> Doubles(1, Type::getDoubleTy(*TheContext));
-  FunctionType *FT = FunctionType::get(Type::getInt32Ty(*TheContext), Doubles, false);
-  Function *F = Function::Create(FT, Function::ExternalLinkage, "imprimei", TheModule.get());
+    vector<Type *> Doubles(1, Type::getDoubleTy(*TheContext));
+    FunctionType *FT = FunctionType::get(Type::getInt32Ty(*TheContext), Doubles, false);
+    Function *F = Function::Create(FT, Function::ExternalLinkage, "imprimei", TheModule.get());
 
-  // Set names for all arguments.
-  for (auto &Arg : F->args())
-    Arg.setName("i");
+    // Set names for all arguments.
+    for (auto &Arg : F->args())
+        Arg.setName("i");
 }
 
 void InitializeModule() {
-        // Open a new context and module.
-    TheContext = std::make_unique<LLVMContext>();
-    TheModule = std::make_unique<Module>("my cool jit", *TheContext);
-
+    // Open a new context and module.
+    TheContext = make_unique<LLVMContext>();
+    TheModule = make_unique<Module>("my cool jit", *TheContext);
 
     // Create a new builder for the module.
-    Builder = std::make_unique<IRBuilder<>>(*TheContext);
+    Builder = make_unique<IRBuilder<>>(*TheContext);
 
     insert_std_print();
 
     // Create a new pass manager attached to it.
-    TheFPM = std::make_unique<legacy::FunctionPassManager>(TheModule.get());
-
+    TheFPM = make_unique<legacy::FunctionPassManager>(TheModule.get());
     // Promote allocas to registers.
     TheFPM->add(createPromoteMemoryToRegisterPass());
     // Do simple "peephole" optimizations and bit-twiddling optzns.
@@ -88,10 +85,10 @@ void InitializeModule() {
 // Precisa receber o tipo caso seja diferente de inteiro
 static AllocaInst *CreateEntryBlockAlloca(Function *TheFunction,
                                           const std::string &VarName) {
-  IRBuilder<> TmpB(&TheFunction->getEntryBlock(),
-                 TheFunction->getEntryBlock().begin());
-  return TmpB.CreateAlloca(Type::getInt32Ty(*TheContext), 0,
-                           VarName.c_str());
+    IRBuilder<> TmpB(&TheFunction->getEntryBlock(),
+                     TheFunction->getEntryBlock().begin());
+    return TmpB.CreateAlloca(Type::getInt32Ty(*TheContext), 0,
+                             VarName.c_str());
 }
 
 //===----------------------------------------------------------------------===//
@@ -106,7 +103,16 @@ Value *LogErrorV(const char *Str) {
 Value* ProgramaAst::codegen()
 {
     this->dec_->codegen();
-    return this->acao_->codegen();
+
+    FunctionType* FT = FunctionType::get(Type::getInt32Ty(*TheContext), {}, false);
+    Function* F = Function::Create(FT, Function::ExternalLinkage, "main", TheModule.get());
+    BasicBlock *BB = BasicBlock::Create(*TheContext, "entry", F);
+    Builder->SetInsertPoint(BB);
+    Value* body = this->acao_->codegen();
+    Builder->CreateRet(body);
+    verifyFunction(*F);
+
+    return F;
 }
 
 Value* TipoCampoAst::codegen()
@@ -156,13 +162,13 @@ Value* DeclaracaoVariavelAst::codegen(std::vector<AllocaInst *> OldBindings, Fun
 
 Value* ListaDecVarAst::codegen(std::vector<AllocaInst *> OldBindings, Function *TheFunction)
 {
-    if (this->lista_declaracoes_.empty()) 
+    if (this->lista_declaracoes_.empty())
         return nullptr;
-   
+
     for (auto dec : this->lista_declaracoes_) {
         dec->codegen(OldBindings, TheFunction);
     }
-            
+
     return nullptr;
     
 }
@@ -192,7 +198,7 @@ Value* CorpoAst::codegen()
 }
 
 Function* DeclaracaoFuncaoAst::codegen()
-{    
+{
     vector<Type*> args(this->args_ == nullptr ? 0 : this->args_->lista_argumentos_.size(), Type::getInt32Ty(*TheContext));
     FunctionType* FT = FunctionType::get(Type::getInt32Ty(*TheContext), args, false);
 
@@ -200,9 +206,9 @@ Function* DeclaracaoFuncaoAst::codegen()
 
     // Set names for all arguments.
     unsigned Idx = 0;
-    for (auto &Arg : F->args()) 
+    for (auto &Arg : F->args())
         Arg.setName(this->args_->lista_argumentos_[Idx++]->id_);
-    
+
     if (!F)
         return nullptr;
     
@@ -269,7 +275,7 @@ Value* ListaComandosAst::codegen()
     // cout << "lista comandos" << endl;
     Value* return_value = nullptr;
     for (auto comando : lista_comandos_) {
-       return_value = comando->codegen();
+        return_value = comando->codegen();
     }
     return return_value;
 }
@@ -370,12 +376,12 @@ Value* CadeiaAst::codegen()
 Value* LocalAst::codegen()
 {
     // Look this variable up in the function.
-  Value *V = NamedValues[this->val_];
-  if (!V)
-    LogErrorV("Unknown variable name");
+    Value *V = NamedValues[this->val_];
+    if (!V)
+        LogErrorV("Unknown variable name");
 
     // Load the value.
-  return Builder->CreateLoad(Type::getInt32Ty(*TheContext), V, this->val_.c_str());
+    return Builder->CreateLoad(Type::getInt32Ty(*TheContext), V, this->val_.c_str());
 }
 
 Value* SomaAst::codegen()
@@ -475,23 +481,23 @@ Value* ListaArgsChamada::codegen()
 Value* ChamadaFuncaoAst::codegen()
 {
     Function *CalleeF = TheModule->getFunction(this->id_);
-  // ANALISE SEMANTICA
-  if (!CalleeF)
-    return LogErrorV("Unknown function referenced");
+    // ANALISE SEMANTICA
+    if (!CalleeF)
+        return LogErrorV("Unknown function referenced");
 
-  // If argument mismatch error.
-  // ANALISE SEMANTICA
-  if (CalleeF->arg_size() != this->lista_->args_.size())
-    return LogErrorV("Incorrect # arguments passed to function");
+    // If argument mismatch error.
+    // ANALISE SEMANTICA
+    if (CalleeF->arg_size() != this->lista_->args_.size())
+        return LogErrorV("Incorrect # arguments passed to function");
 
-  vector<Value *> ArgsV;
-  for (unsigned i = 0, e = this->lista_->args_.size(); i != e; ++i) {
-    ArgsV.push_back(this->lista_->args_[i]->codegen());
-    if (!ArgsV.back())
-      return nullptr;
-  }
+    vector<Value *> ArgsV;
+    for (unsigned i = 0, e = this->lista_->args_.size(); i != e; ++i) {
+        ArgsV.push_back(this->lista_->args_[i]->codegen());
+        if (!ArgsV.back())
+            return nullptr;
+    }
 
-  return Builder->CreateCall(CalleeF, ArgsV, "calltmp");
+    return Builder->CreateCall(CalleeF, ArgsV, "calltmp");
 
 }
 
@@ -560,6 +566,6 @@ void code_generation()
 {
     InitializeModule();
     ast_root->codegen();
-    // TheModule->print(errs(), nullptr);
+    TheModule->print(errs(), nullptr);
     generate_bin();
 }
