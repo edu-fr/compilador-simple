@@ -272,7 +272,6 @@ chamada_de_procedimento:
   IDENTIFICADOR "(" lista_args_chamada ")" { $$ = new ChamadaProcedimentoAst(*$1, $3); }
 ;
 
-
 expr:
   expressao_logica { $$ = $1; }
 | "{" criacao_de_registro "}" { $$ = $2; }

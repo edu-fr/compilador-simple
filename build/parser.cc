@@ -905,217 +905,217 @@ namespace Simples {
     break;
 
   case 51: // expr: expressao_logica
-#line 277 "parser.yy"
+#line 276 "parser.yy"
                    { (yylhs.value.exp_val) = (yystack_[0].value.exp_val); }
 #line 911 "/home/dudu/compiladores/projeto/compilador-simples/build/parser.cc"
     break;
 
   case 52: // expr: "{" criacao_de_registro "}"
-#line 278 "parser.yy"
+#line 277 "parser.yy"
                               { (yylhs.value.exp_val) = (yystack_[1].value.exp_val); }
 #line 917 "/home/dudu/compiladores/projeto/compilador-simples/build/parser.cc"
     break;
 
   case 53: // criacao_de_registro: atribuicao_registro
-#line 282 "parser.yy"
+#line 281 "parser.yy"
                       { (yylhs.value.exp_val) = new CriacaoRegistroAst((yystack_[0].value.exp_val)); }
 #line 923 "/home/dudu/compiladores/projeto/compilador-simples/build/parser.cc"
     break;
 
   case 54: // criacao_de_registro: criacao_de_registro "," atribuicao_registro
-#line 283 "parser.yy"
+#line 282 "parser.yy"
                                               { (yylhs.value.exp_val) = new CriacaoRegistroAst((yystack_[2].value.exp_val), (yystack_[0].value.exp_val)); }
 #line 929 "/home/dudu/compiladores/projeto/compilador-simples/build/parser.cc"
     break;
 
   case 55: // atribuicao_registro: "identificador" "=" expr
-#line 287 "parser.yy"
+#line 286 "parser.yy"
                          { (yylhs.value.exp_val) = new AtribuicaoRegistroAst(*(yystack_[2].value.stringVal), (yystack_[0].value.exp_val)); }
 #line 935 "/home/dudu/compiladores/projeto/compilador-simples/build/parser.cc"
     break;
 
   case 56: // expressao_logica: expressao_logica "&" expressao_relacional
-#line 291 "parser.yy"
+#line 290 "parser.yy"
                                             { (yylhs.value.exp_val) = new AndAst((yystack_[2].value.exp_val), (yystack_[0].value.exp_val)); }
 #line 941 "/home/dudu/compiladores/projeto/compilador-simples/build/parser.cc"
     break;
 
   case 57: // expressao_logica: expressao_logica "|" expressao_relacional
-#line 292 "parser.yy"
+#line 291 "parser.yy"
                                             { (yylhs.value.exp_val) = new OrAst((yystack_[2].value.exp_val), (yystack_[0].value.exp_val)); }
 #line 947 "/home/dudu/compiladores/projeto/compilador-simples/build/parser.cc"
     break;
 
   case 58: // expressao_logica: expressao_relacional
-#line 293 "parser.yy"
+#line 292 "parser.yy"
   { (yylhs.value.exp_val) = (yystack_[0].value.exp_val); }
 #line 953 "/home/dudu/compiladores/projeto/compilador-simples/build/parser.cc"
     break;
 
   case 59: // expressao_relacional: expressao_relacional "<=" expressao_aritmetica
-#line 297 "parser.yy"
+#line 296 "parser.yy"
                                                  { (yylhs.value.exp_val) = new MenorIgualAst((yystack_[2].value.exp_val), (yystack_[0].value.exp_val)); }
 #line 959 "/home/dudu/compiladores/projeto/compilador-simples/build/parser.cc"
     break;
 
   case 60: // expressao_relacional: expressao_relacional ">=" expressao_aritmetica
-#line 298 "parser.yy"
+#line 297 "parser.yy"
                                                  { (yylhs.value.exp_val) = new MaiorIgualAst((yystack_[2].value.exp_val), (yystack_[0].value.exp_val)); }
 #line 965 "/home/dudu/compiladores/projeto/compilador-simples/build/parser.cc"
     break;
 
   case 61: // expressao_relacional: expressao_relacional "<" expressao_aritmetica
-#line 299 "parser.yy"
+#line 298 "parser.yy"
                                                 { (yylhs.value.exp_val) = new MenorAst((yystack_[2].value.exp_val), (yystack_[0].value.exp_val)); }
 #line 971 "/home/dudu/compiladores/projeto/compilador-simples/build/parser.cc"
     break;
 
   case 62: // expressao_relacional: expressao_relacional ">" expressao_aritmetica
-#line 300 "parser.yy"
+#line 299 "parser.yy"
                                                 { (yylhs.value.exp_val) = new MaiorAst((yystack_[2].value.exp_val), (yystack_[0].value.exp_val)); }
 #line 977 "/home/dudu/compiladores/projeto/compilador-simples/build/parser.cc"
     break;
 
   case 63: // expressao_relacional: expressao_relacional "!=" expressao_aritmetica
-#line 301 "parser.yy"
+#line 300 "parser.yy"
                                                  { (yylhs.value.exp_val) = new DiferenteAst((yystack_[2].value.exp_val), (yystack_[0].value.exp_val)); }
 #line 983 "/home/dudu/compiladores/projeto/compilador-simples/build/parser.cc"
     break;
 
   case 64: // expressao_relacional: expressao_relacional "==" expressao_aritmetica
-#line 302 "parser.yy"
+#line 301 "parser.yy"
                                                  { (yylhs.value.exp_val) = new EquivalenteAst((yystack_[2].value.exp_val), (yystack_[0].value.exp_val)); }
 #line 989 "/home/dudu/compiladores/projeto/compilador-simples/build/parser.cc"
     break;
 
   case 65: // expressao_relacional: expressao_aritmetica
-#line 303 "parser.yy"
+#line 302 "parser.yy"
   { (yylhs.value.exp_val) = (yystack_[0].value.exp_val); }
 #line 995 "/home/dudu/compiladores/projeto/compilador-simples/build/parser.cc"
     break;
 
   case 66: // expressao_aritmetica: expressao_aritmetica "+" termo
-#line 307 "parser.yy"
+#line 306 "parser.yy"
                                  { (yylhs.value.exp_val) = new SomaAst((yystack_[2].value.exp_val), (yystack_[0].value.exp_val)); }
 #line 1001 "/home/dudu/compiladores/projeto/compilador-simples/build/parser.cc"
     break;
 
   case 67: // expressao_aritmetica: expressao_aritmetica "-" termo
-#line 308 "parser.yy"
+#line 307 "parser.yy"
                                  { (yylhs.value.exp_val) = new SubtracaoAst((yystack_[2].value.exp_val), (yystack_[0].value.exp_val)); }
 #line 1007 "/home/dudu/compiladores/projeto/compilador-simples/build/parser.cc"
     break;
 
   case 68: // expressao_aritmetica: termo
-#line 309 "parser.yy"
+#line 308 "parser.yy"
   { (yylhs.value.exp_val) = (yystack_[0].value.exp_val); }
 #line 1013 "/home/dudu/compiladores/projeto/compilador-simples/build/parser.cc"
     break;
 
   case 69: // termo: termo "*" fator
-#line 313 "parser.yy"
+#line 312 "parser.yy"
                   { (yylhs.value.exp_val) = new MultiplicacaoAst((yystack_[2].value.exp_val), (yystack_[0].value.exp_val)); }
 #line 1019 "/home/dudu/compiladores/projeto/compilador-simples/build/parser.cc"
     break;
 
   case 70: // termo: termo "/" fator
-#line 314 "parser.yy"
+#line 313 "parser.yy"
                   { (yylhs.value.exp_val) = new DivisaoAst((yystack_[2].value.exp_val), (yystack_[0].value.exp_val)); }
 #line 1025 "/home/dudu/compiladores/projeto/compilador-simples/build/parser.cc"
     break;
 
   case 71: // termo: fator
-#line 315 "parser.yy"
+#line 314 "parser.yy"
   { (yylhs.value.exp_val) = (yystack_[0].value.exp_val); }
 #line 1031 "/home/dudu/compiladores/projeto/compilador-simples/build/parser.cc"
     break;
 
   case 72: // fator: "(" expr ")"
-#line 319 "parser.yy"
+#line 318 "parser.yy"
                { (yylhs.value.exp_val) = (yystack_[1].value.exp_val); }
 #line 1037 "/home/dudu/compiladores/projeto/compilador-simples/build/parser.cc"
     break;
 
   case 73: // fator: literal
-#line 320 "parser.yy"
+#line 319 "parser.yy"
   { (yylhs.value.exp_val) = (yystack_[0].value.exp_val); }
 #line 1043 "/home/dudu/compiladores/projeto/compilador-simples/build/parser.cc"
     break;
 
   case 74: // fator: local
-#line 321 "parser.yy"
+#line 320 "parser.yy"
   { (yylhs.value.exp_val) = (yystack_[0].value.exp_val); }
 #line 1049 "/home/dudu/compiladores/projeto/compilador-simples/build/parser.cc"
     break;
 
   case 75: // fator: chamada_de_funcao
-#line 322 "parser.yy"
+#line 321 "parser.yy"
   { (yylhs.value.exp_val) = (yystack_[0].value.exp_val); }
 #line 1055 "/home/dudu/compiladores/projeto/compilador-simples/build/parser.cc"
     break;
 
   case 76: // fator: "nulo"
-#line 323 "parser.yy"
+#line 322 "parser.yy"
        { (yylhs.value.exp_val) = new NuloAst(); }
 #line 1061 "/home/dudu/compiladores/projeto/compilador-simples/build/parser.cc"
     break;
 
   case 77: // chamada_de_funcao: "identificador" "(" lista_args_chamada ")"
-#line 327 "parser.yy"
+#line 326 "parser.yy"
                                            { (yylhs.value.exp_val) = new ChamadaFuncaoAst(*(yystack_[3].value.stringVal), (yystack_[1].value.exp_val)); }
 #line 1067 "/home/dudu/compiladores/projeto/compilador-simples/build/parser.cc"
     break;
 
   case 78: // lista_args_chamada: %empty
-#line 331 "parser.yy"
+#line 330 "parser.yy"
                      { (yylhs.value.exp_val) = nullptr; }
 #line 1073 "/home/dudu/compiladores/projeto/compilador-simples/build/parser.cc"
     break;
 
   case 79: // lista_args_chamada: fator
-#line 332 "parser.yy"
+#line 331 "parser.yy"
         { (yylhs.value.exp_val) = new ListaArgsChamada((yystack_[0].value.exp_val)); }
 #line 1079 "/home/dudu/compiladores/projeto/compilador-simples/build/parser.cc"
     break;
 
   case 80: // lista_args_chamada: lista_args_chamada "," fator
-#line 333 "parser.yy"
+#line 332 "parser.yy"
                                { (yylhs.value.exp_val) = new ListaArgsChamada((yystack_[2].value.exp_val), (yystack_[0].value.exp_val)); }
 #line 1085 "/home/dudu/compiladores/projeto/compilador-simples/build/parser.cc"
     break;
 
   case 81: // literal: "inteiro"
-#line 337 "parser.yy"
+#line 336 "parser.yy"
           { (yylhs.value.exp_val) = new InteiroAst((yystack_[0].value.integerVal)); }
 #line 1091 "/home/dudu/compiladores/projeto/compilador-simples/build/parser.cc"
     break;
 
   case 82: // literal: "real"
-#line 338 "parser.yy"
+#line 337 "parser.yy"
        { (yylhs.value.exp_val) = new RealAst((yystack_[0].value.doubleVal)); }
 #line 1097 "/home/dudu/compiladores/projeto/compilador-simples/build/parser.cc"
     break;
 
   case 83: // literal: "cadeia"
-#line 339 "parser.yy"
+#line 338 "parser.yy"
          { (yylhs.value.exp_val) = new CadeiaAst(*(yystack_[0].value.stringVal)); }
 #line 1103 "/home/dudu/compiladores/projeto/compilador-simples/build/parser.cc"
     break;
 
   case 84: // local: "identificador"
-#line 343 "parser.yy"
+#line 342 "parser.yy"
                 { (yylhs.value.exp_val) = new LocalAst(*(yystack_[0].value.stringVal)); }
 #line 1109 "/home/dudu/compiladores/projeto/compilador-simples/build/parser.cc"
     break;
 
   case 85: // local: local "." "identificador"
-#line 344 "parser.yy"
+#line 343 "parser.yy"
   { (yylhs.value.exp_val) = (yystack_[2].value.exp_val); }
 #line 1115 "/home/dudu/compiladores/projeto/compilador-simples/build/parser.cc"
     break;
 
   case 86: // local: local "[" lista_args_chamada "]"
-#line 345 "parser.yy"
+#line 344 "parser.yy"
   { (yylhs.value.exp_val) = (yystack_[3].value.exp_val); }
 #line 1121 "/home/dudu/compiladores/projeto/compilador-simples/build/parser.cc"
     break;
@@ -1673,10 +1673,10 @@ namespace Simples {
      202,   206,   207,   211,   212,   216,   217,   221,   222,   226,
      227,   231,   232,   236,   240,   241,   245,   250,   251,   255,
      256,   260,   261,   262,   263,   264,   265,   266,   267,   268,
-     272,   277,   278,   282,   283,   287,   291,   292,   293,   297,
-     298,   299,   300,   301,   302,   303,   307,   308,   309,   313,
-     314,   315,   319,   320,   321,   322,   323,   327,   331,   332,
-     333,   337,   338,   339,   343,   344,   345
+     272,   276,   277,   281,   282,   286,   290,   291,   292,   296,
+     297,   298,   299,   300,   301,   302,   306,   307,   308,   312,
+     313,   314,   318,   319,   320,   321,   322,   326,   330,   331,
+     332,   336,   337,   338,   342,   343,   344
   };
 
   void
@@ -1762,7 +1762,7 @@ namespace Simples {
 } // Simples
 #line 1764 "/home/dudu/compiladores/projeto/compilador-simples/build/parser.cc"
 
-#line 348 "parser.yy"
+#line 347 "parser.yy"
 
 
 namespace Simples {

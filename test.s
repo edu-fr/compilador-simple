@@ -4,11 +4,12 @@ FUNÇÃO:
             a : inteiro := arg3
 
         ação:
-            retorne imprimei(a)
+            imprimei(a);
+            a := 6 + 2 * 2;
+            imprimei(a)
 
     main() : inteiro =
         ação:
-            a := 10;
             retorne funcao(109, 2)
 
 AçÃo:
