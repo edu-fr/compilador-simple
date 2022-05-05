@@ -7,7 +7,11 @@ unordered_map<string, DeclaracaoVariavelAst*> tabela_variaveis;
 unordered_map<string, DeclaracaoFuncaoAst*> tabela_funcoes;
 unordered_map<string, DeclaracaoTipoAst*> tabela_tipos;
 
-vector<vector<string>> pilha_escopos;
+void erro(string message)
+{
+  cout << "ANALISE SEMANTICA" << message << endl;
+  exit(1);
+}
 
 enum comando_tipo {
     ATRIBUICAO,
@@ -18,6 +22,14 @@ enum comando_tipo {
     PARE,
     CONTINUE,
     CHAMADA_PROCEDIMENTO
+};
+
+enum tipos {
+    INTEIRO,
+    REAL,
+    CADEIA,
+    REGISTRO,
+    VETOR
 };
 
 enum expressao_tipo {
@@ -61,7 +73,6 @@ int comando_to_enum(BaseComandoAst* comando)
     return -1;
 }
 
-
 int expressao_to_enum(ExprAst* expressao)
 {
     if (typeid(*expressao) == typeid(AtribuicaoRegistroAst)) 
@@ -96,6 +107,21 @@ int expressao_to_enum(ExprAst* expressao)
       return expressao_tipo::CHAMADA_FUNCAO;      
 
     return -1;
+}
+
+int stringType_to_enum (const string &tipo) {
+  if (tipo == "inteiro")
+    return INTEIRO;
+  else if (tipo == "real")
+    return REAL;
+  else if (tipo == "cadeia")
+    return CADEIA;
+  else if (tipo == "registro")
+    return REGISTRO;
+  else if (tipo == "vetor")
+    return VETOR;
+
+   return -1; 
 }
 
 void comando(BaseComandoAst* comando) 
@@ -139,9 +165,9 @@ void comando(BaseComandoAst* comando)
     }
 }
 
-string hash_(string id) 
+string hash_(string id, string escopo) 
 {
-    return id.append("$" + to_string(pilha_escopos.size())); // '$' é um caracter especial que não é usado em identificadores
+    return id.append("$" + escopo); // '$' é um caracter especial que não é usado em identificadores
 }
 
 void acao(ListaComandosAst* lista_comandos)
@@ -152,13 +178,36 @@ void acao(ListaComandosAst* lista_comandos)
     }
 }
 
-void declaracao_variavel(DeclaracaoVariavelAst* declaracao)
+int verificacao_tipo_expr_aritmetica(string tipo) {
+  switch (stringType_to_enum(tipo))
+  {
+  case INTEIRO:
+    
+    break;
+  
+  default:
+      erro("Tipo inválido");
+    break;
+  }
+}
+
+void declaracao_variavel(DeclaracaoVariavelAst* declaracao, string escopo)
 {
-    if (!tabela_variaveis.insert(make_pair(hash_(declaracao->id_), declaracao)).second) {
-        cout << "Erro ao inserir a variável " << declaracao->id_ << " no escopo " << pilha_escopos.size() << "." << endl; 
-        exit(1);
-    }
-    pilha_escopos.end()->push_back(declaracao->id_);
+  string key = hash_(declaracao->id_, escopo);
+  if (tabela_variaveis.find(key) != tabela_variaveis.end()) {
+    erro("Variável já declarada neste escopo.");
+  }
+  tabela_variaveis.insert(pair<string, DeclaracaoVariavelAst*>(key, declaracao));
+
+  switch (expressao_to_enum(declaracao->expressao_))
+  {
+  case SOMA: case SUBTRACAO: case MULTIPLICACAO: case DIVISAO:
+    stringType_to_enum(declaracao->tipo) == verificacao_tipo();
+    break;
+  
+  default:
+    break;
+  }  
 }
 
 void declaracao_tipo(DeclaracaoTipoAst* declaracao)
@@ -168,6 +217,8 @@ void declaracao_tipo(DeclaracaoTipoAst* declaracao)
 
 void declaracao_funcao(DeclaracaoFuncaoAst* declaracao) 
 {
+    for (auto var : declaracao->corpo_->variaveis_locais_->lista_declaracoes_)
+      declaracao_variavel(var, declaracao->id_);
     acao(declaracao->corpo_->lista_comandos_);
 }
 
