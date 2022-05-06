@@ -39,7 +39,7 @@ using namespace llvm::sys;
 // Code Generation Globals
 //===----------------------------------------------------------------------===//
 
-static unique_ptr<LLVMContext> TheContext;
+static unique_ptr<LLVMContext> TheContext; 
 static unique_ptr<Module> TheModule;
 static unique_ptr<IRBuilder<>> Builder;
 static map<string, AllocaInst *> NamedValues;
@@ -82,9 +82,22 @@ void InitializeModule() {
     TheFPM->doInitialization();
 }
 
+void insert_functions() {
+    for(auto funcao : ast_root->dec_->funcoes_->lista_declaracoes_) {
+        vector<Type*> Argumentos(funcao->args_ == nullptr ? 0 : funcao->args_->lista_argumentos_.size(), Type::getInt32Ty(*TheContext));
+        FunctionType *FT = FunctionType::get(Type::getInt32Ty(*TheContext), Argumentos, false);
+        Function *F = Function::Create(FT, Function::ExternalLinkage, funcao->id_, TheModule.get());
+
+        // Set names for all arguments.
+        unsigned Idx = 0;
+        for (auto &Arg : F->args())
+            Arg.setName(funcao->args_->lista_argumentos_[Idx++]->id_);
+    }
+}
+
 // Precisa receber o tipo caso seja diferente de inteiro
 static AllocaInst *CreateEntryBlockAlloca(Function *TheFunction,
-                                          const std::string &VarName) {
+                                          const string &VarName) {
     IRBuilder<> TmpB(&TheFunction->getEntryBlock(),
                      TheFunction->getEntryBlock().begin());
     return TmpB.CreateAlloca(Type::getInt32Ty(*TheContext), 0,
@@ -150,7 +163,7 @@ Value* DeclaracaoTiposAst::codegen()
     return nullptr;
 }
 
-Value* DeclaracaoVariavelAst::codegen(std::vector<AllocaInst *> OldBindings, Function *TheFunction)
+Value* DeclaracaoVariavelAst::codegen(vector<AllocaInst *> OldBindings, Function *TheFunction)
 {
     AllocaInst *Alloca = CreateEntryBlockAlloca(TheFunction, this->id_);
     Builder->CreateStore(this->expressao_->codegen(), Alloca);
@@ -160,7 +173,7 @@ Value* DeclaracaoVariavelAst::codegen(std::vector<AllocaInst *> OldBindings, Fun
     return nullptr;
 }
 
-Value* ListaDecVarAst::codegen(std::vector<AllocaInst *> OldBindings, Function *TheFunction)
+Value* ListaDecVarAst::codegen(vector<AllocaInst *> OldBindings, Function *TheFunction)
 {
     if (this->lista_declaracoes_.empty())
         return nullptr;
@@ -187,7 +200,7 @@ Value* CorpoAst::codegen()
 {
     // cout << "corpo" << endl;
 
-    std::vector<AllocaInst *> OldBindings;
+    vector<AllocaInst *> OldBindings;
     Function *TheFunction = Builder->GetInsertBlock()->getParent();
 
     if(variaveis_locais_ != nullptr) {
@@ -199,18 +212,8 @@ Value* CorpoAst::codegen()
 
 Function* DeclaracaoFuncaoAst::codegen()
 {
-    vector<Type*> args(this->args_ == nullptr ? 0 : this->args_->lista_argumentos_.size(), Type::getInt32Ty(*TheContext));
-    FunctionType* FT = FunctionType::get(Type::getInt32Ty(*TheContext), args, false);
-
-    Function* F = Function::Create(FT, Function::ExternalLinkage, this->id_, TheModule.get());
-
-    // Set names for all arguments.
-    unsigned Idx = 0;
-    for (auto &Arg : F->args())
-        Arg.setName(this->args_->lista_argumentos_[Idx++]->id_);
-
-    if (!F)
-        return nullptr;
+    Function *F = TheModule->getFunction(this->id_);
+    if (!F) cout << "funcao nao encontrada IR" << endl;
     
     // Create a new basic block to start insertion into.
     BasicBlock *BB = BasicBlock::Create(*TheContext, "entry", F);
@@ -257,7 +260,7 @@ Value* DeclaracoesAst::codegen()
     }
 
     if (this->globais_ != nullptr) {
-        // std::vector<AllocaInst *> OldBindings;
+        // vector<AllocaInst *> OldBindings;
         // Function *TheFunction = Builder->GetInsertBlock()->getParent();
 
         // this->globais_->codegen();
@@ -339,7 +342,7 @@ Value* ChamadaProcedimentoAst::codegen()
         return LogErrorV("Incorrect # arguments passed to procedure");
 
     vector<Value *> ArgsV;
-    for (unsigned i = 0, e = this->lista_->args_.size(); i != e; ++i) {
+    for (unsigned i = 0, e = this->lista_ == nullptr ? 0 : this->lista_->args_.size(); i != e; ++i) {
         ArgsV.push_back(lista_->args_[i]->codegen());
         if (!ArgsV.back())
             return nullptr;
@@ -481,22 +484,21 @@ Value* ListaArgsChamada::codegen()
 Value* ChamadaFuncaoAst::codegen()
 {
     Function *CalleeF = TheModule->getFunction(this->id_);
-    // ANALISE SEMANTICA
-    if (!CalleeF)
-        return LogErrorV("Unknown function referenced");
+    // // ANALISE SEMANTICA
+    // if (!CalleeF)
+    //     return LogErrorV("Unknown function referenced");
 
-    // If argument mismatch error.
-    // ANALISE SEMANTICA
-    if (CalleeF->arg_size() != this->lista_->args_.size())
-        return LogErrorV("Incorrect # arguments passed to function");
-
+    // // If argument mismatch error.
+    // // ANALISE SEMANTICA
+    // if (CalleeF->arg_size() != this->lista_->args_.size())
+    //     return LogErrorV("Incorrect # arguments passed to function");
     vector<Value *> ArgsV;
-    for (unsigned i = 0, e = this->lista_->args_.size(); i != e; ++i) {
+    for (unsigned i = 0, e = this->lista_ == nullptr ? 0 : this->lista_->args_.size(); i != e; ++i) {
         ArgsV.push_back(this->lista_->args_[i]->codegen());
         if (!ArgsV.back())
             return nullptr;
     }
-
+   
     return Builder->CreateCall(CalleeF, ArgsV, "calltmp");
 
 }
@@ -562,10 +564,21 @@ int generate_bin()
     return 0;
 }
 
-void code_generation()
+void code_generation(bool dump_IR)
 {
     InitializeModule();
+    insert_functions();
+
     ast_root->codegen();
-    TheModule->print(errs(), nullptr);
+    if (dump_IR) {
+        string IR_dump_str;
+        raw_string_ostream OS(IR_dump_str);
+        OS << *TheModule;
+        OS.flush();
+        ofstream out("fonte.ll", ofstream::out);
+        out << IR_dump_str;
+        out.close();
+    }
+
     generate_bin();
 }

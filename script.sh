@@ -3,6 +3,6 @@
 cd build
 make
 cd ..
-./sc -i test.s
+./sc -i -s -o execucao_teste fonte.s
 ./execucao_teste
 # echo $?

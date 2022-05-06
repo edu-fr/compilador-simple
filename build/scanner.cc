@@ -1,6 +1,6 @@
-#line 2 "/home/kari/git/compilador-simples/build/scanner.cc"
+#line 2 "/home/dudu/compiladores/projeto/compilador-simples/build/scanner.cc"
 
-#line 4 "/home/kari/git/compilador-simples/build/scanner.cc"
+#line 4 "/home/dudu/compiladores/projeto/compilador-simples/build/scanner.cc"
 
 #define  YY_INT_ALIGNED short int
 
@@ -717,7 +717,7 @@ typedef Simples::Parser::token_type token_type;
 char string_buf[MAX_STR_CONST];
 char *string_buf_ptr;
 
-#line 721 "/home/kari/git/compilador-simples/build/scanner.cc"
+#line 721 "/home/dudu/compiladores/projeto/compilador-simples/build/scanner.cc"
 /*** Flex Declarations and Options ***/
 /* enable scanner to generate debug output. disable this for release
  * versions. */
@@ -735,7 +735,7 @@ char *string_buf_ptr;
 /* Abbreviations.  */
 /* Start Conditions */
 
-#line 739 "/home/kari/git/compilador-simples/build/scanner.cc"
+#line 739 "/home/dudu/compiladores/projeto/compilador-simples/build/scanner.cc"
 
 #define INITIAL 0
 #define commentStartCond 1
@@ -939,7 +939,7 @@ YY_DECL
   STEP();
 
 
-#line 943 "/home/kari/git/compilador-simples/build/scanner.cc"
+#line 943 "/home/dudu/compiladores/projeto/compilador-simples/build/scanner.cc"
 
 	while ( /*CONSTCOND*/1 )		/* loops until end-of-file is reached */
 		{
@@ -1407,7 +1407,7 @@ YY_RULE_SETUP
 #line 186 "scanner.ll"
 ECHO;
 	YY_BREAK
-#line 1411 "/home/kari/git/compilador-simples/build/scanner.cc"
+#line 1411 "/home/dudu/compiladores/projeto/compilador-simples/build/scanner.cc"
 case YY_STATE_EOF(INITIAL):
 case YY_STATE_EOF(commentStartCond):
 case YY_STATE_EOF(stringStartCond):
