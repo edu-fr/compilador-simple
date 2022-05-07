@@ -1,8 +1,8 @@
-// A Bison parser, made by GNU Bison 3.7.6.
+// A Bison parser, made by GNU Bison 3.5.1.
 
 // Locations for Bison parsers in C++
 
-// Copyright (C) 2002-2015, 2018-2021 Free Software Foundation, Inc.
+// Copyright (C) 2002-2015, 2018-2020 Free Software Foundation, Inc.
 
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -15,7 +15,7 @@
 // GNU General Public License for more details.
 
 // You should have received a copy of the GNU General Public License
-// along with this program.  If not, see <https://www.gnu.org/licenses/>.
+// along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 // As a special exception, you may create a larger work that contains
 // part or all of the Bison parser skeleton and distribute that work
@@ -31,12 +31,12 @@
 // version 2.2 of Bison.
 
 /**
- ** \file /home/dudu/compiladores/projeto/compilador-simples/build/location.hh
+ ** \file /home/kari/git/compilador-simples/build/location.hh
  ** Define the Simples::location class.
  */
 
-#ifndef YY_YY_HOME_DUDU_COMPILADORES_PROJETO_COMPILADOR_SIMPLES_BUILD_LOCATION_HH_INCLUDED
-# define YY_YY_HOME_DUDU_COMPILADORES_PROJETO_COMPILADOR_SIMPLES_BUILD_LOCATION_HH_INCLUDED
+#ifndef YY_YY_HOME_KARI_GIT_COMPILADOR_SIMPLES_BUILD_LOCATION_HH_INCLUDED
+# define YY_YY_HOME_KARI_GIT_COMPILADOR_SIMPLES_BUILD_LOCATION_HH_INCLUDED
 
 # include <iostream>
 # include <string>
@@ -55,19 +55,17 @@
 
 #line 45 "parser.yy"
 namespace Simples {
-#line 59 "/home/dudu/compiladores/projeto/compilador-simples/build/location.hh"
+#line 59 "/home/kari/git/compilador-simples/build/location.hh"
 
   /// A point in a source file.
   class position
   {
   public:
-    /// Type for file name.
-    typedef const std::string filename_type;
     /// Type for line and column numbers.
     typedef int counter_type;
 
     /// Construct a position.
-    explicit position (filename_type* f = YY_NULLPTR,
+    explicit position (std::string* f = YY_NULLPTR,
                        counter_type l = 1,
                        counter_type c = 1)
       : filename (f)
@@ -77,7 +75,7 @@ namespace Simples {
 
 
     /// Initialization.
-    void initialize (filename_type* fn = YY_NULLPTR,
+    void initialize (std::string* fn = YY_NULLPTR,
                      counter_type l = 1,
                      counter_type c = 1)
     {
@@ -106,7 +104,7 @@ namespace Simples {
     /** \} */
 
     /// File name to which this position refers.
-    filename_type* filename;
+    std::string* filename;
     /// Current line number.
     counter_type line;
     /// Current column number.
@@ -149,6 +147,24 @@ namespace Simples {
     return res -= width;
   }
 
+  /// Compare two position objects.
+  inline bool
+  operator== (const position& pos1, const position& pos2)
+  {
+    return (pos1.line == pos2.line
+            && pos1.column == pos2.column
+            && (pos1.filename == pos2.filename
+                || (pos1.filename && pos2.filename
+                    && *pos1.filename == *pos2.filename)));
+  }
+
+  /// Compare two position objects.
+  inline bool
+  operator!= (const position& pos1, const position& pos2)
+  {
+    return !(pos1 == pos2);
+  }
+
   /** \brief Intercept output stream redirection.
    ** \param ostr the destination output stream
    ** \param pos a reference to the position to redirect
@@ -166,8 +182,6 @@ namespace Simples {
   class location
   {
   public:
-    /// Type for file name.
-    typedef position::filename_type filename_type;
     /// Type for line and column numbers.
     typedef position::counter_type counter_type;
 
@@ -184,7 +198,7 @@ namespace Simples {
     {}
 
     /// Construct a 0-width location in \a f, \a l, \a c.
-    explicit location (filename_type* f,
+    explicit location (std::string* f,
                        counter_type l = 1,
                        counter_type c = 1)
       : begin (f, l, c)
@@ -193,7 +207,7 @@ namespace Simples {
 
 
     /// Initialization.
-    void initialize (filename_type* f = YY_NULLPTR,
+    void initialize (std::string* f = YY_NULLPTR,
                      counter_type l = 1,
                      counter_type c = 1)
     {
@@ -275,6 +289,20 @@ namespace Simples {
     return res -= width;
   }
 
+  /// Compare two location objects.
+  inline bool
+  operator== (const location& loc1, const location& loc2)
+  {
+    return loc1.begin == loc2.begin && loc1.end == loc2.end;
+  }
+
+  /// Compare two location objects.
+  inline bool
+  operator!= (const location& loc1, const location& loc2)
+  {
+    return !(loc1 == loc2);
+  }
+
   /** \brief Intercept output stream redirection.
    ** \param ostr the destination output stream
    ** \param loc a reference to the location to redirect
@@ -301,6 +329,6 @@ namespace Simples {
 
 #line 45 "parser.yy"
 } // Simples
-#line 305 "/home/dudu/compiladores/projeto/compilador-simples/build/location.hh"
+#line 333 "/home/kari/git/compilador-simples/build/location.hh"
 
-#endif // !YY_YY_HOME_DUDU_COMPILADORES_PROJETO_COMPILADOR_SIMPLES_BUILD_LOCATION_HH_INCLUDED
+#endif // !YY_YY_HOME_KARI_GIT_COMPILADOR_SIMPLES_BUILD_LOCATION_HH_INCLUDED

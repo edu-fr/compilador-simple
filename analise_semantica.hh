@@ -3,6 +3,10 @@
 
 #include "AST_classes.hh"
 
-void analise_semantica();
+namespace as {
+
+bool analise_semantica();
+
+} /* end namespace as*/
 
 #endif // ANALISE_SEMANTICA_HH

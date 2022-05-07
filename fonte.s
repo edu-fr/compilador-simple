@@ -8,7 +8,9 @@ FUNÇÃO:
             a : inteiro := arg3
 
         ação:
-            retorne imprimei(a)
+            imprimei(a);
+            a := 10 + 2 * 2;
+            imprimei(a)
 
 AçÃo:
     retorne funcao2()

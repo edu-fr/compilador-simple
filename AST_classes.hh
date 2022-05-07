@@ -261,12 +261,25 @@ public:
  *        ACOES     *
  * ****************** */
 
+enum tipo_comando {
+    LISTA_COMANDOS,
+    ATRIBUICAO,
+    SE,
+    PARA,
+    ENQUANTO,
+    RETORNE,
+    PARE,
+    CONTINUE,
+    CHAMADA_PROCEDIMENTO
+};
+
 class BaseComandoAst {
 public:
     BaseComandoAst() {}
     ~BaseComandoAst() {}
 
     virtual Value *codegen() = 0;
+    virtual tipo_comando get_type() = 0;
 };
 
 class ListaComandosAst : public BaseComandoAst {
@@ -277,6 +290,7 @@ public:
     vector<BaseComandoAst*> lista_comandos_;
 
     Value *codegen() override;
+    tipo_comando get_type() override;
 };
 
 class AtribuicaoAst : public BaseComandoAst {
@@ -287,6 +301,7 @@ public:
     ExprAst* dir_;
 
     Value *codegen() override;
+    tipo_comando get_type() override;
 };
 
 class SeAst : public BaseComandoAst {
@@ -299,6 +314,7 @@ public:
     ListaComandosAst* comandos_falso_;
 
     Value *codegen() override;
+    tipo_comando get_type() override;
 };
 
 class ParaAst : public BaseComandoAst {
@@ -311,6 +327,7 @@ public:
     ListaComandosAst* comandos_;
 
     Value *codegen() override;
+    tipo_comando get_type() override;
 };
 
 class EnquantoAst : public BaseComandoAst {
@@ -321,6 +338,7 @@ public:
     ListaComandosAst* comandos_;
 
     Value *codegen() override;
+    tipo_comando get_type() override;
 };
 
 class RetorneAst : public BaseComandoAst {
@@ -330,18 +348,21 @@ public:
     ExprAst* expr_;
 
     Value *codegen() override;
+    tipo_comando get_type() override;
 };
 
 class PareAst : public BaseComandoAst {
 public:
     PareAst() {}
     Value *codegen() override;
+    tipo_comando get_type() override;
 };
 
 class ContinueAst : public BaseComandoAst {
 public:
     ContinueAst() {}
     Value *codegen() override;
+    tipo_comando get_type() override;
 };
 
 class ChamadaProcedimentoAst : public BaseComandoAst {
@@ -352,6 +373,7 @@ public:
     ListaArgsChamada* lista_;
 
     Value *codegen() override;
+    tipo_comando get_type() override;
 };
 
 
@@ -359,12 +381,37 @@ public:
  *    EXPRESSOES    *
  * ****************** */
 
+enum tipo_expressao {
+    ATRIBUICAO_REG,
+    CRIACAO_REG,
+    INTEIRO,
+    REAL,
+    CADEIA,
+    LOCAL,
+    SOMA,
+    SUBTRACAO,
+    MAIOR,
+    MENOR,
+    MAIOR_IGUAL,
+    MENOR_IGUAL,
+    EQUIVALENTE,
+    DIFERENTE,
+    MULTIPLICACAO,
+    DIVISAO,
+    AND,
+    OR,
+    NULO,
+    LISTA_ARGS_CHAMADA,
+    CHAMADA_FUNCAO
+};
+
 class ExprAst {
 public:
     ExprAst() {}
     ~ExprAst() {}
 
     virtual Value *codegen() = 0;
+    virtual tipo_expressao get_type() = 0;
 };
 
 class AtribuicaoRegistroAst : public ExprAst {
@@ -375,6 +422,7 @@ public:
     ExprAst* expr_;
 
     Value *codegen() override;
+    tipo_expressao get_type() override;
 };
 
 class CriacaoRegistroAst : public ExprAst {
@@ -385,6 +433,7 @@ public:
     vector<AtribuicaoRegistroAst*> lista_;
 
     Value *codegen() override;
+    tipo_expressao get_type() override;
 };
 
 
@@ -395,6 +444,7 @@ public:
     long val_;
 
     Value *codegen() override;
+    tipo_expressao get_type() override;
 };
 
 class RealAst : public ExprAst {
@@ -404,6 +454,7 @@ public:
     double val_;
 
     Value *codegen() override;
+    tipo_expressao get_type() override;
 };
 
 class CadeiaAst : public ExprAst {
@@ -413,6 +464,7 @@ public:
     string val_;
 
     Value *codegen() override;
+    tipo_expressao get_type() override;
 };
 
 class LocalAst : public ExprAst {
@@ -422,6 +474,7 @@ public:
     string val_;
 
     Value *codegen() override;
+    tipo_expressao get_type() override;
 };
 
 class SomaAst : public ExprAst {
@@ -432,6 +485,7 @@ public:
     ExprAst* dir_;
     
     Value *codegen() override;
+    tipo_expressao get_type() override;
 };
 
 class SubtracaoAst : public ExprAst {
@@ -442,6 +496,7 @@ public:
     ExprAst* dir_;
 
     Value *codegen() override;
+    tipo_expressao get_type() override;
 };
 
 class MaiorAst : public ExprAst {
@@ -452,6 +507,7 @@ public:
     ExprAst* dir_;
 
     Value *codegen() override;
+    tipo_expressao get_type() override;
 };
 
 class MenorAst : public ExprAst {
@@ -462,6 +518,7 @@ public:
     ExprAst* dir_;
 
     Value *codegen() override;
+    tipo_expressao get_type() override;
 };
 
 class MaiorIgualAst : public ExprAst {
@@ -472,6 +529,7 @@ public:
     ExprAst* dir_;
 
     Value *codegen() override;
+    tipo_expressao get_type() override;
 };
 
 class MenorIgualAst : public ExprAst {
@@ -482,6 +540,7 @@ public:
     ExprAst* dir_;
 
     Value *codegen() override;
+    tipo_expressao get_type() override;
 };
 
 class EquivalenteAst : public ExprAst {
@@ -492,6 +551,7 @@ public:
     ExprAst* dir_;
 
     Value *codegen() override;
+    tipo_expressao get_type() override;
 };
 
 class DiferenteAst : public ExprAst {
@@ -502,6 +562,7 @@ public:
     ExprAst* dir_;
 
     Value *codegen() override;
+    tipo_expressao get_type() override;
 };
 
 class MultiplicacaoAst : public ExprAst {
@@ -512,6 +573,7 @@ public:
     ExprAst* dir_;
 
     Value *codegen() override;
+    tipo_expressao get_type() override;
 };
 
 class DivisaoAst : public ExprAst {
@@ -522,6 +584,7 @@ public:
     ExprAst* dir_;
 
     Value *codegen() override;
+    tipo_expressao get_type() override;
 };
 
 class AndAst : public ExprAst {
@@ -532,6 +595,7 @@ public:
     ExprAst* dir_;
 
     Value *codegen() override;
+    tipo_expressao get_type() override;
 };
 
 class OrAst : public ExprAst {
@@ -542,12 +606,15 @@ public:
     ExprAst* dir_;
 
     Value *codegen() override;
+    tipo_expressao get_type() override;
 };
 
 class NuloAst : public ExprAst {
 public:
     NuloAst() {}
+
     Value *codegen() override;
+    tipo_expressao get_type() override;
 };
 
 class ListaArgsChamada : public ExprAst {
@@ -558,6 +625,7 @@ public:
     vector<ExprAst*> args_;
 
     Value *codegen() override;
+    tipo_expressao get_type() override;
 };
 
 class ChamadaFuncaoAst : public ExprAst {
@@ -568,6 +636,7 @@ public:
     ListaArgsChamada* lista_;
 
     Value *codegen() override;
+    tipo_expressao get_type() override;
 };
 
 #endif

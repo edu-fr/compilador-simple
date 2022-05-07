@@ -285,19 +285,10 @@ Value* ListaComandosAst::codegen()
 
 Value* AtribuicaoAst::codegen()
 {
-    // Codegen the RHS.
     Value *Val = this->dir_->codegen();
-    // TODO tirar, pois analise semantica
-    if (!Val)
-        return nullptr;
-
-    // Look up the name.
     Value *Variable = NamedValues[esq_->val_];
-    // TODO tirar, pois analise semantica
-    if (!Variable)
-        return LogErrorV("Unknown variable name");
-
     Builder->CreateStore(Val, Variable);
+
     return Val;
 }
 
