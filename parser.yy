@@ -328,8 +328,8 @@ chamada_de_funcao:
 
 lista_args_chamada: 
   /* empty */ %empty { $$ = nullptr; }
-| fator { $$ = new ListaArgsChamada($1); }
-| lista_args_chamada "," fator { $$ = new ListaArgsChamada($1, $3); }
+| expr { $$ = new ListaArgsChamada($1); }
+| lista_args_chamada "," expr { $$ = new ListaArgsChamada($1, $3); }
 ;
 
 literal:

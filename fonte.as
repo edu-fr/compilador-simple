@@ -44,15 +44,20 @@ Desmontagem da seção .note.gnu.build-id:
   400362:	00 00                	add    %al,(%rax)
   400364:	47                   	rex.RXB
   400365:	4e 55                	rex.WRX push %rbp
-  400367:	00 21                	add    %ah,(%rcx)
-  400369:	ce                   	(bad)  
-  40036a:	6a c7                	push   $0xffffffffffffffc7
-  40036c:	07                   	(bad)  
-  40036d:	63 e5                	movsxd %ebp,%esp
-  40036f:	3d c3 90 2d f6       	cmp    $0xf62d90c3,%eax
-  400374:	ff ae c2 26 3b 08    	ljmp   *0x83b26c2(%rsi)
-  40037a:	bf                   	.byte 0xbf
-  40037b:	ba                   	.byte 0xba
+  400367:	00 b8 92 64 aa d1    	add    %bh,-0x2e559b6e(%rax)
+  40036d:	9d                   	popf   
+  40036e:	ae                   	scas   %es:(%rdi),%al
+  40036f:	71 59                	jno    4003ca <__abi_tag+0x4e>
+  400371:	ea                   	(bad)  
+  400372:	5e                   	pop    %rsi
+  400373:	61                   	(bad)  
+  400374:	ed                   	in     (%dx),%eax
+  400375:	f9                   	stc    
+  400376:	a7                   	cmpsl  %es:(%rdi),%ds:(%rsi)
+  400377:	a6                   	cmpsb  %es:(%rdi),%ds:(%rsi)
+  400378:	bc                   	.byte 0xbc
+  400379:	19 de                	sbb    %ebx,%esi
+  40037b:	49                   	rex.WB
 
 Desmontagem da seção .note.ABI-tag:
 
@@ -319,7 +324,7 @@ Desmontagem da seção .text:
   401130:	50                   	push   %rax
   401131:	89 3c 24             	mov    %edi,(%rsp)
   401134:	89 74 24 04          	mov    %esi,0x4(%rsp)
-  401138:	bf 03 00 00 00       	mov    $0x3,%edi
+  401138:	bf 04 00 00 00       	mov    $0x4,%edi
   40113d:	be 04 00 00 00       	mov    $0x4,%esi
   401142:	e8 09 00 00 00       	call   401150 <funcao>
   401147:	59                   	pop    %rcx
@@ -333,16 +338,16 @@ Desmontagem da seção .text:
   40115c:	c7 44 24 0c 02 00 00 	movl   $0x2,0xc(%rsp)
   401163:	00 
   401164:	bf 02 00 00 00       	mov    $0x2,%edi
-  401169:	e8 62 00 00 00       	call   4011d0 <imprimei>
-  40116e:	bf 02 00 00 00       	mov    $0x2,%edi
-  401173:	e8 18 00 00 00       	call   401190 <funcao5>
-  401178:	89 44 24 0c          	mov    %eax,0xc(%rsp)
-  40117c:	89 c7                	mov    %eax,%edi
-  40117e:	e8 4d 00 00 00       	call   4011d0 <imprimei>
-  401183:	48 83 c4 18          	add    $0x18,%rsp
-  401187:	c3                   	ret    
-  401188:	0f 1f 84 00 00 00 00 	nopl   0x0(%rax,%rax,1)
-  40118f:	00 
+  401169:	e8 22 00 00 00       	call   401190 <funcao5>
+  40116e:	89 c7                	mov    %eax,%edi
+  401170:	e8 5b 00 00 00       	call   4011d0 <imprimei>
+  401175:	c7 44 24 0c 02 00 00 	movl   $0x2,0xc(%rsp)
+  40117c:	00 
+  40117d:	bf 02 00 00 00       	mov    $0x2,%edi
+  401182:	e8 49 00 00 00       	call   4011d0 <imprimei>
+  401187:	48 83 c4 18          	add    $0x18,%rsp
+  40118b:	c3                   	ret    
+  40118c:	0f 1f 40 00          	nopl   0x0(%rax)
 
 0000000000401190 <funcao5>:
   401190:	89 7c 24 f8          	mov    %edi,-0x8(%rsp)
@@ -357,7 +362,7 @@ Desmontagem da seção .text:
 00000000004011b0 <main>:
   4011b0:	50                   	push   %rax
   4011b1:	bf 01 00 00 00       	mov    $0x1,%edi
-  4011b6:	be 02 00 00 00       	mov    $0x2,%esi
+  4011b6:	be 03 00 00 00       	mov    $0x3,%esi
   4011bb:	e8 70 ff ff ff       	call   401130 <funcao2>
   4011c0:	59                   	pop    %rcx
   4011c1:	c3                   	ret    
@@ -495,10 +500,10 @@ Desmontagem da seção .eh_frame:
   4020e0:	70 f0                	jo     4020d2 <__GNU_EH_FRAME_HDR+0xc6>
   4020e2:	ff                   	(bad)  
   4020e3:	ff                   	(bad)  
-  4020e4:	38 00                	cmp    %al,(%rax)
+  4020e4:	3c 00                	cmp    $0x0,%al
   4020e6:	00 00                	add    %al,(%rax)
   4020e8:	00 44 0e 20          	add    %al,0x20(%rsi,%rcx,1)
-  4020ec:	73 0e                	jae    4020fc <__GNU_EH_FRAME_HDR+0xf0>
+  4020ec:	77 0e                	ja     4020fc <__GNU_EH_FRAME_HDR+0xf0>
   4020ee:	08 00                	or     %al,(%rax)
   4020f0:	10 00                	adc    %al,(%rax)
   4020f2:	00 00                	add    %al,(%rax)

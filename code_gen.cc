@@ -108,11 +108,6 @@ static AllocaInst *CreateEntryBlockAlloca(Function *TheFunction,
 // Implementação das funções codegen() da AST
 //===----------------------------------------------------------------------===//
 
-Value *LogErrorV(const char *Str) {
-    fprintf(stderr, "Error: %s\n", Str);
-    return nullptr;
-}
-
 Value* ProgramaAst::codegen()
 {
     this->dec_->codegen();
@@ -275,7 +270,6 @@ Value* DeclaracoesAst::codegen()
 
 Value* ListaComandosAst::codegen()
 {
-    // cout << "lista comandos" << endl;
     Value* return_value = nullptr;
     for (auto comando : lista_comandos_) {
         return_value = comando->codegen();
@@ -326,12 +320,6 @@ Value* ContinueAst::codegen()
 Value* ChamadaProcedimentoAst::codegen()
 {
     Function *call_proc = TheModule->getFunction(this->id_);
-    // TODO SEMANTICA
-    if (!call_proc)
-        return LogErrorV("Unknown procedure referenced");
-
-    if (call_proc->arg_size() != lista_->args_.size())
-        return LogErrorV("Incorrect # arguments passed to procedure");
 
     vector<Value *> ArgsV;
     for (unsigned i = 0, e = this->lista_ == nullptr ? 0 : this->lista_->args_.size(); i != e; ++i) {
@@ -372,8 +360,6 @@ Value* LocalAst::codegen()
 {
     // Look this variable up in the function.
     Value *V = NamedValues[this->val_];
-    if (!V)
-        LogErrorV("Unknown variable name");
 
     // Load the value.
     return Builder->CreateLoad(Type::getInt32Ty(*TheContext), V, this->val_.c_str());
@@ -384,9 +370,6 @@ Value* SomaAst::codegen()
     Value *E = esq_->codegen();
     Value *D = dir_->codegen();
 
-    if (!E || !D)
-        return nullptr;
-
     return Builder->CreateAdd(E, D, "addtmp");
 }
 
@@ -394,9 +377,6 @@ Value* SubtracaoAst::codegen()
 {
     Value *E = esq_->codegen();
     Value *D = dir_->codegen();
-
-    if (!E || !D)
-        return nullptr;
 
     return Builder->CreateSub(E, D, "subtmp");
 }
@@ -436,21 +416,16 @@ Value* MultiplicacaoAst::codegen()
     Value *E = esq_->codegen();
     Value *D = dir_->codegen();
 
-    if (!E || !D)
-        return nullptr;
-
     return Builder->CreateMul(E, D, "multmp");
 }
 
 Value* DivisaoAst::codegen()
 {
-    Value *E = esq_->codegen();
-    Value *D = dir_->codegen();
+    // Value *E = esq_->codegen();
+    // Value *D = dir_->codegen();
 
-    if (!E || !D)
-        return nullptr;
-
-    return Builder->CreateFDiv( E, D, "divtmp");
+    // return Builder->CreateFDiv( E, D, "divtmp");
+    return nullptr;
 }
 
 Value* AndAst::codegen()
@@ -476,14 +451,7 @@ Value* ListaArgsChamada::codegen()
 Value* ChamadaFuncaoAst::codegen()
 {
     Function *CalleeF = TheModule->getFunction(this->id_);
-    // // ANALISE SEMANTICA
-    // if (!CalleeF)
-    //     return LogErrorV("Unknown function referenced");
 
-    // // If argument mismatch error.
-    // // ANALISE SEMANTICA
-    // if (CalleeF->arg_size() != this->lista_->args_.size())
-    //     return LogErrorV("Incorrect # arguments passed to function");
     vector<Value *> ArgsV;
     for (unsigned i = 0, e = this->lista_ == nullptr ? 0 : this->lista_->args_.size(); i != e; ++i) {
         ArgsV.push_back(this->lista_->args_[i]->codegen());

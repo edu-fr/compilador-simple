@@ -103,7 +103,7 @@ string tipo_expressao_to_str(tipo_expressao tipo)
     break;  
 
   default:
-    return "tipo nao suportado";
+    return "tipo invalido";
     break;
   }
 }
@@ -174,8 +174,13 @@ tipo_expressao get_expr_type(ExprAst* expr)
       }
 
       auto argumentos_chamada = ((ChamadaFuncaoAst*) expr)->lista_;
-      if ((*funcao_tabela).second->args_ == nullptr) {
-        erro("Numero de argumentos nao coincide");
+      if ((*funcao_tabela).second->args_ == nullptr && argumentos_chamada != nullptr) {
+        erro("A funcao " + (*funcao_tabela).second->id_ + " nao aceita argumentos");
+        //  return?
+      }
+
+      if ((*funcao_tabela).second->args_ != nullptr && argumentos_chamada == nullptr) {
+        erro("A funcao " + (*funcao_tabela).second->id_ + " requer argumentos");
         //  return?
       }
 
@@ -244,9 +249,17 @@ bool comando(BaseComandoAst* c)
       }
 
       auto argumentos_chamada = ((ChamadaProcedimentoAst*) c)->lista_;
-      if ((*procedimento_tabela).second->args_ == nullptr) 
-         return argumentos_chamada == nullptr ? true : erro("Numero de argumentos nao coincide");
 
+      if ((*procedimento_tabela).second->args_ == nullptr && argumentos_chamada != nullptr) {
+        erro("O procedimento " + (*procedimento_tabela).second->id_ + " nao aceita argumentos");
+        //  return?
+      }
+
+      if ((*procedimento_tabela).second->args_ != nullptr && argumentos_chamada == nullptr) {
+        erro("O procedimento " + (*procedimento_tabela).second->id_ + " requer argumentos");
+        //  return?
+      }
+      
       if ((*procedimento_tabela).second->args_->lista_argumentos_.size() != argumentos_chamada->args_.size()) {
         erro ("numero de argumentos diferente");
         return false;
