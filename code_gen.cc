@@ -47,8 +47,8 @@ static unique_ptr<legacy::FunctionPassManager> TheFPM;
 
 void insert_std_print()
 {
-    vector<Type *> Doubles(1, Type::getDoubleTy(*TheContext));
-    FunctionType *FT = FunctionType::get(Type::getInt32Ty(*TheContext), Doubles, false);
+    vector<Type *> Doubles(1, Type::getInt32Ty(*TheContext));
+    FunctionType *FT = FunctionType::get(Type::getVoidTy(*TheContext), Doubles, false);
     Function *F = Function::Create(FT, Function::ExternalLinkage, "imprimei", TheModule.get());
 
     // Set names for all arguments.
@@ -326,6 +326,7 @@ Value* ContinueAst::codegen()
 Value* ChamadaProcedimentoAst::codegen()
 {
     Function *call_proc = TheModule->getFunction(this->id_);
+    // TODO SEMANTICA
     if (!call_proc)
         return LogErrorV("Unknown procedure referenced");
 

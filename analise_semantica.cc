@@ -37,7 +37,15 @@ tipo_expressao ChamadaFuncaoAst::get_type() { return tipo_expressao::CHAMADA_FUN
 
 namespace as {
 
-unordered_map<string, DeclaracaoVariavelAst*> tabela_variaveis;
+typedef struct variavel { 
+  string id_;
+  tipo_expressao tipo_;
+  ExprAst* expressao_;
+
+  variavel(string id, tipo_expressao tipo, ExprAst* expr) : id_(id), tipo_(tipo), expressao_(expr) {}
+} variavel;
+
+unordered_map<string, variavel> tabela_variaveis;
 unordered_map<string, DeclaracaoFuncaoAst*> tabela_funcoes;
 unordered_map<string, DeclaracaoTipoAst*> tabela_tipos;
 
@@ -46,43 +54,149 @@ string hash_(string id, string escopo)
     return id.append("$" + escopo); // '$' é um caracter especial que não é usado em identificadores
 }
 
-void erro(string message)
+bool erro(string message)
 {
     cout << "ANALISE SEMANTICA: " << message << endl;
+    return false;
     // exit(EXIT_FAILURE);
 }
 
-enum tipos {
-    INTEIRO,
-    REAL,
-    CADEIA,
-    REGISTRO,
-    VETOR
-};
-
-int stringType_to_enum (const string &tipo)
+tipo_expressao stringType_to_enum (const string &tipo)
 {
     if (tipo == "inteiro")
-        return INTEIRO;
+      return tipo_expressao::INTEIRO;
     else if (tipo == "real")
-        return REAL;
+      return tipo_expressao::REAL;
     else if (tipo == "cadeia")
-        return CADEIA;
-    else if (tipo == "registro")
-        return REGISTRO;
-    else if (tipo == "vetor")
-        return VETOR;
-
-    return -1;
+      return tipo_expressao::CADEIA;
+    return tipo_expressao::OR;   
 }
 
 bool inserir_funcoes_padrao()
 {
-    vector<string> funcoes_padrao = {"main", "imprimei"};
-    for(auto nome_funcao : funcoes_padrao) {
-        tabela_funcoes.insert(pair<string, DeclaracaoFuncaoAst*>(nome_funcao, nullptr));
-    }
+    DeclaracaoFuncaoAst* imprimei = new DeclaracaoFuncaoAst{string{"imprimei"}, new ListaArgsAst{new ArgumentoAst{Modificador::VALOR, "i", "inteiro"}}, {}, nullptr};
+    
+    tabela_funcoes.insert(pair<string, DeclaracaoFuncaoAst*>("main", nullptr));
+    tabela_funcoes.insert(pair<string, DeclaracaoFuncaoAst*>("imprimei", imprimei));
+
     return true;
+}
+
+string tipo_expressao_to_str(tipo_expressao tipo)
+{
+  switch (tipo)
+  {
+  case tipo_expressao::INTEIRO:
+    return "inteiro";
+    break;
+  
+  case tipo_expressao::REAL:
+    return "real";
+    break;
+
+  case tipo_expressao::CADEIA:
+    return "cadeia";
+    break;
+  
+  case tipo_expressao::LOCAL:
+    return "local";
+    break;  
+
+  default:
+    return "tipo nao suportado";
+    break;
+  }
+}
+
+// tipo_expressao get_type_soma(tipo_expressao esq, ExprAst* dir)
+// {
+
+// }
+
+tipo_expressao get_expr_type(ExprAst* expr) 
+{
+  switch (expr->get_type())
+  {
+  case tipo_expressao::INTEIRO:
+    return tipo_expressao::INTEIRO;
+    break;
+  case tipo_expressao::REAL:
+    return tipo_expressao::REAL;
+    break;
+  case tipo_expressao::LOCAL:
+    return (*tabela_variaveis.find(((LocalAst*)expr)->val_)).second.tipo_;
+
+  case tipo_expressao::SOMA: {
+    auto soma = (SomaAst*) expr;
+    tipo_expressao tipo_esq = get_expr_type(soma->esq_), tipo_dir = get_expr_type(soma->dir_);
+    if (tipo_dir == tipo_expressao::INTEIRO || tipo_dir == tipo_expressao::REAL) {
+      if (tipo_esq == tipo_dir) {
+        return tipo_dir;
+      } else {
+        erro("Soma com tipos distintos");
+      }
+    }
+  } break;
+
+  case tipo_expressao::SUBTRACAO: {
+    auto sub = (SubtracaoAst*) expr;
+    tipo_expressao tipo_esq = get_expr_type(sub->esq_), tipo_dir = get_expr_type(sub->dir_);
+    if (tipo_dir == tipo_expressao::INTEIRO || tipo_dir == tipo_expressao::REAL) {
+      if (tipo_esq == tipo_dir) {
+        return tipo_dir;
+      } else {
+        erro("Subtracao com tipos distintos");
+      }
+    }
+  } break;
+
+  case tipo_expressao::MULTIPLICACAO: {
+    auto mul = (MultiplicacaoAst*) expr;
+    tipo_expressao tipo_esq = get_expr_type(mul->esq_), tipo_dir = get_expr_type(mul->dir_);
+    if (tipo_dir == tipo_expressao::INTEIRO || tipo_dir == tipo_expressao::REAL) {
+      if (tipo_esq == tipo_dir) {
+        return tipo_dir;
+      } else {
+        erro("Multiplicacao com tipos distintos");
+      }
+    }
+  } break;
+
+  case tipo_expressao::CHAMADA_FUNCAO: {
+      auto funcao_tabela = tabela_funcoes.find(((ChamadaFuncaoAst*) expr)->id_);
+
+      if ((*funcao_tabela).second->retorno_.empty())
+        erro("O procedimento " + (*funcao_tabela).second->id_ + " nao retorna valor.");
+
+      if (funcao_tabela == tabela_funcoes.end()) {
+          erro("Funcao " + ((ChamadaFuncaoAst*) expr)->id_ + "não declarada");
+          // return false; 
+      }
+
+      auto argumentos_chamada = ((ChamadaFuncaoAst*) expr)->lista_;
+      if ((*funcao_tabela).second->args_ == nullptr) {
+        erro("Numero de argumentos nao coincide");
+        //  return?
+      }
+
+      if ((*funcao_tabela).second->args_->lista_argumentos_.size() != argumentos_chamada->args_.size()) {
+        erro ("numero de argumentos diferente");
+        // return false;
+      }
+
+      for (unsigned i = 0; i < (*funcao_tabela).second->args_->lista_argumentos_.size(); i++) {
+        if (stringType_to_enum((*funcao_tabela).second->args_->lista_argumentos_[i]->tipo_) != get_expr_type(argumentos_chamada->args_[i]))
+          erro("Argumento: " + (*funcao_tabela).second->args_->lista_argumentos_[i]->id_
+          + " precisa ser do tipo " + (*funcao_tabela).second->args_->lista_argumentos_[i]->tipo_ + ". Tipo recebido: " + 
+          tipo_expressao_to_str(get_expr_type(argumentos_chamada->args_[i])));
+      }
+     
+      return stringType_to_enum((*funcao_tabela).second->retorno_);
+
+    } break;
+  }
+  
+  return tipo_expressao::INVALIDO;    
 }
 
 bool comando(BaseComandoAst* c)
@@ -91,19 +205,20 @@ bool comando(BaseComandoAst* c)
     switch (c->get_type()) {
     case tipo_comando::LISTA_COMANDOS:
         break;
-    case tipo_comando::ATRIBUICAO:
-//        cout << "ATRIBUICAO" << endl;
-        if (tabela_variaveis.find(((LocalAst*)((AtribuicaoAst*) c)->esq_)->val_)
+    case tipo_comando::ATRIBUICAO: {
+      auto atribuicao = (AtribuicaoAst*) c;
+        if (tabela_variaveis.find(((LocalAst*)atribuicao->esq_)->val_)
                 == tabela_variaveis.end()) {
             erro("Variavel nao declarada na atribuicao");
         }
 
-        if (((AtribuicaoAst*) c)->esq_->get_type() // na verdade isso a analise sintatica ja pega
-                != tipo_expressao::LOCAL) {
-            erro("O lado esquerdo da atribuicao deve ser um local.");
+        if (get_expr_type(atribuicao->esq_) != get_expr_type(atribuicao->dir_)) {
+            erro("Atribuicao: os tipos nao coincidem.\n Local: "+ tipo_expressao_to_str(get_expr_type(atribuicao->esq_)) +
+            "\nExpressao: " + tipo_expressao_to_str(get_expr_type(atribuicao->dir_)));
         }
+
         return true;
-        break;
+    }
     case tipo_comando::SE:
         break;
     case tipo_comando::PARA:
@@ -116,13 +231,43 @@ bool comando(BaseComandoAst* c)
         break;
     case tipo_comando::CONTINUE:
         break;
-    case tipo_comando::CHAMADA_PROCEDIMENTO:
-        break;
+
+    case tipo_comando::CHAMADA_PROCEDIMENTO: {
+      auto procedimento_tabela = tabela_funcoes.find(((ChamadaProcedimentoAst*) c)->id_);
+
+      if (!(*procedimento_tabela).second->retorno_.empty())
+        erro("O valor de retorno da funcao " + (*procedimento_tabela).second->id_ + " deve ser utilizado.");
+
+      if (procedimento_tabela == tabela_funcoes.end()) {
+          erro("procedimento " + ((ChamadaProcedimentoAst*) c)->id_ + "não encontrado");
+          return false; 
+      }
+
+      auto argumentos_chamada = ((ChamadaProcedimentoAst*) c)->lista_;
+      if ((*procedimento_tabela).second->args_ == nullptr) 
+         return argumentos_chamada == nullptr ? true : erro("Numero de argumentos nao coincide");
+
+      if ((*procedimento_tabela).second->args_->lista_argumentos_.size() != argumentos_chamada->args_.size()) {
+        erro ("numero de argumentos diferente");
+        return false;
+      }
+
+      for (unsigned i = 0; i < (*procedimento_tabela).second->args_->lista_argumentos_.size(); i++) {
+        if (stringType_to_enum((*procedimento_tabela).second->args_->lista_argumentos_[i]->tipo_) != get_expr_type(argumentos_chamada->args_[i]))
+          return erro("Argumento: " + (*procedimento_tabela).second->args_->lista_argumentos_[i]->id_
+          + " precisa ser do tipo " + (*procedimento_tabela).second->args_->lista_argumentos_[i]->tipo_ + ". Tipo recebido: " + 
+          tipo_expressao_to_str(get_expr_type(argumentos_chamada->args_[i])));
+      }
+      break;
+    }
+        
     default:
         break;
     }
     return false;
 }
+
+
 
 bool acao(ListaComandosAst* lista_comandos)
 {
@@ -133,54 +278,22 @@ bool acao(ListaComandosAst* lista_comandos)
     return true;
 }
 
-int verificacao_tipo_expr_aritmetica(string tipo)
-{
-    switch (stringType_to_enum(tipo))
-    {
-    case INTEIRO:
-
-        break;
-
-    default:
-        erro("Tipo inválido");
-        break;
-    }
-    return true;
-}
-
 bool declaracao_variavel(DeclaracaoVariavelAst* declaracao)
 {
 //    cout << "declaracao variavel" << endl;
-//    string key = hash_(declaracao->id_, escopo);
     if (tabela_variaveis.find(declaracao->id_) != tabela_variaveis.end()) {
         erro("Variável já declarada neste escopo");
     } else {
-        tabela_variaveis.insert(pair<string, DeclaracaoVariavelAst*>(declaracao->id_, declaracao));
+      // cout << "DECLARACAO VAR: " <<  declaracao->tipo_ << endl;
+        tabela_variaveis.insert(pair<string, variavel>(declaracao->id_, 
+        variavel(declaracao->id_, stringType_to_enum(declaracao->tipo_), declaracao->expressao_)));
     }
-    //  switch (expressao_to_enum(declaracao->expressao_))
-    //  {
-    //  case SOMA: case SUBTRACAO: case MULTIPLICACAO: case DIVISAO:
-    //    stringType_to_enum(declaracao->tipo) == verificacao_tipo();
-    //    break;
-
-    //  default:
-    //    break;
-    //  }
     return true;
 }
 
 bool declaracao_tipo(DeclaracaoTipoAst* declaracao)
 {
-return true;
-}
-
-bool add_tabela_variaveis(string arg)
-{
-    if (tabela_variaveis.find(declaracao->id_) != tabela_variaveis.end()) {
-        erro("Variável já declarada neste escopo");
-    } else {
-        tabela_variaveis.insert(pair<string, DeclaracaoVariavelAst*>(declaracao->id_, declaracao));
-    }
+  return true;
 }
 
 bool declaracao_funcao(DeclaracaoFuncaoAst* declaracao)
@@ -189,7 +302,7 @@ bool declaracao_funcao(DeclaracaoFuncaoAst* declaracao)
     if (declaracao->corpo_->variaveis_locais_) {
         tabela_variaveis.clear();
         for (auto var : declaracao->args_->lista_argumentos_)
-            declaracao_variavel(var);
+            tabela_variaveis.insert(pair<string, variavel>(var->id_, variavel(var->id_, stringType_to_enum(var->tipo_), nullptr)));
 
         for (auto var : declaracao->corpo_->variaveis_locais_->lista_declaracoes_)
             declaracao_variavel(var);
@@ -218,8 +331,8 @@ bool declaracao_tipos(DeclaracaoTiposAst* lista_tipos)
 
 bool declaracao_globais(ListaDecVarAst* lista_var)
 {
-    for (auto i : lista_var->lista_declaracoes_)
-        declaracao_variavel(i, "global");
+    for (auto declaracao : lista_var->lista_declaracoes_)
+        declaracao_variavel(declaracao);
 
     return true;
 }
@@ -251,6 +364,16 @@ bool insere_funcoes_tabela(const vector<DeclaracaoFuncaoAst*> &dec_funcoes)
 }
 
 //===----------------------------------------------------------------------===//
+// Debug
+//===----------------------------------------------------------------------===//
+
+void print_tabela_var() {
+  for (auto i : tabela_variaveis) {
+    cout << i.first << " -> " << i.second.id_ << ", " << i.second.tipo_ << endl;
+  }
+}
+
+//===----------------------------------------------------------------------===//
 // Analise semantica
 //===----------------------------------------------------------------------===//
 
@@ -262,6 +385,7 @@ bool analise_semantica()
     declaracao(ast_root->dec_);
     acao(ast_root->acao_);
 
+    // print_tabela_var();
     return true;
 }
 

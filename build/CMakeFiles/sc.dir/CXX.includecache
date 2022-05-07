@@ -6,25 +6,25 @@
 
 #IncludeRegexTransform: 
 
-/home/kari/git/compilador-simples/AST_classes.hh
+/home/dudu/compiladores/projeto/compilador-simples/AST_classes.hh
 vector
 -
 llvm/IR/Value.h
-/home/kari/git/compilador-simples/llvm/IR/Value.h
+/home/dudu/compiladores/projeto/compilador-simples/llvm/IR/Value.h
 llvm/IR/Instructions.h
-/home/kari/git/compilador-simples/llvm/IR/Instructions.h
+/home/dudu/compiladores/projeto/compilador-simples/llvm/IR/Instructions.h
 
-/home/kari/git/compilador-simples/analise_semantica.cc
+/home/dudu/compiladores/projeto/compilador-simples/analise_semantica.cc
 analise_semantica.hh
-/home/kari/git/compilador-simples/analise_semantica.hh
+/home/dudu/compiladores/projeto/compilador-simples/analise_semantica.hh
 iostream
 -
 unordered_map
 -
 
-/home/kari/git/compilador-simples/analise_semantica.hh
+/home/dudu/compiladores/projeto/compilador-simples/analise_semantica.hh
 AST_classes.hh
-/home/kari/git/compilador-simples/AST_classes.hh
+/home/dudu/compiladores/projeto/compilador-simples/AST_classes.hh
 
 /usr/include/llvm-13/llvm/ADT/APFloat.h
 llvm/ADT/APInt.h

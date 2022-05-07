@@ -382,6 +382,7 @@ public:
  * ****************** */
 
 enum tipo_expressao {
+    INVALIDO,
     ATRIBUICAO_REG,
     CRIACAO_REG,
     INTEIRO,

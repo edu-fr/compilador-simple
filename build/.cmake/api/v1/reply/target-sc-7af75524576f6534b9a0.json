@@ -2,7 +2,7 @@
 	"artifacts" : 
 	[
 		{
-			"path" : "/home/kari/git/compilador-simples/sc"
+			"path" : "/home/dudu/compiladores/projeto/compilador-simples/sc"
 		}
 	],
 	"backtrace" : 1,
@@ -60,18 +60,18 @@
 			"compileCommandFragments" : 
 			[
 				{
-					"fragment" : "-O3 -DLLVM_DISABLE_ABI_BREAKING_CHECKS_ENFORCING -Wall -W -pedantic -Wno-error=unused-parameter -Wno-unused-parameter  "
+					"fragment" : "-O3 -DLLVM_DISABLE_ABI_BREAKING_CHECKS_ENFORCING -Wall -W -pedantic -Wno-error=unused-parameter -Wno-unused-parameter"
 				}
 			],
 			"includes" : 
 			[
 				{
 					"backtrace" : 2,
-					"path" : "/home/kari/git/compilador-simples"
+					"path" : "/home/dudu/compiladores/projeto/compilador-simples"
 				},
 				{
 					"backtrace" : 3,
-					"path" : "/home/kari/git/compilador-simples/build"
+					"path" : "/home/dudu/compiladores/projeto/compilador-simples/build"
 				},
 				{
 					"backtrace" : 4,
@@ -110,10 +110,12 @@
 				"role" : "flags"
 			},
 			{
+				"backtrace" : 1,
 				"fragment" : "-lLLVM-13",
 				"role" : "libraries"
 			},
 			{
+				"backtrace" : 1,
 				"fragment" : "-L/usr/lib/llvm-13/lib",
 				"role" : "libraries"
 			}
