@@ -28,11 +28,11 @@ int main(int argc, char **argv)
         case 's':
             imprime_assembly = true;
             break;
-            
+
         case 'o':
             nome_executavel = optarg;
             break;
-            
+
         default: /* '?' */
             fprintf(stderr, "Usage: %s [-i imprime_intermediario] [-s imprime_assembly] [-o nomeia_arquivo_saida] fonte.s\n",
                     argv[0]);
@@ -46,28 +46,31 @@ int main(int argc, char **argv)
     if (!analise_semantica())
         exit(EXIT_FAILURE);
 
+    if (imprime_assembly)
+        imprime_intermediario = true;
+
     code_generation(imprime_intermediario);
-    
-    if(system("clang++ -c utils.cc") == -1) {
+
+    if (system("clang++ -c utils.cc") == -1) {
         cout << "Erro: falha ao compilar o utils.cc" << endl;
         exit(EXIT_FAILURE);
     }
-    
-    if(system(("clang output.o utils.o -o " + nome_executavel).c_str()) == -1) {
+
+    if (system(("clang output.o utils.o -o " + nome_executavel).c_str()) == -1) {
         cout << "Erro: falha ao criar o executavel" << endl;
         exit(EXIT_FAILURE);
     }
 
-    if(imprime_assembly) {
-        if (system("clang -C output.o utils.o -o fonte.o") == -1) {
-            cout << "Erro: falha ao criar arquivo .o" << endl;
+    if (imprime_assembly) {
+        if (system("llc fonte.ll -o fonte.as") == -1) {
+            cout << "Erro: falha ao criar arquivo .as" << endl;
             exit(EXIT_FAILURE);
         }
 
-        if(system("objdump -D fonte.o > fonte.as") == -1) {
-            cout << "Erro: falha ao criar arquivo assembly" << endl;
-            exit(EXIT_FAILURE);
-        }
+//        if(system("objdump -D fonte.o > fonte.as") == -1) {
+//            cout << "Erro: falha ao criar arquivo assembly" << endl;
+//            exit(EXIT_FAILURE);
+//        }
     }
 
     return 0;

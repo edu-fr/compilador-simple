@@ -47,8 +47,8 @@ static unique_ptr<legacy::FunctionPassManager> TheFPM;
 
 void insert_std_print()
 {
-    vector<Type *> Doubles(1, Type::getInt32Ty(*TheContext));
-    FunctionType *FT = FunctionType::get(Type::getVoidTy(*TheContext), Doubles, false);
+    vector<Type *> args(1, Type::getInt32Ty(*TheContext));
+    FunctionType *FT = FunctionType::get(Type::getVoidTy(*TheContext), args, false);
     Function *F = Function::Create(FT, Function::ExternalLinkage, "imprimei", TheModule.get());
 
     for (auto &Arg : F->args())
@@ -86,7 +86,9 @@ void insert_functions()
 {
     for(auto funcao : ast_root->dec_->funcoes_->lista_declaracoes_) {
         vector<Type*> Argumentos(funcao->args_ == nullptr ? 0 : funcao->args_->lista_argumentos_.size(), Type::getInt32Ty(*TheContext));
-        FunctionType *FT = FunctionType::get(Type::getInt32Ty(*TheContext), Argumentos, false);
+        FunctionType *FT = FunctionType::get(funcao->retorno_.empty() ?
+                                                 Type::getVoidTy(*TheContext) :
+                                                 Type::getInt32Ty(*TheContext), Argumentos, false);
         Function *F = Function::Create(FT, Function::ExternalLinkage, funcao->id_, TheModule.get());
 
         unsigned Idx = 0;
@@ -109,7 +111,6 @@ static AllocaInst *CreateEntryBlockAlloca(Function *TheFunction, const string &V
 Value* ProgramaAst::codegen()
 {
     this->dec_->codegen();
-
     FunctionType* FT = FunctionType::get(Type::getInt32Ty(*TheContext), {}, false);
     Function* F = Function::Create(FT, Function::ExternalLinkage, "main", TheModule.get());
     BasicBlock *BB = BasicBlock::Create(*TheContext, "entry", F);
@@ -117,7 +118,6 @@ Value* ProgramaAst::codegen()
     Value* body = this->acao_->codegen();
     Builder->CreateRet(body);
     verifyFunction(*F);
-
     return F;
 }
 
@@ -218,8 +218,11 @@ Function* DeclaracaoFuncaoAst::codegen()
     
     Value* RetVal = this->corpo_->codegen();
     if (RetVal) {
-        // Finish off the function.
-        Builder->CreateRet(RetVal);
+        if (F->getReturnType()->getTypeID() != Type::VoidTyID) {
+            Builder->CreateRet(RetVal);
+        } else {
+            Builder->CreateRet(nullptr);
+        }
 
         // Validate the generated code, checking for consistency.
         verifyFunction(*F);
@@ -318,7 +321,7 @@ Value* ChamadaProcedimentoAst::codegen()
             return nullptr;
     }
 
-    return Builder->CreateCall(call_proc, ArgsV, "calltmp");
+    return Builder->CreateCall(call_proc, ArgsV);
 }
 
 Value* AtribuicaoRegistroAst::codegen()
@@ -515,8 +518,8 @@ void code_generation(bool dump_IR)
 {
     InitializeModule();
     insert_functions();
-
     ast_root->codegen();
+
     if (dump_IR) {
         string IR_dump_str;
         raw_string_ostream OS(IR_dump_str);
@@ -528,4 +531,5 @@ void code_generation(bool dump_IR)
     }
 
     generate_bin();
+    cout << "6" << endl;
 }

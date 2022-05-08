@@ -307,6 +307,17 @@ void declaracao_variavel(DeclaracaoVariavelAst* declaracao)
 
 void declaracao_funcao(DeclaracaoFuncaoAst* declaracao)
 {
+    if (declaracao->retorno_.empty()) {
+        for (auto comando : declaracao->corpo_->lista_comandos_->lista_comandos_) {
+            if (comando->get_type() == tipo_comando::RETORNE)
+                erro("Declaracao de procedimento nao retorna valor");
+        }
+    } else {
+        if (declaracao->corpo_->lista_comandos_->lista_comandos_.back()->get_type()
+                != tipo_comando::RETORNE)
+            erro("A funcao nao esta retornando valor");
+    }
+
     if (declaracao->corpo_->variaveis_locais_) {
         tabela_variaveis.clear();
         for (auto var : declaracao->args_->lista_argumentos_) {
