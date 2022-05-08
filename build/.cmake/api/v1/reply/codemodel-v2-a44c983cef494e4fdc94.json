@@ -38,7 +38,7 @@
 				{
 					"directoryIndex" : 0,
 					"id" : "sc::@6890427a1f51a3e7e1df",
-					"jsonFile" : "target-sc-7af75524576f6534b9a0.json",
+					"jsonFile" : "target-sc-cf2bf9ca9682eb7fed31.json",
 					"name" : "sc",
 					"projectIndex" : 0
 				}
@@ -48,12 +48,12 @@
 	"kind" : "codemodel",
 	"paths" : 
 	{
-		"build" : "/home/dudu/compiladores/projeto/compilador-simples/build",
-		"source" : "/home/dudu/compiladores/projeto/compilador-simples"
+		"build" : "/home/kari/git/compilador-simples/build",
+		"source" : "/home/kari/git/compilador-simples"
 	},
 	"version" : 
 	{
 		"major" : 2,
-		"minor" : 1
+		"minor" : 0
 	}
 }

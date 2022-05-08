@@ -71,7 +71,7 @@
 				}
 			],
 			"type" : "INTERNAL",
-			"value" : "/home/dudu/compiladores/projeto/compilador-simples/build"
+			"value" : "/home/kari/git/compilador-simples/build"
 		},
 		{
 			"name" : "CMAKE_CACHE_MAJOR_VERSION",
@@ -95,7 +95,7 @@
 				}
 			],
 			"type" : "INTERNAL",
-			"value" : "18"
+			"value" : "16"
 		},
 		{
 			"name" : "CMAKE_CACHE_PATCH_VERSION",
@@ -107,7 +107,7 @@
 				}
 			],
 			"type" : "INTERNAL",
-			"value" : "4"
+			"value" : "3"
 		},
 		{
 			"name" : "CMAKE_COLOR_MAKEFILE",
@@ -191,7 +191,7 @@
 				}
 			],
 			"type" : "FILEPATH",
-			"value" : "/usr/bin/gcc-ar-11"
+			"value" : "/usr/bin/gcc-ar-9"
 		},
 		{
 			"name" : "CMAKE_CXX_COMPILER_RANLIB",
@@ -207,7 +207,7 @@
 				}
 			],
 			"type" : "FILEPATH",
-			"value" : "/usr/bin/gcc-ranlib-11"
+			"value" : "/usr/bin/gcc-ranlib-9"
 		},
 		{
 			"name" : "CMAKE_CXX_FLAGS",
@@ -319,7 +319,7 @@
 				}
 			],
 			"type" : "FILEPATH",
-			"value" : "/usr/bin/gcc-ar-11"
+			"value" : "/usr/bin/gcc-ar-9"
 		},
 		{
 			"name" : "CMAKE_C_COMPILER_RANLIB",
@@ -335,7 +335,7 @@
 				}
 			],
 			"type" : "FILEPATH",
-			"value" : "/usr/bin/gcc-ranlib-11"
+			"value" : "/usr/bin/gcc-ranlib-9"
 		},
 		{
 			"name" : "CMAKE_C_FLAGS",
@@ -539,7 +539,7 @@
 				}
 			],
 			"type" : "BOOL",
-			"value" : ""
+			"value" : "OFF"
 		},
 		{
 			"name" : "CMAKE_EXTRA_GENERATOR",
@@ -611,7 +611,7 @@
 				}
 			],
 			"type" : "INTERNAL",
-			"value" : "/home/dudu/compiladores/projeto/compilador-simples"
+			"value" : "/home/kari/git/compilador-simples"
 		},
 		{
 			"name" : "CMAKE_INSTALL_PREFIX",
@@ -667,7 +667,7 @@
 				}
 			],
 			"type" : "FILEPATH",
-			"value" : "/usr/bin/gmake"
+			"value" : "/usr/bin/make"
 		},
 		{
 			"name" : "CMAKE_MODULE_LINKER_FLAGS",
@@ -899,7 +899,7 @@
 				}
 			],
 			"type" : "INTERNAL",
-			"value" : "/usr/share/cmake-3.18"
+			"value" : "/usr/share/cmake-3.16"
 		},
 		{
 			"name" : "CMAKE_SHARED_LINKER_FLAGS",
@@ -1119,7 +1119,7 @@
 				}
 			],
 			"type" : "INTERNAL",
-			"value" : "/usr/bin/uname"
+			"value" : "/bin/uname"
 		},
 		{
 			"name" : "CMAKE_VERBOSE_MAKEFILE",
@@ -1147,7 +1147,7 @@
 				}
 			],
 			"type" : "INTERNAL",
-			"value" : "[/usr/bin/bison][v3.7.6()]"
+			"value" : "[/usr/bin/bison][v3.5.1()]"
 		},
 		{
 			"name" : "FIND_PACKAGE_MESSAGE_DETAILS_FLEX",
@@ -1219,7 +1219,7 @@
 				}
 			],
 			"type" : "STATIC",
-			"value" : "/home/dudu/compiladores/projeto/compilador-simples/build"
+			"value" : "/home/kari/git/compilador-simples/build"
 		},
 		{
 			"name" : "compilador-simples_SOURCE_DIR",
@@ -1231,7 +1231,7 @@
 				}
 			],
 			"type" : "STATIC",
-			"value" : "/home/dudu/compiladores/projeto/compilador-simples"
+			"value" : "/home/kari/git/compilador-simples"
 		}
 	],
 	"kind" : "cache",

@@ -43,7 +43,7 @@ int main(int argc, char **argv)
     Simples::Driver driver;
     driver.parse_file(nome_fonte);
 
-    if (!as::analise_semantica())
+    if (!analise_semantica())
         exit(EXIT_FAILURE);
 
     code_generation(imprime_intermediario);

@@ -51,12 +51,12 @@ void insert_std_print()
     FunctionType *FT = FunctionType::get(Type::getVoidTy(*TheContext), Doubles, false);
     Function *F = Function::Create(FT, Function::ExternalLinkage, "imprimei", TheModule.get());
 
-    // Set names for all arguments.
     for (auto &Arg : F->args())
         Arg.setName("i");
 }
 
-void InitializeModule() {
+void InitializeModule()
+{
     // Open a new context and module.
     TheContext = make_unique<LLVMContext>();
     TheModule = make_unique<Module>("my cool jit", *TheContext);
@@ -82,13 +82,13 @@ void InitializeModule() {
     TheFPM->doInitialization();
 }
 
-void insert_functions() {
+void insert_functions()
+{
     for(auto funcao : ast_root->dec_->funcoes_->lista_declaracoes_) {
         vector<Type*> Argumentos(funcao->args_ == nullptr ? 0 : funcao->args_->lista_argumentos_.size(), Type::getInt32Ty(*TheContext));
         FunctionType *FT = FunctionType::get(Type::getInt32Ty(*TheContext), Argumentos, false);
         Function *F = Function::Create(FT, Function::ExternalLinkage, funcao->id_, TheModule.get());
 
-        // Set names for all arguments.
         unsigned Idx = 0;
         for (auto &Arg : F->args())
             Arg.setName(funcao->args_->lista_argumentos_[Idx++]->id_);
@@ -96,12 +96,10 @@ void insert_functions() {
 }
 
 // Precisa receber o tipo caso seja diferente de inteiro
-static AllocaInst *CreateEntryBlockAlloca(Function *TheFunction,
-                                          const string &VarName) {
-    IRBuilder<> TmpB(&TheFunction->getEntryBlock(),
-                     TheFunction->getEntryBlock().begin());
-    return TmpB.CreateAlloca(Type::getInt32Ty(*TheContext), 0,
-                             VarName.c_str());
+static AllocaInst *CreateEntryBlockAlloca(Function *TheFunction, const string &VarName)
+{
+    IRBuilder<> TmpB(&TheFunction->getEntryBlock(), TheFunction->getEntryBlock().begin());
+    return TmpB.CreateAlloca(Type::getInt32Ty(*TheContext), 0, VarName.c_str());
 }
 
 //===----------------------------------------------------------------------===//
@@ -163,22 +161,21 @@ Value* DeclaracaoVariavelAst::codegen(vector<AllocaInst *> OldBindings, Function
     AllocaInst *Alloca = CreateEntryBlockAlloca(TheFunction, this->id_);
     Builder->CreateStore(this->expressao_->codegen(), Alloca);
     OldBindings.push_back(NamedValues[this->id_]);
-    // Remember this binding.
     NamedValues[this->id_] = Alloca;
+
     return nullptr;
 }
 
 Value* ListaDecVarAst::codegen(vector<AllocaInst *> OldBindings, Function *TheFunction)
 {
-    if (this->lista_declaracoes_.empty())
+    if (this->lista_declaracoes_.empty()) {
         return nullptr;
+    }
 
     for (auto dec : this->lista_declaracoes_) {
         dec->codegen(OldBindings, TheFunction);
     }
-
     return nullptr;
-    
 }
 
 Value* ArgumentoAst::codegen()
@@ -193,8 +190,6 @@ Value* ListaArgsAst::codegen()
 
 Value* CorpoAst::codegen()
 {
-    // cout << "corpo" << endl;
-
     vector<AllocaInst *> OldBindings;
     Function *TheFunction = Builder->GetInsertBlock()->getParent();
 
@@ -202,13 +197,11 @@ Value* CorpoAst::codegen()
         variaveis_locais_->codegen(OldBindings, TheFunction);
     }
     return lista_comandos_->codegen();
-
 }
 
 Function* DeclaracaoFuncaoAst::codegen()
 {
     Function *F = TheModule->getFunction(this->id_);
-    if (!F) cout << "funcao nao encontrada IR" << endl;
     
     // Create a new basic block to start insertion into.
     BasicBlock *BB = BasicBlock::Create(*TheContext, "entry", F);
@@ -243,13 +236,11 @@ Function* DeclaracaoFuncoesAst::codegen()
     for (auto funcao : this->lista_declaracoes_) {
         funcao->codegen();
     }
-
     return nullptr;
 }
 
 Value* DeclaracoesAst::codegen()
-{
-    
+{    
     if (this->tipos_ != nullptr) {
         this->tipos_->codegen();
     }
@@ -303,7 +294,6 @@ Value* EnquantoAst::codegen()
 
 Value* RetorneAst::codegen()
 {
-    // << "retorne" << endl;
     return expr_->codegen();
 }
 
@@ -460,7 +450,6 @@ Value* ChamadaFuncaoAst::codegen()
     }
    
     return Builder->CreateCall(CalleeF, ArgsV, "calltmp");
-
 }
 
 
@@ -468,7 +457,7 @@ Value* ChamadaFuncaoAst::codegen()
 // Top-Level codegen
 //===----------------------------------------------------------------------===//
 
-int generate_bin()
+void generate_bin()
 {
     // Initialize the target registry etc.
     InitializeAllTargetInfos();
@@ -488,7 +477,7 @@ int generate_bin()
     // TargetRegistry or we have a bogus target triple.
     if (!Target) {
         errs() << Error;
-        return 1;
+        return;
     }
 
     auto CPU = "generic";
@@ -507,7 +496,7 @@ int generate_bin()
 
     if (EC) {
         errs() << "Could not open file: " << EC.message();
-        return 1;
+        return;
     }
 
     legacy::PassManager pass;
@@ -515,13 +504,11 @@ int generate_bin()
 
     if (TheTargetMachine->addPassesToEmitFile(pass, dest, nullptr, FileType)) {
         errs() << "TheTargetMachine can't emit a file of this type";
-        return 1;
+        return;
     }
 
     pass.run(*TheModule);
     dest.flush();
-
-    return 0;
 }
 
 void code_generation(bool dump_IR)

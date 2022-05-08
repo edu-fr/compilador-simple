@@ -1,8 +1,8 @@
-// A Bison parser, made by GNU Bison 3.7.6.
+// A Bison parser, made by GNU Bison 3.5.1.
 
 // Skeleton interface for Bison LALR(1) parsers in C++
 
-// Copyright (C) 2002-2015, 2018-2021 Free Software Foundation, Inc.
+// Copyright (C) 2002-2015, 2018-2020 Free Software Foundation, Inc.
 
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -15,7 +15,7 @@
 // GNU General Public License for more details.
 
 // You should have received a copy of the GNU General Public License
-// along with this program.  If not, see <https://www.gnu.org/licenses/>.
+// along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 // As a special exception, you may create a larger work that contains
 // part or all of the Bison parser skeleton and distribute that work
@@ -32,18 +32,17 @@
 
 
 /**
- ** \file /home/dudu/compiladores/projeto/compilador-simples/build/parser.hh
+ ** \file /home/kari/git/compilador-simples/build/parser.hh
  ** Define the Simples::parser class.
  */
 
 // C++ LALR(1) parser skeleton written by Akim Demaille.
 
-// DO NOT RELY ON FEATURES THAT ARE NOT DOCUMENTED in the manual,
-// especially those whose name start with YY_ or yy_.  They are
-// private implementation details that can be changed or removed.
+// Undocumented macros, especially those whose name start with YY_,
+// are private implementation details.  Do not rely on them.
 
-#ifndef YY_YY_HOME_DUDU_COMPILADORES_PROJETO_COMPILADOR_SIMPLES_BUILD_PARSER_HH_INCLUDED
-# define YY_YY_HOME_DUDU_COMPILADORES_PROJETO_COMPILADOR_SIMPLES_BUILD_PARSER_HH_INCLUDED
+#ifndef YY_YY_HOME_KARI_GIT_COMPILADOR_SIMPLES_BUILD_PARSER_HH_INCLUDED
+# define YY_YY_HOME_KARI_GIT_COMPILADOR_SIMPLES_BUILD_PARSER_HH_INCLUDED
 // "%code requires" blocks.
 #line 16 "parser.yy"
 
@@ -52,7 +51,7 @@
 #include "position.hh"
 #include "AST_classes.hh"
 
-#line 56 "/home/dudu/compiladores/projeto/compilador-simples/build/parser.hh"
+#line 55 "/home/kari/git/compilador-simples/build/parser.hh"
 
 
 # include <cstdlib> // std::abort
@@ -118,9 +117,9 @@
 
 /* Suppress unused-variable warnings by "using" E.  */
 #if ! defined lint || defined __GNUC__
-# define YY_USE(E) ((void) (E))
+# define YYUSE(E) ((void) (E))
 #else
-# define YY_USE(E) /* empty */
+# define YYUSE(E) /* empty */
 #endif
 
 #if defined __GNUC__ && ! defined __ICC && 407 <= __GNUC__ * 100 + __GNUC_MINOR__
@@ -182,7 +181,7 @@
 
 #line 45 "parser.yy"
 namespace Simples {
-#line 186 "/home/dudu/compiladores/projeto/compilador-simples/build/parser.hh"
+#line 185 "/home/kari/git/compilador-simples/build/parser.hh"
 
 
 
@@ -214,7 +213,7 @@ namespace Simples {
     TipoConstantesAst*          tipo_ctes_val;
     BaseDescritorTipoAst*       descritor_tipo_val;
 
-#line 218 "/home/dudu/compiladores/projeto/compilador-simples/build/parser.hh"
+#line 217 "/home/kari/git/compilador-simples/build/parser.hh"
 
     };
 #else
@@ -241,187 +240,81 @@ namespace Simples {
       location_type location;
     };
 
-    /// Token kinds.
+    /// Tokens.
     struct token
     {
-      enum token_kind_type
+      enum yytokentype
       {
-        YYEMPTY = -2,
-    TOK_EOF = 0,                   // "end of file"
-    YYerror = 256,                 // error
-    YYUNDEF = 257,                 // "invalid token"
-    IDENTIFICADOR = 258,           // "identificador"
-    FUNCAO = 259,                  // "função"
-    ACAO = 260,                    // "ação"
-    PARE = 261,                    // "pare"
-    CONTINUE = 262,                // "continue"
-    PARA = 263,                    // "para"
-    FPARA = 264,                   // "fpara"
-    ENQUANTO = 265,                // "enquanto"
-    FENQUANTO = 266,               // "fenquanto"
-    FACA = 267,                    // "faça"
-    SE = 268,                      // "se"
-    FSE = 269,                     // "fse"
-    VERDADEIRO = 270,              // "verdadeiro"
-    FALSO = 271,                   // "falso"
-    TIPO = 272,                    // "tipo"
-    DE = 273,                      // "de"
-    LIMITE = 274,                  // "limite"
-    GLOBAL = 275,                  // "global"
-    LOCAL = 276,                   // "local"
-    INTEIRO = 277,                 // "inteiro"
-    REAL = 278,                    // "real"
-    CADEIA = 279,                  // "cadeia"
-    VALOR = 280,                   // "valor"
-    REF = 281,                     // "ref"
-    RETORNE = 282,                 // "retorne"
-    NULO = 283,                    // "nulo"
-    MAIS = 284,                    // "+"
-    MENOS = 285,                   // "-"
-    BARRA = 286,                   // "/"
-    ASTERISCO = 287,               // "*"
-    VIRGULA = 288,                 // ","
-    DOISPONTOS = 289,              // ":"
-    PONTOEVIRGULA = 290,           // ";"
-    ABREPARENTESES = 291,          // "("
-    FECHAPARENTESES = 292,         // ")"
-    ABRECOLCHETES = 293,           // "["
-    FECHACOLCHETES = 294,          // "]"
-    ABRECHAVES = 295,              // "{"
-    FECHACHAVES = 296,             // "}"
-    PONTO = 297,                   // "."
-    EQUIVALENTE = 298,             // "=="
-    DIFERENTE = 299,               // "!="
-    MENOR = 300,                   // "<"
-    MENORIGUAL = 301,              // "<="
-    MAIOR = 302,                   // ">"
-    MAIORIGUAL = 303,              // ">="
-    AND = 304,                     // "&"
-    OR = 305,                      // "|"
-    ATRIBUICAO = 306,              // ":="
-    IGUAL = 307                    // "="
-      };
-      /// Backward compatibility alias (Bison 3.6).
-      typedef token_kind_type yytokentype;
-    };
-
-    /// Token kind, as returned by yylex.
-    typedef token::yytokentype token_kind_type;
-
-    /// Backward compatibility alias (Bison 3.6).
-    typedef token_kind_type token_type;
-
-    /// Symbol kinds.
-    struct symbol_kind
-    {
-      enum symbol_kind_type
-      {
-        YYNTOKENS = 53, ///< Number of tokens.
-        S_YYEMPTY = -2,
-        S_YYEOF = 0,                             // "end of file"
-        S_YYerror = 1,                           // error
-        S_YYUNDEF = 2,                           // "invalid token"
-        S_IDENTIFICADOR = 3,                     // "identificador"
-        S_FUNCAO = 4,                            // "função"
-        S_ACAO = 5,                              // "ação"
-        S_PARE = 6,                              // "pare"
-        S_CONTINUE = 7,                          // "continue"
-        S_PARA = 8,                              // "para"
-        S_FPARA = 9,                             // "fpara"
-        S_ENQUANTO = 10,                         // "enquanto"
-        S_FENQUANTO = 11,                        // "fenquanto"
-        S_FACA = 12,                             // "faça"
-        S_SE = 13,                               // "se"
-        S_FSE = 14,                              // "fse"
-        S_VERDADEIRO = 15,                       // "verdadeiro"
-        S_FALSO = 16,                            // "falso"
-        S_TIPO = 17,                             // "tipo"
-        S_DE = 18,                               // "de"
-        S_LIMITE = 19,                           // "limite"
-        S_GLOBAL = 20,                           // "global"
-        S_LOCAL = 21,                            // "local"
-        S_INTEIRO = 22,                          // "inteiro"
-        S_REAL = 23,                             // "real"
-        S_CADEIA = 24,                           // "cadeia"
-        S_VALOR = 25,                            // "valor"
-        S_REF = 26,                              // "ref"
-        S_RETORNE = 27,                          // "retorne"
-        S_NULO = 28,                             // "nulo"
-        S_MAIS = 29,                             // "+"
-        S_MENOS = 30,                            // "-"
-        S_BARRA = 31,                            // "/"
-        S_ASTERISCO = 32,                        // "*"
-        S_VIRGULA = 33,                          // ","
-        S_DOISPONTOS = 34,                       // ":"
-        S_PONTOEVIRGULA = 35,                    // ";"
-        S_ABREPARENTESES = 36,                   // "("
-        S_FECHAPARENTESES = 37,                  // ")"
-        S_ABRECOLCHETES = 38,                    // "["
-        S_FECHACOLCHETES = 39,                   // "]"
-        S_ABRECHAVES = 40,                       // "{"
-        S_FECHACHAVES = 41,                      // "}"
-        S_PONTO = 42,                            // "."
-        S_EQUIVALENTE = 43,                      // "=="
-        S_DIFERENTE = 44,                        // "!="
-        S_MENOR = 45,                            // "<"
-        S_MENORIGUAL = 46,                       // "<="
-        S_MAIOR = 47,                            // ">"
-        S_MAIORIGUAL = 48,                       // ">="
-        S_AND = 49,                              // "&"
-        S_OR = 50,                               // "|"
-        S_ATRIBUICAO = 51,                       // ":="
-        S_IGUAL = 52,                            // "="
-        S_YYACCEPT = 53,                         // $accept
-        S_programa = 54,                         // programa
-        S_declaracoes = 55,                      // declaracoes
-        S_acao = 56,                             // acao
-        S_lista_declaracao_de_tipo = 57,         // lista_declaracao_de_tipo
-        S_lista_declaracao_tipo = 58,            // lista_declaracao_tipo
-        S_lista_declaracao_de_variavel_global = 59, // lista_declaracao_de_variavel_global
-        S_lista_declaracao_variavel = 60,        // lista_declaracao_variavel
-        S_declaracao_variavel = 61,              // declaracao_variavel
-        S_declaracao_tipo = 62,                  // declaracao_tipo
-        S_descritor_tipo = 63,                   // descritor_tipo
-        S_tipo_campos = 64,                      // tipo_campos
-        S_tipo_campo = 65,                       // tipo_campo
-        S_tipo_constantes = 66,                  // tipo_constantes
-        S_lista_declaracao_de_funcao = 67,       // lista_declaracao_de_funcao
-        S_lista_declaracao_funcao = 68,          // lista_declaracao_funcao
-        S_declaracao_funcao = 69,                // declaracao_funcao
-        S_lista_de_args = 70,                    // lista_de_args
-        S_lista_args = 71,                       // lista_args
-        S_args = 72,                             // args
-        S_modificador = 73,                      // modificador
-        S_corpo = 74,                            // corpo
-        S_lista_declaracao_de_variavel_local = 75, // lista_declaracao_de_variavel_local
-        S_lista_comandos = 76,                   // lista_comandos
-        S_comando = 77,                          // comando
-        S_chamada_de_procedimento = 78,          // chamada_de_procedimento
-        S_expr = 79,                             // expr
-        S_criacao_de_registro = 80,              // criacao_de_registro
-        S_atribuicao_registro = 81,              // atribuicao_registro
-        S_expressao_logica = 82,                 // expressao_logica
-        S_expressao_relacional = 83,             // expressao_relacional
-        S_expressao_aritmetica = 84,             // expressao_aritmetica
-        S_termo = 85,                            // termo
-        S_fator = 86,                            // fator
-        S_chamada_de_funcao = 87,                // chamada_de_funcao
-        S_lista_args_chamada = 88,               // lista_args_chamada
-        S_literal = 89,                          // literal
-        S_local = 90                             // local
+        TOK_EOF = 0,
+        IDENTIFICADOR = 258,
+        FUNCAO = 259,
+        ACAO = 260,
+        PARE = 261,
+        CONTINUE = 262,
+        PARA = 263,
+        FPARA = 264,
+        ENQUANTO = 265,
+        FENQUANTO = 266,
+        FACA = 267,
+        SE = 268,
+        FSE = 269,
+        VERDADEIRO = 270,
+        FALSO = 271,
+        TIPO = 272,
+        DE = 273,
+        LIMITE = 274,
+        GLOBAL = 275,
+        LOCAL = 276,
+        INTEIRO = 277,
+        REAL = 278,
+        CADEIA = 279,
+        VALOR = 280,
+        REF = 281,
+        RETORNE = 282,
+        NULO = 283,
+        MAIS = 284,
+        MENOS = 285,
+        BARRA = 286,
+        ASTERISCO = 287,
+        VIRGULA = 288,
+        DOISPONTOS = 289,
+        PONTOEVIRGULA = 290,
+        ABREPARENTESES = 291,
+        FECHAPARENTESES = 292,
+        ABRECOLCHETES = 293,
+        FECHACOLCHETES = 294,
+        ABRECHAVES = 295,
+        FECHACHAVES = 296,
+        PONTO = 297,
+        EQUIVALENTE = 298,
+        DIFERENTE = 299,
+        MENOR = 300,
+        MENORIGUAL = 301,
+        MAIOR = 302,
+        MAIORIGUAL = 303,
+        AND = 304,
+        OR = 305,
+        ATRIBUICAO = 306,
+        IGUAL = 307
       };
     };
 
-    /// (Internal) symbol kind.
-    typedef symbol_kind::symbol_kind_type symbol_kind_type;
+    /// (External) token type, as returned by yylex.
+    typedef token::yytokentype token_type;
 
-    /// The number of tokens.
-    static const symbol_kind_type YYNTOKENS = symbol_kind::YYNTOKENS;
+    /// Symbol type: an internal symbol number.
+    typedef int symbol_number_type;
+
+    /// The symbol type number to denote an empty symbol.
+    enum { empty_symbol = -2 };
+
+    /// Internal symbol number for tokens (subsumed by symbol_number_type).
+    typedef signed char token_number_type;
 
     /// A complete symbol.
     ///
-    /// Expects its Base type to provide access to the symbol kind
-    /// via kind ().
+    /// Expects its Base type to provide access to the symbol type
+    /// via type_get ().
     ///
     /// Provide access to semantic value and location.
     template <typename Base>
@@ -438,11 +331,7 @@ namespace Simples {
 
 #if 201103L <= YY_CPLUSPLUS
       /// Move constructor.
-      basic_symbol (basic_symbol&& that)
-        : Base (std::move (that))
-        , value (std::move (that.value))
-        , location (std::move (that.location))
-      {}
+      basic_symbol (basic_symbol&& that);
 #endif
 
       /// Copy constructor.
@@ -463,19 +352,10 @@ namespace Simples {
       }
 
       /// Destroy contents, and record that is empty.
-      void clear () YY_NOEXCEPT
+      void clear ()
       {
         Base::clear ();
       }
-
-      /// The user-facing name of this symbol.
-      std::string name () const YY_NOEXCEPT
-      {
-        return Parser::symbol_name (this->kind ());
-      }
-
-      /// Backward compatibility (Bison 3.6).
-      symbol_kind_type type_get () const YY_NOEXCEPT;
 
       /// Whether empty.
       bool empty () const YY_NOEXCEPT;
@@ -497,60 +377,48 @@ namespace Simples {
     };
 
     /// Type access provider for token (enum) based symbols.
-    struct by_kind
+    struct by_type
     {
       /// Default constructor.
-      by_kind ();
+      by_type ();
 
 #if 201103L <= YY_CPLUSPLUS
       /// Move constructor.
-      by_kind (by_kind&& that);
+      by_type (by_type&& that);
 #endif
 
       /// Copy constructor.
-      by_kind (const by_kind& that);
+      by_type (const by_type& that);
 
-      /// The symbol kind as needed by the constructor.
-      typedef token_kind_type kind_type;
+      /// The symbol type as needed by the constructor.
+      typedef token_type kind_type;
 
       /// Constructor from (external) token numbers.
-      by_kind (kind_type t);
+      by_type (kind_type t);
 
       /// Record that this symbol is empty.
-      void clear () YY_NOEXCEPT;
+      void clear ();
 
-      /// Steal the symbol kind from \a that.
-      void move (by_kind& that);
+      /// Steal the symbol type from \a that.
+      void move (by_type& that);
 
       /// The (internal) type number (corresponding to \a type).
       /// \a empty when empty.
-      symbol_kind_type kind () const YY_NOEXCEPT;
+      symbol_number_type type_get () const YY_NOEXCEPT;
 
-      /// Backward compatibility (Bison 3.6).
-      symbol_kind_type type_get () const YY_NOEXCEPT;
-
-      /// The symbol kind.
-      /// \a S_YYEMPTY when empty.
-      symbol_kind_type kind_;
+      /// The symbol type.
+      /// \a empty_symbol when empty.
+      /// An int, not token_number_type, to be able to store empty_symbol.
+      int type;
     };
 
-    /// Backward compatibility for a private implementation detail (Bison 3.6).
-    typedef by_kind by_type;
-
     /// "External" symbols: returned by the scanner.
-    struct symbol_type : basic_symbol<by_kind>
+    struct symbol_type : basic_symbol<by_type>
     {};
 
     /// Build a parser object.
     Parser (Driver &driver_yyarg);
     virtual ~Parser ();
-
-#if 201103L <= YY_CPLUSPLUS
-    /// Non copyable.
-    Parser (const Parser&) = delete;
-    /// Non copyable.
-    Parser& operator= (const Parser&) = delete;
-#endif
 
     /// Parse.  An alias for parse ().
     /// \returns  0 iff parsing succeeded.
@@ -582,49 +450,22 @@ namespace Simples {
     /// Report a syntax error.
     void error (const syntax_error& err);
 
-    /// The user-facing name of the symbol whose (internal) number is
-    /// YYSYMBOL.  No bounds checking.
-    static std::string symbol_name (symbol_kind_type yysymbol);
 
-
-
-    class context
-    {
-    public:
-      context (const Parser& yyparser, const symbol_type& yyla);
-      const symbol_type& lookahead () const YY_NOEXCEPT { return yyla_; }
-      symbol_kind_type token () const YY_NOEXCEPT { return yyla_.kind (); }
-      const location_type& location () const YY_NOEXCEPT { return yyla_.location; }
-
-      /// Put in YYARG at most YYARGN of the expected tokens, and return the
-      /// number of tokens stored in YYARG.  If YYARG is null, return the
-      /// number of expected tokens (guaranteed to be less than YYNTOKENS).
-      int expected_tokens (symbol_kind_type yyarg[], int yyargn) const;
-
-    private:
-      const Parser& yyparser_;
-      const symbol_type& yyla_;
-    };
 
   private:
-#if YY_CPLUSPLUS < 201103L
-    /// Non copyable.
+    /// This class is not copyable.
     Parser (const Parser&);
-    /// Non copyable.
     Parser& operator= (const Parser&);
-#endif
-
 
     /// Stored state numbers (used for stacks).
     typedef unsigned char state_type;
 
-    /// The arguments of the error message.
-    int yy_syntax_error_arguments_ (const context& yyctx,
-                                    symbol_kind_type yyarg[], int yyargn) const;
-
     /// Generate an error message.
-    /// \param yyctx     the context in which the error occurred.
-    virtual std::string yysyntax_error_ (const context& yyctx) const;
+    /// \param yystate   the state where the error occurred.
+    /// \param yyla      the lookahead token.
+    virtual std::string yysyntax_error_ (state_type yystate,
+                                         const symbol_type& yyla) const;
+
     /// Compute post-reduction state.
     /// \param yystate   the current state
     /// \param yysym     the nonterminal to push on the stack
@@ -641,17 +482,10 @@ namespace Simples {
     static const signed char yypact_ninf_;
     static const signed char yytable_ninf_;
 
-    /// Convert a scanner token kind \a t to a symbol kind.
-    /// In theory \a t should be a token_kind_type, but character literals
+    /// Convert a scanner token number \a t to a symbol number.
+    /// In theory \a t should be a token_type, but character literals
     /// are valid, yet not members of the token_type enum.
-    static symbol_kind_type yytranslate_ (int t);
-
-    /// Convert the symbol name \a n to a form suitable for a diagnostic.
-    static std::string yytnamerr_ (const char *yystr);
-
-    /// For a symbol, its name in clear.
-    static const char* const yytname_[];
-
+    static token_number_type yytranslate_ (int t);
 
     // Tables.
     // YYPACT[STATE-NUM] -- Index in YYTABLE of the portion describing
@@ -667,7 +501,7 @@ namespace Simples {
     static const short yypgoto_[];
 
     // YYDEFGOTO[NTERM-NUM].
-    static const unsigned char yydefgoto_[];
+    static const short yydefgoto_[];
 
     // YYTABLE[YYPACT[STATE-NUM]] -- What to do in state STATE-NUM.  If
     // positive, shift that token.  If negative, reduce the rule whose
@@ -687,20 +521,26 @@ namespace Simples {
     static const signed char yyr2_[];
 
 
+    /// Convert the symbol name \a n to a form suitable for a diagnostic.
+    static std::string yytnamerr_ (const char *n);
+
+
+    /// For a symbol, its name in clear.
+    static const char* const yytname_[];
 #if YYDEBUG
     // YYRLINE[YYN] -- Source line where rule number YYN was defined.
     static const short yyrline_[];
     /// Report on the debug stream that the rule \a r is going to be reduced.
-    virtual void yy_reduce_print_ (int r) const;
+    virtual void yy_reduce_print_ (int r);
     /// Print the state stack on the debug stream.
-    virtual void yy_stack_print_ () const;
+    virtual void yystack_print_ ();
 
     /// Debugging level.
     int yydebug_;
     /// Debug stream.
     std::ostream* yycdebug_;
 
-    /// \brief Display a symbol kind, value and location.
+    /// \brief Display a symbol type, value and location.
     /// \param yyo    The output stream.
     /// \param yysym  The symbol.
     template <typename Base>
@@ -721,7 +561,7 @@ namespace Simples {
       /// Default constructor.
       by_state () YY_NOEXCEPT;
 
-      /// The symbol kind as needed by the constructor.
+      /// The symbol type as needed by the constructor.
       typedef state_type kind_type;
 
       /// Constructor.
@@ -733,12 +573,12 @@ namespace Simples {
       /// Record that this symbol is empty.
       void clear () YY_NOEXCEPT;
 
-      /// Steal the symbol kind from \a that.
+      /// Steal the symbol type from \a that.
       void move (by_state& that);
 
-      /// The symbol kind (corresponding to \a state).
-      /// \a symbol_kind::S_YYEMPTY when empty.
-      symbol_kind_type kind () const YY_NOEXCEPT;
+      /// The (internal) type number (corresponding to \a state).
+      /// \a empty_symbol when empty.
+      symbol_number_type type_get () const YY_NOEXCEPT;
 
       /// The state number used to denote an empty symbol.
       /// We use the initial state, as it does not have a value.
@@ -777,21 +617,14 @@ namespace Simples {
     {
     public:
       // Hide our reversed order.
-      typedef typename S::iterator iterator;
-      typedef typename S::const_iterator const_iterator;
+      typedef typename S::reverse_iterator iterator;
+      typedef typename S::const_reverse_iterator const_iterator;
       typedef typename S::size_type size_type;
       typedef typename std::ptrdiff_t index_type;
 
       stack (size_type n = 200)
         : seq_ (n)
       {}
-
-#if 201103L <= YY_CPLUSPLUS
-      /// Non copyable.
-      stack (const stack&) = delete;
-      /// Non copyable.
-      stack& operator= (const stack&) = delete;
-#endif
 
       /// Random access.
       ///
@@ -843,18 +676,24 @@ namespace Simples {
         return index_type (seq_.size ());
       }
 
+      std::ptrdiff_t
+      ssize () const YY_NOEXCEPT
+      {
+        return std::ptrdiff_t (size ());
+      }
+
       /// Iterator on top of the stack (going downwards).
       const_iterator
       begin () const YY_NOEXCEPT
       {
-        return seq_.begin ();
+        return seq_.rbegin ();
       }
 
       /// Bottom of the stack.
       const_iterator
       end () const YY_NOEXCEPT
       {
-        return seq_.end ();
+        return seq_.rend ();
       }
 
       /// Present a slice of the top of a stack.
@@ -878,12 +717,8 @@ namespace Simples {
       };
 
     private:
-#if YY_CPLUSPLUS < 201103L
-      /// Non copyable.
       stack (const stack&);
-      /// Non copyable.
       stack& operator= (const stack&);
-#endif
       /// The wrapped container.
       S seq_;
     };
@@ -913,24 +748,30 @@ namespace Simples {
     /// Pop \a n symbols from the stack.
     void yypop_ (int n = 1);
 
+    /// Some specific tokens.
+    static const token_number_type yy_error_token_ = 1;
+    static const token_number_type yy_undef_token_ = 2;
+
     /// Constants.
     enum
     {
+      yyeof_ = 0,
       yylast_ = 160,     ///< Last index in yytable_.
       yynnts_ = 38,  ///< Number of nonterminal symbols.
-      yyfinal_ = 6 ///< Termination state number.
+      yyfinal_ = 6, ///< Termination state number.
+      yyntokens_ = 53  ///< Number of tokens.
     };
 
 
     // User arguments.
     Driver &driver;
-
   };
 
 
 #line 45 "parser.yy"
 } // Simples
-#line 934 "/home/dudu/compiladores/projeto/compilador-simples/build/parser.hh"
+#line 774 "/home/kari/git/compilador-simples/build/parser.hh"
+
 
 
 // "%code provides" blocks.
@@ -945,7 +786,7 @@ namespace Simples {
     }
   }
 
-#line 949 "/home/dudu/compiladores/projeto/compilador-simples/build/parser.hh"
+#line 790 "/home/kari/git/compilador-simples/build/parser.hh"
 
 
-#endif // !YY_YY_HOME_DUDU_COMPILADORES_PROJETO_COMPILADOR_SIMPLES_BUILD_PARSER_HH_INCLUDED
+#endif // !YY_YY_HOME_KARI_GIT_COMPILADOR_SIMPLES_BUILD_PARSER_HH_INCLUDED
