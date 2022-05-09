@@ -141,7 +141,7 @@ public:
     BaseDecVarAst() {}
     ~BaseDecVarAst() {}
 
-    virtual Value *codegen(std::vector<AllocaInst *> OldBindings, Function *TheFunction) = 0;
+    virtual Value *codegen(/*std::vector<AllocaInst *> OldBindings, */Function *TheFunction) = 0;
 };
 
 class DeclaracaoVariavelAst : public BaseDecVarAst {
@@ -152,7 +152,7 @@ public:
     string id_, tipo_;
     ExprAst* expressao_;
 
-    Value *codegen(std::vector<AllocaInst *> OldBindings, Function *TheFunction) override;
+    Value *codegen(/*std::vector<AllocaInst *> OldBindings, */Function *TheFunction) override;
 };
 
 class ListaDecVarAst : public BaseDecVarAst {
@@ -162,7 +162,7 @@ public:
 
     vector<DeclaracaoVariavelAst*> lista_declaracoes_;
 
-    Value *codegen(std::vector<AllocaInst *> OldBindings, Function *TheFunction) override;
+    Value *codegen(/*std::vector<AllocaInst *> OldBindings, */Function *TheFunction) override;
 };
 
 /* declaracao de funcoes */

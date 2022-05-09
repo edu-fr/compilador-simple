@@ -1,26 +1,29 @@
 FUNÇÃO:
-    procedimento1(valor arg45: inteiro, valor arg46 : inteiro) =
-        local:
-            b : inteiro := 2
-        ação:
-            arg45 := funcao1(3+1, 4)
+    FUNCAO(valor arg45: inteiro, valor arg46 : inteiro) : inteiro =
+    ação:
+        imprimei(25);
+        retorne funcao5(arg45)
 
-    funcao1(valor arg3 : inteiro, valor arg4: inteiro) : inteiro =
+    /* funcao1(valor arg3 : inteiro, valor arg4: inteiro) : inteiro =
         local:
             a : inteiro := 2
 
         ação: 
-            imprimei(funcao5(2));
-            a := 2;
-            imprimei(a + 3 - 3);
-            retorne 2
+            imprimei(a);
+            a := 200;
+            retorne 2*/
 
     funcao5(valor argFuncao5 : inteiro) : inteiro =
         local:
-            b : inteiro := 1
+            a : inteiro := 2
+
         ação:
-            retorne 5
+            imprimei(argFuncao5);
+            argFuncao5 := 250;
+            imprimei(argFuncao5);
+            retorne argFuncao5
 
 AçÃo:
-    procedimento1(1, 2+1);
+    imprimei(10);
+    imprimei(FUNCAO(10, 20));
     retorne 0

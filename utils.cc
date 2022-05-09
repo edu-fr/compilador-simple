@@ -6,7 +6,7 @@
 
 #include "stdio.h"
 
-extern "C" DLLEXPORT void imprimei(long int i)
+extern "C" DLLEXPORT void imprimei(long i)
 {
-    printf("%ld\n", i); 
+    printf("%ld\n", i);
 }

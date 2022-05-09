@@ -45,14 +45,18 @@ static unique_ptr<IRBuilder<>> Builder;
 static map<string, AllocaInst *> NamedValues;
 static unique_ptr<legacy::FunctionPassManager> TheFPM;
 
+static AllocaInst *CreateEntryBlockAlloca(Function *TheFunction, const string &VarName)
+{
+    IRBuilder<> TmpB(&TheFunction->getEntryBlock(), TheFunction->getEntryBlock().begin());
+    return TmpB.CreateAlloca(Type::getInt32Ty(*TheContext), 0, VarName.c_str());
+}
+
 void insert_std_print()
 {
     vector<Type *> args(1, Type::getInt32Ty(*TheContext));
     FunctionType *FT = FunctionType::get(Type::getVoidTy(*TheContext), args, false);
     Function *F = Function::Create(FT, Function::ExternalLinkage, "imprimei", TheModule.get());
-
-    for (auto &Arg : F->args())
-        Arg.setName("i");
+    (*F->args().begin()).setName("i");
 }
 
 void InitializeModule()
@@ -84,24 +88,21 @@ void InitializeModule()
 
 void insert_functions()
 {
-    for(auto funcao : ast_root->dec_->funcoes_->lista_declaracoes_) {
-        vector<Type*> Argumentos(funcao->args_ == nullptr ? 0 : funcao->args_->lista_argumentos_.size(), Type::getInt32Ty(*TheContext));
+    for (auto funcao : ast_root->dec_->funcoes_->lista_declaracoes_) {
+        vector<Type*> argumentos(funcao->args_ == nullptr ?
+                                     0 :
+                                     funcao->args_->lista_argumentos_.size(),
+                                 Type::getInt32Ty(*TheContext));
+
         FunctionType *FT = FunctionType::get(funcao->retorno_.empty() ?
                                                  Type::getVoidTy(*TheContext) :
-                                                 Type::getInt32Ty(*TheContext), Argumentos, false);
+                                                 Type::getInt32Ty(*TheContext), argumentos, false);
         Function *F = Function::Create(FT, Function::ExternalLinkage, funcao->id_, TheModule.get());
 
-        unsigned Idx = 0;
-        for (auto &Arg : F->args())
-            Arg.setName(funcao->args_->lista_argumentos_[Idx++]->id_);
+        unsigned idx = 0;
+        for (auto &arg : F->args())
+            arg.setName(funcao->args_->lista_argumentos_[idx++]->id_);
     }
-}
-
-// Precisa receber o tipo caso seja diferente de inteiro
-static AllocaInst *CreateEntryBlockAlloca(Function *TheFunction, const string &VarName)
-{
-    IRBuilder<> TmpB(&TheFunction->getEntryBlock(), TheFunction->getEntryBlock().begin());
-    return TmpB.CreateAlloca(Type::getInt32Ty(*TheContext), 0, VarName.c_str());
 }
 
 //===----------------------------------------------------------------------===//
@@ -156,24 +157,23 @@ Value* DeclaracaoTiposAst::codegen()
     return nullptr;
 }
 
-Value* DeclaracaoVariavelAst::codegen(vector<AllocaInst *> OldBindings, Function *TheFunction)
+Value* DeclaracaoVariavelAst::codegen(Function* TheFunction)
 {
     AllocaInst *Alloca = CreateEntryBlockAlloca(TheFunction, this->id_);
     Builder->CreateStore(this->expressao_->codegen(), Alloca);
-    OldBindings.push_back(NamedValues[this->id_]);
     NamedValues[this->id_] = Alloca;
 
     return nullptr;
 }
 
-Value* ListaDecVarAst::codegen(vector<AllocaInst *> OldBindings, Function *TheFunction)
+Value* ListaDecVarAst::codegen(Function* TheFunction)
 {
     if (this->lista_declaracoes_.empty()) {
         return nullptr;
     }
 
     for (auto dec : this->lista_declaracoes_) {
-        dec->codegen(OldBindings, TheFunction);
+        dec->codegen(TheFunction);
     }
     return nullptr;
 }
@@ -190,12 +190,12 @@ Value* ListaArgsAst::codegen()
 
 Value* CorpoAst::codegen()
 {
-    vector<AllocaInst *> OldBindings;
     Function *TheFunction = Builder->GetInsertBlock()->getParent();
 
-    if(variaveis_locais_ != nullptr) {
-        variaveis_locais_->codegen(OldBindings, TheFunction);
+    if (variaveis_locais_ != nullptr) {
+        variaveis_locais_->codegen(TheFunction);
     }
+
     return lista_comandos_->codegen();
 }
 
@@ -209,11 +209,10 @@ Function* DeclaracaoFuncaoAst::codegen()
 
     // Record the function arguments in the NamedValues map.
     NamedValues.clear();
-    for (auto &Arg : F->args()) {
-        AllocaInst *Alloca = CreateEntryBlockAlloca(F, string(Arg.getName()));
-        Builder->CreateStore(&Arg, Alloca);
-
-        NamedValues[string(Arg.getName())] = Alloca;
+    for (auto &arg : F->args()) {
+        AllocaInst *Alloca = CreateEntryBlockAlloca(F, string(arg.getName()));
+        Builder->CreateStore(&arg, Alloca);
+        NamedValues[string(arg.getName())] = Alloca;
     }
     
     Value* RetVal = this->corpo_->codegen();
@@ -249,9 +248,6 @@ Value* DeclaracoesAst::codegen()
     }
 
     if (this->globais_ != nullptr) {
-        // vector<AllocaInst *> OldBindings;
-        // Function *TheFunction = Builder->GetInsertBlock()->getParent();
-
         // this->globais_->codegen();
     }
 
@@ -314,7 +310,7 @@ Value* ChamadaProcedimentoAst::codegen()
 {
     Function *call_proc = TheModule->getFunction(this->id_);
 
-    vector<Value *> ArgsV;
+    vector<Value*> ArgsV;
     for (unsigned i = 0, e = this->lista_ == nullptr ? 0 : this->lista_->args_.size(); i != e; ++i) {
         ArgsV.push_back(lista_->args_[i]->codegen());
         if (!ArgsV.back())
@@ -451,7 +447,7 @@ Value* ChamadaFuncaoAst::codegen()
         if (!ArgsV.back())
             return nullptr;
     }
-   
+
     return Builder->CreateCall(CalleeF, ArgsV, "calltmp");
 }
 
@@ -531,5 +527,4 @@ void code_generation(bool dump_IR)
     }
 
     generate_bin();
-    cout << "6" << endl;
 }
