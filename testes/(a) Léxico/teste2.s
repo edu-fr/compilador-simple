@@ -1,3 +1,1 @@
-ação:
-	imprimei(2);
-	retorne 0
+1 2.3 "string" identificador

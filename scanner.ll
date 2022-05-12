@@ -161,7 +161,7 @@ while ( *yptr )
 }
 
 "/*"  BEGIN(commentStartCond);
-<commentStartCond>[^*\n]*         /* Tira tudo o que nao eh um '*'                   */ 
+    <commentStartCond>[^*\n]*         /* Tira tudo o que nao eh um '*'                   */
 <commentStartCond>"*"+[^*/\n]*    /* Tira todos os '*' que nao sao seguidos por '/'s */
 <commentStartCond>\n              /* Pula linha                                      */
 <commentStartCond>"*/" {          /* Fim do comentario                               */

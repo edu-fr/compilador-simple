@@ -1345,7 +1345,7 @@ BEGIN(commentStartCond);
 case 60:
 YY_RULE_SETUP
 #line 165 "scanner.ll"
-/* Tira tudo o que nao eh um '*'                   */ 
+/* Tira tudo o que nao eh um '*'                   */
 	YY_BREAK
 case 61:
 YY_RULE_SETUP
