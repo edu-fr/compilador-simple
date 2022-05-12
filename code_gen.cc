@@ -111,7 +111,9 @@ void insert_functions()
 
 Value* ProgramaAst::codegen()
 {
-    this->dec_->codegen();
+    if (!this->dec_)
+        this->dec_->codegen();
+
     FunctionType* FT = FunctionType::get(Type::getInt32Ty(*TheContext), {}, false);
     Function* F = Function::Create(FT, Function::ExternalLinkage, "main", TheModule.get());
     BasicBlock *BB = BasicBlock::Create(*TheContext, "entry", F);
