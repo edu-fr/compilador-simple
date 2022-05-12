@@ -66,11 +66,6 @@ int main(int argc, char **argv)
             cout << "Erro: falha ao criar arquivo .as" << endl;
             exit(EXIT_FAILURE);
         }
-
-//        if(system("objdump -D fonte.o > fonte.as") == -1) {
-//            cout << "Erro: falha ao criar arquivo assembly" << endl;
-//            exit(EXIT_FAILURE);
-//        }
     }
 
     return 0;

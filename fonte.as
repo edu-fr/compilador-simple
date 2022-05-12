@@ -1,46 +1,52 @@
 	.text
 	.file	"my cool jit"
-	.globl	FUNCAO                  # -- Begin function FUNCAO
+	.globl	procedimento1           # -- Begin function procedimento1
 	.p2align	4, 0x90
-	.type	FUNCAO,@function
-FUNCAO:                                 # @FUNCAO
+	.type	procedimento1,@function
+procedimento1:                          # @procedimento1
 	.cfi_startproc
 # %bb.0:                                # %entry
 	pushq	%rax
 	.cfi_def_cfa_offset 16
-	movl	%edi, (%rsp)
-	movl	%esi, 4(%rsp)
-	movl	$25, %edi
+	movl	%edi, 4(%rsp)
+	movl	$2, (%rsp)
+	callq	imprimei
+	movl	$250, 4(%rsp)
+	movl	$250, %edi
 	callq	imprimei
 	movl	(%rsp), %edi
-	callq	funcao5
-	popq	%rcx
+	callq	imprimei
+	movl	$10, %edi
+	movl	$20, %esi
+	callq	funcao1
+	movl	%eax, (%rsp)
+	movl	%eax, %edi
+	callq	imprimei
+	popq	%rax
 	.cfi_def_cfa_offset 8
 	retq
 .Lfunc_end0:
-	.size	FUNCAO, .Lfunc_end0-FUNCAO
+	.size	procedimento1, .Lfunc_end0-procedimento1
 	.cfi_endproc
                                         # -- End function
-	.globl	funcao5                 # -- Begin function funcao5
+	.globl	funcao1                 # -- Begin function funcao1
 	.p2align	4, 0x90
-	.type	funcao5,@function
-funcao5:                                # @funcao5
+	.type	funcao1,@function
+funcao1:                                # @funcao1
 	.cfi_startproc
 # %bb.0:                                # %entry
 	pushq	%rax
 	.cfi_def_cfa_offset 16
-	movl	%edi, (%rsp)
-	movl	$2, 4(%rsp)
-	callq	imprimei
-	movl	$250, (%rsp)
-	movl	$250, %edi
+	movl	%edi, 4(%rsp)
+	movl	%esi, (%rsp)
+	movl	$123456789, %edi        # imm = 0x75BCD15
 	callq	imprimei
 	movl	(%rsp), %eax
 	popq	%rcx
 	.cfi_def_cfa_offset 8
 	retq
 .Lfunc_end1:
-	.size	funcao5, .Lfunc_end1-funcao5
+	.size	funcao1, .Lfunc_end1-funcao1
 	.cfi_endproc
                                         # -- End function
 	.globl	main                    # -- Begin function main
@@ -51,13 +57,8 @@ main:                                   # @main
 # %bb.0:                                # %entry
 	pushq	%rax
 	.cfi_def_cfa_offset 16
-	movl	$10, %edi
-	callq	imprimei
-	movl	$10, %edi
-	movl	$20, %esi
-	callq	FUNCAO
-	movl	%eax, %edi
-	callq	imprimei
+	movl	$5, %edi
+	callq	procedimento1
 	xorl	%eax, %eax
 	popq	%rcx
 	.cfi_def_cfa_offset 8
